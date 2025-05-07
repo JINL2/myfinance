@@ -1,0 +1,87 @@
+import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'isloading_model.dart';
+export 'isloading_model.dart';
+
+class IsloadingWidget extends StatefulWidget {
+  const IsloadingWidget({super.key});
+
+  @override
+  State<IsloadingWidget> createState() => _IsloadingWidgetState();
+}
+
+class _IsloadingWidgetState extends State<IsloadingWidget>
+    with TickerProviderStateMixin {
+  late IsloadingModel _model;
+
+  final animationsMap = <String, AnimationInfo>{};
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => IsloadingModel());
+
+    animationsMap.addAll({
+      'textOnPageLoadAnimation': AnimationInfo(
+        loop: true,
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          RotateEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+        ],
+      ),
+    });
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.sizeOf(context).width * 1.0,
+      height: MediaQuery.sizeOf(context).height * 1.0,
+      decoration: BoxDecoration(
+        color: Color(0xA91C1C1E),
+      ),
+      child: Align(
+        alignment: AlignmentDirectional(0.0, 0.0),
+        child: Text(
+          'Loading.....',
+          style: FlutterFlowTheme.of(context).displayMedium.override(
+                font: GoogleFonts.notoSansJp(
+                  fontWeight:
+                      FlutterFlowTheme.of(context).displayMedium.fontWeight,
+                  fontStyle:
+                      FlutterFlowTheme.of(context).displayMedium.fontStyle,
+                ),
+                color: FlutterFlowTheme.of(context).tertiary,
+                letterSpacing: 0.0,
+                fontWeight:
+                    FlutterFlowTheme.of(context).displayMedium.fontWeight,
+                fontStyle: FlutterFlowTheme.of(context).displayMedium.fontStyle,
+              ),
+        ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation']!),
+      ),
+    );
+  }
+}
