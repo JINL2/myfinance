@@ -294,6 +294,8 @@ dynamic deserializeParam<T>(
             return DebtPaymentsRow(data);
           case RolesRow:
             return RolesRow(data);
+          case VShiftRequestRow:
+            return VShiftRequestRow(data);
           case DepreciationMethodsRow:
             return DepreciationMethodsRow(data);
           case StoresRow:

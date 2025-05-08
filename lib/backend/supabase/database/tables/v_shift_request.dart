@@ -1,35 +1,35 @@
 import '../database.dart';
 
-class ShiftRequestsTable extends SupabaseTable<ShiftRequestsRow> {
+class VShiftRequestTable extends SupabaseTable<VShiftRequestRow> {
   @override
-  String get tableName => 'shift_requests';
+  String get tableName => 'v_shift_request';
 
   @override
-  ShiftRequestsRow createRow(Map<String, dynamic> data) =>
-      ShiftRequestsRow(data);
+  VShiftRequestRow createRow(Map<String, dynamic> data) =>
+      VShiftRequestRow(data);
 }
 
-class ShiftRequestsRow extends SupabaseDataRow {
-  ShiftRequestsRow(Map<String, dynamic> data) : super(data);
+class VShiftRequestRow extends SupabaseDataRow {
+  VShiftRequestRow(Map<String, dynamic> data) : super(data);
 
   @override
-  SupabaseTable get table => ShiftRequestsTable();
+  SupabaseTable get table => VShiftRequestTable();
 
-  String get shiftRequestId => getField<String>('shift_request_id')!;
-  set shiftRequestId(String value) =>
+  String? get shiftRequestId => getField<String>('shift_request_id');
+  set shiftRequestId(String? value) =>
       setField<String>('shift_request_id', value);
 
-  String get userId => getField<String>('user_id')!;
-  set userId(String value) => setField<String>('user_id', value);
+  String? get userId => getField<String>('user_id');
+  set userId(String? value) => setField<String>('user_id', value);
 
-  String get shiftId => getField<String>('shift_id')!;
-  set shiftId(String value) => setField<String>('shift_id', value);
+  String? get shiftId => getField<String>('shift_id');
+  set shiftId(String? value) => setField<String>('shift_id', value);
 
-  String get storeId => getField<String>('store_id')!;
-  set storeId(String value) => setField<String>('store_id', value);
+  String? get storeId => getField<String>('store_id');
+  set storeId(String? value) => setField<String>('store_id', value);
 
-  DateTime get requestDate => getField<DateTime>('request_date')!;
-  set requestDate(DateTime value) => setField<DateTime>('request_date', value);
+  DateTime? get requestDate => getField<DateTime>('request_date');
+  set requestDate(DateTime? value) => setField<DateTime>('request_date', value);
 
   bool? get isApproved => getField<bool>('is_approved');
   set isApproved(bool? value) => setField<bool>('is_approved', value);
@@ -99,6 +99,16 @@ class ShiftRequestsRow extends SupabaseDataRow {
   set lateDeducutAmount(double? value) =>
       setField<double>('late_deducut_amount', value);
 
-  double? get bonusAmount => getField<double>('bonus_amount');
-  set bonusAmount(double? value) => setField<double>('bonus_amount', value);
+  int? get allowedDistance => getField<int>('allowed_distance');
+  set allowedDistance(int? value) => setField<int>('allowed_distance', value);
+
+  double? get salaryAmount => getField<double>('salary_amount');
+  set salaryAmount(double? value) => setField<double>('salary_amount', value);
+
+  String? get salaryType => getField<String>('salary_type');
+  set salaryType(String? value) => setField<String>('salary_type', value);
+
+  double? get totalSalaryPay => getField<double>('total_salary_pay');
+  set totalSalaryPay(double? value) =>
+      setField<double>('total_salary_pay', value);
 }

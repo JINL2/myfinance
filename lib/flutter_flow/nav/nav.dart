@@ -128,11 +128,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => RegisterCounterpartyWidget(),
         ),
         FFRoute(
-          name: JournalInputWidget.routeName,
-          path: JournalInputWidget.routePath,
-          builder: (context, params) => JournalInputWidget(),
-        ),
-        FFRoute(
           name: AddFixAssetWidget.routeName,
           path: AddFixAssetWidget.routePath,
           builder: (context, params) => AddFixAssetWidget(),
@@ -166,6 +161,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: TestattendWidget.routeName,
           path: TestattendWidget.routePath,
           builder: (context, params) => TestattendWidget(),
+        ),
+        FFRoute(
+          name: InputWidget.routeName,
+          path: InputWidget.routePath,
+          builder: (context, params) => InputWidget(),
+        ),
+        FFRoute(
+          name: JournalInputWidget.routeName,
+          path: JournalInputWidget.routePath,
+          builder: (context, params) => JournalInputWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -13,8 +13,6 @@ export '/employee_setting/employee_setting/employee_setting_widget.dart'
 export '/my_page/my_page/my_page_widget.dart' show MyPageWidget;
 export '/register_counterparty/register_counterparty/register_counterparty_widget.dart'
     show RegisterCounterpartyWidget;
-export '/journal_input/journal_input/journal_input_widget.dart'
-    show JournalInputWidget;
 export '/add_fix_asset/add_fix_asset/add_fix_asset_widget.dart'
     show AddFixAssetWidget;
 export '/auth/choose_company/choose_company_widget.dart'
@@ -26,3 +24,6 @@ export '/time_table/time_table_user/time_table_user_widget.dart'
 export '/manager/timetable_manage/timetable_manage_widget.dart'
     show TimetableManageWidget;
 export '/attend/testattend/testattend_widget.dart' show TestattendWidget;
+export '/input/input_widget.dart' show InputWidget;
+export '/journal_input/journal_input/journal_input_widget.dart'
+    show JournalInputWidget;

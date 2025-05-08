@@ -44,6 +44,7 @@ export 'tables/fiscal_periods.dart';
 export 'tables/users.dart';
 export 'tables/debt_payments.dart';
 export 'tables/roles.dart';
+export 'tables/v_shift_request.dart';
 export 'tables/depreciation_methods.dart';
 export 'tables/stores.dart';
 export 'tables/journal_entries.dart';

@@ -1,7 +1,8 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/manager/edit_schedule/edit_schedule_widget.dart';
+import '/manager/edit_schedule1/edit_schedule1_widget.dart';
+import '/manager/edit_schedule2/edit_schedule2_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'schdule_list_manager_model.dart';
@@ -85,14 +86,27 @@ class _SchduleListManagerWidgetState extends State<SchduleListManagerWidget> {
                           builder: (context) {
                             return Padding(
                               padding: MediaQuery.viewInsetsOf(context),
-                              child: EditScheduleWidget(
-                                shiftRequestId:
-                                    approvedShiftItem.shiftRequestId,
-                                selectedUserId: approvedShiftItem.userId,
-                                storeId: widget.storeId!,
-                                selectedUserName: approvedShiftItem.userName,
-                                approvedEmployeeData: approvedShiftItem,
-                                managerShiftDetail: widget.managerShift,
+                              child: Container(
+                                height: MediaQuery.sizeOf(context).height * 0.8,
+                                child: EditSchedule1Widget(
+                                  selectedUserId: approvedShiftItem.userId,
+                                  storeId: widget.storeId,
+                                  selectedUserName: approvedShiftItem.userName,
+                                  shiftRequestId:
+                                      approvedShiftItem.shiftRequestId,
+                                  approvedEmployeeData: approvedShiftItem,
+                                  managerShiftDetail: widget.managerShift,
+                                  widgetBuilder: () => EditSchedule2Widget(
+                                    selectedUserId: approvedShiftItem.userId,
+                                    storeId: widget.storeId,
+                                    selectedUserName:
+                                        approvedShiftItem.userName,
+                                    shiftRequestId:
+                                        approvedShiftItem.shiftRequestId,
+                                    approvedEmployeeData: approvedShiftItem,
+                                    managerShiftDetail: widget.managerShift,
+                                  ),
+                                ),
                               ),
                             );
                           },

@@ -437,3 +437,85 @@ bool isAnyApprovedForDate(
 
   return false;
 }
+
+int checkAmountDebitCredit(
+  List<TransactionDetailStruct>? list,
+  String? debitOrCredit,
+) {
+  if (list == null || debitOrCredit == null) return 0;
+
+  int count = 0;
+
+  for (final item in list) {
+    if (item == null) continue;
+
+    final value = debitOrCredit == 'debit' ? item.debit : item.credit;
+
+    if (value != null && value != '0') {
+      count++;
+    }
+  }
+
+  return count;
+}
+
+String? combineSystimeWithMunite(
+  String? systemTime,
+  String? munite,
+) {
+  if (systemTime == null) return null;
+
+  try {
+    final minuteValue =
+        (munite == null || munite.isEmpty) ? 0 : int.parse(munite);
+
+    final inputFormat = DateFormat('HH:mm:ss');
+    final outputFormat = DateFormat('HH:mm');
+
+    final baseTime = inputFormat.parse(systemTime);
+    final newTime = baseTime.add(Duration(minutes: minuteValue));
+
+    return outputFormat.format(newTime);
+  } catch (e) {
+    return null;
+  }
+}
+
+String? extratimeIntCalculator(
+  String? systemTime,
+  DateTime? dateTime,
+) {
+  if (systemTime == null || dateTime == null) return null;
+
+  try {
+    final format = DateFormat('HH:mm:ss');
+    final baseTime = format.parse(systemTime);
+
+    final nowTime = DateTime(2000, 1, 1, dateTime.hour, dateTime.minute, 0);
+    final compareTime = DateTime(2000, 1, 1, baseTime.hour, baseTime.minute, 0);
+
+    final diff = nowTime.difference(compareTime);
+
+    return diff.inMinutes.toString();
+  } catch (e) {
+    return null;
+  }
+}
+
+String? simplePlusString(
+  String? plusData1,
+  String? plusData2,
+) {
+  try {
+    final num1 =
+        (plusData1 == null || plusData1.isEmpty) ? 0 : int.parse(plusData1);
+    final num2 =
+        (plusData2 == null || plusData2.isEmpty) ? 0 : int.parse(plusData2);
+
+    final sum = num1 + num2;
+
+    return sum.toString();
+  } catch (e) {
+    return null;
+  }
+}
