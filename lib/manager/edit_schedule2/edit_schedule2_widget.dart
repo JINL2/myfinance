@@ -49,19 +49,13 @@ class _EditSchedule2WidgetState extends State<EditSchedule2Widget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (FFAppState().isLoading2 == false) {
-        FFAppState().isLoading2 = true;
-        safeSetState(() {});
-        _model.query22 = await VShiftRequestTable().queryRows(
-          queryFn: (q) => q.eqOrNull(
-            'shift_request_id',
-            widget.shiftRequestId,
-          ),
-        );
-        _model.islate = _model.query22?.firstOrNull?.isLate;
-        safeSetState(() {});
-      }
-
+      _model.query22 = await VShiftRequestTable().queryRows(
+        queryFn: (q) => q.eqOrNull(
+          'shift_request_id',
+          widget.shiftRequestId,
+        ),
+      );
+      _model.islate = _model.query22?.firstOrNull?.isLate;
       safeSetState(() {});
     });
 

@@ -1283,10 +1283,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    valueOrDefault<String>(
-                                                      _model.issueDate,
-                                                      '2025-05-23',
-                                                    ),
+                                                    'Select Date',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1489,10 +1486,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    valueOrDefault<String>(
-                                                      _model.dueDate,
-                                                      '2025-06-23',
-                                                    ),
+                                                    dateTimeFormat("yyyy-MM-dd",
+                                                        _model.datePicked2),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
