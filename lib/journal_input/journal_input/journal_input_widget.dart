@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -381,24 +382,51 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
-                          child: Text(
-                            'Company & Store',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.notoSansJp(
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              _model.apiResultlf0 =
+                                  await BringFinanceAccountInfoCall.call();
+
+                              if ((_model.apiResultlf0?.succeeded ?? true)) {
+                                FFAppState().financeAccount =
+                                    ((_model.apiResultlf0?.jsonBody ?? '')
+                                                .toList()
+                                                .map<FinanceAccountStruct?>(
+                                                    FinanceAccountStruct
+                                                        .maybeFromMap)
+                                                .toList()
+                                            as Iterable<FinanceAccountStruct?>)
+                                        .withoutNulls
+                                        .toList()
+                                        .cast<FinanceAccountStruct>();
+                                safeSetState(() {});
+                              }
+
+                              safeSetState(() {});
+                            },
+                            child: Text(
+                              'Company & Store',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
                         ),
                         FlutterFlowDropDown<String>(

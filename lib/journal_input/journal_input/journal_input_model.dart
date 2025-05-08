@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -36,6 +37,8 @@ class JournalInputModel extends FlutterFlowModel<JournalInputWidget> {
 
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
+  // Stores action output result for [Backend Call - API (bringFinanceAccountInfo)] action in Text widget.
+  ApiCallResponse? apiResultlf0;
   // State field(s) for companyChoosen widget.
   String? companyChoosenValue;
   FormFieldController<String>? companyChoosenValueController;
