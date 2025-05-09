@@ -119,21 +119,21 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                       decoration: InputDecoration(
                         hintText: 'Enter counterparty name',
                         hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
+                            FlutterFlowTheme.of(context).labelMedium.override(
                                   font: GoogleFonts.notoSansJp(
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontWeight,
                                   fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontStyle,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -216,18 +216,17 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                                 .fontStyle,
                           ),
                     ),
-                    Switch(
+                    Switch.adaptive(
                       value: _model.switchValue!,
                       onChanged: (newValue) async {
                         safeSetState(() => _model.switchValue = newValue);
                       },
-                      activeColor: FlutterFlowTheme.of(context).primaryText,
-                      activeTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                      activeColor: FlutterFlowTheme.of(context).primary,
+                      activeTrackColor: FlutterFlowTheme.of(context).primary,
                       inactiveTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                          FlutterFlowTheme.of(context).alternate,
                       inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                          FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                   ],
                 ),
@@ -435,21 +434,21 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                       decoration: InputDecoration(
                         hintText: 'example@email.com',
                         hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
+                            FlutterFlowTheme.of(context).labelMedium.override(
                                   font: GoogleFonts.notoSansJp(
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontWeight,
                                   fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontStyle,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -542,21 +541,21 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                       decoration: InputDecoration(
                         hintText: 'Enter phone number',
                         hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
+                            FlutterFlowTheme.of(context).labelMedium.override(
                                   font: GoogleFonts.notoSansJp(
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontWeight,
                                   fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontStyle,
                                 ),
                         enabledBorder: OutlineInputBorder(
@@ -649,21 +648,21 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                       decoration: InputDecoration(
                         hintText: 'Add a note...',
                         hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
+                            FlutterFlowTheme.of(context).labelMedium.override(
                                   font: GoogleFonts.notoSansJp(
                                     fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontWeight,
                                     fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
+                                        .labelMedium
                                         .fontStyle,
                                   ),
                                   letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontWeight,
                                   fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                                      .labelMedium
                                       .fontStyle,
                                 ),
                         enabledBorder: OutlineInputBorder(
