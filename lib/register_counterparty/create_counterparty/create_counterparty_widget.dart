@@ -149,7 +149,12 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                                   .fontStyle,
                             ),
                       ),
-                      Expanded(
+                      Container(
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
                         child: FlutterFlowDropDown<String>(
                           controller: _model.companyDropDownValueController ??=
                               FormFieldController<String>(
@@ -337,32 +342,45 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                                 .fontStyle,
                           ),
                     ),
-                    FlutterFlowDropDown<String>(
-                      controller: _model.typeDropDownValueController ??=
-                          FormFieldController<String>(
-                        _model.typeDropDownValue ??= '',
+                    Container(
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                      options: List<String>.from([
-                        'My Company',
-                        'Team Member',
-                        'Suppliers',
-                        'Employees',
-                        'Customers',
-                        'Others'
-                      ]),
-                      optionLabels: [
-                        'My Company',
-                        'Internal',
-                        'Suppliers',
-                        'Employees',
-                        'Customers',
-                        'Others'
-                      ],
-                      onChanged: (val) =>
-                          safeSetState(() => _model.typeDropDownValue = val),
-                      textStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.notoSansJp(
+                      child: FlutterFlowDropDown<String>(
+                        controller: _model.typeDropDownValueController ??=
+                            FormFieldController<String>(
+                          _model.typeDropDownValue ??= '',
+                        ),
+                        options: List<String>.from([
+                          'My Company',
+                          'Team Member',
+                          'Suppliers',
+                          'Employees',
+                          'Customers',
+                          'Others'
+                        ]),
+                        optionLabels: [
+                          'My Company',
+                          'Internal',
+                          'Suppliers',
+                          'Employees',
+                          'Customers',
+                          'Others'
+                        ],
+                        onChanged: (val) =>
+                            safeSetState(() => _model.typeDropDownValue = val),
+                        textStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
@@ -370,25 +388,18 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                      hintText: 'Select type',
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      elevation: 0.0,
-                      borderColor: Color(0xFFE0E0E0),
-                      borderWidth: 1.0,
-                      borderRadius: 8.0,
-                      margin:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      isSearchable: false,
-                      isMultiSelect: false,
+                        hintText: 'Select type',
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 0.0,
+                        borderColor: Color(0xFFE0E0E0),
+                        borderWidth: 1.0,
+                        borderRadius: 8.0,
+                        margin:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        isSearchable: false,
+                        isMultiSelect: false,
+                      ),
                     ),
                   ].divide(SizedBox(height: 4.0)),
                 ),

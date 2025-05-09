@@ -158,8 +158,14 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                                   .fontStyle,
                             ),
                       ),
-                      if (_model.switchValue ?? true)
-                        Expanded(
+                      Container(
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: Visibility(
+                          visible: _model.switchValue ?? true,
                           child: FlutterFlowDropDown<String>(
                             controller:
                                 _model.companyDropDownValueController ??=
@@ -219,6 +225,7 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                             isMultiSelect: false,
                           ),
                         ),
+                      ),
                     ].divide(SizedBox(height: 4.0)),
                   ),
                 ),
@@ -350,33 +357,46 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                                 .fontStyle,
                           ),
                     ),
-                    FlutterFlowDropDown<String>(
-                      controller: _model.typeDropDownValueController ??=
-                          FormFieldController<String>(
-                        _model.typeDropDownValue ??=
-                            widget.counterpartyInfo?.type,
+                    Container(
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
                       ),
-                      options: List<String>.from([
-                        'My Company',
-                        'Team Member',
-                        'Suppliers',
-                        'Employees',
-                        'Customers',
-                        'Others'
-                      ]),
-                      optionLabels: [
-                        'My Company',
-                        'Internal',
-                        'Suppliers',
-                        'Employees',
-                        'Customers',
-                        'Others'
-                      ],
-                      onChanged: (val) =>
-                          safeSetState(() => _model.typeDropDownValue = val),
-                      textStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.override(
-                                font: GoogleFonts.notoSansJp(
+                      child: FlutterFlowDropDown<String>(
+                        controller: _model.typeDropDownValueController ??=
+                            FormFieldController<String>(
+                          _model.typeDropDownValue ??=
+                              widget.counterpartyInfo?.type,
+                        ),
+                        options: List<String>.from([
+                          'My Company',
+                          'Team Member',
+                          'Suppliers',
+                          'Employees',
+                          'Customers',
+                          'Others'
+                        ]),
+                        optionLabels: [
+                          'My Company',
+                          'Internal',
+                          'Suppliers',
+                          'Employees',
+                          'Customers',
+                          'Others'
+                        ],
+                        onChanged: (val) =>
+                            safeSetState(() => _model.typeDropDownValue = val),
+                        textStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .fontWeight,
@@ -384,25 +404,18 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                                       .bodyMedium
                                       .fontStyle,
                                 ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                      hintText: 'Select type',
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      elevation: 0.0,
-                      borderColor: Color(0xFFE0E0E0),
-                      borderWidth: 1.0,
-                      borderRadius: 8.0,
-                      margin:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      isSearchable: false,
-                      isMultiSelect: false,
+                        hintText: 'Select type',
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 0.0,
+                        borderColor: Color(0xFFE0E0E0),
+                        borderWidth: 1.0,
+                        borderRadius: 8.0,
+                        margin:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        isSearchable: false,
+                        isMultiSelect: false,
+                      ),
                     ),
                   ].divide(SizedBox(height: 4.0)),
                 ),

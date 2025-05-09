@@ -35,7 +35,7 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
     _model.cashLocationNameTextController ??= TextEditingController();
     _model.cashLocationNameFocusNode ??= FocusNode();
 
-    _model.switchValue = false;
+    _model.instoreSwitchValue = true;
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
   }
@@ -210,22 +210,23 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                                 .fontStyle,
                           ),
                     ),
-                    Switch(
-                      value: _model.switchValue!,
+                    Switch.adaptive(
+                      value: _model.instoreSwitchValue!,
                       onChanged: (newValue) async {
-                        safeSetState(() => _model.switchValue = newValue);
+                        safeSetState(
+                            () => _model.instoreSwitchValue = newValue);
                       },
                       activeColor: FlutterFlowTheme.of(context).primary,
                       activeTrackColor: FlutterFlowTheme.of(context).primary,
                       inactiveTrackColor:
                           FlutterFlowTheme.of(context).alternate,
                       inactiveThumbColor:
-                          FlutterFlowTheme.of(context).primaryBackground,
+                          FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                   ],
                 ),
               ),
-              if (_model.switchValue ?? true)
+              if (_model.instoreSwitchValue ?? true)
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                   child: SingleChildScrollView(
@@ -253,51 +254,39 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                         ),
                         Container(
                           height: 50.0,
-                          child: Visibility(
-                            visible: _model.switchValue ?? true,
-                            child: FlutterFlowDropDown<String>(
-                              controller:
-                                  _model.storeNameDropdownValueController ??=
-                                      FormFieldController<String>(
-                                _model.storeNameDropdownValue ??= '',
-                              ),
-                              options: List<String>.from(FFAppState()
-                                  .user
-                                  .companies
-                                  .where((e) =>
-                                      FFAppState().companyChoosen ==
-                                      e.companyId)
-                                  .toList()
-                                  .firstOrNull!
-                                  .stores
-                                  .map((e) => e.storeId)
-                                  .toList()),
-                              optionLabels: FFAppState()
-                                  .user
-                                  .companies
-                                  .where((e) =>
-                                      FFAppState().companyChoosen ==
-                                      e.companyId)
-                                  .toList()
-                                  .firstOrNull!
-                                  .stores
-                                  .map((e) => e.storeName)
-                                  .toList(),
-                              onChanged: (val) => safeSetState(
-                                  () => _model.storeNameDropdownValue = val),
-                              height: 40.0,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
+                          child: FlutterFlowDropDown<String>(
+                            controller:
+                                _model.storeNameDropdownValueController ??=
+                                    FormFieldController<String>(
+                              _model.storeNameDropdownValue ??= '',
+                            ),
+                            options: List<String>.from(FFAppState()
+                                .user
+                                .companies
+                                .where((e) =>
+                                    FFAppState().companyChoosen == e.companyId)
+                                .toList()
+                                .firstOrNull!
+                                .stores
+                                .map((e) => e.storeId)
+                                .toList()),
+                            optionLabels: FFAppState()
+                                .user
+                                .companies
+                                .where((e) =>
+                                    FFAppState().companyChoosen == e.companyId)
+                                .toList()
+                                .firstOrNull!
+                                .stores
+                                .map((e) => e.storeName)
+                                .toList(),
+                            onChanged: (val) => safeSetState(
+                                () => _model.storeNameDropdownValue = val),
+                            height: 40.0,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontWeight,
@@ -305,26 +294,32 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                              hintText: 'Select...',
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 24.0,
-                              ),
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              elevation: 2.0,
-                              borderColor: Colors.transparent,
-                              borderWidth: 0.0,
-                              borderRadius: 8.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  12.0, 0.0, 12.0, 0.0),
-                              hidesUnderline: true,
-                              isOverButton: false,
-                              isSearchable: false,
-                              isMultiSelect: false,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
+                            hintText: 'Select...',
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
                             ),
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2.0,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0.0,
+                            borderRadius: 8.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 12.0, 0.0),
+                            hidesUnderline: true,
+                            isOverButton: false,
+                            isSearchable: false,
+                            isMultiSelect: false,
                           ),
                         ),
                       ].divide(SizedBox(height: 4.0)),

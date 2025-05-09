@@ -226,7 +226,7 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                                 .fontStyle,
                           ),
                     ),
-                    Switch(
+                    Switch.adaptive(
                       value: _model.switchValue!,
                       onChanged: (newValue) async {
                         safeSetState(() => _model.switchValue = newValue);
@@ -236,7 +236,7 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                       inactiveTrackColor:
                           FlutterFlowTheme.of(context).alternate,
                       inactiveThumbColor:
-                          FlutterFlowTheme.of(context).primaryBackground,
+                          FlutterFlowTheme.of(context).secondaryBackground,
                     ),
                   ],
                 ),
