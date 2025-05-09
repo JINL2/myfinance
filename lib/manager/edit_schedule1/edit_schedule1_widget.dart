@@ -57,6 +57,8 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
           dateTimeFormat("HH:mm", widget.supabaseCall?.actualStartTime);
       _model.realEndTime =
           dateTimeFormat("HH:mm", widget.supabaseCall?.actualEndTime);
+      _model.adjustedStartTime = widget.supabaseCall?.actualStartTime;
+      _model.adjustedEndTime = widget.supabaseCall?.actualEndTime;
       safeSetState(() {});
     });
 

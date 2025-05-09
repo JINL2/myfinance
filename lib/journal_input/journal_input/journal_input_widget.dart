@@ -405,11 +405,10 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                           hintText: 'Select Company',
                           icon: Icon(
                             Icons.keyboard_arrow_down_rounded,
-                            color: FlutterFlowTheme.of(context).secondaryText,
+                            color: FlutterFlowTheme.of(context).primaryText,
                             size: 24.0,
                           ),
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
+                          fillColor: FlutterFlowTheme.of(context).alternate,
                           elevation: 2.0,
                           borderColor: FlutterFlowTheme.of(context).alternate,
                           borderWidth: 1.0,
@@ -474,11 +473,10 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                             hintText: 'Select Store',
                             icon: Icon(
                               Icons.keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
+                              color: FlutterFlowTheme.of(context).primaryText,
                               size: 24.0,
                             ),
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
+                            fillColor: FlutterFlowTheme.of(context).alternate,
                             elevation: 2.0,
                             borderColor: FlutterFlowTheme.of(context).alternate,
                             borderWidth: 1.0,
@@ -548,7 +546,7 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                                         clipBehavior:
                                             Clip.antiAliasWithSaveLayer,
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                            .alternate,
                                         elevation: 1.0,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
@@ -814,7 +812,7 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryText,
+                                                                .primaryText,
                                                         size: 20.0,
                                                       ),
                                                       onPressed: () async {

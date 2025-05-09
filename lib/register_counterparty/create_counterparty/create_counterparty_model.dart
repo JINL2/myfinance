@@ -8,15 +8,15 @@ class CreateCounterpartyModel
     extends FlutterFlowModel<CreateCounterpartyWidget> {
   ///  State fields for stateful widgets in this component.
 
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode1;
+  TextEditingController? textController1;
+  String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for Switch widget.
   bool? switchValue;
   // State field(s) for CompanyDropDown widget.
   String? companyDropDownValue;
   FormFieldController<String>? companyDropDownValueController;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode1;
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for TypeDropDown widget.
   String? typeDropDownValue;
   FormFieldController<String>? typeDropDownValueController;
