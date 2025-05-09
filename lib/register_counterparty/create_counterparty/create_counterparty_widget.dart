@@ -731,6 +731,22 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                     if (FFAppState().isLoading2 == false) {
                       FFAppState().isLoading2 = true;
                       safeSetState(() {});
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('start '),
+                            content: Text('create'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
                       _model.test = await CounterpartiesTable().insert({
                         'company_id': FFAppState().companyChoosen,
                         'name': _model.textController1.text,
