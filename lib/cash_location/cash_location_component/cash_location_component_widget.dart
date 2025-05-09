@@ -73,34 +73,46 @@ class _CashLocationComponentWidgetState
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 0.0, 12.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      widget.cashLocationData?.locationName,
-                      'Error',
-                    ),
-                    maxLines: 1,
-                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                          font: GoogleFonts.notoSansJp(
-                            fontWeight: FlutterFlowTheme.of(context)
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              12.0, 12.0, 0.0, 12.0),
+                          child: Text(
+                            valueOrDefault<String>(
+                              widget.cashLocationData?.locationName,
+                              'Error',
+                            ),
+                            maxLines: 1,
+                            style: FlutterFlowTheme.of(context)
                                 .titleMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .fontStyle,
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
+                                ),
                           ),
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleMedium
-                              .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .titleMedium
-                              .fontStyle,
                         ),
+                      ),
+                    ],
                   ),
                 ),
               ),

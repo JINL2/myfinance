@@ -261,9 +261,10 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                               FlutterFlowTheme.of(context).secondaryBackground,
                         ),
                         child: FlutterFlowDropDown<String>(
-                          controller: _model.companyDropDownValueController ??=
-                              FormFieldController<String>(
-                            _model.companyDropDownValue ??= '',
+                          controller:
+                              _model.myCompanyDropDownValueController ??=
+                                  FormFieldController<String>(
+                            _model.myCompanyDropDownValue ??= '',
                           ),
                           options: List<String>.from(FFAppState()
                               .user
@@ -282,7 +283,7 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                               .map((e) => e.companyName)
                               .toList(),
                           onChanged: (val) => safeSetState(
-                              () => _model.companyDropDownValue = val),
+                              () => _model.myCompanyDropDownValue = val),
                           height: 40.0,
                           textStyle:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -737,22 +738,6 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                     if (FFAppState().isLoading2 == false) {
                       FFAppState().isLoading2 = true;
                       safeSetState(() {});
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('start '),
-                            content: Text(_model.companyDropDownValue!),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
                       _model.test = await CounterpartiesTable().insert({
                         'company_id': FFAppState().companyChoosen,
                         'name': _model.textController1.text,
@@ -761,7 +746,11 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                         'notes': _model.textController4.text,
                         'type': _model.typeDropDownValue,
                         'is_internal': _model.switchValue,
-                        'linked_company_id': _model.companyDropDownValue,
+                        'linked_company_id':
+                            _model.myCompanyDropDownValue != null &&
+                                    _model.myCompanyDropDownValue != ''
+                                ? _model.myCompanyDropDownValue
+                                : '',
                       });
                       await showDialog(
                         context: context,
