@@ -49,7 +49,7 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
         TextEditingController(text: widget.cashLocationInfo?.locationName);
     _model.cashLocationNameFocusNode ??= FocusNode();
 
-    _model.switchValue = _model.isOnlyMyStore;
+    _model.switchValue = false;
     _model.textController2 ??=
         TextEditingController(text: widget.cashLocationInfo?.locationInfo);
     _model.textFieldFocusNode ??= FocusNode();
@@ -228,12 +228,9 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                     ),
                     Switch(
                       value: _model.switchValue!,
-                      onChanged: true
-                          ? null
-                          : (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue = newValue);
-                            },
+                      onChanged: (newValue) async {
+                        safeSetState(() => _model.switchValue = newValue);
+                      },
                       activeColor: FlutterFlowTheme.of(context).primary,
                       activeTrackColor:
                           FlutterFlowTheme.of(context).secondaryText,
