@@ -278,11 +278,17 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                           options: List<String>.from(FFAppState()
                               .user
                               .companies
+                              .where((e) =>
+                                  FFAppState().companyChoosen != e.companyId)
+                              .toList()
                               .map((e) => e.companyId)
                               .toList()),
                           optionLabels: FFAppState()
                               .user
                               .companies
+                              .where((e) =>
+                                  FFAppState().companyChoosen != e.companyId)
+                              .toList()
                               .map((e) => e.companyName)
                               .toList(),
                           onChanged: (val) => safeSetState(

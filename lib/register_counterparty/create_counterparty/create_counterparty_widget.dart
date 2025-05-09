@@ -268,11 +268,17 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                           options: List<String>.from(FFAppState()
                               .user
                               .companies
+                              .where((e) =>
+                                  FFAppState().companyChoosen != e.companyId)
+                              .toList()
                               .map((e) => e.companyId)
                               .toList()),
                           optionLabels: FFAppState()
                               .user
                               .companies
+                              .where((e) =>
+                                  FFAppState().companyChoosen != e.companyId)
+                              .toList()
                               .map((e) => e.companyName)
                               .toList(),
                           onChanged: (val) => safeSetState(
@@ -736,7 +742,7 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                         builder: (alertDialogContext) {
                           return AlertDialog(
                             title: Text('start '),
-                            content: Text('create'),
+                            content: Text(_model.companyDropDownValue!),
                             actions: [
                               TextButton(
                                 onPressed: () =>
