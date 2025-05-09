@@ -218,9 +218,18 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                     ),
                     Switch.adaptive(
                       value: _model.switchValue!,
-                      onChanged: (newValue) async {
-                        safeSetState(() => _model.switchValue = newValue);
-                      },
+                      onChanged: !(FFAppState()
+                              .user
+                              .companies
+                              .where((e) =>
+                                  FFAppState().companyChoosen != e.companyId)
+                              .toList()
+                              .isNotEmpty)
+                          ? null
+                          : (newValue) async {
+                              safeSetState(
+                                  () => _model.switchValue = newValue);
+                            },
                       activeColor: FlutterFlowTheme.of(context).primary,
                       activeTrackColor: FlutterFlowTheme.of(context).primary,
                       inactiveTrackColor:
