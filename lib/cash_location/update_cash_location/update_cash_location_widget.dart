@@ -49,6 +49,7 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
         TextEditingController(text: widget.cashLocationInfo?.locationName);
     _model.cashLocationNameFocusNode ??= FocusNode();
 
+    _model.switchValue = _model.isOnlyMyStore;
     _model.textController2 ??=
         TextEditingController(text: widget.cashLocationInfo?.locationInfo);
     _model.textFieldFocusNode ??= FocusNode();
@@ -203,6 +204,47 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                   ].divide(SizedBox(height: 4.0)),
                 ),
               ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Is only for Store',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.notoSansJp(
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                    ),
+                    Switch(
+                      value: _model.switchValue!,
+                      onChanged: true
+                          ? null
+                          : (newValue) async {
+                              safeSetState(
+                                  () => _model.switchValue = newValue);
+                            },
+                      activeColor: FlutterFlowTheme.of(context).primary,
+                      activeTrackColor:
+                          FlutterFlowTheme.of(context).secondaryText,
+                      inactiveTrackColor:
+                          FlutterFlowTheme.of(context).secondaryText,
+                      inactiveThumbColor:
+                          FlutterFlowTheme.of(context).secondaryText,
+                    ),
+                  ],
+                ),
+              ),
               if (_model.isOnlyMyStore)
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
@@ -226,7 +268,13 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                                   .fontStyle,
                             ),
                       ),
-                      Expanded(
+                      Container(
+                        width: double.infinity,
+                        height: 45.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
                         child: FlutterFlowDropDown<String>(
                           controller:
                               _model.storeNameDropdownValueController ??=
