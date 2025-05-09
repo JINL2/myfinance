@@ -15,8 +15,9 @@ class CashLocationsRow extends SupabaseDataRow {
   @override
   SupabaseTable get table => CashLocationsTable();
 
-  String get locationId => getField<String>('location_id')!;
-  set locationId(String value) => setField<String>('location_id', value);
+  String get cashLocationId => getField<String>('cash_location_id')!;
+  set cashLocationId(String value) =>
+      setField<String>('cash_location_id', value);
 
   String get companyId => getField<String>('company_id')!;
   set companyId(String value) => setField<String>('company_id', value);
@@ -32,4 +33,7 @@ class CashLocationsRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  String? get locationInfo => getField<String>('location_info');
+  set locationInfo(String? value) => setField<String>('location_info', value);
 }

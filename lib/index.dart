@@ -18,12 +18,18 @@ export '/add_fix_asset/add_fix_asset/add_fix_asset_widget.dart'
 export '/auth/choose_company/choose_company_widget.dart'
     show ChooseCompanyWidget;
 export '/homepage/homepage_widget.dart' show HomepageWidget;
-export '/attend/attendance/attendance_widget.dart' show AttendanceWidget;
+export '/attendance/attendance/attendance_widget.dart' show AttendanceWidget;
 export '/time_table/time_table_user/time_table_user_widget.dart'
     show TimeTableUserWidget;
 export '/manager/timetable_manage/timetable_manage_widget.dart'
     show TimetableManageWidget;
-export '/attend/testattend/testattend_widget.dart' show TestattendWidget;
+export '/attendance/testattend/testattend_widget.dart' show TestattendWidget;
 export '/input/input_widget.dart' show InputWidget;
+export '/cash_balance/cash_balance/cash_balance_widget.dart'
+    show CashBalanceWidget;
+export '/cash_location/cash_location/cash_location_widget.dart'
+    show CashLocationWidget;
+export '/cash_control/cash_control/cash_control_widget.dart'
+    show CashControlWidget;
 export '/journal_input/journal_input/journal_input_widget.dart'
     show JournalInputWidget;

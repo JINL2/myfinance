@@ -3,7 +3,6 @@ import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/jeong_work/add/add_widget.dart';
-import '/jeong_work/popup/popup_widget.dart';
 import '/register_counterparty/counterparty_list/counterparty_list_widget.dart';
 import '/register_counterparty/create_counterparty/create_counterparty_widget.dart';
 import 'package:flutter/material.dart';
@@ -172,15 +171,7 @@ class _RegisterCounterpartyWidgetState
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: PopupWidget(
-                                                popupTitle:
-                                                    'Create Counterparty',
-                                                widgetBuilder: () =>
-                                                    CreateCounterpartyWidget(
-                                                  companyId:
-                                                      FFAppState().user.userId,
-                                                ),
-                                              ),
+                                              child: CreateCounterpartyWidget(),
                                             ),
                                           );
                                         },

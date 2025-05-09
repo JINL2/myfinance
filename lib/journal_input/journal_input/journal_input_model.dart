@@ -33,12 +33,12 @@ class JournalInputModel extends FlutterFlowModel<JournalInputWidget> {
 
   int? creditItemNubmer;
 
+  int? selectedIndex;
+
   ///  State fields for stateful widgets in this page.
 
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
-  // Stores action output result for [Backend Call - API (bringFinanceAccountInfo)] action in Text widget.
-  ApiCallResponse? apiResultlf0;
   // State field(s) for companyChoosen widget.
   String? companyChoosenValue;
   FormFieldController<String>? companyChoosenValueController;
@@ -49,6 +49,8 @@ class JournalInputModel extends FlutterFlowModel<JournalInputWidget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - API (bringFinanceAccountInfo)] action in Icon widget.
+  ApiCallResponse? apiResultlf0;
 
   @override
   void initState(BuildContext context) {

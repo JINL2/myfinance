@@ -481,7 +481,7 @@ String? combineSystimeWithMunite(
   }
 }
 
-String? extratimeIntCalculator(
+int? extratimeIntCalculator(
   String? systemTime,
   DateTime? dateTime,
 ) {
@@ -496,7 +496,7 @@ String? extratimeIntCalculator(
 
     final diff = nowTime.difference(compareTime);
 
-    return diff.inMinutes.toString();
+    return diff.inMinutes;
   } catch (e) {
     return null;
   }

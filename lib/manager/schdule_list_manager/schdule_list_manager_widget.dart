@@ -1,8 +1,8 @@
 import '/backend/schema/structs/index.dart';
+import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/manager/edit_schedule1/edit_schedule1_widget.dart';
-import '/manager/edit_schedule2/edit_schedule2_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'schdule_list_manager_model.dart';
@@ -78,6 +78,12 @@ class _SchduleListManagerWidgetState extends State<SchduleListManagerWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
+                        _model.querry = await VShiftRequestTable().queryRows(
+                          queryFn: (q) => q.eqOrNull(
+                            'shift_request_id',
+                            approvedShiftItem.shiftRequestId,
+                          ),
+                        );
                         await showModalBottomSheet(
                           isScrollControlled: true,
                           backgroundColor: Colors.transparent,
@@ -96,21 +102,14 @@ class _SchduleListManagerWidgetState extends State<SchduleListManagerWidget> {
                                       approvedShiftItem.shiftRequestId,
                                   approvedEmployeeData: approvedShiftItem,
                                   managerShiftDetail: widget.managerShift,
-                                  widgetBuilder: () => EditSchedule2Widget(
-                                    selectedUserId: approvedShiftItem.userId,
-                                    storeId: widget.storeId,
-                                    selectedUserName:
-                                        approvedShiftItem.userName,
-                                    shiftRequestId:
-                                        approvedShiftItem.shiftRequestId,
-                                    approvedEmployeeData: approvedShiftItem,
-                                    managerShiftDetail: widget.managerShift,
-                                  ),
+                                  supabaseCall: _model.querry?.firstOrNull,
                                 ),
                               ),
                             );
                           },
                         ).then((value) => safeSetState(() {}));
+
+                        safeSetState(() {});
                       },
                       child: Stack(
                         alignment: AlignmentDirectional(0.0, 0.0),

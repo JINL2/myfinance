@@ -10,9 +10,9 @@ class InputTransactionModel extends FlutterFlowModel<InputTransactionWidget> {
 
   String? interestDueDate;
 
-  String? issueDate;
+  DateTime? issueDate;
 
-  String? dueDate;
+  DateTime? dueDate;
 
   dynamic transactionDetail;
 
@@ -24,7 +24,9 @@ class InputTransactionModel extends FlutterFlowModel<InputTransactionWidget> {
 
   double? diff;
 
-  String? acquireDate;
+  DateTime? acquireDate;
+
+  bool? isInternal = false;
 
   ///  State fields for stateful widgets in this component.
 
@@ -36,16 +38,31 @@ class InputTransactionModel extends FlutterFlowModel<InputTransactionWidget> {
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for counterpartycompanyDropDown widget.
-  String? counterpartycompanyDropDownValue;
-  FormFieldController<String>? counterpartycompanyDropDownValueController;
+  String? counterpartycompanyDropDownValue1;
+  FormFieldController<String>? counterpartycompanyDropDownValueController1;
+  // State field(s) for Checkbox widget.
+  bool? checkboxValue1;
   // State field(s) for counterpartystoreDropDown widget.
-  String? counterpartystoreDropDownValue;
-  FormFieldController<String>? counterpartystoreDropDownValueController;
+  String? counterpartystoreDropDownValue1;
+  FormFieldController<String>? counterpartystoreDropDownValueController1;
   // State field(s) for debtDropdown widget.
-  String? debtDropdownValue;
-  FormFieldController<String>? debtDropdownValueController;
+  String? debtDropdownValue1;
+  FormFieldController<String>? debtDropdownValueController1;
   DateTime? datePicked1;
   DateTime? datePicked2;
+  // State field(s) for counterpartycompanyDropDown widget.
+  String? counterpartycompanyDropDownValue2;
+  FormFieldController<String>? counterpartycompanyDropDownValueController2;
+  // State field(s) for Checkbox widget.
+  bool? checkboxValue2;
+  // State field(s) for counterpartystoreDropDown widget.
+  String? counterpartystoreDropDownValue2;
+  FormFieldController<String>? counterpartystoreDropDownValueController2;
+  // State field(s) for debtDropdown widget.
+  String? debtDropdownValue2;
+  FormFieldController<String>? debtDropdownValueController2;
+  DateTime? datePicked3;
+  DateTime? datePicked4;
   // State field(s) for fixedAssetName widget.
   FocusNode? fixedAssetNameFocusNode;
   TextEditingController? fixedAssetNameTextController;
@@ -58,7 +75,7 @@ class InputTransactionModel extends FlutterFlowModel<InputTransactionWidget> {
   FocusNode? salvageValueFocusNode;
   TextEditingController? salvageValueTextController;
   String? Function(BuildContext, String?)? salvageValueTextControllerValidator;
-  DateTime? datePicked3;
+  DateTime? datePicked5;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController4;

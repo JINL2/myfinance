@@ -7,19 +7,19 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'create_counterparty_model.dart';
-export 'create_counterparty_model.dart';
+import 'create_cash_location_model.dart';
+export 'create_cash_location_model.dart';
 
-class CreateCounterpartyWidget extends StatefulWidget {
-  const CreateCounterpartyWidget({super.key});
+class CreateCashLocationWidget extends StatefulWidget {
+  const CreateCashLocationWidget({super.key});
 
   @override
-  State<CreateCounterpartyWidget> createState() =>
-      _CreateCounterpartyWidgetState();
+  State<CreateCashLocationWidget> createState() =>
+      _CreateCashLocationWidgetState();
 }
 
-class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
-  late CreateCounterpartyModel _model;
+class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
+  late CreateCashLocationModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -30,20 +30,14 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => CreateCounterpartyModel());
+    _model = createModel(context, () => CreateCashLocationModel());
+
+    _model.cashLocationNameTextController ??= TextEditingController();
+    _model.cashLocationNameFocusNode ??= FocusNode();
 
     _model.switchValue = false;
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
     _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
-
-    _model.textController3 ??= TextEditingController();
-    _model.textFieldFocusNode3 ??= FocusNode();
-
-    _model.textController4 ??= TextEditingController();
-    _model.textFieldFocusNode4 ??= FocusNode();
+    _model.textFieldFocusNode ??= FocusNode();
   }
 
   @override
@@ -71,7 +65,7 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: Text(
-                  'Create Counterparty',
+                  'Create Cash Location',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).titleMedium.override(
                         font: GoogleFonts.notoSansJp(
@@ -90,133 +84,12 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Is your company?',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                    ),
-                    Switch(
-                      value: _model.switchValue!,
-                      onChanged: (newValue) async {
-                        safeSetState(() => _model.switchValue = newValue);
-                      },
-                      activeColor: FlutterFlowTheme.of(context).primaryText,
-                      activeTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
-                      inactiveTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
-                      inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryText,
-                    ),
-                  ],
-                ),
-              ),
-              if (_model.switchValue ?? true)
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Choose Your Company',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.notoSansJp(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                      Expanded(
-                        child: FlutterFlowDropDown<String>(
-                          controller: _model.companyDropDownValueController ??=
-                              FormFieldController<String>(
-                            _model.companyDropDownValue ??= '',
-                          ),
-                          options: List<String>.from(FFAppState()
-                              .user
-                              .companies
-                              .map((e) => e.companyId)
-                              .toList()),
-                          optionLabels: FFAppState()
-                              .user
-                              .companies
-                              .map((e) => e.companyName)
-                              .toList(),
-                          onChanged: (val) => safeSetState(
-                              () => _model.companyDropDownValue = val),
-                          height: 40.0,
-                          textStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                          hintText: 'Select...',
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 24.0,
-                          ),
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          elevation: 2.0,
-                          borderColor: Colors.transparent,
-                          borderWidth: 0.0,
-                          borderRadius: 8.0,
-                          margin: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 12.0, 0.0),
-                          hidesUnderline: true,
-                          isOverButton: false,
-                          isSearchable: false,
-                          isMultiSelect: false,
-                        ),
-                      ),
-                    ].divide(SizedBox(height: 4.0)),
-                  ),
-                ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Counterparty Name',
+                      'Cash Location Name',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.notoSansJp(
                               fontWeight: FontWeight.w500,
@@ -232,8 +105,8 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                           ),
                     ),
                     TextFormField(
-                      controller: _model.textController1,
-                      focusNode: _model.textFieldFocusNode1,
+                      controller: _model.cashLocationNameTextController,
+                      focusNode: _model.cashLocationNameFocusNode,
                       autofocus: false,
                       textInputAction: TextInputAction.next,
                       obscureText: false,
@@ -309,12 +182,151 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                                 .fontStyle,
                           ),
                       minLines: 1,
-                      validator:
-                          _model.textController1Validator.asValidator(context),
+                      validator: _model.cashLocationNameTextControllerValidator
+                          .asValidator(context),
                     ),
                   ].divide(SizedBox(height: 4.0)),
                 ),
               ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Is only for Store',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.notoSansJp(
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                    ),
+                    Switch(
+                      value: _model.switchValue!,
+                      onChanged: (FFAppState().storeChoosen == '')
+                          ? null
+                          : (newValue) async {
+                              safeSetState(
+                                  () => _model.switchValue = newValue);
+                            },
+                      activeColor: FlutterFlowTheme.of(context).primary,
+                      activeTrackColor:
+                          FlutterFlowTheme.of(context).secondaryText,
+                      inactiveTrackColor:
+                          FlutterFlowTheme.of(context).secondaryText,
+                      inactiveThumbColor:
+                          FlutterFlowTheme.of(context).secondaryText,
+                    ),
+                  ],
+                ),
+              ),
+              if (_model.switchValue ?? true)
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Choose Your Store',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.notoSansJp(
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                      ),
+                      Container(
+                        child: Visibility(
+                          visible: _model.switchValue ?? true,
+                          child: FlutterFlowDropDown<String>(
+                            controller:
+                                _model.storeNameDropdownValueController ??=
+                                    FormFieldController<String>(
+                              _model.storeNameDropdownValue ??= '',
+                            ),
+                            options: List<String>.from(FFAppState()
+                                .user
+                                .companies
+                                .where((e) =>
+                                    FFAppState().companyChoosen == e.companyId)
+                                .toList()
+                                .firstOrNull!
+                                .stores
+                                .map((e) => e.storeId)
+                                .toList()),
+                            optionLabels: FFAppState()
+                                .user
+                                .companies
+                                .where((e) =>
+                                    FFAppState().companyChoosen == e.companyId)
+                                .toList()
+                                .firstOrNull!
+                                .stores
+                                .map((e) => e.storeName)
+                                .toList(),
+                            onChanged: (val) => safeSetState(
+                                () => _model.storeNameDropdownValue = val),
+                            height: 40.0,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
+                            hintText: 'Select...',
+                            icon: Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              size: 24.0,
+                            ),
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            elevation: 2.0,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0.0,
+                            borderRadius: 8.0,
+                            margin: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 12.0, 0.0),
+                            hidesUnderline: true,
+                            isOverButton: false,
+                            isSearchable: false,
+                            isMultiSelect: false,
+                          ),
+                        ),
+                      ),
+                    ].divide(SizedBox(height: 4.0)),
+                  ),
+                ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: Column(
@@ -342,24 +354,14 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                           FormFieldController<String>(
                         _model.typeDropDownValue ??= '',
                       ),
-                      options: List<String>.from([
-                        'My Company',
-                        'Team Member',
-                        'Suppliers',
-                        'Employees',
-                        'Customers',
-                        'Others'
-                      ]),
+                      options: List<String>.from(['cash', 'bank']),
                       optionLabels: [
-                        'My Company',
-                        'Internal',
-                        'Suppliers',
-                        'Employees',
-                        'Customers',
-                        'Others'
+                        'Cashier (Related to Cash)',
+                        'Bank (Related to Transfer)'
                       ],
                       onChanged: (val) =>
                           safeSetState(() => _model.typeDropDownValue = val),
+                      width: MediaQuery.sizeOf(context).width * 1.0,
                       textStyle:
                           FlutterFlowTheme.of(context).bodyMedium.override(
                                 font: GoogleFonts.notoSansJp(
@@ -400,220 +402,6 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Email',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                    ),
-                    TextFormField(
-                      controller: _model.textController2,
-                      focusNode: _model.textFieldFocusNode2,
-                      autofocus: false,
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'example@email.com',
-                        hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.notoSansJp(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFE0E0E0),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        filled: true,
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        contentPadding: EdgeInsetsDirectional.fromSTEB(
-                            12.0, 12.0, 12.0, 12.0),
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                      minLines: 1,
-                      keyboardType: TextInputType.emailAddress,
-                      validator:
-                          _model.textController2Validator.asValidator(context),
-                    ),
-                  ].divide(SizedBox(height: 4.0)),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Phone Number',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                    ),
-                    TextFormField(
-                      controller: _model.textController3,
-                      focusNode: _model.textFieldFocusNode3,
-                      autofocus: false,
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        hintText: 'Enter phone number',
-                        hintStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  font: GoogleFonts.notoSansJp(
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0xFFE0E0E0),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1.0,
-                          ),
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        filled: true,
-                        fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        contentPadding: EdgeInsetsDirectional.fromSTEB(
-                            12.0, 12.0, 12.0, 12.0),
-                      ),
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                      minLines: 1,
-                      keyboardType: TextInputType.phone,
-                      validator:
-                          _model.textController3Validator.asValidator(context),
-                    ),
-                  ].divide(SizedBox(height: 4.0)),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
                       'Note',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.notoSansJp(
@@ -630,8 +418,8 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                           ),
                     ),
                     TextFormField(
-                      controller: _model.textController4,
-                      focusNode: _model.textFieldFocusNode4,
+                      controller: _model.textController2,
+                      focusNode: _model.textFieldFocusNode,
                       autofocus: false,
                       textInputAction: TextInputAction.done,
                       obscureText: false,
@@ -709,7 +497,7 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                       maxLines: 6,
                       minLines: 3,
                       validator:
-                          _model.textController4Validator.asValidator(context),
+                          _model.textController2Validator.asValidator(context),
                     ),
                   ].divide(SizedBox(height: 4.0)),
                 ),
@@ -721,22 +509,20 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
                     if (FFAppState().isLoading2 == false) {
                       FFAppState().isLoading2 = true;
                       safeSetState(() {});
-                      _model.test = await CounterpartiesTable().insert({
+                      _model.test = await CashLocationsTable().insert({
                         'company_id': FFAppState().companyChoosen,
-                        'name': _model.textController1.text,
-                        'email': _model.textController2.text,
-                        'phone': _model.textController3.text,
-                        'notes': _model.textController4.text,
-                        'type': _model.typeDropDownValue,
-                        'is_internal': _model.switchValue,
-                        'linked_company_id': _model.companyDropDownValue,
+                        'location_name':
+                            _model.cashLocationNameTextController.text,
+                        'location_type': _model.typeDropDownValue,
+                        'location_info': _model.textController2.text,
+                        'store_id': _model.storeNameDropdownValue,
                       });
                       await showDialog(
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
                             title: Text('success'),
-                            content: Text('Create Counterparty'),
+                            content: Text('Create Cash Location'),
                             actions: [
                               TextButton(
                                 onPressed: () =>

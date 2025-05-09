@@ -67,40 +67,49 @@ class _HomeFeatureV1WidgetState extends State<HomeFeatureV1Widget> {
           color: FlutterFlowTheme.of(context).secondaryBackground,
         ),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Stack(
         children: [
-          Align(
-            alignment: AlignmentDirectional(-1.0, -1.0),
-            child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 5.0, 0.0),
-              child: Text(
-                valueOrDefault<String>(
-                  widget.featureInfo?.featureName,
-                  'Feature Name',
-                ),
-                textAlign: TextAlign.start,
-                style: FlutterFlowTheme.of(context).bodyLarge.override(
-                      font: GoogleFonts.notoSansJp(
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                      ),
-                      letterSpacing: 0.0,
-                      fontWeight:
-                          FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Align(
+                alignment: AlignmentDirectional(-1.0, -1.0),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    valueOrDefault<String>(
+                      widget.featureInfo?.featureName,
+                      'Feature Name',
                     ),
+                    textAlign: TextAlign.start,
+                    maxLines: 2,
+                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                          font: GoogleFonts.notoSansJp(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyLarge
+                                .fontStyle,
+                          ),
+                          color: Color(0xFF2C3E50),
+                          fontSize: 15.0,
+                          letterSpacing: 0.0,
+                          fontWeight:
+                              FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                        ),
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
           Align(
             alignment: AlignmentDirectional(1.0, 1.0),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+              padding: EdgeInsets.all(4.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(8.0),
                 child: Image.network(

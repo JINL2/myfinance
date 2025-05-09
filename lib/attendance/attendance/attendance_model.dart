@@ -63,8 +63,6 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
   List<ShiftRequestsRow>? getQuery1;
   // Stores action output result for [Backend Call - Update Row(s)] action in Attend widget.
   List<ShiftRequestsRow>? end;
-  // Stores action output result for [Backend Call - Update Row(s)] action in Attend widget.
-  List<ShiftRequestsRow>? start;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

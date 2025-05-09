@@ -265,33 +265,23 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                                                 .selectedRequestId ==
                                                             shiftStatusItem
                                                                 .shiftRequestId,
-                                                        onChanged: ((_model
-                                                                    .checkboxListTileCheckedItems
-                                                                    .isNotEmpty) ==
-                                                                true)
-                                                            ? null
-                                                            : (newValue) async {
-                                                                safeSetState(() =>
-                                                                    _model.checkboxListTileValueMap[
-                                                                            shiftStatusItem] =
-                                                                        newValue!);
-                                                                if (newValue!) {
-                                                                  _model.selectedRequestId =
-                                                                      shiftStatusItem
-                                                                          .shiftRequestId;
-                                                                  _model.blockSelect =
-                                                                      true;
-                                                                  safeSetState(
-                                                                      () {});
-                                                                } else {
-                                                                  _model.selectedRequestId =
-                                                                      null;
-                                                                  _model.blockSelect =
-                                                                      false;
-                                                                  safeSetState(
-                                                                      () {});
-                                                                }
-                                                              },
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.checkboxListTileValueMap[
+                                                                      shiftStatusItem] =
+                                                                  newValue!);
+                                                          if (newValue!) {
+                                                            _model.selectedRequestId =
+                                                                shiftStatusItem
+                                                                    .shiftRequestId;
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            _model.selectedRequestId =
+                                                                null;
+                                                            safeSetState(() {});
+                                                          }
+                                                        },
                                                         title: Text(
                                                           valueOrDefault<
                                                               String>(
@@ -367,13 +357,9 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        checkColor: ((_model
-                                                                    .checkboxListTileCheckedItems
-                                                                    .isNotEmpty) ==
-                                                                true)
-                                                            ? null
-                                                            : FlutterFlowTheme
-                                                                    .of(context)
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .info,
                                                         dense: false,
                                                         controlAffinity:
@@ -593,18 +579,44 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                           _model.selectedRequestId,
                                         ),
                                       );
-                                      if (functions.changeDateTimeToString(
-                                                  _model.getQuery1?.firstOrNull
-                                                      ?.actualStartTime) !=
-                                              null &&
-                                          functions.changeDateTimeToString(
-                                                  _model.getQuery1?.firstOrNull
-                                                      ?.actualStartTime) !=
-                                              '') {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text('Query Success'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                      if (_model.getQuery1?.firstOrNull
+                                              ?.actualStartTime !=
+                                          null) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text('End time Insert'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                         await ShiftRequestsTable().update(
                                           data: {
                                             'checkout_location':
-                                                'POINT(109.19209961227742 12.239981462652786)',
+                                                '0101000020E610000092132C5C4B4C5B40DC7AABD9DE7A2840',
                                             'actual_end_time':
                                                 supaSerialize<DateTime>(
                                                     getCurrentTimestamp),
@@ -634,16 +646,32 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                           },
                                         );
                                       } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text('Start Time Insert'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
                                         await ShiftRequestsTable().update(
                                           data: {
-                                            'checkin_location':
-                                                'POINT(109.19209961227742 12.239981462652786)',
                                             'actual_start_time':
                                                 supaSerialize<DateTime>(
                                                     getCurrentTimestamp),
                                             'updated_at':
                                                 supaSerialize<DateTime>(
                                                     getCurrentTimestamp),
+                                            'checkin_location':
+                                                '0101000020E610000092132C5C4B4C5B40DC7AABD9DE7A2840',
                                           },
                                           matchingRows: (rows) => rows.eqOrNull(
                                             'shift_request_id',
@@ -671,6 +699,8 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                       FFAppState().isLoading2 = false;
                                       safeSetState(() {});
                                     }
+                                    FFAppState().isLoading2 = false;
+                                    safeSetState(() {});
 
                                     safeSetState(() {});
                                   },

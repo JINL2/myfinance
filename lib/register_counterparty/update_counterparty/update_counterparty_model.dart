@@ -10,30 +10,29 @@ class UpdateCounterpartyModel
 
   // State field(s) for Switch widget.
   bool? switchValue;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
-  // State field(s) for counterpartyName widget.
-  FocusNode? counterpartyNameFocusNode;
-  TextEditingController? counterpartyNameTextController;
-  String? Function(BuildContext, String?)?
-      counterpartyNameTextControllerValidator;
-  // State field(s) for Type widget.
-  String? typeValue;
-  FormFieldController<String>? typeValueController;
-  // State field(s) for Email widget.
-  FocusNode? emailFocusNode;
-  TextEditingController? emailTextController;
-  String? Function(BuildContext, String?)? emailTextControllerValidator;
-  // State field(s) for Phone widget.
-  FocusNode? phoneFocusNode;
-  TextEditingController? phoneTextController;
-  String? Function(BuildContext, String?)? phoneTextControllerValidator;
-  // State field(s) for Note widget.
-  FocusNode? noteFocusNode;
-  TextEditingController? noteTextController;
-  String? Function(BuildContext, String?)? noteTextControllerValidator;
-  // Stores action output result for [Backend Call - Update Row(s)] action in Icon widget.
+  // State field(s) for CompanyDropDown widget.
+  String? companyDropDownValue;
+  FormFieldController<String>? companyDropDownValueController;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode1;
+  TextEditingController? textController1;
+  String? Function(BuildContext, String?)? textController1Validator;
+  // State field(s) for TypeDropDown widget.
+  String? typeDropDownValue;
+  FormFieldController<String>? typeDropDownValueController;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode2;
+  TextEditingController? textController2;
+  String? Function(BuildContext, String?)? textController2Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode3;
+  TextEditingController? textController3;
+  String? Function(BuildContext, String?)? textController3Validator;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode4;
+  TextEditingController? textController4;
+  String? Function(BuildContext, String?)? textController4Validator;
+  // Stores action output result for [Backend Call - Update Row(s)] action in Button widget.
   List<CounterpartiesRow>? test;
 
   @override
@@ -41,16 +40,16 @@ class UpdateCounterpartyModel
 
   @override
   void dispose() {
-    counterpartyNameFocusNode?.dispose();
-    counterpartyNameTextController?.dispose();
+    textFieldFocusNode1?.dispose();
+    textController1?.dispose();
 
-    emailFocusNode?.dispose();
-    emailTextController?.dispose();
+    textFieldFocusNode2?.dispose();
+    textController2?.dispose();
 
-    phoneFocusNode?.dispose();
-    phoneTextController?.dispose();
+    textFieldFocusNode3?.dispose();
+    textController3?.dispose();
 
-    noteFocusNode?.dispose();
-    noteTextController?.dispose();
+    textFieldFocusNode4?.dispose();
+    textController4?.dispose();
   }
 }

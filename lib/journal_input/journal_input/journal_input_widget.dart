@@ -328,50 +328,6 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                       ],
                     ),
                   ),
-                  if (_model.differences! > 0.0)
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Differences: ',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                        ),
-                        Text(
-                          ((_model.differences!).abs()).toString(),
-                          style:
-                              FlutterFlowTheme.of(context).titleMedium.override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
-                                    color: Color(0xFFE94E4E),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w600,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                  ),
-                        ),
-                      ],
-                    ),
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
@@ -382,51 +338,24 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 0.0, 0.0, 8.0),
-                          child: InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              _model.apiResultlf0 =
-                                  await BringFinanceAccountInfoCall.call();
-
-                              if ((_model.apiResultlf0?.succeeded ?? true)) {
-                                FFAppState().financeAccount =
-                                    ((_model.apiResultlf0?.jsonBody ?? '')
-                                                .toList()
-                                                .map<FinanceAccountStruct?>(
-                                                    FinanceAccountStruct
-                                                        .maybeFromMap)
-                                                .toList()
-                                            as Iterable<FinanceAccountStruct?>)
-                                        .withoutNulls
-                                        .toList()
-                                        .cast<FinanceAccountStruct>();
-                                safeSetState(() {});
-                              }
-
-                              safeSetState(() {});
-                            },
-                            child: Text(
-                              'Company & Store',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    fontSize: 14.0,
-                                    letterSpacing: 0.0,
+                          child: Text(
+                            'Company & Store',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                            ),
+                                  fontSize: 14.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
                           ),
                         ),
                         FlutterFlowDropDown<String>(
@@ -497,17 +426,7 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                           FlutterFlowDropDown<String>(
                             controller: _model.storeChoosenValueController ??=
                                 FormFieldController<String>(
-                              _model.storeChoosenValue ??= FFAppState()
-                                  .user
-                                  .companies
-                                  .where((e) =>
-                                      _model.companyChoosenValue ==
-                                      FFAppState().storeChoosen)
-                                  .toList()
-                                  .firstOrNull
-                                  ?.stores
-                                  .firstOrNull
-                                  ?.storeId,
+                              _model.storeChoosenValue ??= '',
                             ),
                             options: List<String>.from(FFAppState()
                                 .user
@@ -574,130 +493,114 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                       ].divide(SizedBox(height: 8.0)),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 8.0),
-                          child: Text(
-                            'Entries',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  font: GoogleFonts.notoSansJp(
+                  if ((_model.transactionDetail.isNotEmpty) == true)
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 8.0),
+                            child: Text(
+                              'Entries',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    fontSize: 14.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                     fontStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .fontStyle,
                                   ),
-                                  fontSize: 14.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.w600,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 16.0),
-                          child: Builder(
-                            builder: (context) {
-                              final transactionList =
-                                  _model.transactionDetail.toList();
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 16.0),
+                            child: Builder(
+                              builder: (context) {
+                                final transactionList =
+                                    _model.transactionDetail.toList();
 
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: transactionList.length,
-                                itemBuilder: (context, transactionListIndex) {
-                                  final transactionListItem =
-                                      transactionList[transactionListIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Card(
-                                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      elevation: 1.0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Container(
-                                                  width: 60.0,
-                                                  decoration: BoxDecoration(
-                                                    color: functions.convertToInt(
-                                                                transactionListItem
-                                                                    .debit) >
-                                                            0.0
-                                                        ? Color(0xFFCFE7FF)
-                                                        : Color(0xFFFFD7D1),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4.0),
-                                                  ),
-                                                  child: Align(
-                                                    alignment:
-                                                        AlignmentDirectional(
-                                                            0.0, 0.0),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          functions.convertToInt(
-                                                                      transactionListItem
-                                                                          .debit) >
-                                                                  0.0
-                                                              ? 'Debit'
-                                                              : 'Credit',
-                                                          'Debit',
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w600,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: functions.convertToInt(transactionListItem
-                                                                              .debit) >
-                                                                          0.0
-                                                                      ? Color(
-                                                                          0xFF4A90E2)
-                                                                      : Color(
-                                                                          0xFFFF5F48),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: transactionList.length,
+                                  itemBuilder: (context, transactionListIndex) {
+                                    final transactionListItem =
+                                        transactionList[transactionListIndex];
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: Card(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        elevation: 1.0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(12.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 60.0,
+                                                    decoration: BoxDecoration(
+                                                      color: functions.convertToInt(
+                                                                  transactionListItem
+                                                                      .debit) >
+                                                              0.0
+                                                          ? Color(0xFFCFE7FF)
+                                                          : Color(0xFFFFD7D1),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4.0),
+                                                    ),
+                                                    child: Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: Text(
+                                                          valueOrDefault<
+                                                              String>(
+                                                            functions.convertToInt(
+                                                                        transactionListItem
+                                                                            .debit) >
+                                                                    0.0
+                                                                ? 'Debit'
+                                                                : 'Credit',
+                                                            'Debit',
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodySmall
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w600,
@@ -706,55 +609,163 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                                                                       .bodySmall
                                                                       .fontStyle,
                                                                 ),
+                                                                color: functions.convertToInt(transactionListItem
+                                                                            .debit) >
+                                                                        0.0
+                                                                    ? Color(
+                                                                        0xFF4A90E2)
+                                                                    : Color(
+                                                                        0xFFFF5F48),
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontStyle,
+                                                              ),
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ].divide(SizedBox(width: 12.0)),
-                                            ),
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                      ),
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    -1.0, 0.0),
-                                                            child: Row(
+                                                ].divide(SizedBox(width: 12.0)),
+                                              ),
+                                              Expanded(
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                        ),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        functions.getAccountNameByIdFromList(
+                                                                            FFAppState().financeAccount.toList(),
+                                                                            transactionListItem.accountId),
+                                                                        'Cash Account',
+                                                                      ),
+                                                                      maxLines:
+                                                                          1,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            font:
+                                                                                GoogleFonts.notoSansJp(
+                                                                              fontWeight: FontWeight.w500,
+                                                                              fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                            ),
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                            fontStyle:
+                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Row(
                                                               mainAxisSize:
                                                                   MainAxisSize
                                                                       .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
                                                               children: [
+                                                                Expanded(
+                                                                  flex: 7,
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        AlignmentDirectional(
+                                                                            -1.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        Stack(
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            transactionListItem.description,
+                                                                            maxLines:
+                                                                                1,
+                                                                            style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: GoogleFonts.notoSansJp(
+                                                                                    fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                  ),
+                                                                                  color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                                 Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
                                                                           8.0,
-                                                                          0.0,
-                                                                          0.0,
                                                                           0.0),
                                                                   child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      functions.getAccountNameByIdFromList(
-                                                                          FFAppState()
-                                                                              .financeAccount
-                                                                              .toList(),
-                                                                          transactionListItem
-                                                                              .accountId),
-                                                                      'Cash Account',
-                                                                    ),
-                                                                    maxLines: 1,
+                                                                    '${valueOrDefault<String>(
+                                                                      formatNumber(
+                                                                        transactionListItem
+                                                                            .amount,
+                                                                        formatType:
+                                                                            FormatType.decimal,
+                                                                        decimalType:
+                                                                            DecimalType.periodDecimal,
+                                                                      ),
+                                                                      '400,000',
+                                                                    )}',
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .end,
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -762,14 +773,14 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                                                                           font:
                                                                               GoogleFonts.notoSansJp(
                                                                             fontWeight:
-                                                                                FontWeight.w500,
+                                                                                FontWeight.w600,
                                                                             fontStyle:
                                                                                 FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                                                                           ),
                                                                           letterSpacing:
                                                                               0.0,
                                                                           fontWeight:
-                                                                              FontWeight.w500,
+                                                                              FontWeight.w600,
                                                                           fontStyle: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .fontStyle,
@@ -778,112 +789,92 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                                                                 ),
                                                               ],
                                                             ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  '${valueOrDefault<String>(
-                                                                    formatNumber(
-                                                                      transactionListItem
-                                                                          .amount,
-                                                                      formatType:
-                                                                          FormatType
-                                                                              .decimal,
-                                                                      decimalType:
-                                                                          DecimalType
-                                                                              .periodDecimal,
-                                                                    ),
-                                                                    '400,000',
-                                                                  )}',
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .end,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        font: GoogleFonts
-                                                                            .notoSansJp(
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
-                                                                        ),
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w600,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .fontStyle,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          1.0, 0.0),
-                                                  child: FlutterFlowIconButton(
-                                                    borderRadius: 18.0,
-                                                    buttonSize: 36.0,
-                                                    icon: Icon(
-                                                      Icons.delete_outline,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      size: 20.0,
-                                                    ),
-                                                    onPressed: () {
-                                                      print(
-                                                          'IconButton pressed ...');
-                                                    },
-                                                  ),
+                                                  ],
                                                 ),
-                                              ].divide(SizedBox(width: 16.0)),
-                                            ),
-                                          ].divide(SizedBox(width: 8.0)),
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            1.0, 0.0),
+                                                    child:
+                                                        FlutterFlowIconButton(
+                                                      borderRadius: 18.0,
+                                                      buttonSize: 36.0,
+                                                      icon: Icon(
+                                                        Icons.delete_outline,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 20.0,
+                                                      ),
+                                                      onPressed: () async {
+                                                        _model.selectedIndex =
+                                                            transactionListIndex;
+                                                        safeSetState(() {});
+                                                        _model.removeAtIndexFromTransactionDetail(
+                                                            _model
+                                                                .selectedIndex!);
+                                                        safeSetState(() {});
+                                                        _model.debitValue =
+                                                            valueOrDefault<
+                                                                double>(
+                                                          functions.getTotalDebit(
+                                                              _model
+                                                                  .transactionDetail
+                                                                  .map((e) =>
+                                                                      e.toMap())
+                                                                  .toList()),
+                                                          0.0,
+                                                        );
+                                                        _model.creditValue =
+                                                            valueOrDefault<
+                                                                double>(
+                                                          functions.getTotalCredit(
+                                                              _model
+                                                                  .transactionDetail
+                                                                  .map((e) =>
+                                                                      e.toMap())
+                                                                  .toList()),
+                                                          0.0,
+                                                        );
+                                                        safeSetState(() {});
+                                                        _model.differences =
+                                                            valueOrDefault<
+                                                                double>(
+                                                          (_model.debitValue!) -
+                                                              (_model
+                                                                  .creditValue!),
+                                                          0.0,
+                                                        );
+                                                        safeSetState(() {});
+                                                      },
+                                                    ),
+                                                  ),
+                                                ].divide(SizedBox(width: 16.0)),
+                                              ),
+                                            ].divide(SizedBox(width: 8.0)),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                     child: Column(
@@ -1150,6 +1141,97 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                             ),
                           ),
                         ),
+                        if (_model.differences != 0.0)
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 16.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Differences: ',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        font: GoogleFonts.notoSansJp(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                                Text(
+                                  ((_model.differences!).abs()).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .override(
+                                        font: GoogleFonts.notoSansJp(
+                                          fontWeight: FontWeight.w600,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: Color(0xFFE94E4E),
+                                        fontSize: 14.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .fontStyle,
+                                      ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      4.0, 0.0, 0.0, 0.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.apiResultlf0 =
+                                          await BringFinanceAccountInfoCall
+                                              .call();
+
+                                      FFAppState()
+                                          .financeAccount = ((_model.apiResultlf0
+                                                          ?.jsonBody ??
+                                                      '')
+                                                  .toList()
+                                                  .map<FinanceAccountStruct?>(
+                                                      FinanceAccountStruct
+                                                          .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<
+                                                  FinanceAccountStruct?>)
+                                          .withoutNulls
+                                          .toList()
+                                          .cast<FinanceAccountStruct>();
+                                      safeSetState(() {});
+
+                                      safeSetState(() {});
+                                    },
+                                    child: Icon(
+                                      Icons.settings_sharp,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 14.0,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         FFButtonWidget(
                           onPressed: () {
                             print('Button pressed ...');

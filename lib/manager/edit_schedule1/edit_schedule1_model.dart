@@ -1,4 +1,3 @@
-import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'edit_schedule1_widget.dart' show EditSchedule1Widget;
 import 'package:flutter/material.dart';
@@ -14,24 +13,35 @@ class EditSchedule1Model extends FlutterFlowModel<EditSchedule1Widget> {
 
   bool? isLateBoolean;
 
-  bool? showWidgetBuilder;
+  bool? showEdit = false;
 
   String? overtimeAmount;
 
+  DateTime? adjustedStartTime;
+
+  DateTime? adjustedEndTime;
+
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - Query Rows] action in editSchedule1 widget.
-  List<VShiftRequestRow>? query;
-  // State field(s) for Column widget.
-  ScrollController? columnController;
+  // State field(s) for main widget.
+  ScrollController? main;
+  DateTime? datePicked1;
+  DateTime? datePicked2;
+  // State field(s) for incentiveTextField widget.
+  FocusNode? incentiveTextFieldFocusNode;
+  TextEditingController? incentiveTextFieldTextController;
+  String? Function(BuildContext, String?)?
+      incentiveTextFieldTextControllerValidator;
 
   @override
   void initState(BuildContext context) {
-    columnController = ScrollController();
+    main = ScrollController();
   }
 
   @override
   void dispose() {
-    columnController?.dispose();
+    main?.dispose();
+    incentiveTextFieldFocusNode?.dispose();
+    incentiveTextFieldTextController?.dispose();
   }
 }

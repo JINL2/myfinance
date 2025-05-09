@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,10 +51,14 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.debitOrCredit = widget.debtOrCredit;
       safeSetState(() {});
+      _model.issueDate = getCurrentTimestamp;
+      safeSetState(() {});
     });
 
-    _model.textController1 ??=
-        TextEditingController(text: ((widget.diff!).abs()).toString());
+    _model.textController1 ??= TextEditingController(
+        text: ((widget.diff!).abs()).toString() != ''
+            ? ((widget.diff!).abs()).toString()
+            : '');
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.fixedAssetNameTextController ??= TextEditingController();
@@ -654,7 +659,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Debt',
+                                'Cash',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
@@ -737,6 +742,10 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                       FFAppState()
                                                           .companyChoosen,
                                                     )
+                                                    .eqOrNull(
+                                                      'is_deleted',
+                                                      false,
+                                                    )
                                                     .order('name',
                                                         ascending: true),
                                               ),
@@ -767,10 +776,10 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                 return FlutterFlowDropDown<
                                                     String>(
                                                   controller: _model
-                                                          .counterpartycompanyDropDownValueController ??=
+                                                          .counterpartycompanyDropDownValueController1 ??=
                                                       FormFieldController<
                                                           String>(
-                                                    _model.counterpartycompanyDropDownValue ??=
+                                                    _model.counterpartycompanyDropDownValue1 ??=
                                                         '',
                                                   ),
                                                   options: List<String>.from(
@@ -782,10 +791,30 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                       counterpartycompanyDropDownCounterpartiesRowList
                                                           .map((e) => e.name)
                                                           .toList(),
-                                                  onChanged: (val) =>
-                                                      safeSetState(() => _model
-                                                              .counterpartycompanyDropDownValue =
-                                                          val),
+                                                  onChanged: (val) async {
+                                                    safeSetState(() => _model
+                                                            .counterpartycompanyDropDownValue1 =
+                                                        val);
+                                                    _model.selectedCounterparty =
+                                                        counterpartycompanyDropDownCounterpartiesRowList
+                                                            .where((e) =>
+                                                                _model
+                                                                    .counterpartycompanyDropDownValue1 ==
+                                                                e.counterpartyId)
+                                                            .toList()
+                                                            .firstOrNull
+                                                            ?.linkedCompanyId;
+                                                    _model.isInternal =
+                                                        counterpartycompanyDropDownCounterpartiesRowList
+                                                            .where((e) =>
+                                                                _model
+                                                                    .counterpartycompanyDropDownValue1 ==
+                                                                e.counterpartyId)
+                                                            .toList()
+                                                            .firstOrNull
+                                                            ?.isInternal;
+                                                    safeSetState(() {});
+                                                  },
                                                   width: 200.0,
                                                   height: 40.0,
                                                   textStyle:
@@ -851,151 +880,221 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                       ),
                                     ),
                                   ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Is Internal',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                      Theme(
+                                        data: ThemeData(
+                                          checkboxTheme: CheckboxThemeData(
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                            shape: CircleBorder(),
+                                          ),
+                                          unselectedWidgetColor:
+                                              _model.isInternal!
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                        ),
+                                        child: Checkbox(
+                                          value: _model.checkboxValue1 ??= true,
+                                          onChanged: (newValue) async {
+                                            safeSetState(() => _model
+                                                .checkboxValue1 = newValue!);
+                                          },
+                                          side: BorderSide(
+                                            width: 2,
+                                            color: _model.isInternal!
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                          ),
+                                          activeColor: _model.isInternal!
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          checkColor:
+                                              FlutterFlowTheme.of(context).info,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ].divide(SizedBox(height: 8.0)),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Counterparty Store',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.notoSansJp(
+                              if (_model.selectedCounterparty != null &&
+                                  _model.selectedCounterparty != '')
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Counterparty Store',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.w500,
                                             fontStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w500,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                  ),
-                                  Container(
-                                    width: double.infinity,
-                                    height: 50.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      border: Border.all(
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(4.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: FlutterFlowDropDown<String>(
-                                              controller: _model
-                                                      .counterpartystoreDropDownValueController ??=
-                                                  FormFieldController<String>(
-                                                _model.counterpartystoreDropDownValue ??=
-                                                    '',
-                                              ),
-                                              options: List<String>.from(
-                                                  FFAppState()
-                                                      .user
-                                                      .companies
-                                                      .where((e) =>
-                                                          _model
-                                                              .counterpartycompanyDropDownValue ==
-                                                          e.companyId)
-                                                      .toList()
-                                                      .firstOrNull!
-                                                      .stores
-                                                      .map((e) => e.storeId)
-                                                      .toList()),
-                                              optionLabels: FFAppState()
-                                                  .user
-                                                  .companies
-                                                  .where((e) =>
-                                                      FFAppState()
-                                                          .companyChoosen ==
-                                                      e.companyId)
-                                                  .toList()
-                                                  .firstOrNull!
-                                                  .stores
-                                                  .map((e) => e.storeName)
-                                                  .toList(),
-                                              onChanged: (val) => safeSetState(
-                                                  () => _model
-                                                          .counterpartystoreDropDownValue =
-                                                      val),
-                                              width: 200.0,
-                                              height: 40.0,
-                                              textStyle: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.notoSansJp(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintText: 'Select...',
-                                              icon: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                color:
+                                      child: Padding(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child:
+                                                  FlutterFlowDropDown<String>(
+                                                controller: _model
+                                                        .counterpartystoreDropDownValueController1 ??=
+                                                    FormFieldController<String>(
+                                                  _model.counterpartystoreDropDownValue1 ??=
+                                                      '',
+                                                ),
+                                                options: List<String>.from(
+                                                    FFAppState()
+                                                        .user
+                                                        .companies
+                                                        .where((e) =>
+                                                            _model
+                                                                .selectedCounterparty ==
+                                                            e.companyId)
+                                                        .toList()
+                                                        .firstOrNull!
+                                                        .stores
+                                                        .map((e) => e.storeId)
+                                                        .toList()),
+                                                optionLabels: FFAppState()
+                                                    .user
+                                                    .companies
+                                                    .where((e) =>
+                                                        _model
+                                                            .selectedCounterparty ==
+                                                        e.companyId)
+                                                    .toList()
+                                                    .firstOrNull!
+                                                    .stores
+                                                    .map((e) => e.storeName)
+                                                    .toList(),
+                                                onChanged: (val) =>
+                                                    safeSetState(() => _model
+                                                            .counterpartystoreDropDownValue1 =
+                                                        val),
+                                                width: 200.0,
+                                                height: 40.0,
+                                                textStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
+                                                        .bodyMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .notoSansJp(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                hintText: 'Select...',
+                                                icon: Icon(
+                                                  Icons
+                                                      .keyboard_arrow_down_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 24.0,
+                                                ),
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                elevation: 2.0,
+                                                borderColor: Colors.transparent,
+                                                borderWidth: 0.0,
+                                                borderRadius: 8.0,
+                                                margin: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 0.0, 12.0, 0.0),
+                                                hidesUnderline: true,
+                                                isOverButton: false,
+                                                isSearchable: false,
+                                                isMultiSelect: false,
                                               ),
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 2.0,
-                                              borderColor: Colors.transparent,
-                                              borderWidth: 0.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 0.0, 12.0, 0.0),
-                                              hidesUnderline: true,
-                                              isOverButton: false,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ].divide(SizedBox(height: 8.0)),
-                              ),
+                                  ].divide(SizedBox(height: 8.0)),
+                                ),
                               Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1043,7 +1142,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                           Expanded(
                                             child: FlutterFlowDropDown<String>(
                                               controller: _model
-                                                      .debtDropdownValueController ??=
+                                                      .debtDropdownValueController1 ??=
                                                   FormFieldController<String>(
                                                       null),
                                               options: [
@@ -1054,7 +1153,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                               ],
                                               onChanged: (val) => safeSetState(
                                                   () => _model
-                                                      .debtDropdownValue = val),
+                                                          .debtDropdownValue1 =
+                                                      val),
                                               width: 200.0,
                                               height: 40.0,
                                               textStyle: FlutterFlowTheme.of(
@@ -1166,9 +1266,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            _model.issueDate = dateTimeFormat(
-                                                "yyyy-MM-dd",
-                                                getCurrentTimestamp);
+                                            _model.issueDate =
+                                                getCurrentTimestamp;
                                             safeSetState(() {});
                                             final _datePicked1Date =
                                                 await showDatePicker(
@@ -1253,9 +1352,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                     getCurrentTimestamp;
                                               });
                                             }
-                                            _model.issueDate = dateTimeFormat(
-                                                "yyyy-MM-dd",
-                                                _model.datePicked1);
+                                            _model.issueDate =
+                                                _model.datePicked1;
                                             safeSetState(() {});
                                           },
                                           child: Container(
@@ -1283,7 +1381,12 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Select Date',
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .changeDateTimeToString(
+                                                              _model.issueDate),
+                                                      'No Date',
+                                                    ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1369,9 +1472,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            _model.dueDate = dateTimeFormat(
-                                                "yyyy-MM-dd",
-                                                getCurrentTimestamp);
+                                            _model.dueDate =
+                                                getCurrentTimestamp;
                                             safeSetState(() {});
                                             final _datePicked2Date =
                                                 await showDatePicker(
@@ -1456,9 +1558,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                     getCurrentTimestamp;
                                               });
                                             }
-                                            _model.dueDate = dateTimeFormat(
-                                                "yyyy-MM-dd",
-                                                _model.datePicked2);
+                                            _model.dueDate = _model.datePicked2;
                                             safeSetState(() {});
                                           },
                                           child: Container(
@@ -1486,8 +1586,1038 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    dateTimeFormat("yyyy-MM-dd",
-                                                        _model.datePicked2),
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .changeDateTimeToString(
+                                                              _model.dueDate),
+                                                      'No Date',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .notoSansJp(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 20.0,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ].divide(SizedBox(height: 8.0)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ].divide(SizedBox(height: 12.0)),
+                          ),
+                        ].divide(SizedBox(height: 16.0)),
+                      ),
+                    ),
+                  ),
+                if ((FFAppState()
+                            .financeAccount
+                            .where((e) =>
+                                _model.accountDropDownValue == e.accountId)
+                            .toList()
+                            .firstOrNull
+                            ?.categoryTag ==
+                        'payable') ||
+                    (FFAppState()
+                            .financeAccount
+                            .where((e) =>
+                                _model.accountDropDownValue == e.accountId)
+                            .toList()
+                            .firstOrNull
+                            ?.categoryTag ==
+                        'receivable'))
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          16.0, 16.0, 16.0, 16.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Debt',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyLarge
+                                    .override(
+                                      font: GoogleFonts.notoSansJp(
+                                        fontWeight: FontWeight.w600,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyLarge
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                              ),
+                              Icon(
+                                Icons.keyboard_arrow_down_rounded,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 24.0,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Counterparty',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.notoSansJp(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: FutureBuilder<
+                                                List<CounterpartiesRow>>(
+                                              future: CounterpartiesTable()
+                                                  .queryRows(
+                                                queryFn: (q) => q
+                                                    .eqOrNull(
+                                                      'company_id',
+                                                      FFAppState()
+                                                          .companyChoosen,
+                                                    )
+                                                    .eqOrNull(
+                                                      'is_deleted',
+                                                      false,
+                                                    )
+                                                    .order('name',
+                                                        ascending: true),
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 80.0,
+                                                      height: 80.0,
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        valueColor:
+                                                            AlwaysStoppedAnimation<
+                                                                Color>(
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<CounterpartiesRow>
+                                                    counterpartycompanyDropDownCounterpartiesRowList =
+                                                    snapshot.data!;
+
+                                                return FlutterFlowDropDown<
+                                                    String>(
+                                                  controller: _model
+                                                          .counterpartycompanyDropDownValueController2 ??=
+                                                      FormFieldController<
+                                                          String>(
+                                                    _model.counterpartycompanyDropDownValue2 ??=
+                                                        '',
+                                                  ),
+                                                  options: List<String>.from(
+                                                      counterpartycompanyDropDownCounterpartiesRowList
+                                                          .map((e) =>
+                                                              e.counterpartyId)
+                                                          .toList()),
+                                                  optionLabels:
+                                                      counterpartycompanyDropDownCounterpartiesRowList
+                                                          .map((e) => e.name)
+                                                          .toList(),
+                                                  onChanged: (val) async {
+                                                    safeSetState(() => _model
+                                                            .counterpartycompanyDropDownValue2 =
+                                                        val);
+                                                    _model.selectedCounterparty =
+                                                        counterpartycompanyDropDownCounterpartiesRowList
+                                                            .where((e) =>
+                                                                _model
+                                                                    .counterpartycompanyDropDownValue2 ==
+                                                                e.counterpartyId)
+                                                            .toList()
+                                                            .firstOrNull
+                                                            ?.linkedCompanyId;
+                                                    _model.isInternal =
+                                                        counterpartycompanyDropDownCounterpartiesRowList
+                                                            .where((e) =>
+                                                                _model
+                                                                    .counterpartycompanyDropDownValue2 ==
+                                                                e.counterpartyId)
+                                                            .toList()
+                                                            .firstOrNull
+                                                            ?.isInternal;
+                                                    safeSetState(() {});
+                                                  },
+                                                  width: 200.0,
+                                                  height: 40.0,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .notoSansJp(
+                                                              fontWeight:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                            ),
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                  hintText: 'Select...',
+                                                  icon: Icon(
+                                                    Icons
+                                                        .keyboard_arrow_down_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  elevation: 2.0,
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderWidth: 0.0,
+                                                  borderRadius: 8.0,
+                                                  margin: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          12.0, 0.0, 12.0, 0.0),
+                                                  hidesUnderline: true,
+                                                  isOverButton: false,
+                                                  isSearchable: false,
+                                                  isMultiSelect: false,
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Is Internal',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                      Theme(
+                                        data: ThemeData(
+                                          checkboxTheme: CheckboxThemeData(
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                            shape: CircleBorder(),
+                                          ),
+                                          unselectedWidgetColor:
+                                              _model.isInternal!
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                        ),
+                                        child: Checkbox(
+                                          value: _model.checkboxValue2 ??= true,
+                                          onChanged: (newValue) async {
+                                            safeSetState(() => _model
+                                                .checkboxValue2 = newValue!);
+                                          },
+                                          side: BorderSide(
+                                            width: 2,
+                                            color: _model.isInternal!
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .alternate,
+                                          ),
+                                          activeColor: _model.isInternal!
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                          checkColor:
+                                              FlutterFlowTheme.of(context).info,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ].divide(SizedBox(height: 8.0)),
+                              ),
+                              if (_model.selectedCounterparty != null &&
+                                  _model.selectedCounterparty != '')
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Counterparty Store',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
+                                              fontWeight: FontWeight.w500,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                    Container(
+                                      width: double.infinity,
+                                      height: 50.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(
+                                              child:
+                                                  FlutterFlowDropDown<String>(
+                                                controller: _model
+                                                        .counterpartystoreDropDownValueController2 ??=
+                                                    FormFieldController<String>(
+                                                  _model.counterpartystoreDropDownValue2 ??=
+                                                      '',
+                                                ),
+                                                options: List<String>.from(
+                                                    FFAppState()
+                                                        .user
+                                                        .companies
+                                                        .where((e) =>
+                                                            _model
+                                                                .selectedCounterparty ==
+                                                            e.companyId)
+                                                        .toList()
+                                                        .firstOrNull!
+                                                        .stores
+                                                        .map((e) => e.storeId)
+                                                        .toList()),
+                                                optionLabels: FFAppState()
+                                                    .user
+                                                    .companies
+                                                    .where((e) =>
+                                                        _model
+                                                            .selectedCounterparty ==
+                                                        e.companyId)
+                                                    .toList()
+                                                    .firstOrNull!
+                                                    .stores
+                                                    .map((e) => e.storeName)
+                                                    .toList(),
+                                                onChanged: (val) =>
+                                                    safeSetState(() => _model
+                                                            .counterpartystoreDropDownValue2 =
+                                                        val),
+                                                width: 200.0,
+                                                height: 40.0,
+                                                textStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .notoSansJp(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                hintText: 'Select...',
+                                                icon: Icon(
+                                                  Icons
+                                                      .keyboard_arrow_down_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  size: 24.0,
+                                                ),
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                elevation: 2.0,
+                                                borderColor: Colors.transparent,
+                                                borderWidth: 0.0,
+                                                borderRadius: 8.0,
+                                                margin: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 0.0, 12.0, 0.0),
+                                                hidesUnderline: true,
+                                                isOverButton: false,
+                                                isSearchable: false,
+                                                isMultiSelect: false,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ].divide(SizedBox(height: 8.0)),
+                                ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Debt Category',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.notoSansJp(
+                                            fontWeight: FontWeight.w500,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(4.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: FlutterFlowDropDown<String>(
+                                              controller: _model
+                                                      .debtDropdownValueController2 ??=
+                                                  FormFieldController<String>(
+                                                      null),
+                                              options: [
+                                                'note',
+                                                'account',
+                                                'load',
+                                                'other'
+                                              ],
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model
+                                                          .debtDropdownValue2 =
+                                                      val),
+                                              width: 200.0,
+                                              height: 40.0,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.notoSansJp(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                              hintText: 'Select...',
+                                              icon: Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 2.0,
+                                              borderColor: Colors.transparent,
+                                              borderWidth: 0.0,
+                                              borderRadius: 8.0,
+                                              margin: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 12.0, 0.0),
+                                              hidesUnderline: true,
+                                              isOverButton: false,
+                                              isSearchable: false,
+                                              isMultiSelect: false,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ].divide(SizedBox(height: 8.0)),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 16.0,
+                                    height: 1.0,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Issue Date',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.issueDate =
+                                                getCurrentTimestamp;
+                                            safeSetState(() {});
+                                            final _datePicked3Date =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: getCurrentTimestamp,
+                                              firstDate: getCurrentTimestamp,
+                                              lastDate: DateTime(2050),
+                                              builder: (context, child) {
+                                                return wrapInMaterialDatePickerTheme(
+                                                  context,
+                                                  child!,
+                                                  headerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  headerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .info,
+                                                  headerTextStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineLarge
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .notoSansJp(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
+                                                            ),
+                                                            fontSize: 32.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
+                                                          ),
+                                                  pickerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  pickerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  selectedDateTimeBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  selectedDateTimeForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .info,
+                                                  actionButtonForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  iconSize: 24.0,
+                                                );
+                                              },
+                                            );
+
+                                            if (_datePicked3Date != null) {
+                                              safeSetState(() {
+                                                _model.datePicked3 = DateTime(
+                                                  _datePicked3Date.year,
+                                                  _datePicked3Date.month,
+                                                  _datePicked3Date.day,
+                                                );
+                                              });
+                                            } else if (_model.datePicked3 !=
+                                                null) {
+                                              safeSetState(() {
+                                                _model.datePicked3 =
+                                                    getCurrentTimestamp;
+                                              });
+                                            }
+                                            _model.issueDate =
+                                                _model.datePicked3;
+                                            safeSetState(() {});
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .changeDateTimeToString(
+                                                              _model.issueDate),
+                                                      'No Date',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .notoSansJp(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .fontStyle,
+                                                        ),
+                                                  ),
+                                                  Icon(
+                                                    Icons.calendar_today,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 20.0,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ].divide(SizedBox(height: 8.0)),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 16.0,
+                                    height: 1.0,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Due Date',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.dueDate =
+                                                getCurrentTimestamp;
+                                            safeSetState(() {});
+                                            final _datePicked4Date =
+                                                await showDatePicker(
+                                              context: context,
+                                              initialDate: getCurrentTimestamp,
+                                              firstDate: getCurrentTimestamp,
+                                              lastDate: DateTime(2050),
+                                              builder: (context, child) {
+                                                return wrapInMaterialDatePickerTheme(
+                                                  context,
+                                                  child!,
+                                                  headerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  headerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .info,
+                                                  headerTextStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineLarge
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .notoSansJp(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineLarge
+                                                                  .fontStyle,
+                                                            ),
+                                                            fontSize: 32.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineLarge
+                                                                    .fontStyle,
+                                                          ),
+                                                  pickerBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  pickerForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  selectedDateTimeBackgroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                  selectedDateTimeForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .info,
+                                                  actionButtonForegroundColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primaryText,
+                                                  iconSize: 24.0,
+                                                );
+                                              },
+                                            );
+
+                                            if (_datePicked4Date != null) {
+                                              safeSetState(() {
+                                                _model.datePicked4 = DateTime(
+                                                  _datePicked4Date.year,
+                                                  _datePicked4Date.month,
+                                                  _datePicked4Date.day,
+                                                );
+                                              });
+                                            } else if (_model.datePicked4 !=
+                                                null) {
+                                              safeSetState(() {
+                                                _model.datePicked4 =
+                                                    getCurrentTimestamp;
+                                              });
+                                            }
+                                            _model.dueDate = _model.datePicked4;
+                                            safeSetState(() {});
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 50.0,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(4.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .changeDateTimeToString(
+                                                              _model.dueDate),
+                                                      'No Date',
+                                                    ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -2213,10 +3343,9 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
                                               _model.acquireDate =
-                                                  dateTimeFormat("yyyy-MM-dd",
-                                                      getCurrentTimestamp);
+                                                  getCurrentTimestamp;
                                               safeSetState(() {});
-                                              final _datePicked3Date =
+                                              final _datePicked5Date =
                                                   await showDatePicker(
                                                 context: context,
                                                 initialDate:
@@ -2286,24 +3415,23 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                 },
                                               );
 
-                                              if (_datePicked3Date != null) {
+                                              if (_datePicked5Date != null) {
                                                 safeSetState(() {
-                                                  _model.datePicked3 = DateTime(
-                                                    _datePicked3Date.year,
-                                                    _datePicked3Date.month,
-                                                    _datePicked3Date.day,
+                                                  _model.datePicked5 = DateTime(
+                                                    _datePicked5Date.year,
+                                                    _datePicked5Date.month,
+                                                    _datePicked5Date.day,
                                                   );
                                                 });
-                                              } else if (_model.datePicked3 !=
+                                              } else if (_model.datePicked5 !=
                                                   null) {
                                                 safeSetState(() {
-                                                  _model.datePicked3 =
+                                                  _model.datePicked5 =
                                                       getCurrentTimestamp;
                                                 });
                                               }
                                               _model.acquireDate =
-                                                  dateTimeFormat("yyyy-MM-dd",
-                                                      _model.datePicked3);
+                                                  _model.datePicked5;
                                               safeSetState(() {});
                                             },
                                             child: Container(
@@ -2333,8 +3461,11 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                   children: [
                                                     Text(
                                                       valueOrDefault<String>(
-                                                        _model.acquireDate,
-                                                        '0',
+                                                        functions
+                                                            .changeDateTimeToString(
+                                                                _model
+                                                                    .acquireDate),
+                                                        'No Date',
                                                       ),
                                                       style:
                                                           FlutterFlowTheme.of(
@@ -2571,13 +3702,17 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                           accountId: _model.accountDropDownValue,
                           description: _model.textController4.text,
                           debit: widget.debtOrCredit
-                              ? _model.textController1.text
+                              ? functions
+                                  .convertToInt(_model.textController1.text)
+                                  .toString()
                               : '0',
-                          credit: !_model.debitOrCredit
-                              ? _model.textController1.text
+                          credit: !widget.debtOrCredit
+                              ? functions
+                                  .convertToInt(_model.textController1.text)
+                                  .toString()
                               : '0',
                           counterpartyId:
-                              _model.counterpartycompanyDropDownValue,
+                              _model.counterpartycompanyDropDownValue1,
                           amount: double.tryParse(_model.textController1.text),
                         ).toMap();
                         safeSetState(() {});
@@ -2603,20 +3738,24 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                           _model.transactionDetail = TransactionDetailStruct(
                             accountId: _model.accountDropDownValue,
                             description: _model.textController4.text,
-                            debit: _model.debitOrCredit
-                                ? _model.textController1.text
+                            debit: widget.debtOrCredit
+                                ? functions
+                                    .convertToInt(_model.textController1.text)
+                                    .toString()
                                 : '0',
-                            credit: !_model.debitOrCredit
-                                ? _model.textController1.text
+                            credit: !widget.debtOrCredit
+                                ? functions
+                                    .convertToInt(_model.textController1.text)
+                                    .toString()
                                 : '0',
                             counterpartyId:
-                                _model.counterpartycompanyDropDownValue,
+                                _model.counterpartycompanyDropDownValue1,
                             amount:
                                 double.tryParse(_model.textController1.text),
                             debt: DebtStruct.maybeFromMap(
                                 DebtStruct.maybeFromMap(DebtStruct(
                               counterpartyId:
-                                  _model.counterpartycompanyDropDownValue,
+                                  _model.counterpartycompanyDropDownValue1,
                               direction: FFAppState()
                                   .financeAccount
                                   .where((e) =>
@@ -2625,14 +3764,19 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                   .toList()
                                   .firstOrNull
                                   ?.categoryTag,
-                              category: _model.debtDropdownValue,
+                              category: _model.debtDropdownValue1,
                               accountId: _model.accountDropDownValue,
                               originalAmount:
                                   int.tryParse(_model.textController1.text),
                               interestAccountId:
                                   '7e6a09b0-b689-4f25-897f-47105143b7bd',
-                              issueDate: _model.issueDate,
-                              dueDate: _model.dueDate,
+                              issueDate: _model.issueDate?.toString(),
+                              dueDate: _model.dueDate?.toString(),
+                              description: _model.textController4.text,
+                              linkedCounterpartyStoreId:
+                                  _model.counterpartystoreDropDownValue1,
+                              linkedCounterpartyCompanyId:
+                                  _model.selectedCounterparty,
                             ).toMap())
                                     ?.toMap()),
                           ).toMap();
@@ -2641,20 +3785,24 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                           _model.transactionDetail = TransactionDetailStruct(
                             accountId: _model.accountDropDownValue,
                             description: _model.textController4.text,
-                            debit: _model.debitOrCredit
-                                ? _model.textController1.text
+                            debit: widget.debtOrCredit
+                                ? functions
+                                    .convertToInt(_model.textController1.text)
+                                    .toString()
                                 : '0',
-                            credit: !_model.debitOrCredit
-                                ? _model.textController1.text
+                            credit: !widget.debtOrCredit
+                                ? functions
+                                    .convertToInt(_model.textController1.text)
+                                    .toString()
                                 : '0',
                             counterpartyId:
-                                _model.counterpartycompanyDropDownValue,
+                                _model.counterpartycompanyDropDownValue1,
                             amount:
                                 double.tryParse(_model.textController1.text),
                             fixAsset: FixAssetStruct(
                               assetName:
                                   _model.fixedAssetNameTextController.text,
-                              acquisitionDate: _model.acquireDate,
+                              acquisitionDate: _model.acquireDate?.toString(),
                               salvageValue: int.tryParse(
                                   _model.salvageValueTextController.text),
                               usefulLifeYears: _model.usefulLifeDropdownValue,

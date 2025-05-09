@@ -168,6 +168,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => InputWidget(),
         ),
         FFRoute(
+          name: CashBalanceWidget.routeName,
+          path: CashBalanceWidget.routePath,
+          builder: (context, params) => CashBalanceWidget(),
+        ),
+        FFRoute(
+          name: CashLocationWidget.routeName,
+          path: CashLocationWidget.routePath,
+          builder: (context, params) => CashLocationWidget(),
+        ),
+        FFRoute(
+          name: CashControlWidget.routeName,
+          path: CashControlWidget.routePath,
+          builder: (context, params) => CashControlWidget(),
+        ),
+        FFRoute(
           name: JournalInputWidget.routeName,
           path: JournalInputWidget.routePath,
           builder: (context, params) => JournalInputWidget(),

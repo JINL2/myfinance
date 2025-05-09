@@ -19,7 +19,8 @@ class DebtStruct extends BaseStruct {
     String? dueDate,
     String? status,
     String? description,
-    String? counterpartyStoreId,
+    String? linkedCounterpartyStoreId,
+    String? linkedCounterpartyCompanyId,
   })  : _counterpartyId = counterpartyId,
         _direction = direction,
         _category = category,
@@ -32,7 +33,8 @@ class DebtStruct extends BaseStruct {
         _dueDate = dueDate,
         _status = status,
         _description = description,
-        _counterpartyStoreId = counterpartyStoreId;
+        _linkedCounterpartyStoreId = linkedCounterpartyStoreId,
+        _linkedCounterpartyCompanyId = linkedCounterpartyCompanyId;
 
   // "counterparty_id" field.
   String? _counterpartyId;
@@ -124,12 +126,21 @@ class DebtStruct extends BaseStruct {
 
   bool hasDescription() => _description != null;
 
-  // "counterparty_store_id" field.
-  String? _counterpartyStoreId;
-  String get counterpartyStoreId => _counterpartyStoreId ?? '';
-  set counterpartyStoreId(String? val) => _counterpartyStoreId = val;
+  // "linkedCounterparty_store_id" field.
+  String? _linkedCounterpartyStoreId;
+  String get linkedCounterpartyStoreId => _linkedCounterpartyStoreId ?? '';
+  set linkedCounterpartyStoreId(String? val) =>
+      _linkedCounterpartyStoreId = val;
 
-  bool hasCounterpartyStoreId() => _counterpartyStoreId != null;
+  bool hasLinkedCounterpartyStoreId() => _linkedCounterpartyStoreId != null;
+
+  // "linkedCounterparty_companyId" field.
+  String? _linkedCounterpartyCompanyId;
+  String get linkedCounterpartyCompanyId => _linkedCounterpartyCompanyId ?? '';
+  set linkedCounterpartyCompanyId(String? val) =>
+      _linkedCounterpartyCompanyId = val;
+
+  bool hasLinkedCounterpartyCompanyId() => _linkedCounterpartyCompanyId != null;
 
   static DebtStruct fromMap(Map<String, dynamic> data) => DebtStruct(
         counterpartyId: data['counterparty_id'] as String?,
@@ -144,7 +155,10 @@ class DebtStruct extends BaseStruct {
         dueDate: data['due_date'] as String?,
         status: data['status'] as String?,
         description: data['description'] as String?,
-        counterpartyStoreId: data['counterparty_store_id'] as String?,
+        linkedCounterpartyStoreId:
+            data['linkedCounterparty_store_id'] as String?,
+        linkedCounterpartyCompanyId:
+            data['linkedCounterparty_companyId'] as String?,
       );
 
   static DebtStruct? maybeFromMap(dynamic data) =>
@@ -163,7 +177,8 @@ class DebtStruct extends BaseStruct {
         'due_date': _dueDate,
         'status': _status,
         'description': _description,
-        'counterparty_store_id': _counterpartyStoreId,
+        'linkedCounterparty_store_id': _linkedCounterpartyStoreId,
+        'linkedCounterparty_companyId': _linkedCounterpartyCompanyId,
       }.withoutNulls;
 
   @override
@@ -216,8 +231,12 @@ class DebtStruct extends BaseStruct {
           _description,
           ParamType.String,
         ),
-        'counterparty_store_id': serializeParam(
-          _counterpartyStoreId,
+        'linkedCounterparty_store_id': serializeParam(
+          _linkedCounterpartyStoreId,
+          ParamType.String,
+        ),
+        'linkedCounterparty_companyId': serializeParam(
+          _linkedCounterpartyCompanyId,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -284,8 +303,13 @@ class DebtStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        counterpartyStoreId: deserializeParam(
-          data['counterparty_store_id'],
+        linkedCounterpartyStoreId: deserializeParam(
+          data['linkedCounterparty_store_id'],
+          ParamType.String,
+          false,
+        ),
+        linkedCounterpartyCompanyId: deserializeParam(
+          data['linkedCounterparty_companyId'],
           ParamType.String,
           false,
         ),
@@ -309,7 +333,8 @@ class DebtStruct extends BaseStruct {
         dueDate == other.dueDate &&
         status == other.status &&
         description == other.description &&
-        counterpartyStoreId == other.counterpartyStoreId;
+        linkedCounterpartyStoreId == other.linkedCounterpartyStoreId &&
+        linkedCounterpartyCompanyId == other.linkedCounterpartyCompanyId;
   }
 
   @override
@@ -326,7 +351,8 @@ class DebtStruct extends BaseStruct {
         dueDate,
         status,
         description,
-        counterpartyStoreId
+        linkedCounterpartyStoreId,
+        linkedCounterpartyCompanyId
       ]);
 }
 
@@ -343,7 +369,8 @@ DebtStruct createDebtStruct({
   String? dueDate,
   String? status,
   String? description,
-  String? counterpartyStoreId,
+  String? linkedCounterpartyStoreId,
+  String? linkedCounterpartyCompanyId,
 }) =>
     DebtStruct(
       counterpartyId: counterpartyId,
@@ -358,5 +385,6 @@ DebtStruct createDebtStruct({
       dueDate: dueDate,
       status: status,
       description: description,
-      counterpartyStoreId: counterpartyStoreId,
+      linkedCounterpartyStoreId: linkedCounterpartyStoreId,
+      linkedCounterpartyCompanyId: linkedCounterpartyCompanyId,
     );
