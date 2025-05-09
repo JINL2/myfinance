@@ -212,19 +212,15 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                     ),
                     Switch(
                       value: _model.switchValue!,
-                      onChanged: (FFAppState().storeChoosen == '')
-                          ? null
-                          : (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue = newValue);
-                            },
+                      onChanged: (newValue) async {
+                        safeSetState(() => _model.switchValue = newValue);
+                      },
                       activeColor: FlutterFlowTheme.of(context).primary,
-                      activeTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                      activeTrackColor: FlutterFlowTheme.of(context).primary,
                       inactiveTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                          FlutterFlowTheme.of(context).alternate,
                       inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                          FlutterFlowTheme.of(context).primaryBackground,
                     ),
                   ],
                 ),
@@ -256,6 +252,7 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                                   ),
                         ),
                         Container(
+                          height: 50.0,
                           child: Visibility(
                             visible: _model.switchValue ?? true,
                             child: FlutterFlowDropDown<String>(
@@ -576,6 +573,13 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
+                ),
+              ),
+              Container(
+                width: 100.0,
+                height: 100.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
               ),
             ].divide(SizedBox(height: 16.0)),

@@ -228,19 +228,15 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                     ),
                     Switch(
                       value: _model.switchValue!,
-                      onChanged: true
-                          ? null
-                          : (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue = newValue);
-                            },
+                      onChanged: (newValue) async {
+                        safeSetState(() => _model.switchValue = newValue);
+                      },
                       activeColor: FlutterFlowTheme.of(context).primary,
-                      activeTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                      activeTrackColor: FlutterFlowTheme.of(context).primary,
                       inactiveTrackColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                          FlutterFlowTheme.of(context).alternate,
                       inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryText,
+                          FlutterFlowTheme.of(context).primaryBackground,
                     ),
                   ],
                 ),
