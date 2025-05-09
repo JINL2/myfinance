@@ -35,7 +35,7 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
     _model.cashLocationNameTextController ??= TextEditingController();
     _model.cashLocationNameFocusNode ??= FocusNode();
 
-    _model.instoreSwitchValue = true;
+    _model.instoreSwitchValue = false;
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
   }
@@ -568,13 +568,6 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
-                ),
-              ),
-              Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
               ),
             ].divide(SizedBox(height: 16.0)),
