@@ -529,7 +529,7 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                       safeSetState(() {});
                       await CashLocationsTable().update(
                         data: {
-                          'company_id': FFAppState().user.userId,
+                          'company_id': FFAppState().companyChoosen,
                           'store_id': _model.storeNameDropdownValue,
                           'location_name':
                               _model.cashLocationNameTextController.text,
