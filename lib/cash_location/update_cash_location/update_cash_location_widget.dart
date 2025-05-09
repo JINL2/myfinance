@@ -241,7 +241,7 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                   ],
                 ),
               ),
-              if (_model.isOnlyMyStore)
+              if (_model.switchValue ?? true)
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                   child: Column(
