@@ -17,8 +17,6 @@ class UpdateCashLocationModel
   TextEditingController? cashLocationNameTextController;
   String? Function(BuildContext, String?)?
       cashLocationNameTextControllerValidator;
-  // State field(s) for Switch widget.
-  bool? switchValue;
   // State field(s) for storeNameDropdown widget.
   String? storeNameDropdownValue;
   FormFieldController<String>? storeNameDropdownValueController;
