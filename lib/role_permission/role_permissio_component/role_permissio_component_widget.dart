@@ -1,9 +1,11 @@
 import '/backend/supabase/supabase.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/jeong_work/popup/popup_widget.dart';
 import '/role_permission/update_roles_v1/update_roles_v1_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'role_permissio_component_model.dart';
@@ -12,14 +14,10 @@ export 'role_permissio_component_model.dart';
 class RolePermissioComponentWidget extends StatefulWidget {
   const RolePermissioComponentWidget({
     super.key,
-    this.color,
-    this.image,
     this.companyname,
     required this.roleDetails,
   });
 
-  final Color? color;
-  final String? image;
   final String? companyname;
   final ViewRolesWithPermissionsRow? roleDetails;
 
@@ -29,8 +27,10 @@ class RolePermissioComponentWidget extends StatefulWidget {
 }
 
 class _RolePermissioComponentWidgetState
-    extends State<RolePermissioComponentWidget> {
+    extends State<RolePermissioComponentWidget> with TickerProviderStateMixin {
   late RolePermissioComponentModel _model;
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -42,6 +42,28 @@ class _RolePermissioComponentWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => RolePermissioComponentModel());
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 80.0),
+            end: Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -55,48 +77,32 @@ class _RolePermissioComponentWidgetState
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 8.0),
-      child: Container(
-        width: MediaQuery.sizeOf(context).width * 1.0,
-        decoration: BoxDecoration(
-          color: widget.color,
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 0.0,
-              color: FlutterFlowTheme.of(context).secondaryBackground,
-            )
-          ],
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 0.0, 12.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      widget.roleDetails?.roleName,
-                      'Error',
-                    ),
-                    maxLines: 1,
-                    style: FlutterFlowTheme.of(context).titleMedium.override(
-                          font: GoogleFonts.notoSansJp(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .fontStyle,
-                          ),
-                          letterSpacing: 0.0,
+    return Container(
+      width: MediaQuery.sizeOf(context).width * 1.0,
+      height: 72.0,
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 12.0, 8.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: AlignmentDirectional(-1.0, 0.0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 0.0, 12.0),
+                child: Text(
+                  valueOrDefault<String>(
+                    widget.roleDetails?.roleName,
+                    'Error',
+                  ),
+                  maxLines: 1,
+                  style: FlutterFlowTheme.of(context).titleMedium.override(
+                        font: GoogleFonts.notoSansJp(
                           fontWeight: FlutterFlowTheme.of(context)
                               .titleMedium
                               .fontWeight,
@@ -104,18 +110,27 @@ class _RolePermissioComponentWidgetState
                               .titleMedium
                               .fontStyle,
                         ),
-                  ),
+                        letterSpacing: 0.0,
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                      ),
                 ),
               ),
-              if (widget.roleDetails?.roleType != 'owner')
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-                  child: InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
+            ),
+            if (widget.roleDetails?.roleType != 'owner')
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    if (FFAppState().isLoading2 == false) {
+                      FFAppState().isLoading2 = true;
+                      safeSetState(() {});
                       await showModalBottomSheet(
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
@@ -138,18 +153,21 @@ class _RolePermissioComponentWidgetState
                           );
                         },
                       ).then((value) => safeSetState(() {}));
-                    },
-                    child: Icon(
-                      Icons.edit_outlined,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 28.0,
-                    ),
+
+                      FFAppState().isLoading2 = false;
+                      safeSetState(() {});
+                    }
+                  },
+                  child: Icon(
+                    Icons.edit_outlined,
+                    color: FlutterFlowTheme.of(context).primary,
+                    size: 28.0,
                   ),
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
-    );
+    ).animateOnPageLoad(animationsMap['containerOnPageLoadAnimation']!);
   }
 }

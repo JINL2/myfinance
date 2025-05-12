@@ -24,7 +24,16 @@ import 'homepage_model.dart';
 export 'homepage_model.dart';
 
 class HomepageWidget extends StatefulWidget {
-  const HomepageWidget({super.key});
+  const HomepageWidget({
+    super.key,
+    this.firstLogin,
+    this.companyclicked,
+    this.storeclicked,
+  });
+
+  final bool? firstLogin;
+  final bool? companyclicked;
+  final bool? storeclicked;
 
   static String routeName = 'homepage';
   static String routePath = '/homepage';
@@ -49,46 +58,139 @@ class _HomepageWidgetState extends State<HomepageWidget> {
       FFAppState().isLoading2 = false;
       FFAppState().isLoading3 = false;
       safeSetState(() {});
-      if (FFAppState().localMyCompanyCount != FFAppState().user.companyCount) {
-        _model.newgetInitialUserData = await GetUserCompaniesCall.call(
-          pUserId: currentUserUid,
+      _model.firstLogIn =
+          widget.firstLogin != null ? widget.firstLogin : false;
+      _model.companyclicked = widget.companyclicked;
+      _model.storeclicked = widget.storeclicked;
+      safeSetState(() {});
+      if (_model.firstLogIn!) {
+        FFAppState().isLoading1 = true;
+        safeSetState(() {});
+        _model.userinformation1 = await GetUserCompaniesCall.call(
+          pUserId: FFAppState().user.userId,
         );
 
-        if ((_model.newgetInitialUserData?.succeeded ?? true)) {
+        if ((_model.userinformation1?.succeeded ?? true)) {
           FFAppState().user = UserStruct.maybeFromMap(
-              (_model.newgetInitialUserData?.jsonBody ?? ''))!;
+              (_model.userinformation1?.jsonBody ?? ''))!;
           safeSetState(() {});
-          FFAppState().localMyCompanyCount = GetUserCompaniesCall.compnycount(
-            (_model.newgetInitialUserData?.jsonBody ?? ''),
-          )!;
-          safeSetState(() {});
-          FFAppState().companyChoosen =
-              FFAppState().user.companies.lastOrNull!.companyId;
-          FFAppState().storeChoosen = FFAppState()
-              .user
-              .companies
-              .lastOrNull!
-              .stores
-              .firstOrNull!
-              .storeId;
-          safeSetState(() {});
-        }
-      } else {
-        if (!(FFAppState().companyChoosen != '')) {
+          FFAppState().localMyCompanyCount = FFAppState().user.companyCount;
           FFAppState().companyChoosen =
               FFAppState().user.companies.firstOrNull!.companyId;
           safeSetState(() {});
+        } else {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text('Something Wrong1'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
         }
-        if (!(FFAppState().storeChoosen != '')) {
-          FFAppState().storeChoosen = FFAppState()
-              .user
-              .companies
-              .firstOrNull!
-              .stores
-              .firstOrNull!
-              .storeId;
+
+        _model.usercategory1 = await GetCategoriesWithFeaturesCall.call();
+
+        if ((_model.usercategory1?.succeeded ?? true)) {
+          FFAppState().categoryFeatures =
+              ((_model.usercategory1?.jsonBody ?? '')
+                      .toList()
+                      .map<CategoryFeaturesStruct?>(
+                          CategoryFeaturesStruct.maybeFromMap)
+                      .toList() as Iterable<CategoryFeaturesStruct?>)
+                  .withoutNulls
+                  .toList()
+                  .cast<CategoryFeaturesStruct>();
           safeSetState(() {});
+        } else {
+          await showDialog(
+            context: context,
+            builder: (alertDialogContext) {
+              return AlertDialog(
+                title: Text('Something Wrong2'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(alertDialogContext),
+                    child: Text('Ok'),
+                  ),
+                ],
+              );
+            },
+          );
         }
+
+        FFAppState().isLoading1 = false;
+        safeSetState(() {});
+      } else {
+        if (FFAppState().localMyCompanyCount !=
+            FFAppState().user.companyCount) {
+          FFAppState().isLoading2 = true;
+          safeSetState(() {});
+          _model.userinformation2 = await GetUserCompaniesCall.call(
+            pUserId: FFAppState().user.userId,
+          );
+
+          if ((_model.userinformation2?.succeeded ?? true)) {
+            FFAppState().user = UserStruct.maybeFromMap(
+                (_model.userinformation2?.jsonBody ?? ''))!;
+            safeSetState(() {});
+          } else {
+            await showDialog(
+              context: context,
+              builder: (alertDialogContext) {
+                return AlertDialog(
+                  title: Text('Something Wrong'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext),
+                      child: Text('Ok'),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+
+          _model.usercate = await GetCategoriesWithFeaturesCall.call();
+
+          if ((_model.usercate?.succeeded ?? true)) {
+            FFAppState().categoryFeatures = ((_model.usercate?.jsonBody ?? '')
+                    .toList()
+                    .map<CategoryFeaturesStruct?>(
+                        CategoryFeaturesStruct.maybeFromMap)
+                    .toList() as Iterable<CategoryFeaturesStruct?>)
+                .withoutNulls
+                .toList()
+                .cast<CategoryFeaturesStruct>();
+            safeSetState(() {});
+          }
+          FFAppState().isLoading2 = false;
+          safeSetState(() {});
+        } else {
+          if (widget.companyclicked != true) {
+            if (widget.storeclicked != true) {
+              FFAppState().companyChoosen =
+                  FFAppState().user.companies.firstOrNull!.companyId;
+              FFAppState().storeChoosen = FFAppState()
+                  .user
+                  .companies
+                  .firstOrNull!
+                  .stores
+                  .firstOrNull!
+                  .storeId;
+              safeSetState(() {});
+            }
+          }
+        }
+
+        FFAppState().isLoading2 = false;
+        safeSetState(() {});
       }
     });
   }
@@ -254,10 +356,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                       child: PopupWidget(
                                         popupTitle: 'Create Company',
                                         widgetBuilder: () =>
-                                            CreateCompanyF1Widget(
-                                          widgetTitle1: 'Company Name',
-                                          widgetTitle2: 'Select Type',
-                                        ),
+                                            CreateCompanyF1Widget(),
                                       ),
                                     ),
                                   );
@@ -353,10 +452,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                       child: PopupWidget(
                                         popupTitle: 'Join By Code',
                                         widgetBuilder: () =>
-                                            CreateCompanyByCodeF1Widget(
-                                          widgetTitle1: 'Put Your Code',
-                                          widgetTitle2: 'Confirm',
-                                        ),
+                                            CreateCompanyByCodeF1Widget(),
                                       ),
                                     ),
                                   );
@@ -662,162 +758,86 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            _model.getInitialUserData =
-                                                await GetUserCompaniesCall.call(
-                                              pUserId: currentUserUid,
+                                            _model.apiResultprb =
+                                                await GetNotMyCounterPartyCall
+                                                    .call(
+                                              pUserId: FFAppState().user.userId,
+                                              pCompanyId:
+                                                  FFAppState().companyChoosen,
                                             );
 
-                                            if ((_model.getInitialUserData
-                                                    ?.succeeded ??
-                                                true)) {
-                                              FFAppState().user =
-                                                  UserStruct.maybeFromMap(
-                                                      (_model.getInitialUserData
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('API success'),
+                                                  content: Text((_model
+                                                              .apiResultprb
                                                               ?.jsonBody ??
-                                                          ''))!;
-                                              safeSetState(() {});
-                                              FFAppState().companyChoosen =
-                                                  FFAppState()
-                                                      .user
-                                                      .companies
-                                                      .firstOrNull!
-                                                      .companyId;
-                                              FFAppState().storeChoosen =
-                                                  FFAppState()
-                                                      .user
-                                                      .companies
-                                                      .firstOrNull!
-                                                      .stores
-                                                      .firstOrNull!
-                                                      .storeId;
-                                              safeSetState(() {});
-                                            }
-                                            _model.categoryFeatures =
-                                                await GetCategoriesWithFeaturesCall
-                                                    .call();
-
-                                            if ((_model.categoryFeatures
-                                                    ?.succeeded ??
+                                                          '')
+                                                      .toString()),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                            if ((_model
+                                                    .apiResultprb?.succeeded ??
                                                 true)) {
-                                              FFAppState()
-                                                  .categoryFeatures = ((_model
-                                                                  .categoryFeatures
-                                                                  ?.jsonBody ??
-                                                              '')
-                                                          .toList()
-                                                          .map<CategoryFeaturesStruct?>(
-                                                              CategoryFeaturesStruct
-                                                                  .maybeFromMap)
-                                                          .toList()
-                                                      as Iterable<
-                                                          CategoryFeaturesStruct?>)
-                                                  .withoutNulls
-                                                  .toList()
-                                                  .cast<
-                                                      CategoryFeaturesStruct>();
-                                              safeSetState(() {});
+                                              if (functions.isListHaveString(
+                                                  FFAppState().companyChoosen,
+                                                  (_model.apiResultprb
+                                                          ?.jsonBody ??
+                                                      ''))!) {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text('Have'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          Text('Don\'t have'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              }
                                             }
-                                            FFAppState().companyChoosen =
-                                                FFAppState().companyChoosen;
-                                            FFAppState().storeChoosen =
-                                                FFAppState().storeChoosen;
-                                            FFAppState().categoryFeatures =
-                                                FFAppState()
-                                                    .categoryFeatures
-                                                    .toList()
-                                                    .cast<
-                                                        CategoryFeaturesStruct>();
-                                            FFAppState().selectedFeatures =
-                                                FFAppState()
-                                                    .selectedFeatures
-                                                    .toList()
-                                                    .cast<String>();
-                                            safeSetState(() {});
 
                                             safeSetState(() {});
                                           },
                                           child: Text(
-                                            'API Call',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.notoSansJp(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                                AttendanceWidget.routeName);
-                                          },
-                                          child: Text(
-                                            'Move To Location',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  font: GoogleFonts.notoSansJp(
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                                  letterSpacing: 0.0,
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .fontStyle,
-                                                ),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed(
-                                                TestattendWidget.routeName);
-                                          },
-                                          child: Text(
-                                            'test',
+                                            'Hello World',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -854,17 +874,45 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                               ),
                             ),
                           ),
-                          Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'Your Store : ${functions.getStoreNameByIdFromList(FFAppState().user.companies.where((e) => FFAppState().companyChoosen == e.companyId).toList().firstOrNull?.stores.toList(), FFAppState().storeChoosen)}',
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
-                                      font: GoogleFonts.notoSansJp(
+                          if (FFAppState().storeChoosen != '')
+                            Align(
+                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 0.0, 0.0, 0.0),
+                                child: Text(
+                                  'Your Store : ${valueOrDefault<String>(
+                                    functions.getStoreNameByIdFromList(
+                                        FFAppState()
+                                            .user
+                                            .companies
+                                            .where((e) =>
+                                                FFAppState().companyChoosen ==
+                                                e.companyId)
+                                            .toList()
+                                            .firstOrNull
+                                            ?.stores
+                                            .toList(),
+                                        FFAppState().storeChoosen),
+                                    'Mother Company',
+                                  )}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .override(
+                                        font: GoogleFonts.notoSansJp(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMedium
+                                                  .fontStyle,
+                                        ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        fontSize: 15.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .fontWeight,
@@ -872,56 +920,130 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                             .titleMedium
                                             .fontStyle,
                                       ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                      fontSize: 15.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
+                                ),
                               ),
                             ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              GoRouter.of(context).prepareAuthEvent();
-                              await authManager.signOut();
-                              GoRouter.of(context).clearRedirectLocation();
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 12.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    GoRouter.of(context).prepareAuthEvent();
+                                    await authManager.signOut();
+                                    GoRouter.of(context)
+                                        .clearRedirectLocation();
 
-                              context.goNamedAuth(
-                                  Auth1Widget.routeName, context.mounted);
-                            },
-                            child: Text(
-                              'Today Sales: ',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
+                                    context.goNamedAuth(
+                                        Auth1Widget.routeName, context.mounted);
+                                  },
+                                  child: Text(
+                                    'LogOut',
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .override(
+                                          font: GoogleFonts.notoSansJp(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    if (FFAppState().isLoading3 == false) {
+                                      FFAppState().isLoading3 = true;
+                                      safeSetState(() {});
+                                      _model.apiuser =
+                                          await GetUserCompaniesCall.call(
+                                        pUserId: currentUserUid,
+                                      );
+
+                                      if ((_model.apiuser?.succeeded ?? true)) {
+                                        FFAppState().user =
+                                            UserStruct.maybeFromMap(
+                                                (_model.apiuser?.jsonBody ??
+                                                    ''))!;
+                                        safeSetState(() {});
+                                        FFAppState().companyChoosen =
+                                            FFAppState()
+                                                .user
+                                                .companies
+                                                .firstOrNull!
+                                                .companyId;
+                                        FFAppState().storeChoosen = FFAppState()
+                                            .user
+                                            .companies
+                                            .firstOrNull!
+                                            .stores
+                                            .firstOrNull!
+                                            .storeId;
+                                        safeSetState(() {});
+                                      }
+                                      _model.apicategory =
+                                          await GetCategoriesWithFeaturesCall
+                                              .call();
+
+                                      if ((_model.apicategory?.succeeded ??
+                                          true)) {
+                                        FFAppState().categoryFeatures = ((_model
+                                                            .apicategory
+                                                            ?.jsonBody ??
+                                                        '')
+                                                    .toList()
+                                                    .map<CategoryFeaturesStruct?>(
+                                                        CategoryFeaturesStruct
+                                                            .maybeFromMap)
+                                                    .toList()
+                                                as Iterable<
+                                                    CategoryFeaturesStruct?>)
+                                            .withoutNulls
+                                            .toList()
+                                            .cast<CategoryFeaturesStruct>();
+                                        safeSetState(() {});
+                                      }
+                                      FFAppState().isLoading3 = false;
+                                      safeSetState(() {});
+                                    }
+
+                                    safeSetState(() {});
+                                  },
+                                  child: Icon(
+                                    Icons.sync_outlined,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryBackground,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
+                                    size: 24.0,
                                   ),
+                                ),
+                              ].divide(SizedBox(width: 8.0)),
                             ),
                           ),
                         ].divide(SizedBox(height: 4.0)),
@@ -934,7 +1056,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 100.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       child: SingleChildScrollView(
                         child: Column(

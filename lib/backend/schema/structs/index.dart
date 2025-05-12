@@ -1,7 +1,10 @@
 export '/backend/schema/util/schema_util.dart';
 
 export 'calendar_day_struct.dart';
+export 'account_mapping_struct.dart';
 export 'approved_employees_struct.dart';
+export 'cash_struct.dart';
+export 'cash_ending_struct.dart';
 export 'category_features_struct.dart';
 export 'companies_struct.dart';
 export 'debt_struct.dart';

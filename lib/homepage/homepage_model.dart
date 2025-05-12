@@ -9,10 +9,24 @@ import 'homepage_widget.dart' show HomepageWidget;
 import 'package:flutter/material.dart';
 
 class HomepageModel extends FlutterFlowModel<HomepageWidget> {
+  ///  Local state fields for this page.
+
+  bool? firstLogIn;
+
+  bool? companyclicked;
+
+  bool? storeclicked;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (getUserCompanies)] action in homepage widget.
-  ApiCallResponse? newgetInitialUserData;
+  ApiCallResponse? userinformation1;
+  // Stores action output result for [Backend Call - API (getCategoriesWithFeatures)] action in homepage widget.
+  ApiCallResponse? usercategory1;
+  // Stores action output result for [Backend Call - API (getUserCompanies)] action in homepage widget.
+  ApiCallResponse? userinformation2;
+  // Stores action output result for [Backend Call - API (getCategoriesWithFeatures)] action in homepage widget.
+  ApiCallResponse? usercate;
   // Models for DrawerListView dynamic component.
   late FlutterFlowDynamicModels<DrawerListViewModel> drawerListViewModels;
   // Model for addCompany.
@@ -23,10 +37,12 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
   late AddModel addByCodeModel;
   // Model for showCode.
   late AddModel showCodeModel;
-  // Stores action output result for [Backend Call - API (getUserCompanies)] action in Text widget.
-  ApiCallResponse? getInitialUserData;
-  // Stores action output result for [Backend Call - API (getCategoriesWithFeatures)] action in Text widget.
-  ApiCallResponse? categoryFeatures;
+  // Stores action output result for [Backend Call - API (GetNotMyCounterParty)] action in Text widget.
+  ApiCallResponse? apiResultprb;
+  // Stores action output result for [Backend Call - API (getUserCompanies)] action in Icon widget.
+  ApiCallResponse? apiuser;
+  // Stores action output result for [Backend Call - API (getCategoriesWithFeatures)] action in Icon widget.
+  ApiCallResponse? apicategory;
   // Models for HomeCateListViewV1 dynamic component.
   late FlutterFlowDynamicModels<HomeCateListViewV1Model>
       homeCateListViewV1Models;

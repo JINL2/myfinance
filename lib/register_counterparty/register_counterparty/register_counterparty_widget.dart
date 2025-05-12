@@ -54,90 +54,183 @@ class _RegisterCounterpartyWidgetState
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: wrapWithModel(
-                  model: _model.menuBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: MenuBarWidget(
-                    menuName: 'Role List',
+    return FutureBuilder<List<CounterpartiesRow>>(
+      future: CounterpartiesTable().queryRows(
+        queryFn: (q) => q
+            .eqOrNull(
+              'company_id',
+              FFAppState().companyChoosen,
+            )
+            .order('created_at', ascending: true),
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: Center(
+              child: SizedBox(
+                width: 80.0,
+                height: 80.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).primary,
                   ),
                 ),
               ),
-              Expanded(
-                child: Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
+            ),
+          );
+        }
+        List<CounterpartiesRow> registerCounterpartyCounterpartiesRowList =
+            snapshot.data!;
+
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            body: SafeArea(
+              top: true,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Container(
+                    width: MediaQuery.sizeOf(context).width * 1.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                    ),
+                    child: wrapWithModel(
+                      model: _model.menuBarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: MenuBarWidget(
+                        menuName: 'Counter Party',
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            40.0, 0.0, 40.0, 0.0),
-                        child: Row(
+                  Expanded(
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Expanded(
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  40.0, 0.0, 40.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Flexible(
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        FFAppState()
-                                            .user
-                                            .companies
-                                            .where((e) =>
-                                                FFAppState().companyChoosen ==
-                                                e.companyId)
-                                            .toList()
-                                            .firstOrNull
-                                            ?.companyName,
-                                        'CompanyName',
-                                      ),
-                                      maxLines: 1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineSmall
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              FFAppState()
+                                                  .user
+                                                  .companies
+                                                  .where((e) =>
+                                                      FFAppState()
+                                                          .companyChoosen ==
+                                                      e.companyId)
+                                                  .toList()
+                                                  .firstOrNull
+                                                  ?.companyName,
+                                              'CompanyName',
                                             ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineSmall
+                                                .override(
+                                                  font: GoogleFonts.notoSansJp(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .headlineSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineSmall
+                                                          .fontStyle,
+                                                ),
                                           ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 0.0, 0.0, 0.0),
+                                    child: Container(
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return GestureDetector(
+                                                onTap: () {
+                                                  FocusScope.of(context)
+                                                      .unfocus();
+                                                  FocusManager
+                                                      .instance.primaryFocus
+                                                      ?.unfocus();
+                                                },
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: Container(
+                                                    height: MediaQuery.sizeOf(
+                                                                context)
+                                                            .height *
+                                                        0.8,
+                                                    child:
+                                                        CreateCounterpartyWidget(),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        child: wrapWithModel(
+                                          model: _model.addPartyModel,
+                                          updateCallback: () =>
+                                              safeSetState(() {}),
+                                          child: AddWidget(
+                                            name: '+Add',
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -145,120 +238,58 @@ class _RegisterCounterpartyWidgetState
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
-                              child: Container(
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (FFAppState().isLoading1 == false) {
-                                      FFAppState().isLoading1 = true;
-                                      safeSetState(() {});
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        enableDrag: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              FocusScope.of(context).unfocus();
-                                              FocusManager.instance.primaryFocus
-                                                  ?.unfocus();
-                                            },
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: CreateCounterpartyWidget(),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(() {}));
+                                  16.0, 16.0, 16.0, 0.0),
+                              child: Builder(
+                                builder: (context) {
+                                  final counterpartydata =
+                                      registerCounterpartyCounterpartiesRowList
+                                          .toList();
 
-                                      FFAppState().isLoading1 = false;
-                                      safeSetState(() {});
-                                    }
-                                  },
-                                  child: wrapWithModel(
-                                    model: _model.addPartyModel,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: AddWidget(
-                                      name: '+ Add party',
-                                    ),
-                                  ),
-                                ),
+                                  return ListView.separated(
+                                    padding: EdgeInsets.zero,
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: counterpartydata.length,
+                                    separatorBuilder: (_, __) =>
+                                        SizedBox(height: 12.0),
+                                    itemBuilder:
+                                        (context, counterpartydataIndex) {
+                                      final counterpartydataItem =
+                                          counterpartydata[
+                                              counterpartydataIndex];
+                                      return wrapWithModel(
+                                        model: _model.counterpartyListModels
+                                            .getModel(
+                                          counterpartydataItem.counterpartyId,
+                                          counterpartydataIndex,
+                                        ),
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: CounterpartyListWidget(
+                                          key: Key(
+                                            'Key175_${counterpartydataItem.counterpartyId}',
+                                          ),
+                                          counterpartyData:
+                                              counterpartydataItem,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 0.0),
-                        child: FutureBuilder<List<CounterpartiesRow>>(
-                          future: CounterpartiesTable().queryRows(
-                            queryFn: (q) => q
-                                .eqOrNull(
-                                  'company_id',
-                                  FFAppState().companyChoosen,
-                                )
-                                .order('created_at', ascending: true),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-                            List<CounterpartiesRow>
-                                listViewCounterpartiesRowList = snapshot.data!;
-
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: listViewCounterpartiesRowList.length,
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewCounterpartiesRow =
-                                    listViewCounterpartiesRowList[
-                                        listViewIndex];
-                                return wrapWithModel(
-                                  model: _model.counterpartyListModels.getModel(
-                                    listViewCounterpartiesRow.counterpartyId,
-                                    listViewIndex,
-                                  ),
-                                  updateCallback: () => safeSetState(() {}),
-                                  child: CounterpartyListWidget(
-                                    key: Key(
-                                      'Key175_${listViewCounterpartiesRow.counterpartyId}',
-                                    ),
-                                    counterpartyData: listViewCounterpartiesRow,
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

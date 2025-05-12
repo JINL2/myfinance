@@ -103,11 +103,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => StoreShiftSettingWidget(),
         ),
         FFRoute(
-          name: RolePermissionPageWidget.routeName,
-          path: RolePermissionPageWidget.routePath,
-          builder: (context, params) => RolePermissionPageWidget(),
-        ),
-        FFRoute(
           name: DelegateRolePageWidget.routeName,
           path: DelegateRolePageWidget.routePath,
           builder: (context, params) => DelegateRolePageWidget(),
@@ -138,24 +133,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ChooseCompanyWidget(),
         ),
         FFRoute(
-          name: HomepageWidget.routeName,
-          path: HomepageWidget.routePath,
-          builder: (context, params) => HomepageWidget(),
-        ),
-        FFRoute(
-          name: AttendanceWidget.routeName,
-          path: AttendanceWidget.routePath,
-          builder: (context, params) => AttendanceWidget(),
-        ),
-        FFRoute(
           name: TimeTableUserWidget.routeName,
           path: TimeTableUserWidget.routePath,
           builder: (context, params) => TimeTableUserWidget(),
-        ),
-        FFRoute(
-          name: TimetableManageWidget.routeName,
-          path: TimetableManageWidget.routePath,
-          builder: (context, params) => TimetableManageWidget(),
         ),
         FFRoute(
           name: TestattendWidget.routeName,
@@ -183,9 +163,72 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CashControlWidget(),
         ),
         FFRoute(
+          name: AccountMappingWidget.routeName,
+          path: AccountMappingWidget.routePath,
+          builder: (context, params) => AccountMappingWidget(),
+        ),
+        FFRoute(
+          name: RolePermissionPageWidget.routeName,
+          path: RolePermissionPageWidget.routePath,
+          builder: (context, params) => RolePermissionPageWidget(),
+        ),
+        FFRoute(
+          name: HomepageWidget.routeName,
+          path: HomepageWidget.routePath,
+          builder: (context, params) => HomepageWidget(
+            firstLogin: params.getParam(
+              'firstLogin',
+              ParamType.bool,
+            ),
+            companyclicked: params.getParam(
+              'companyclicked',
+              ParamType.bool,
+            ),
+            storeclicked: params.getParam(
+              'storeclicked',
+              ParamType.bool,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: AttendanceWidget.routeName,
+          path: AttendanceWidget.routePath,
+          builder: (context, params) => AttendanceWidget(),
+        ),
+        FFRoute(
+          name: TimetableManageWidget.routeName,
+          path: TimetableManageWidget.routePath,
+          builder: (context, params) => TimetableManageWidget(),
+        ),
+        FFRoute(
           name: JournalInputWidget.routeName,
           path: JournalInputWidget.routePath,
           builder: (context, params) => JournalInputWidget(),
+        ),
+        FFRoute(
+          name: CashMovementWidget.routeName,
+          path: CashMovementWidget.routePath,
+          builder: (context, params) => CashMovementWidget(),
+        ),
+        FFRoute(
+          name: RegisterDenominationWidget.routeName,
+          path: RegisterDenominationWidget.routePath,
+          builder: (context, params) => RegisterDenominationWidget(),
+        ),
+        FFRoute(
+          name: CashEndingWidget.routeName,
+          path: CashEndingWidget.routePath,
+          builder: (context, params) => CashEndingWidget(),
+        ),
+        FFRoute(
+          name: AccountMappingCopyWidget.routeName,
+          path: AccountMappingCopyWidget.routePath,
+          builder: (context, params) => AccountMappingCopyWidget(),
+        ),
+        FFRoute(
+          name: CreateTemplateWidget.routeName,
+          path: CreateTemplateWidget.routePath,
+          builder: (context, params) => CreateTemplateWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

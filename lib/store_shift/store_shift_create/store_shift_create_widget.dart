@@ -60,10 +60,10 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
         maxWidth: 602.0,
       ),
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -118,34 +118,34 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
                             ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
+                        color: Color(0xFFE0E3E7),
+                        width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
-                        color: Color(0x00000000),
-                        width: 1.0,
+                        color: Color(0xFF4B39EF),
+                        width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     errorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).error,
-                        width: 1.0,
+                        width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     focusedErrorBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).error,
-                        width: 1.0,
+                        width: 2.0,
                       ),
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     filled: true,
-                    fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                    fillColor: FlutterFlowTheme.of(context).info,
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.notoSansJp(
@@ -466,8 +466,8 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
                 ),
                 fillColor: FlutterFlowTheme.of(context).primaryBackground,
                 elevation: 2.0,
-                borderColor: Color(0xFFE0E3E7),
-                borderWidth: 2.0,
+                borderColor: FlutterFlowTheme.of(context).primary,
+                borderWidth: 1.0,
                 borderRadius: 12.0,
                 margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                 hidesUnderline: true,
@@ -501,8 +501,7 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
                       context: context,
                       builder: (alertDialogContext) {
                         return AlertDialog(
-                          title: Text('Add Shift'),
-                          content: Text('Success'),
+                          title: Text('Add Shft Success'),
                           actions: [
                             TextButton(
                               onPressed: () =>

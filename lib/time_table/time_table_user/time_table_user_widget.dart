@@ -1012,243 +1012,379 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             1.0, 0.0, 0.0, 0.0),
                                         child: Column(
-                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisSize: MainAxisSize.min,
                                           children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Text(
-                                                  'Filter: ',
-                                                  style: FlutterFlowTheme.of(
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                border: Border.all(
+                                                  color: FlutterFlowTheme.of(
                                                           context)
-                                                      .titleMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .notoSansJp(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .fontStyle,
-                                                      ),
+                                                      .primary,
                                                 ),
-                                                Row(
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 4.0, 0.0, 4.0),
+                                                child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
                                                     Text(
-                                                      'Store  ',
+                                                      'Filter',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .bodyMedium
+                                                              .titleMedium
                                                               .override(
                                                                 font: GoogleFonts
                                                                     .notoSansJp(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyMedium
+                                                                      .titleMedium
                                                                       .fontWeight,
                                                                   fontStyle: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyMedium
+                                                                      .titleMedium
                                                                       .fontStyle,
                                                                 ),
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMedium
+                                                                    .titleMedium
                                                                     .fontWeight,
                                                                 fontStyle: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMedium
+                                                                    .titleMedium
                                                                     .fontStyle,
                                                               ),
                                                     ),
-                                                    FlutterFlowDropDown<String>(
-                                                      controller: _model
-                                                              .filterStoreValueController ??=
-                                                          FormFieldController<
-                                                              String>(
-                                                        _model.filterStoreValue ??=
-                                                            '',
-                                                      ),
-                                                      options: List<
-                                                              String>.from(
-                                                          FFAppState()
-                                                              .user
-                                                              .companies
-                                                              .where((e) =>
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Text(
+                                                              'Store  ',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
+                                                            FlutterFlowDropDown<
+                                                                String>(
+                                                              controller: _model
+                                                                      .filterStoreValueController ??=
+                                                                  FormFieldController<
+                                                                      String>(
+                                                                _model.filterStoreValue ??=
+                                                                    '',
+                                                              ),
+                                                              options: List<String>.from(FFAppState()
+                                                                  .user
+                                                                  .companies
+                                                                  .where((e) =>
+                                                                      FFAppState()
+                                                                          .companyChoosen ==
+                                                                      e
+                                                                          .companyId)
+                                                                  .toList()
+                                                                  .firstOrNull!
+                                                                  .stores
+                                                                  .map((e) =>
+                                                                      e.storeId)
+                                                                  .toList()),
+                                                              optionLabels: FFAppState()
+                                                                  .user
+                                                                  .companies
+                                                                  .where((e) =>
+                                                                      FFAppState()
+                                                                          .companyChoosen ==
+                                                                      e
+                                                                          .companyId)
+                                                                  .toList()
+                                                                  .firstOrNull!
+                                                                  .stores
+                                                                  .map((e) => e
+                                                                      .storeName)
+                                                                  .toList(),
+                                                              onChanged:
+                                                                  (val) async {
+                                                                safeSetState(() =>
+                                                                    _model.filterStoreValue =
+                                                                        val);
+                                                                if (FFAppState()
+                                                                        .isLoading3 ==
+                                                                    false) {
                                                                   FFAppState()
-                                                                      .companyChoosen ==
-                                                                  e.companyId)
-                                                              .toList()
-                                                              .firstOrNull!
-                                                              .stores
-                                                              .map((e) =>
-                                                                  e.storeId)
-                                                              .toList()),
-                                                      optionLabels: FFAppState()
-                                                          .user
-                                                          .companies
-                                                          .where((e) =>
-                                                              FFAppState()
-                                                                  .companyChoosen ==
-                                                              e.companyId)
-                                                          .toList()
-                                                          .firstOrNull!
-                                                          .stores
-                                                          .map((e) =>
-                                                              e.storeName)
-                                                          .toList(),
-                                                      onChanged: (val) =>
-                                                          safeSetState(() =>
-                                                              _model.filterStoreValue =
-                                                                  val),
-                                                      width: 100.0,
-                                                      height: 30.0,
-                                                      textStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .notoSansJp(
-                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          .isLoading3 =
+                                                                      true;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                  _model.shiftId =
+                                                                      null;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                  if (functions.isListHaveDatatypeList(
+                                                                      _model
+                                                                          .filterStoreValue,
+                                                                      FFAppState()
+                                                                          .shiftMetaData
+                                                                          .toList())!) {
+                                                                    FFAppState()
+                                                                            .isLoading3 =
+                                                                        false;
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  } else {
+                                                                    _model.meta11 =
+                                                                        await GetshiftmetadataCall
+                                                                            .call(
+                                                                      pStoreId:
+                                                                          _model
+                                                                              .filterStoreValue,
+                                                                    );
+
+                                                                    if ((_model
+                                                                            .meta11
+                                                                            ?.succeeded ??
+                                                                        true)) {
+                                                                      _model.meta12 =
+                                                                          await actions
+                                                                              .mergeAndRemoveDuplicatesShiftMeta(
+                                                                        FFAppState()
+                                                                            .shiftMetaData
+                                                                            .toList(),
+                                                                        ((_model.meta11?.jsonBody ?? '').toList().map<ShiftMetaDataStruct?>(ShiftMetaDataStruct.maybeFromMap).toList()
+                                                                                as Iterable<ShiftMetaDataStruct?>)
+                                                                            .withoutNulls
+                                                                            .toList(),
+                                                                      );
+                                                                      FFAppState().shiftMetaData = _model
+                                                                          .meta12!
+                                                                          .toList()
+                                                                          .cast<
+                                                                              ShiftMetaDataStruct>();
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    }
+                                                                    _model.userShift11 =
+                                                                        await GetUserShiftStatusCall
+                                                                            .call(
+                                                                      pUserId: FFAppState()
+                                                                          .user
+                                                                          .userId,
+                                                                      pStoreId:
+                                                                          _model
+                                                                              .filterStoreValue,
+                                                                      pRequestDate: _model
+                                                                          .selectedDatePageState
+                                                                          ?.toString(),
+                                                                    );
+
+                                                                    if ((_model
+                                                                            .userShift11
+                                                                            ?.succeeded ??
+                                                                        true)) {
+                                                                      _model.userShift12 =
+                                                                          await actions
+                                                                              .mergeAndRemoveDuplicatesShiftStatus(
+                                                                        FFAppState()
+                                                                            .shiftStatus
+                                                                            .toList(),
+                                                                        ((_model.userShift11?.jsonBody ?? '').toList().map<ShiftStatusStruct?>(ShiftStatusStruct.maybeFromMap).toList()
+                                                                                as Iterable<ShiftStatusStruct?>)
+                                                                            .withoutNulls
+                                                                            .toList(),
+                                                                      );
+                                                                      FFAppState().shiftStatus = _model
+                                                                          .userShift12!
+                                                                          .toList()
+                                                                          .cast<
+                                                                              ShiftStatusStruct>();
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    }
+                                                                    FFAppState()
+                                                                            .isLoading3 =
+                                                                        false;
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  }
+                                                                } else {
+                                                                  FFAppState()
+                                                                          .isLoading3 =
+                                                                      false;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                }
+
+                                                                safeSetState(
+                                                                    () {});
+                                                              },
+                                                              width: 150.0,
+                                                              height: 30.0,
+                                                              textStyle:
+                                                                  FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
+                                                                      .override(
+                                                                        font: GoogleFonts
+                                                                            .notoSansJp(
+                                                                          fontWeight: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontWeight,
+                                                                          fontStyle: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .fontStyle,
+                                                                        ),
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        fontWeight: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontWeight,
+                                                                        fontStyle: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .fontStyle,
+                                                                      ),
+                                                              hintText:
+                                                                  'Select...',
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .keyboard_arrow_down_rounded,
+                                                                color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
+                                                                    .secondaryText,
+                                                                size: 24.0,
                                                               ),
-                                                      hintText: 'Select...',
-                                                      icon: Icon(
-                                                        Icons
-                                                            .keyboard_arrow_down_rounded,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        size: 24.0,
-                                                      ),
-                                                      fillColor: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      elevation: 2.0,
-                                                      borderColor:
-                                                          Colors.transparent,
-                                                      borderWidth: 0.0,
-                                                      borderRadius: 8.0,
-                                                      margin:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      hidesUnderline: true,
-                                                      isOverButton: false,
-                                                      isSearchable: false,
-                                                      isMultiSelect: false,
+                                                              fillColor: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryBackground,
+                                                              elevation: 2.0,
+                                                              borderColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                              borderWidth: 1.0,
+                                                              borderRadius: 8.0,
+                                                              margin:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          12.0,
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0),
+                                                              hidesUnderline:
+                                                                  true,
+                                                              isOverButton:
+                                                                  false,
+                                                              isSearchable:
+                                                                  false,
+                                                              isMultiSelect:
+                                                                  false,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Text(
+                                                              'Approval ',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
+                                                            Switch.adaptive(
+                                                              value: _model
+                                                                  .switchValue!,
+                                                              onChanged:
+                                                                  (newValue) async {
+                                                                safeSetState(() =>
+                                                                    _model.switchValue =
+                                                                        newValue);
+                                                              },
+                                                              activeColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                              activeTrackColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                              inactiveTrackColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                              inactiveThumbColor:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
                                                 ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      'Approval ',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .notoSansJp(
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                    ),
-                                                    Switch.adaptive(
-                                                      value:
-                                                          _model.switchValue!,
-                                                      onChanged:
-                                                          (newValue) async {
-                                                        safeSetState(() =>
-                                                            _model.switchValue =
-                                                                newValue);
-                                                      },
-                                                      activeColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      activeTrackColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      inactiveTrackColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      inactiveThumbColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                             Expanded(
                                               flex: 9,
@@ -1262,27 +1398,31 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                           context)
                                                       .primaryBackground,
                                                 ),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    wrapWithModel(
-                                                      model: _model
-                                                          .tableSchduleModel,
-                                                      updateCallback: () =>
-                                                          safeSetState(() {}),
-                                                      child: TableSchduleWidget(
-                                                        filteredStore: _model
-                                                            .filterStoreValue!,
-                                                        fileredApproval:
-                                                            _model.switchValue!,
+                                                child: SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      wrapWithModel(
+                                                        model: _model
+                                                            .tableSchduleModel,
+                                                        updateCallback: () =>
+                                                            safeSetState(() {}),
+                                                        child:
+                                                            TableSchduleWidget(
+                                                          filteredStore: _model
+                                                              .filterStoreValue!,
+                                                          fileredApproval:
+                                                              _model
+                                                                  .switchValue!,
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ]
-                                                      .divide(SizedBox(
-                                                          height: 24.0))
-                                                      .addToStart(SizedBox(
-                                                          height: 12.0)),
+                                                    ]
+                                                        .divide(SizedBox(
+                                                            height: 24.0))
+                                                        .addToStart(SizedBox(
+                                                            height: 12.0)),
+                                                  ),
                                                 ),
                                               ),
                                             ),

@@ -62,17 +62,11 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: wrapWithModel(
-                  model: _model.menuBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: MenuBarWidget(
-                    menuName: 'Employee Setting',
-                  ),
+              wrapWithModel(
+                model: _model.menuBarModel,
+                updateCallback: () => safeSetState(() {}),
+                child: MenuBarWidget(
+                  menuName: 'Employee Setting',
                 ),
               ),
               Expanded(
@@ -122,7 +116,7 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
                                 itemCount:
                                     listViewVUserSalaryInfoRowList.length,
                                 separatorBuilder: (_, __) =>
-                                    SizedBox(height: 10.0),
+                                    SizedBox(height: 12.0),
                                 itemBuilder: (context, listViewIndex) {
                                   final listViewVUserSalaryInfoRow =
                                       listViewVUserSalaryInfoRowList[

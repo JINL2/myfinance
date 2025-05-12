@@ -156,6 +156,7 @@ class _ShiftTestWidgetState extends State<ShiftTestWidget> {
               Align(
                 alignment: AlignmentDirectional(1.0, 0.0),
                 child: Container(
+                  width: MediaQuery.sizeOf(context).width * 0.6,
                   decoration: BoxDecoration(
                     color: Color(0xFFF5F7F9),
                   ),

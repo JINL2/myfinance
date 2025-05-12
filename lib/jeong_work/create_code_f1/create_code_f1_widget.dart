@@ -48,15 +48,78 @@ class _CreateCodeF1WidgetState extends State<CreateCodeF1Widget> {
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-            child: Text(
-              'Company Code',
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+              child: Text(
+                'Company Code',
+                style: FlutterFlowTheme.of(context).titleMedium.override(
+                      font: GoogleFonts.notoSansJp(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                    ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 40.0),
+              child: Container(
+                width: MediaQuery.sizeOf(context).width * 1.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+                    child: SelectionArea(
+                        child: Text(
+                      valueOrDefault<String>(
+                        widget.companyInfo?.companyCode,
+                        'Company Code',
+                      ),
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.notoSansJp(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                    )),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              'Store Code',
               style: FlutterFlowTheme.of(context).titleMedium.override(
                     font: GoogleFonts.notoSansJp(
                       fontWeight:
@@ -71,103 +134,57 @@ class _CreateCodeF1WidgetState extends State<CreateCodeF1Widget> {
                         FlutterFlowTheme.of(context).titleMedium.fontStyle,
                   ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 40.0),
-            child: Container(
-              width: MediaQuery.sizeOf(context).width * 1.0,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(
-                  color: Colors.black,
-                ),
-              ),
-              child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: SelectionArea(
-                    child: Text(
-                  valueOrDefault<String>(
-                    widget.companyInfo?.companyCode,
-                    'Company Code',
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
+              child: Container(
+                width: MediaQuery.sizeOf(context).width * 1.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                    color: Colors.black,
                   ),
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.notoSansJp(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
+                    child: SelectionArea(
+                        child: Text(
+                      valueOrDefault<String>(
+                        widget.companyInfo?.stores
+                            .where(
+                                (e) => FFAppState().storeChoosen == e.storeId)
+                            .toList()
+                            .firstOrNull
+                            ?.storeCode,
+                        'Store Code',
                       ),
-                )),
+                      textAlign: TextAlign.center,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.notoSansJp(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                    )),
+                  ),
+                ),
               ),
             ),
-          ),
-          Text(
-            'Store Code',
-            style: FlutterFlowTheme.of(context).titleMedium.override(
-                  font: GoogleFonts.notoSansJp(
-                    fontWeight:
-                        FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                  ),
-                  letterSpacing: 0.0,
-                  fontWeight:
-                      FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
-            child: Container(
-              width: MediaQuery.sizeOf(context).width * 1.0,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                borderRadius: BorderRadius.circular(12.0),
-                border: Border.all(
-                  color: Colors.black,
-                ),
-              ),
-              child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
-                child: SelectionArea(
-                    child: Text(
-                  valueOrDefault<String>(
-                    widget.companyInfo?.stores
-                        .where((e) => FFAppState().storeChoosen == e.storeId)
-                        .toList()
-                        .firstOrNull
-                        ?.storeCode,
-                    'Store Code',
-                  ),
-                  textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        font: GoogleFonts.notoSansJp(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                        ),
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                      ),
-                )),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

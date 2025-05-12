@@ -52,220 +52,227 @@ class _EditProfileNameWidgetState extends State<EditProfileNameWidget> {
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-            child: Container(
-              width: double.infinity,
-              child: TextFormField(
-                controller: _model.userLastNameTextController,
-                focusNode: _model.userLastNameFocusNode,
-                autofocus: true,
-                autofillHints: [AutofillHints.email],
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'Last Name',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              child: Container(
+                width: double.infinity,
+                child: TextFormField(
+                  controller: _model.userLastNameTextController,
+                  focusNode: _model.userLastNameFocusNode,
+                  autofocus: true,
+                  autofillHints: [AutofillHints.email],
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'Last Name',
+                    labelStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              font: GoogleFonts.plusJakartaSans(
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
+                              color: Color(0xFF57636C),
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
+                    hintText: 'Last Name',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFE0E3E7),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF4B39EF),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFFF5963),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFFF5963),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.all(24.0),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.plusJakartaSans(
                           fontWeight: FontWeight.w500,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .fontStyle,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
-                        color: Color(0xFF57636C),
+                        color: Color(0xFF101213),
                         fontSize: 14.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                      ),
-                  hintText: 'Last Name',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFE0E3E7),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF4B39EF),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFFF5963),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFFF5963),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.all(24.0),
-                ),
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.plusJakartaSans(
-                        fontWeight: FontWeight.w500,
-                        fontStyle:
                             FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
-                      color: Color(0xFF101213),
-                      fontSize: 14.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                    ),
-                keyboardType: TextInputType.emailAddress,
-                cursorColor: Color(0xFF4B39EF),
-                validator: _model.userLastNameTextControllerValidator
-                    .asValidator(context),
+                  keyboardType: TextInputType.emailAddress,
+                  cursorColor: Color(0xFF4B39EF),
+                  validator: _model.userLastNameTextControllerValidator
+                      .asValidator(context),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-            child: Container(
-              width: double.infinity,
-              child: TextFormField(
-                controller: _model.emailAddressTextController,
-                focusNode: _model.emailAddressFocusNode,
-                autofocus: true,
-                autofillHints: [AutofillHints.email],
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelText: 'First Name',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+              child: Container(
+                width: double.infinity,
+                child: TextFormField(
+                  controller: _model.emailAddressTextController,
+                  focusNode: _model.emailAddressFocusNode,
+                  autofocus: true,
+                  autofillHints: [AutofillHints.email],
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    labelText: 'First Name',
+                    labelStyle:
+                        FlutterFlowTheme.of(context).labelMedium.override(
+                              font: GoogleFonts.plusJakartaSans(
+                                fontWeight: FontWeight.w500,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
+                                    .fontStyle,
+                              ),
+                              color: Color(0xFF57636C),
+                              fontSize: 14.0,
+                              letterSpacing: 0.0,
+                              fontWeight: FontWeight.w500,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
+                    hintText: 'First Name',
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFE0E3E7),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFF4B39EF),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFFF5963),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Color(0xFFFF5963),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(40.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: EdgeInsets.all(24.0),
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
                         font: GoogleFonts.plusJakartaSans(
                           fontWeight: FontWeight.w500,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .labelMedium
-                              .fontStyle,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                         ),
-                        color: Color(0xFF57636C),
+                        color: Color(0xFF101213),
                         fontSize: 14.0,
                         letterSpacing: 0.0,
                         fontWeight: FontWeight.w500,
                         fontStyle:
-                            FlutterFlowTheme.of(context).labelMedium.fontStyle,
-                      ),
-                  hintText: 'First Name',
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFE0E3E7),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF4B39EF),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFFF5963),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFFFF5963),
-                      width: 2.0,
-                    ),
-                    borderRadius: BorderRadius.circular(40.0),
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.all(24.0),
-                ),
-                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      font: GoogleFonts.plusJakartaSans(
-                        fontWeight: FontWeight.w500,
-                        fontStyle:
                             FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
-                      color: Color(0xFF101213),
-                      fontSize: 14.0,
-                      letterSpacing: 0.0,
-                      fontWeight: FontWeight.w500,
-                      fontStyle:
-                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                    ),
-                keyboardType: TextInputType.emailAddress,
-                cursorColor: Color(0xFF4B39EF),
-                validator: _model.emailAddressTextControllerValidator
-                    .asValidator(context),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 20.0),
-            child: InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                FFAppState().updateUserStruct(
-                  (e) => e
-                    ..userFirstName = _model.emailAddressTextController.text
-                    ..userLastName = _model.userLastNameTextController.text,
-                );
-                safeSetState(() {});
-                await UsersTable().update(
-                  data: {
-                    'last_name': _model.userLastNameTextController.text,
-                    'first_name': _model.emailAddressTextController.text,
-                  },
-                  matchingRows: (rows) => rows.eqOrNull(
-                    'user_id',
-                    FFAppState().user.userId,
-                  ),
-                );
-                await showDialog(
-                  context: context,
-                  builder: (alertDialogContext) {
-                    return AlertDialog(
-                      title: Text('Update'),
-                      content: Text('Success'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(alertDialogContext),
-                          child: Text('Ok'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-                Navigator.pop(context);
-              },
-              child: wrapWithModel(
-                model: _model.addButtonModel,
-                updateCallback: () => safeSetState(() {}),
-                child: AddButtonWidget(
-                  textParameter: 'Confirm',
+                  keyboardType: TextInputType.emailAddress,
+                  cursorColor: Color(0xFF4B39EF),
+                  validator: _model.emailAddressTextControllerValidator
+                      .asValidator(context),
                 ),
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 20.0),
+              child: InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  FFAppState().updateUserStruct(
+                    (e) => e
+                      ..userFirstName = _model.emailAddressTextController.text
+                      ..userLastName = _model.userLastNameTextController.text,
+                  );
+                  safeSetState(() {});
+                  await UsersTable().update(
+                    data: {
+                      'last_name': _model.userLastNameTextController.text,
+                      'first_name': _model.emailAddressTextController.text,
+                    },
+                    matchingRows: (rows) => rows.eqOrNull(
+                      'user_id',
+                      FFAppState().user.userId,
+                    ),
+                  );
+                  await showDialog(
+                    context: context,
+                    builder: (alertDialogContext) {
+                      return AlertDialog(
+                        title: Text('Update'),
+                        content: Text('Success'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  Navigator.pop(context);
+                },
+                child: wrapWithModel(
+                  model: _model.addButtonModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: AddButtonWidget(
+                    textParameter: 'Confirm',
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

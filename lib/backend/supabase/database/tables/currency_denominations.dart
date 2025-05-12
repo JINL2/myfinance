@@ -28,4 +28,7 @@ class CurrencyDenominationsRow extends SupabaseDataRow {
 
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
+
+  String? get companyId => getField<String>('company_id');
+  set companyId(String? value) => setField<String>('company_id', value);
 }

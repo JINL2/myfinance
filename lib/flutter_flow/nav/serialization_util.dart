@@ -236,6 +236,8 @@ dynamic deserializeParam<T>(
             return BookExchangeRatesRow(data);
           case CurrencyTypesRow:
             return CurrencyTypesRow(data);
+          case CompanyCurrencyRow:
+            return CompanyCurrencyRow(data);
           case RolePermissionsRow:
             return RolePermissionsRow(data);
           case VUserSalaryInfoRow:
@@ -254,6 +256,8 @@ dynamic deserializeParam<T>(
             return CompaniesRow(data);
           case FixedAssetsRow:
             return FixedAssetsRow(data);
+          case VCashLocationRow:
+            return VCashLocationRow(data);
           case VUserRoleInfoRow:
             return VUserRoleInfoRow(data);
           case ProductsRow:
@@ -268,6 +272,8 @@ dynamic deserializeParam<T>(
             return GeographyColumnsRow(data);
           case InventoryTransactionsRow:
             return InventoryTransactionsRow(data);
+          case CashLocationsWithTotalAmountRow:
+            return CashLocationsWithTotalAmountRow(data);
           case UserRolesRow:
             return UserRolesRow(data);
           case JournalLinesRow:
@@ -282,6 +288,8 @@ dynamic deserializeParam<T>(
             return AssetImpairmentsRow(data);
           case UserSalariesRow:
             return UserSalariesRow(data);
+          case AccountMappingsRow:
+            return AccountMappingsRow(data);
           case CashierAmountLinesRow:
             return CashierAmountLinesRow(data);
           case CashControlRow:
@@ -292,6 +300,8 @@ dynamic deserializeParam<T>(
             return UsersRow(data);
           case DebtPaymentsRow:
             return DebtPaymentsRow(data);
+          case ViewCompanyCurrencyRow:
+            return ViewCompanyCurrencyRow(data);
           case RolesRow:
             return RolesRow(data);
           case VShiftRequestRow:
@@ -304,6 +314,8 @@ dynamic deserializeParam<T>(
             return JournalEntriesRow(data);
           case CategoriesRow:
             return CategoriesRow(data);
+          case VAccountMappingsWithLinkedCompanyRow:
+            return VAccountMappingsWithLinkedCompanyRow(data);
           default:
             return null;
         }

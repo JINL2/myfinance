@@ -14,16 +14,7 @@ import 'create_company_by_code_f1_model.dart';
 export 'create_company_by_code_f1_model.dart';
 
 class CreateCompanyByCodeF1Widget extends StatefulWidget {
-  const CreateCompanyByCodeF1Widget({
-    super.key,
-    this.widgetTitle1,
-    this.widgetTitle2,
-    this.widgetTitle,
-  });
-
-  final String? widgetTitle1;
-  final String? widgetTitle2;
-  final String? widgetTitle;
+  const CreateCompanyByCodeF1Widget({super.key});
 
   @override
   State<CreateCompanyByCodeF1Widget> createState() =>
@@ -63,7 +54,7 @@ class _CreateCompanyByCodeF1WidgetState
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -88,7 +79,7 @@ class _CreateCompanyByCodeF1WidgetState
                     autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelText: widget.widgetTitle1,
+                      labelText: 'Put Your Code Here',
                       labelStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
                                 font: GoogleFonts.plusJakartaSans(
@@ -238,7 +229,7 @@ class _CreateCompanyByCodeF1WidgetState
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  content: Text('Put Information'),
+                                  title: Text('Put Information'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
@@ -312,8 +303,7 @@ class _CreateCompanyByCodeF1WidgetState
                         context: context,
                         builder: (alertDialogContext) {
                           return AlertDialog(
-                            title: Text('Register by code'),
-                            content: Text('Sucess'),
+                            title: Text('Register by Code Sucess'),
                             actions: [
                               TextButton(
                                 onPressed: () =>

@@ -50,4 +50,8 @@ class JournalLinesRow extends SupabaseDataRow {
 
   String? get debtId => getField<String>('debt_id');
   set debtId(String? value) => setField<String>('debt_id', value);
+
+  String? get cashLocationId => getField<String>('cash_location_id');
+  set cashLocationId(String? value) =>
+      setField<String>('cash_location_id', value);
 }

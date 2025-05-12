@@ -16,6 +16,7 @@ class TransactionDetailStruct extends BaseStruct {
 
     /// fixed asset detail
     FixAssetStruct? fixAsset,
+    CashStruct? cash,
   })  : _accountId = accountId,
         _description = description,
         _debit = debit,
@@ -23,7 +24,8 @@ class TransactionDetailStruct extends BaseStruct {
         _counterpartyId = counterpartyId,
         _amount = amount,
         _debt = debt,
-        _fixAsset = fixAsset;
+        _fixAsset = fixAsset,
+        _cash = cash;
 
   // "account_id" field.
   String? _accountId;
@@ -91,6 +93,17 @@ class TransactionDetailStruct extends BaseStruct {
 
   bool hasFixAsset() => _fixAsset != null;
 
+  // "cash" field.
+  CashStruct? _cash;
+  CashStruct get cash => _cash ?? CashStruct();
+  set cash(CashStruct? val) => _cash = val;
+
+  void updateCash(Function(CashStruct) updateFn) {
+    updateFn(_cash ??= CashStruct());
+  }
+
+  bool hasCash() => _cash != null;
+
   static TransactionDetailStruct fromMap(Map<String, dynamic> data) =>
       TransactionDetailStruct(
         accountId: data['account_id'] as String?,
@@ -105,6 +118,9 @@ class TransactionDetailStruct extends BaseStruct {
         fixAsset: data['fix_asset'] is FixAssetStruct
             ? data['fix_asset']
             : FixAssetStruct.maybeFromMap(data['fix_asset']),
+        cash: data['cash'] is CashStruct
+            ? data['cash']
+            : CashStruct.maybeFromMap(data['cash']),
       );
 
   static TransactionDetailStruct? maybeFromMap(dynamic data) => data is Map
@@ -120,6 +136,7 @@ class TransactionDetailStruct extends BaseStruct {
         'amount': _amount,
         'debt': _debt?.toMap(),
         'fix_asset': _fixAsset?.toMap(),
+        'cash': _cash?.toMap(),
       }.withoutNulls;
 
   @override
@@ -154,6 +171,10 @@ class TransactionDetailStruct extends BaseStruct {
         ),
         'fix_asset': serializeParam(
           _fixAsset,
+          ParamType.DataStruct,
+        ),
+        'cash': serializeParam(
+          _cash,
           ParamType.DataStruct,
         ),
       }.withoutNulls;
@@ -203,6 +224,12 @@ class TransactionDetailStruct extends BaseStruct {
           false,
           structBuilder: FixAssetStruct.fromSerializableMap,
         ),
+        cash: deserializeStructParam(
+          data['cash'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: CashStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -218,7 +245,8 @@ class TransactionDetailStruct extends BaseStruct {
         counterpartyId == other.counterpartyId &&
         amount == other.amount &&
         debt == other.debt &&
-        fixAsset == other.fixAsset;
+        fixAsset == other.fixAsset &&
+        cash == other.cash;
   }
 
   @override
@@ -230,7 +258,8 @@ class TransactionDetailStruct extends BaseStruct {
         counterpartyId,
         amount,
         debt,
-        fixAsset
+        fixAsset,
+        cash
       ]);
 }
 
@@ -243,6 +272,7 @@ TransactionDetailStruct createTransactionDetailStruct({
   double? amount,
   DebtStruct? debt,
   FixAssetStruct? fixAsset,
+  CashStruct? cash,
 }) =>
     TransactionDetailStruct(
       accountId: accountId,
@@ -253,4 +283,5 @@ TransactionDetailStruct createTransactionDetailStruct({
       amount: amount,
       debt: debt ?? DebtStruct(),
       fixAsset: fixAsset ?? FixAssetStruct(),
+      cash: cash ?? CashStruct(),
     );

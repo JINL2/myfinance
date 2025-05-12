@@ -11,9 +11,12 @@ class CreateCompanyF1Model extends FlutterFlowModel<CreateCompanyF1Widget> {
   FocusNode? companyNameFocusNode;
   TextEditingController? companyNameTextController;
   String? Function(BuildContext, String?)? companyNameTextControllerValidator;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for CompanyType widget.
+  String? companyTypeValue;
+  FormFieldController<String>? companyTypeValueController;
+  // State field(s) for currencyType widget.
+  String? currencyTypeValue;
+  FormFieldController<String>? currencyTypeValueController;
   // Model for add component.
   late AddModel addModel;
 

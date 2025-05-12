@@ -6,7 +6,7 @@ import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/manager/calnder_comp/calnder_comp_widget.dart';
-import '/manager/table_manager_schedule/table_manager_schedule_widget.dart';
+import '/manager/managershift_list/managershift_list_widget.dart';
 import 'timetable_manage_widget.dart' show TimetableManageWidget;
 import 'package:flutter/material.dart';
 
@@ -79,10 +79,20 @@ class TimetableManageModel extends FlutterFlowModel<TimetableManageWidget> {
   // State field(s) for filterStore widget.
   String? filterStoreValue;
   FormFieldController<String>? filterStoreValueController;
+  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in filterStore widget.
+  ApiCallResponse? meta11;
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in filterStore widget.
+  List<ShiftMetaDataStruct>? meta12;
+  // Stores action output result for [Backend Call - API (GetManagerShift)] action in filterStore widget.
+  ApiCallResponse? manager11;
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesManagerShift] action in filterStore widget.
+  List<ManagerShiftDetailStruct>? manager12;
+  // State field(s) for oKSwitch widget.
+  bool? oKSwitchValue;
   // Model for add_button component.
   late AddButtonModel addButtonModel;
-  // Model for table_manager_schedule component.
-  late TableManagerScheduleModel tableManagerScheduleModel;
+  // Model for managershiftList component.
+  late ManagershiftListModel managershiftListModel;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 
@@ -91,8 +101,7 @@ class TimetableManageModel extends FlutterFlowModel<TimetableManageWidget> {
     menuBarModel = createModel(context, () => MenuBarModel());
     calnderCompModel = createModel(context, () => CalnderCompModel());
     addButtonModel = createModel(context, () => AddButtonModel());
-    tableManagerScheduleModel =
-        createModel(context, () => TableManagerScheduleModel());
+    managershiftListModel = createModel(context, () => ManagershiftListModel());
     isloadingModel = createModel(context, () => IsloadingModel());
   }
 
@@ -102,7 +111,7 @@ class TimetableManageModel extends FlutterFlowModel<TimetableManageWidget> {
     tabBarController?.dispose();
     calnderCompModel.dispose();
     addButtonModel.dispose();
-    tableManagerScheduleModel.dispose();
+    managershiftListModel.dispose();
     isloadingModel.dispose();
   }
 }

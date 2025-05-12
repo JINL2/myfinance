@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'isloading_model.dart';
 export 'isloading_model.dart';
 
@@ -63,13 +64,71 @@ class _IsloadingWidgetState extends State<IsloadingWidget>
       decoration: BoxDecoration(
         color: Color(0xA91C1C1E),
       ),
-      child: Align(
-        alignment: AlignmentDirectional(0.0, 0.0),
-        child: FaIcon(
-          FontAwesomeIcons.sync,
-          color: FlutterFlowTheme.of(context).tertiary,
-          size: 100.0,
-        ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation']!),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Align(
+            alignment: AlignmentDirectional(0.0, 0.0),
+            child: FaIcon(
+              FontAwesomeIcons.sync,
+              color: FlutterFlowTheme.of(context).tertiary,
+              size: 100.0,
+            ).animateOnPageLoad(animationsMap['iconOnPageLoadAnimation']!),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+            child: InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                FFAppState().isLoading1 = false;
+                FFAppState().isLoading2 = false;
+                FFAppState().isLoading3 = false;
+                safeSetState(() {});
+              },
+              child: Text(
+                'turn off',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      font: GoogleFonts.notoSansJp(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                      ),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+            child: Text(
+              'Back Home',
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    font: GoogleFonts.notoSansJp(
+                      fontWeight:
+                          FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                    ),
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                    letterSpacing: 0.0,
+                    fontWeight:
+                        FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                    fontStyle:
+                        FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                  ),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -530,6 +530,8 @@ class InsertDebtJounralCall {
 
 class InsertjournalwitheverythingCall {
   Future<ApiCallResponse> call({
+    String? pIfCashLocationId = '',
+    String? pCounterpartyId = '',
     String? pCompanyId = '',
     String? pStoreId = '',
     String? pCreatedBy = '',
@@ -555,21 +557,15 @@ class InsertjournalwitheverythingCall {
     final pLines = _serializeJson(pLinesJson, true);
     final ffApiRequestBody = '''
 {
+  "p_base_amount": ${pBaseAmount},
   "p_company_id": "${escapeStringForJson(pCompanyId)}",
-
-  "p_store_id" : "${escapeStringForJson(pStoreId)}",
-
-  "p_created_by" : "${escapeStringForJson(pCreatedBy)}",
-
-  "p_entry_date" : "${escapeStringForJson(pEntryDate)}" ,
-
-  "p_description" :  "${escapeStringForJson(pDescription)}",
-
- "p_base_amount" : ${pBaseAmount},
-
- "p_lines" : ${pLines}
-
-
+  "p_created_by": "${escapeStringForJson(pCreatedBy)}",
+  "p_description": "${escapeStringForJson(pDescription)}",
+  "p_entry_date": "${escapeStringForJson(pEntryDate)}",
+  "p_lines": ${pLines},
+  "p_counterparty_id" : "${escapeStringForJson(pCounterpartyId)}",
+  "p_if_cash_location_id": "${escapeStringForJson(pIfCashLocationId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'insertjournalwitheverything',
@@ -596,6 +592,136 @@ class InsertjournalwitheverythingCall {
 }
 
 /// End JournalEntry Group Code
+
+/// Start accountMapping Group Code
+
+class AccountMappingGroup {
+  static String getBaseUrl({
+    String? pMyCompanyId = '',
+    String? pMyAccountId = '',
+    String? pCounterpartyCompanyId = '',
+    String? pLinkedAccountId = '',
+    String? pDirection = '',
+    String? pCreatedBy = '',
+  }) =>
+      'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/';
+  static Map<String, String> headers = {
+    'apikey':
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+    'Authorization':
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+    'Content-Type': 'application/json',
+  };
+  static InsertAccountMappingCall insertAccountMappingCall =
+      InsertAccountMappingCall();
+  static CheckAccountMapCall checkAccountMapCall = CheckAccountMapCall();
+}
+
+class InsertAccountMappingCall {
+  Future<ApiCallResponse> call({
+    String? pMyCompanyId = '',
+    String? pMyAccountId = '',
+    String? pCounterpartyCompanyId = '',
+    String? pLinkedAccountId = '',
+    String? pDirection = '',
+    String? pCreatedBy = '',
+  }) async {
+    final baseUrl = AccountMappingGroup.getBaseUrl(
+      pMyCompanyId: pMyCompanyId,
+      pMyAccountId: pMyAccountId,
+      pCounterpartyCompanyId: pCounterpartyCompanyId,
+      pLinkedAccountId: pLinkedAccountId,
+      pDirection: pDirection,
+      pCreatedBy: pCreatedBy,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_my_company_id": "${escapeStringForJson(pMyCompanyId)}",
+  "p_my_account_id": "${escapeStringForJson(pMyAccountId)}",
+  "p_counterparty_company_id": "${escapeStringForJson(pCounterpartyCompanyId)}",
+  "p_linked_account_id": "${escapeStringForJson(pLinkedAccountId)}",
+  "p_direction": "${escapeStringForJson(pDirection)}",
+  "p_created_by": "${escapeStringForJson(pCreatedBy)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'insertAccountMapping',
+      apiUrl: '${baseUrl}insert_account_mapping_with_company',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class CheckAccountMapCall {
+  Future<ApiCallResponse> call({
+    String? pMyCompanyId = '',
+    String? pMyAccountId = '',
+    String? pCounterpartyCompanyId = '',
+    String? pLinkedAccountId = '',
+    String? pDirection = '',
+    String? pCreatedBy = '',
+  }) async {
+    final baseUrl = AccountMappingGroup.getBaseUrl(
+      pMyCompanyId: pMyCompanyId,
+      pMyAccountId: pMyAccountId,
+      pCounterpartyCompanyId: pCounterpartyCompanyId,
+      pLinkedAccountId: pLinkedAccountId,
+      pDirection: pDirection,
+      pCreatedBy: pCreatedBy,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_my_account_id": "${escapeStringForJson(pMyAccountId)}",
+  "p_counterparty_id": "${escapeStringForJson(pCounterpartyCompanyId)}",
+  "p_my_company_id": "${escapeStringForJson(pMyCompanyId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'checkAccountMap',
+      apiUrl: '${baseUrl}check_account_mapping_exists',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  dynamic ismapped(dynamic response) => getJsonField(
+        response,
+        r'''$''',
+      );
+}
+
+/// End accountMapping Group Code
 
 class GetUserCompaniesCall {
   static Future<ApiCallResponse> call({
@@ -1128,6 +1254,62 @@ class GetManagerShiftCall {
       alwaysAllowBody: false,
     );
   }
+}
+
+class GetNotMyCounterPartyCall {
+  static Future<ApiCallResponse> call({
+    String? pUserId = '',
+    String? pCompanyId = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+
+
+  "p_company_id" : "${escapeStringForJson(pCompanyId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetNotMyCounterParty',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/get_unlinked_companies',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static List<String>? companyId(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].company_id''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  static List<String>? companyName(dynamic response) => (getJsonField(
+        response,
+        r'''$[:].company_name''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class ApiPagingParams {

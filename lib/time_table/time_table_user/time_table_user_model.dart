@@ -74,6 +74,14 @@ class TimeTableUserModel extends FlutterFlowModel<TimeTableUserWidget> {
   // State field(s) for filterStore widget.
   String? filterStoreValue;
   FormFieldController<String>? filterStoreValueController;
+  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in filterStore widget.
+  ApiCallResponse? meta11;
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in filterStore widget.
+  List<ShiftMetaDataStruct>? meta12;
+  // Stores action output result for [Backend Call - API (getUserShiftStatus)] action in filterStore widget.
+  ApiCallResponse? userShift11;
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftStatus] action in filterStore widget.
+  List<ShiftStatusStruct>? userShift12;
   // State field(s) for Switch widget.
   bool? switchValue;
   // Model for table_schdule component.

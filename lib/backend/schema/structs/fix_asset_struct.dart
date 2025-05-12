@@ -11,10 +11,12 @@ class FixAssetStruct extends BaseStruct {
     String? acquisitionDate,
     int? usefulLifeYears,
     int? salvageValue,
+    String? fixAssetName,
   })  : _assetName = assetName,
         _acquisitionDate = acquisitionDate,
         _usefulLifeYears = usefulLifeYears,
-        _salvageValue = salvageValue;
+        _salvageValue = salvageValue,
+        _fixAssetName = fixAssetName;
 
   // "asset_name" field.
   String? _assetName;
@@ -50,11 +52,19 @@ class FixAssetStruct extends BaseStruct {
 
   bool hasSalvageValue() => _salvageValue != null;
 
+  // "fix_asset_name" field.
+  String? _fixAssetName;
+  String get fixAssetName => _fixAssetName ?? '';
+  set fixAssetName(String? val) => _fixAssetName = val;
+
+  bool hasFixAssetName() => _fixAssetName != null;
+
   static FixAssetStruct fromMap(Map<String, dynamic> data) => FixAssetStruct(
         assetName: data['asset_name'] as String?,
         acquisitionDate: data['acquisition_date'] as String?,
         usefulLifeYears: castToType<int>(data['useful_life_years']),
         salvageValue: castToType<int>(data['salvage_value']),
+        fixAssetName: data['fix_asset_name'] as String?,
       );
 
   static FixAssetStruct? maybeFromMap(dynamic data) =>
@@ -65,6 +75,7 @@ class FixAssetStruct extends BaseStruct {
         'acquisition_date': _acquisitionDate,
         'useful_life_years': _usefulLifeYears,
         'salvage_value': _salvageValue,
+        'fix_asset_name': _fixAssetName,
       }.withoutNulls;
 
   @override
@@ -84,6 +95,10 @@ class FixAssetStruct extends BaseStruct {
         'salvage_value': serializeParam(
           _salvageValue,
           ParamType.int,
+        ),
+        'fix_asset_name': serializeParam(
+          _fixAssetName,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -109,6 +124,11 @@ class FixAssetStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        fixAssetName: deserializeParam(
+          data['fix_asset_name'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -120,12 +140,18 @@ class FixAssetStruct extends BaseStruct {
         assetName == other.assetName &&
         acquisitionDate == other.acquisitionDate &&
         usefulLifeYears == other.usefulLifeYears &&
-        salvageValue == other.salvageValue;
+        salvageValue == other.salvageValue &&
+        fixAssetName == other.fixAssetName;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([assetName, acquisitionDate, usefulLifeYears, salvageValue]);
+  int get hashCode => const ListEquality().hash([
+        assetName,
+        acquisitionDate,
+        usefulLifeYears,
+        salvageValue,
+        fixAssetName
+      ]);
 }
 
 FixAssetStruct createFixAssetStruct({
@@ -133,10 +159,12 @@ FixAssetStruct createFixAssetStruct({
   String? acquisitionDate,
   int? usefulLifeYears,
   int? salvageValue,
+  String? fixAssetName,
 }) =>
     FixAssetStruct(
       assetName: assetName,
       acquisitionDate: acquisitionDate,
       usefulLifeYears: usefulLifeYears,
       salvageValue: salvageValue,
+      fixAssetName: fixAssetName,
     );

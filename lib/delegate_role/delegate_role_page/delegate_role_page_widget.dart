@@ -4,7 +4,6 @@ import '/delegate_role/deletage_role_component/deletage_role_component_widget.da
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'delegate_role_page_model.dart';
@@ -29,14 +28,6 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DelegateRolePageModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      FFAppState().isLoading1 = false;
-      FFAppState().isLoading2 = false;
-      FFAppState().isLoading3 = false;
-      safeSetState(() {});
-    });
   }
 
   @override
@@ -63,17 +54,11 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: wrapWithModel(
-                  model: _model.menuBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: MenuBarWidget(
-                    menuName: 'Delegate Role',
-                  ),
+              wrapWithModel(
+                model: _model.menuBarModel,
+                updateCallback: () => safeSetState(() {}),
+                child: MenuBarWidget(
+                  menuName: 'Delegate Role',
                 ),
               ),
               Expanded(
@@ -85,38 +70,50 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(-1.0, 0.0),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(-1.0, 0.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        FFAppState()
-                                            .user
-                                            .companies
-                                            .where((e) =>
-                                                FFAppState().companyChoosen ==
-                                                e.companyId)
-                                            .toList()
-                                            .firstOrNull
-                                            ?.companyName,
-                                        'Error',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineSmall
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 12.0),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-1.0, 0.0),
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          FFAppState()
+                                              .user
+                                              .companies
+                                              .where((e) =>
+                                                  FFAppState().companyChoosen ==
+                                                  e.companyId)
+                                              .toList()
+                                              .firstOrNull
+                                              ?.companyName,
+                                          'Error',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -126,83 +123,76 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
                                                       .headlineSmall
                                                       .fontStyle,
                                             ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
-                                          ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        FutureBuilder<List<VUserRoleInfoRow>>(
-                          future: VUserRoleInfoTable().queryRows(
-                            queryFn: (q) => q.eqOrNull(
-                              'company_id',
-                              FFAppState().companyChoosen,
+                          FutureBuilder<List<VUserRoleInfoRow>>(
+                            future: VUserRoleInfoTable().queryRows(
+                              queryFn: (q) => q.eqOrNull(
+                                'company_id',
+                                FFAppState().companyChoosen,
+                              ),
                             ),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }
-                            List<VUserRoleInfoRow>
-                                listViewVUserRoleInfoRowList = snapshot.data!;
-
-                            return ListView.separated(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: listViewVUserRoleInfoRowList.length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 10.0),
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewVUserRoleInfoRow =
-                                    listViewVUserRoleInfoRowList[listViewIndex];
-                                return wrapWithModel(
-                                  model: _model.deletageRoleComponentModels
-                                      .getModel(
-                                    listViewVUserRoleInfoRow.userId!,
-                                    listViewIndex,
-                                  ),
-                                  updateCallback: () => safeSetState(() {}),
-                                  child: DeletageRoleComponentWidget(
-                                    key: Key(
-                                      'Keyhkj_${listViewVUserRoleInfoRow.userId!}',
-                                    ),
-                                    icon: Icon(
-                                      Icons.mode_edit_outlined,
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      size: 30.0,
-                                    ),
-                                    detailInfo: listViewVUserRoleInfoRow,
                                   ),
                                 );
-                              },
-                            );
-                          },
-                        ),
-                      ],
+                              }
+                              List<VUserRoleInfoRow>
+                                  listViewVUserRoleInfoRowList = snapshot.data!;
+
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: listViewVUserRoleInfoRowList.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 12.0),
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewVUserRoleInfoRow =
+                                      listViewVUserRoleInfoRowList[
+                                          listViewIndex];
+                                  return wrapWithModel(
+                                    model: _model.deletageRoleComponentModels
+                                        .getModel(
+                                      listViewVUserRoleInfoRow.userId!,
+                                      listViewIndex,
+                                    ),
+                                    updateCallback: () => safeSetState(() {}),
+                                    child: DeletageRoleComponentWidget(
+                                      key: Key(
+                                        'Keyhkj_${listViewVUserRoleInfoRow.userId!}',
+                                      ),
+                                      icon: Icon(
+                                        Icons.mode_edit_outlined,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 30.0,
+                                      ),
+                                      detailInfo: listViewVUserRoleInfoRow,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

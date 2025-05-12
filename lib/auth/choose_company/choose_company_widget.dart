@@ -801,9 +801,20 @@ class _ChooseCompanyWidgetState extends State<ChooseCompanyWidget>
                                                                   },
                                                                 );
 
-                                                                context.pushNamed(
-                                                                    HomepageWidget
-                                                                        .routeName);
+                                                                context
+                                                                    .pushNamed(
+                                                                  HomepageWidget
+                                                                      .routeName,
+                                                                  queryParameters:
+                                                                      {
+                                                                    'firstLogin':
+                                                                        serializeParam(
+                                                                      true,
+                                                                      ParamType
+                                                                          .bool,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
                                                               } else {
                                                                 await showDialog(
                                                                   context:
@@ -1249,8 +1260,16 @@ class _ChooseCompanyWidgetState extends State<ChooseCompanyWidget>
                                                           safeSetState(() {});
 
                                                           context.pushNamed(
-                                                              HomepageWidget
-                                                                  .routeName);
+                                                            HomepageWidget
+                                                                .routeName,
+                                                            queryParameters: {
+                                                              'firstLogin':
+                                                                  serializeParam(
+                                                                true,
+                                                                ParamType.bool,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
 
                                                           safeSetState(() {});
                                                         },

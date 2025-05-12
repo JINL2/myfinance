@@ -57,10 +57,10 @@ class _EmployeeSettingUpdateV1WidgetState
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -92,8 +92,8 @@ class _EmployeeSettingUpdateV1WidgetState
               ),
               fillColor: FlutterFlowTheme.of(context).primaryBackground,
               elevation: 2.0,
-              borderColor: Colors.transparent,
-              borderWidth: 0.0,
+              borderColor: FlutterFlowTheme.of(context).primary,
+              borderWidth: 1.0,
               borderRadius: 12.0,
               margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
               hidesUnderline: true,
@@ -160,8 +160,8 @@ class _EmployeeSettingUpdateV1WidgetState
                   ),
                   fillColor: FlutterFlowTheme.of(context).primaryBackground,
                   elevation: 2.0,
-                  borderColor: Colors.transparent,
-                  borderWidth: 0.0,
+                  borderColor: FlutterFlowTheme.of(context).primary,
+                  borderWidth: 1.0,
                   borderRadius: 12.0,
                   margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                   hidesUnderline: true,
@@ -180,6 +180,7 @@ class _EmployeeSettingUpdateV1WidgetState
                 obscureText: false,
                 decoration: InputDecoration(
                   isDense: true,
+                  labelText: 'Salary Amount',
                   labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         font: GoogleFonts.notoSansJp(
                           fontWeight: FlutterFlowTheme.of(context)
@@ -195,7 +196,6 @@ class _EmployeeSettingUpdateV1WidgetState
                         fontStyle:
                             FlutterFlowTheme.of(context).labelMedium.fontStyle,
                       ),
-                  hintText: 'Salary Amount',
                   hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
                         font: GoogleFonts.notoSansJp(
                           fontWeight: FlutterFlowTheme.of(context)
@@ -213,29 +213,29 @@ class _EmployeeSettingUpdateV1WidgetState
                       ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
+                      color: Color(0xFFE0E3E7),
+                      width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0x00000000),
-                      width: 1.0,
+                      color: Color(0xFF4B39EF),
+                      width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   errorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: FlutterFlowTheme.of(context).error,
-                      width: 1.0,
+                      width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   focusedErrorBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: FlutterFlowTheme.of(context).error,
-                      width: 1.0,
+                      width: 2.0,
                     ),
                     borderRadius: BorderRadius.circular(12.0),
                   ),

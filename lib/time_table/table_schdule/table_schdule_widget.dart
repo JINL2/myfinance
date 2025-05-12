@@ -49,228 +49,203 @@ class _TableSchduleWidgetState extends State<TableSchduleWidget> {
 
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
-      decoration: BoxDecoration(),
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-            child: Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                'Date',
-                                maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
-                                    .titleMedium
-                                    .override(
-                                      font: GoogleFonts.notoSansJp(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .titleMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleMedium
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+          Container(
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).primaryBackground,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4.0,
+                  color: Color(0x1A000000),
+                  offset: Offset(
+                    4.0,
+                    4.0,
                   ),
-                  Expanded(
-                    flex: 4,
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'shop',
-                                      maxLines: 1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Shift',
-                                      maxLines: 1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleMedium
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .titleMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  spreadRadius: 4.0,
+                )
+              ],
+              borderRadius: BorderRadius.circular(8.0),
             ),
-          ),
-          Builder(
-            builder: (context) {
-              final shiftStatusDetail =
-                  (widget.filteredStore != null && widget.filteredStore != ''
-                          ? (widget.fileredApproval!
-                              ? FFAppState()
-                                  .shiftStatus
-                                  .where((e) =>
-                                      (widget.filteredStore == e.storeId) &&
-                                      e.isApproved)
-                                  .toList()
-                              : FFAppState()
-                                  .shiftStatus
-                                  .where((e) =>
-                                      (widget.filteredStore == e.storeId) &&
-                                      !e.isApproved)
-                                  .toList())
-                          : (widget.fileredApproval!
-                              ? FFAppState()
-                                  .shiftStatus
-                                  .where((e) => e.isApproved)
-                                  .toList()
-                              : FFAppState()
-                                  .shiftStatus
-                                  .where((e) => !e.isApproved)
-                                  .toList()))
-                      .toList();
-
-              return ListView.builder(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: shiftStatusDetail.length,
-                itemBuilder: (context, shiftStatusDetailIndex) {
-                  final shiftStatusDetailItem =
-                      shiftStatusDetail[shiftStatusDetailIndex];
-                  return wrapWithModel(
-                    model: _model.schduleListModels.getModel(
-                      shiftStatusDetailItem.shiftRequestId,
-                      shiftStatusDetailIndex,
-                    ),
-                    updateCallback: () => safeSetState(() {}),
-                    child: SchduleListWidget(
-                      key: Key(
-                        'Keyu3j_${shiftStatusDetailItem.shiftRequestId}',
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              24.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'Date',
+                            textAlign: TextAlign.start,
+                            maxLines: 1,
+                            style: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
+                                ),
+                          ),
+                        ),
                       ),
-                      storeShift: shiftStatusDetailItem,
-                      shiftId: shiftStatusDetailItem.shiftId,
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              8.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'shop',
+                            maxLines: 1,
+                            style: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
+                                ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              28.0, 0.0, 0.0, 0.0),
+                          child: Text(
+                            'Shift',
+                            maxLines: 1,
+                            style: FlutterFlowTheme.of(context)
+                                .titleMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .titleMedium
+                                      .fontStyle,
+                                ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 12.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                      borderRadius: BorderRadius.circular(8.0),
                     ),
-                  );
-                },
-              );
-            },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Builder(
+                          builder: (context) {
+                            final shiftStatusDetail =
+                                (widget.filteredStore != null &&
+                                            widget.filteredStore != ''
+                                        ? (widget.fileredApproval!
+                                            ? FFAppState()
+                                                .shiftStatus
+                                                .where((e) =>
+                                                    (widget.filteredStore ==
+                                                        e.storeId) &&
+                                                    e.isApproved)
+                                                .toList()
+                                            : FFAppState()
+                                                .shiftStatus
+                                                .where((e) =>
+                                                    (widget.filteredStore ==
+                                                        e.storeId) &&
+                                                    !e.isApproved)
+                                                .toList())
+                                        : (widget.fileredApproval!
+                                            ? FFAppState()
+                                                .shiftStatus
+                                                .where((e) => e.isApproved)
+                                                .toList()
+                                            : FFAppState()
+                                                .shiftStatus
+                                                .where((e) => !e.isApproved)
+                                                .toList()))
+                                    .toList();
+
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: shiftStatusDetail.length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 4.0),
+                              itemBuilder: (context, shiftStatusDetailIndex) {
+                                final shiftStatusDetailItem =
+                                    shiftStatusDetail[shiftStatusDetailIndex];
+                                return wrapWithModel(
+                                  model: _model.schduleListModels.getModel(
+                                    shiftStatusDetailItem.shiftRequestId,
+                                    shiftStatusDetailIndex,
+                                  ),
+                                  updateCallback: () => safeSetState(() {}),
+                                  child: SchduleListWidget(
+                                    key: Key(
+                                      'Keyu3j_${shiftStatusDetailItem.shiftRequestId}',
+                                    ),
+                                    storeShift: shiftStatusDetailItem,
+                                    shiftId: shiftStatusDetailItem.shiftId,
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -171,12 +171,18 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                                             child: Padding(
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
-                                              child: PopupWidget(
-                                                popupTitle: 'Create Role',
-                                                widgetBuilder: () =>
-                                                    CreateRoleV1Widget(
-                                                  companyId: FFAppState()
-                                                      .companyChoosen,
+                                              child: Container(
+                                                height:
+                                                    MediaQuery.sizeOf(context)
+                                                            .height *
+                                                        0.8,
+                                                child: PopupWidget(
+                                                  popupTitle: 'Create Role',
+                                                  widgetBuilder: () =>
+                                                      CreateRoleV1Widget(
+                                                    companyId: FFAppState()
+                                                        .companyChoosen,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -236,12 +242,14 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                                 listViewViewRolesWithPermissionsRowList =
                                 snapshot.data!;
 
-                            return ListView.builder(
+                            return ListView.separated(
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: listViewViewRolesWithPermissionsRowList
                                   .length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 12.0),
                               itemBuilder: (context, listViewIndex) {
                                 final listViewViewRolesWithPermissionsRow =
                                     listViewViewRolesWithPermissionsRowList[

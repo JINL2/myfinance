@@ -62,17 +62,11 @@ class _StoreShiftSettingWidgetState extends State<StoreShiftSettingWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                  ),
-                  child: wrapWithModel(
-                    model: _model.menuBarModel,
-                    updateCallback: () => safeSetState(() {}),
-                    child: MenuBarWidget(
-                      menuName: 'Store Shift Setting',
-                    ),
+                wrapWithModel(
+                  model: _model.menuBarModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: MenuBarWidget(
+                    menuName: 'Store Shift Setting',
                   ),
                 ),
                 Expanded(
@@ -84,81 +78,73 @@ class _StoreShiftSettingWidgetState extends State<StoreShiftSettingWidget> {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Text(
-                              'Choose Stores',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FlutterFlowTheme.of(context)
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 12.0, 0.0, 12.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    child: FlutterFlowDropDown<String>(
+                                      controller:
+                                          _model.chooseStoreValueController ??=
+                                              FormFieldController<String>(
+                                        _model.chooseStoreValue ??=
+                                            FFAppState().storeChoosen,
+                                      ),
+                                      options: List<String>.from(FFAppState()
+                                          .user
+                                          .companies
+                                          .where((e) =>
+                                              FFAppState().companyChoosen ==
+                                              e.companyId)
+                                          .toList()
+                                          .firstOrNull!
+                                          .stores
+                                          .map((e) => e.storeId)
+                                          .toList()),
+                                      optionLabels: FFAppState()
+                                          .user
+                                          .companies
+                                          .where((e) =>
+                                              FFAppState().companyChoosen ==
+                                              e.companyId)
+                                          .toList()
+                                          .firstOrNull!
+                                          .stores
+                                          .map((e) => e.storeName)
+                                          .toList(),
+                                      onChanged: (val) async {
+                                        safeSetState(() =>
+                                            _model.chooseStoreValue = val);
+                                        FFAppState().storeChoosen =
+                                            _model.chooseStoreValue!;
+                                        safeSetState(() {});
+                                      },
+                                      width: MediaQuery.sizeOf(context).width *
+                                          0.6,
+                                      height: 60.0,
+                                      textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 12.0, 0.0, 12.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Align(
-                                  alignment: AlignmentDirectional(-1.0, 0.0),
-                                  child: FlutterFlowDropDown<String>(
-                                    controller:
-                                        _model.chooseStoreValueController ??=
-                                            FormFieldController<String>(
-                                      _model.chooseStoreValue ??=
-                                          FFAppState().storeChoosen,
-                                    ),
-                                    options: List<String>.from(FFAppState()
-                                        .user
-                                        .companies
-                                        .where((e) =>
-                                            FFAppState().companyChoosen ==
-                                            e.companyId)
-                                        .toList()
-                                        .firstOrNull!
-                                        .stores
-                                        .map((e) => e.storeId)
-                                        .toList()),
-                                    optionLabels: FFAppState()
-                                        .user
-                                        .companies
-                                        .where((e) =>
-                                            FFAppState().companyChoosen ==
-                                            e.companyId)
-                                        .toList()
-                                        .firstOrNull!
-                                        .stores
-                                        .map((e) => e.storeName)
-                                        .toList(),
-                                    onChanged: (val) => safeSetState(
-                                        () => _model.chooseStoreValue = val),
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.6,
-                                    height: 60.0,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          font: GoogleFonts.notoSansJp(
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
                                             fontWeight:
                                                 FlutterFlowTheme.of(context)
                                                     .bodyMedium
@@ -168,160 +154,157 @@ class _StoreShiftSettingWidgetState extends State<StoreShiftSettingWidget> {
                                                     .bodyMedium
                                                     .fontStyle,
                                           ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                    hintText: 'Choose Store',
-                                    icon: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      size: 24.0,
+                                      hintText: 'Choose Store',
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                      elevation: 2.0,
+                                      borderColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderWidth: 1.0,
+                                      borderRadius: 40.0,
+                                      margin: EdgeInsetsDirectional.fromSTEB(
+                                          12.0, 0.0, 12.0, 0.0),
+                                      hidesUnderline: true,
+                                      isOverButton: false,
+                                      isSearchable: false,
+                                      isMultiSelect: false,
                                     ),
-                                    fillColor: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    elevation: 2.0,
-                                    borderColor: Color(0xFFE0E3E7),
-                                    borderWidth: 2.0,
-                                    borderRadius: 40.0,
-                                    margin: EdgeInsetsDirectional.fromSTEB(
-                                        12.0, 0.0, 12.0, 0.0),
-                                    hidesUnderline: true,
-                                    isOverButton: false,
-                                    isSearchable: false,
-                                    isMultiSelect: false,
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      1.0, 0.0, 0.0, 0.0),
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      if (FFAppState().storeChoosen != '') {
-                                        if (FFAppState().isLoading1 == false) {
-                                          FFAppState().isLoading1 = true;
-                                          safeSetState(() {});
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            enableDrag: false,
-                                            context: context,
-                                            builder: (context) {
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  FocusScope.of(context)
-                                                      .unfocus();
-                                                  FocusManager
-                                                      .instance.primaryFocus
-                                                      ?.unfocus();
-                                                },
-                                                child: Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: PopupWidget(
-                                                    popupTitle: 'Create Shift',
-                                                    widgetBuilder: () =>
-                                                        StoreShiftCreateWidget(
-                                                      storeId: _model
-                                                          .chooseStoreValue!,
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        1.0, 0.0, 0.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        if (FFAppState().storeChoosen != '') {
+                                          if (FFAppState().isLoading1 ==
+                                              false) {
+                                            FFAppState().isLoading1 = true;
+                                            safeSetState(() {});
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              context: context,
+                                              builder: (context) {
+                                                return GestureDetector(
+                                                  onTap: () {
+                                                    FocusScope.of(context)
+                                                        .unfocus();
+                                                    FocusManager
+                                                        .instance.primaryFocus
+                                                        ?.unfocus();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: PopupWidget(
+                                                      popupTitle:
+                                                          'Create Shift',
+                                                      widgetBuilder: () =>
+                                                          StoreShiftCreateWidget(
+                                                        storeId: _model
+                                                            .chooseStoreValue!,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              );
-                                            },
-                                          ).then(
-                                              (value) => safeSetState(() {}));
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
 
-                                          FFAppState().isLoading1 = false;
-                                          safeSetState(() {});
+                                            FFAppState().isLoading1 = false;
+                                            safeSetState(() {});
+                                          }
                                         }
-                                      }
-                                    },
-                                    child: wrapWithModel(
-                                      model: _model.addButtonModel,
-                                      updateCallback: () => safeSetState(() {}),
-                                      child: AddButtonWidget(
-                                        textParameter: '+ Add shift',
-                                        colorParameter:
-                                            FFAppState().storeChoosen !=
-                                                        ''
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .alternate,
+                                      },
+                                      child: wrapWithModel(
+                                        model: _model.addButtonModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: AddButtonWidget(
+                                          textParameter: '+ Add shift',
+                                          colorParameter: FFAppState().storeChoosen !=
+                                                      ''
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          FutureBuilder<List<StoreShiftsRow>>(
-                            future: StoreShiftsTable().queryRows(
-                              queryFn: (q) => q.eqOrNull(
-                                'store_id',
-                                _model.chooseStoreValue,
+                                ],
                               ),
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 80.0,
-                                    height: 80.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
+                            FutureBuilder<List<StoreShiftsRow>>(
+                              future: StoreShiftsTable().queryRows(
+                                queryFn: (q) => q.eqOrNull(
+                                  'store_id',
+                                  _model.chooseStoreValue,
+                                ),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 80.0,
+                                      height: 80.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<StoreShiftsRow> listViewStoreShiftsRowList =
-                                  snapshot.data!;
-
-                              return ListView.separated(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewStoreShiftsRowList.length,
-                                separatorBuilder: (_, __) =>
-                                    SizedBox(height: 10.0),
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewStoreShiftsRow =
-                                      listViewStoreShiftsRowList[listViewIndex];
-                                  return wrapWithModel(
-                                    model: _model.storeShiftComponentModels
-                                        .getModel(
-                                      listViewStoreShiftsRow.shiftId,
-                                      listViewIndex,
-                                    ),
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: StoreShiftComponentWidget(
-                                      key: Key(
-                                        'Keyzsh_${listViewStoreShiftsRow.shiftId}',
-                                      ),
-                                      storeShift: listViewStoreShiftsRow,
                                     ),
                                   );
-                                },
-                              );
-                            },
-                          ),
-                        ],
+                                }
+                                List<StoreShiftsRow>
+                                    listViewStoreShiftsRowList = snapshot.data!;
+
+                                return ListView.separated(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: listViewStoreShiftsRowList.length,
+                                  separatorBuilder: (_, __) =>
+                                      SizedBox(height: 12.0),
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewStoreShiftsRow =
+                                        listViewStoreShiftsRowList[
+                                            listViewIndex];
+                                    return wrapWithModel(
+                                      model: _model.storeShiftComponentModels
+                                          .getModel(
+                                        listViewStoreShiftsRow.shiftId,
+                                        listViewIndex,
+                                      ),
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: StoreShiftComponentWidget(
+                                        key: Key(
+                                          'Keyzsh_${listViewStoreShiftsRow.shiftId}',
+                                        ),
+                                        storeShift: listViewStoreShiftsRow,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

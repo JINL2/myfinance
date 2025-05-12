@@ -53,10 +53,11 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         decoration: BoxDecoration(
+          color: Color(0xFFEDF3FF),
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Stack(
               alignment: AlignmentDirectional(0.0, 0.0),

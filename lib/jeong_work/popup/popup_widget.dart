@@ -60,7 +60,7 @@ class _PopupWidgetState extends State<PopupWidget> {
             child: Container(
               width: MediaQuery.sizeOf(context).width * 1.0,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).secondaryBackground,
+                color: FlutterFlowTheme.of(context).primaryBackground,
               ),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
@@ -94,7 +94,7 @@ class _PopupWidgetState extends State<PopupWidget> {
           Container(
             width: MediaQuery.sizeOf(context).width * 1.0,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: FlutterFlowTheme.of(context).primaryBackground,
             ),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),

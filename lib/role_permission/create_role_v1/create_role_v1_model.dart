@@ -11,13 +11,10 @@ class CreateRoleV1Model extends FlutterFlowModel<CreateRoleV1Widget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // State field(s) for CheckboxListTile widget.
-  Map<FeaturesStruct, bool> checkboxListTileValueMap = {};
-  List<FeaturesStruct> get checkboxListTileCheckedItems =>
-      checkboxListTileValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
+  // State field(s) for Checkbox widget.
+  Map<FeaturesStruct, bool> checkboxValueMap = {};
+  List<FeaturesStruct> get checkboxCheckedItems =>
+      checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   // Stores action output result for [Backend Call - API (Create Role)] action in Icon widget.
   ApiCallResponse? createRole;

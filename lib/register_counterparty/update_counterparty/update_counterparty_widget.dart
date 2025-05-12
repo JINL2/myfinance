@@ -203,109 +203,136 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                   ].divide(SizedBox(height: 4.0)),
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Is your company?',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                            letterSpacing: 0.0,
-                            fontWeight: FontWeight.w500,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
-                    ),
-                    Switch.adaptive(
-                      value: _model.switchValue!,
-                      onChanged: !(FFAppState()
-                              .user
-                              .companies
-                              .where((e) =>
-                                  FFAppState().companyChoosen != e.companyId)
-                              .toList()
-                              .isNotEmpty)
-                          ? null
-                          : (newValue) async {
-                              safeSetState(
-                                  () => _model.switchValue = newValue);
-                            },
-                      activeColor: FlutterFlowTheme.of(context).primary,
-                      activeTrackColor: FlutterFlowTheme.of(context).primary,
-                      inactiveTrackColor:
-                          FlutterFlowTheme.of(context).alternate,
-                      inactiveThumbColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                  ],
+              Container(
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).alternate,
                 ),
-              ),
-              if (_model.switchValue ?? true)
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Choose Your Company',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.notoSansJp(
-                                fontWeight: FontWeight.w500,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              letterSpacing: 0.0,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
-                      Container(
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                        ),
-                        child: FlutterFlowDropDown<String>(
-                          controller: _model.companyDropDownValueController ??=
-                              FormFieldController<String>(
-                            _model.companyDropDownValue ??=
-                                widget.counterpartyInfo?.linkedCompanyId,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Is your company?',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
                           ),
-                          options: List<String>.from(FFAppState()
-                              .user
-                              .companies
-                              .where((e) =>
-                                  FFAppState().companyChoosen != e.companyId)
-                              .toList()
-                              .map((e) => e.companyId)
-                              .toList()),
-                          optionLabels: FFAppState()
-                              .user
-                              .companies
-                              .where((e) =>
-                                  FFAppState().companyChoosen != e.companyId)
-                              .toList()
-                              .map((e) => e.companyName)
-                              .toList(),
-                          onChanged: (val) => safeSetState(
-                              () => _model.companyDropDownValue = val),
-                          height: 40.0,
-                          textStyle:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
+                          Switch.adaptive(
+                            value: _model.switchValue!,
+                            onChanged: !(FFAppState()
+                                    .user
+                                    .companies
+                                    .where((e) =>
+                                        FFAppState().companyChoosen !=
+                                        e.companyId)
+                                    .toList()
+                                    .isNotEmpty)
+                                ? null
+                                : (newValue) async {
+                                    safeSetState(
+                                        () => _model.switchValue = newValue);
+                                  },
+                            activeColor: FlutterFlowTheme.of(context).primary,
+                            activeTrackColor:
+                                FlutterFlowTheme.of(context).primary,
+                            inactiveTrackColor:
+                                FlutterFlowTheme.of(context).alternate,
+                            inactiveThumbColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (_model.switchValue ?? true)
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Choose Your Company',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
                                     font: GoogleFonts.notoSansJp(
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                            ),
+                            Container(
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                              ),
+                              child: FlutterFlowDropDown<String>(
+                                controller:
+                                    _model.companyDropDownValueController ??=
+                                        FormFieldController<String>(
+                                  _model.companyDropDownValue ??=
+                                      widget.counterpartyInfo?.linkedCompanyId,
+                                ),
+                                options: List<String>.from(FFAppState()
+                                    .user
+                                    .companies
+                                    .where((e) =>
+                                        FFAppState().companyChoosen !=
+                                        e.companyId)
+                                    .toList()
+                                    .map((e) => e.companyId)
+                                    .toList()),
+                                optionLabels: FFAppState()
+                                    .user
+                                    .companies
+                                    .where((e) =>
+                                        FFAppState().companyChoosen !=
+                                        e.companyId)
+                                    .toList()
+                                    .map((e) => e.companyName)
+                                    .toList(),
+                                onChanged: (val) => safeSetState(
+                                    () => _model.companyDropDownValue = val),
+                                height: 40.0,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      font: GoogleFonts.notoSansJp(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -313,37 +340,33 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .fontStyle,
-                                  ),
-                          hintText: 'Select...',
-                          icon: Icon(
-                            Icons.keyboard_arrow_down_rounded,
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            size: 24.0,
-                          ),
-                          fillColor:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          elevation: 2.0,
-                          borderColor: Colors.transparent,
-                          borderWidth: 0.0,
-                          borderRadius: 8.0,
-                          margin: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 12.0, 0.0),
-                          hidesUnderline: true,
-                          isOverButton: false,
-                          isSearchable: false,
-                          isMultiSelect: false,
+                                hintText: 'Select...',
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryText,
+                                  size: 24.0,
+                                ),
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                elevation: 2.0,
+                                borderColor: Colors.transparent,
+                                borderWidth: 0.0,
+                                borderRadius: 8.0,
+                                margin: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 12.0, 0.0),
+                                hidesUnderline: true,
+                                isOverButton: false,
+                                isSearchable: false,
+                                isMultiSelect: false,
+                              ),
+                            ),
+                          ].divide(SizedBox(height: 4.0)),
                         ),
                       ),
-                    ].divide(SizedBox(height: 4.0)),
-                  ),
+                  ],
                 ),
+              ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: Column(
@@ -765,7 +788,11 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                           'notes': _model.textController4.text,
                           'type': _model.typeDropDownValue,
                           'is_internal': _model.switchValue,
-                          'linked_company_id': _model.companyDropDownValue,
+                          'linked_company_id':
+                              _model.companyDropDownValue != null &&
+                                      _model.companyDropDownValue != ''
+                                  ? _model.companyDropDownValue
+                                  : null,
                         },
                         matchingRows: (rows) => rows.eqOrNull(
                           'counterparty_id',

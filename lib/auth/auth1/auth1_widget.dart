@@ -46,6 +46,16 @@ class _Auth1WidgetState extends State<Auth1Widget>
       FFAppState().isLoading1 = false;
       FFAppState().isLoading2 = false;
       FFAppState().isLoading3 = false;
+      FFAppState().localMyCompanyCount = 0;
+      FFAppState().categoryFeatures = [];
+      FFAppState().selectedFeatures = [];
+      FFAppState().isExpanded = false;
+      FFAppState().showboolean = false;
+      FFAppState().shiftStatus = [];
+      FFAppState().financeAccount = [];
+      FFAppState().userLocation = null;
+      FFAppState().shiftMetaData = [];
+      FFAppState().managerShiftDetail = [];
       safeSetState(() {});
     });
 
@@ -659,10 +669,18 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                         return;
                                                       }
 
-                                                      context.goNamedAuth(
-                                                          HomepageWidget
-                                                              .routeName,
-                                                          context.mounted);
+                                                      context.pushNamedAuth(
+                                                        HomepageWidget
+                                                            .routeName,
+                                                        context.mounted,
+                                                        queryParameters: {
+                                                          'firstLogin':
+                                                              serializeParam(
+                                                            true,
+                                                            ParamType.bool,
+                                                          ),
+                                                        }.withoutNulls,
+                                                      );
                                                     },
                                                     text: 'Sign In',
                                                     options: FFButtonOptions(

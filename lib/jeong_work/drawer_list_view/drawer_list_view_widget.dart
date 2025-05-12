@@ -57,9 +57,18 @@ class _DrawerListViewWidgetState extends State<DrawerListViewWidget> {
               highlightColor: Colors.transparent,
               onTap: () async {
                 FFAppState().companyChoosen = widget.companyInfo!.companyId;
+                FFAppState().storeChoosen = '';
                 safeSetState(() {});
 
-                context.pushNamed(HomepageWidget.routeName);
+                context.pushNamed(
+                  HomepageWidget.routeName,
+                  queryParameters: {
+                    'companyclicked': serializeParam(
+                      true,
+                      ParamType.bool,
+                    ),
+                  }.withoutNulls,
+                );
               },
               child: wrapWithModel(
                 model: _model.drawerCompanyNameModel,
@@ -94,7 +103,15 @@ class _DrawerListViewWidgetState extends State<DrawerListViewWidget> {
                           widget.companyInfo!.companyId;
                       safeSetState(() {});
 
-                      context.pushNamed(HomepageWidget.routeName);
+                      context.pushNamed(
+                        HomepageWidget.routeName,
+                        queryParameters: {
+                          'storeclicked': serializeParam(
+                            true,
+                            ParamType.bool,
+                          ),
+                        }.withoutNulls,
+                      );
                     },
                     child: wrapWithModel(
                       model: _model.drawerStoreModels.getModel(

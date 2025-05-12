@@ -12,13 +12,10 @@ class UpdateRolesV1Model extends FlutterFlowModel<UpdateRolesV1Widget> {
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
-  // State field(s) for CheckboxListTile widget.
-  Map<FeaturesStruct, bool> checkboxListTileValueMap = {};
-  List<FeaturesStruct> get checkboxListTileCheckedItems =>
-      checkboxListTileValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
+  // State field(s) for Checkbox widget.
+  Map<FeaturesStruct, bool> checkboxValueMap = {};
+  List<FeaturesStruct> get checkboxCheckedItems =>
+      checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   // Model for add_button component.
   late AddButtonModel addButtonModel1;

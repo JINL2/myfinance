@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/jeong_work/add/add_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -66,10 +67,10 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
     return Container(
       width: MediaQuery.sizeOf(context).width * 1.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -109,34 +110,34 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1.0,
+                    color: Color(0xFFE0E3E7),
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Color(0x00000000),
-                    width: 1.0,
+                    color: Color(0xFF4B39EF),
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 filled: true,
-                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                fillColor: FlutterFlowTheme.of(context).info,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     font: GoogleFonts.notoSansJp(
@@ -145,6 +146,7 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                       fontStyle:
                           FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
+                    fontSize: 20.0,
                     letterSpacing: 0.0,
                     fontWeight:
                         FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -191,34 +193,34 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1.0,
+                    color: Color(0xFFE0E3E7),
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Color(0x00000000),
-                    width: 1.0,
+                    color: Color(0xFF4B39EF),
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 filled: true,
-                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                fillColor: FlutterFlowTheme.of(context).info,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     font: GoogleFonts.notoSansJp(
@@ -227,6 +229,7 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                       fontStyle:
                           FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
+                    fontSize: 20.0,
                     letterSpacing: 0.0,
                     fontWeight:
                         FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -273,34 +276,34 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                     ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.black,
-                    width: 1.0,
+                    color: Color(0xFFE0E3E7),
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Color(0x00000000),
-                    width: 1.0,
+                    color: Color(0xFF4B39EF),
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 errorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).error,
-                    width: 1.0,
+                    width: 2.0,
                   ),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 filled: true,
-                fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                fillColor: FlutterFlowTheme.of(context).info,
               ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     font: GoogleFonts.notoSansJp(
@@ -309,6 +312,7 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                       fontStyle:
                           FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                     ),
+                    fontSize: 20.0,
                     letterSpacing: 0.0,
                     fontWeight:
                         FlutterFlowTheme.of(context).bodyMedium.fontWeight,
@@ -367,7 +371,16 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
                     FFAppState().isLoading2 = false;
                     FFAppState().storeChoosen = _model.addstore!.storeId;
                     safeSetState(() {});
-                    context.safePop();
+
+                    context.pushNamed(
+                      HomepageWidget.routeName,
+                      queryParameters: {
+                        'companyclicked': serializeParam(
+                          true,
+                          ParamType.bool,
+                        ),
+                      }.withoutNulls,
+                    );
                   }
 
                   safeSetState(() {});

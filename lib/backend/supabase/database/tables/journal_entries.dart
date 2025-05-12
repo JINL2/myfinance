@@ -63,4 +63,7 @@ class JournalEntriesRow extends SupabaseDataRow {
 
   bool get isDeleted => getField<bool>('is_deleted')!;
   set isDeleted(bool value) => setField<bool>('is_deleted', value);
+
+  bool? get isAutoCreated => getField<bool>('is_auto_created');
+  set isAutoCreated(bool? value) => setField<bool>('is_auto_created', value);
 }

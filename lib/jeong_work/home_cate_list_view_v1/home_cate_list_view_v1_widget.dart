@@ -86,98 +86,94 @@ class _HomeCateListViewV1WidgetState extends State<HomeCateListViewV1Widget> {
             ),
           ),
           Flexible(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 12.0, 0.0),
-                          child: Builder(
-                            builder: (context) {
-                              final categoryInfo =
-                                  widget.cateInfo?.features.toList() ?? [];
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 0.0, 12.0, 0.0),
+                        child: Builder(
+                          builder: (context) {
+                            final categoryInfo =
+                                widget.cateInfo?.features.toList() ?? [];
 
-                              return GridView.builder(
-                                padding: EdgeInsets.fromLTRB(
-                                  0,
-                                  8.0,
-                                  0,
-                                  8.0,
-                                ),
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 3,
-                                  crossAxisSpacing: 12.0,
-                                  mainAxisSpacing: 12.0,
-                                  childAspectRatio: 1.0,
-                                ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: categoryInfo.length,
-                                itemBuilder: (context, categoryInfoIndex) {
-                                  final categoryInfoItem =
-                                      categoryInfo[categoryInfoIndex];
-                                  return Visibility(
-                                    visible: functions.isListHaveString(
-                                            categoryInfoItem.featureId,
-                                            FFAppState()
-                                                .user
-                                                .companies
-                                                .where((e) =>
-                                                    FFAppState()
-                                                        .companyChoosen ==
-                                                    e.companyId)
-                                                .toList()
-                                                .firstOrNull
-                                                ?.role
-                                                .permissions
-                                                .toList()) ??
-                                        true,
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        await actions.navigateToRoute(
-                                          context,
-                                          categoryInfoItem.route,
-                                        );
-                                      },
-                                      child: wrapWithModel(
-                                        model:
-                                            _model.homeFeatureV1Models.getModel(
+                            return GridView.builder(
+                              padding: EdgeInsets.fromLTRB(
+                                0,
+                                8.0,
+                                0,
+                                8.0,
+                              ),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 3,
+                                crossAxisSpacing: 12.0,
+                                mainAxisSpacing: 12.0,
+                                childAspectRatio: 1.0,
+                              ),
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: categoryInfo.length,
+                              itemBuilder: (context, categoryInfoIndex) {
+                                final categoryInfoItem =
+                                    categoryInfo[categoryInfoIndex];
+                                return Visibility(
+                                  visible: functions.isListHaveString(
                                           categoryInfoItem.featureId,
-                                          categoryInfoIndex,
+                                          FFAppState()
+                                              .user
+                                              .companies
+                                              .where((e) =>
+                                                  FFAppState().companyChoosen ==
+                                                  e.companyId)
+                                              .toList()
+                                              .firstOrNull
+                                              ?.role
+                                              .permissions
+                                              .toList()) ??
+                                      true,
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await actions.navigateToRoute(
+                                        context,
+                                        categoryInfoItem.route,
+                                      );
+                                    },
+                                    child: wrapWithModel(
+                                      model:
+                                          _model.homeFeatureV1Models.getModel(
+                                        categoryInfoItem.featureId,
+                                        categoryInfoIndex,
+                                      ),
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: HomeFeatureV1Widget(
+                                        key: Key(
+                                          'Keygqv_${categoryInfoItem.featureId}',
                                         ),
-                                        updateCallback: () =>
-                                            safeSetState(() {}),
-                                        child: HomeFeatureV1Widget(
-                                          key: Key(
-                                            'Keygqv_${categoryInfoItem.featureId}',
-                                          ),
-                                          featureInfo: categoryInfoItem,
-                                        ),
+                                        featureInfo: categoryInfoItem,
                                       ),
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ].divide(SizedBox(height: 12.0)),

@@ -52,4 +52,7 @@ class CounterpartiesRow extends SupabaseDataRow {
   String? get linkedCompanyId => getField<String>('linked_company_id');
   set linkedCompanyId(String? value) =>
       setField<String>('linked_company_id', value);
+
+  String? get createdBy => getField<String>('created_by');
+  set createdBy(String? value) => setField<String>('created_by', value);
 }

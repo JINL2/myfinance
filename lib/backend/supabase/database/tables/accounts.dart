@@ -37,4 +37,7 @@ class AccountsRow extends SupabaseDataRow {
 
   DateTime? get updatedAt => getField<DateTime>('updated_at');
   set updatedAt(DateTime? value) => setField<DateTime>('updated_at', value);
+
+  String? get debtTag => getField<String>('debt_tag');
+  set debtTag(String? value) => setField<String>('debt_tag', value);
 }

@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'test1_widget.dart' show Test1Widget;
+import 'cash_amount_input_widget.dart' show CashAmountInputWidget;
 import 'package:flutter/material.dart';
 
-class Test1Model extends FlutterFlowModel<Test1Widget> {
+class CashAmountInputModel extends FlutterFlowModel<CashAmountInputWidget> {
   @override
   void initState(BuildContext context) {}
 

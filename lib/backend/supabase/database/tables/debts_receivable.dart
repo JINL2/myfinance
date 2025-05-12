@@ -77,7 +77,12 @@ class DebtsReceivableRow extends SupabaseDataRow {
   DateTime? get createdAt => getField<DateTime>('created_at');
   set createdAt(DateTime? value) => setField<DateTime>('created_at', value);
 
-  String? get counterpartyStoreId => getField<String>('counterparty_store_id');
-  set counterpartyStoreId(String? value) =>
-      setField<String>('counterparty_store_id', value);
+  String? get linkedCompanyId => getField<String>('linked_company_id');
+  set linkedCompanyId(String? value) =>
+      setField<String>('linked_company_id', value);
+
+  String? get linkedCompanyStoreId =>
+      getField<String>('linked_company_store_id');
+  set linkedCompanyStoreId(String? value) =>
+      setField<String>('linked_company_store_id', value);
 }

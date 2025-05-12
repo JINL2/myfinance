@@ -519,3 +519,25 @@ String? simplePlusString(
     return null;
   }
 }
+
+bool? isListHaveCurrnecyid(
+  List<CompanyCurrencyRow>? supabaseCurrnecy,
+  String? currencyId,
+) {
+  if (supabaseCurrnecy == null || currencyId == null) {
+    return false;
+  }
+
+  return supabaseCurrnecy.any((row) => row.currencyId == currencyId);
+}
+
+bool? isListHaveDenomination(
+  List<CurrencyDenominationsRow>? currnecyDenominationSupabase,
+  int? value,
+) {
+  if (currnecyDenominationSupabase == null || value == null) {
+    return false;
+  }
+
+  return currnecyDenominationSupabase.any((row) => row.value == value);
+}
