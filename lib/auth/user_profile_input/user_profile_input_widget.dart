@@ -578,7 +578,7 @@ class _UserProfileInputWidgetState extends State<UserProfileInputWidget>
                                                               .givenNameTextController
                                                               .text,
                                                           'profile_image':
-                                                              'https://atkekzwgukdvucqntryo.supabase.co/storage/v1/object/public/profileimage//avatar-default-svgrepo-com.svg',
+                                                              'https://atkekzwgukdvucqntryo.supabase.co/storage/v1/object/public/icon/main_icon/person-svgrepo-com.png',
                                                         },
                                                         matchingRows: (rows) =>
                                                             rows.eqOrNull(

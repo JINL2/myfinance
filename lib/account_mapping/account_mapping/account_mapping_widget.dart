@@ -102,8 +102,9 @@ class _AccountMappingWidgetState extends State<AccountMappingWidget> {
                               List<VAccountMappingsWithLinkedCompanyRow>>(
                             future: VAccountMappingsWithLinkedCompanyTable()
                                 .queryRows(
-                              queryFn: (q) => q.or(
-                                  "my_company_id.eq.${FFAppState().companyChoosen}, counterparty_id.eq.${FFAppState().companyChoosen}"),
+                              queryFn: (q) => q
+                                  .or("my_company_id.eq.${FFAppState().companyChoosen}, counterparty_id.eq.${FFAppState().companyChoosen}")
+                                  .order('linked_company_id'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

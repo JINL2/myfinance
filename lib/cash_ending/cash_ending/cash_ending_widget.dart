@@ -74,6 +74,10 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                 supaSerialize<DateTime>(getCurrentTimestamp),
               ),
         );
+        _model.cashAmountLine = _model.cashierAmountLinestore!
+            .toList()
+            .cast<CashierAmountLinesRow>();
+        safeSetState(() {});
       } else {
         _model.cashierAmountLineCompnay =
             await CashierAmountLinesTable().queryRows(
@@ -87,6 +91,12 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                 supaSerialize<DateTime>(getCurrentTimestamp),
               ),
         );
+        _model.cashAmountLine = _model.cashierAmountLineCompnay!
+            .where((e) => e.storeId == null || e.storeId == '')
+            .toList()
+            .toList()
+            .cast<CashierAmountLinesRow>();
+        safeSetState(() {});
       }
 
       _model.companyCurrency =
@@ -488,16 +498,39 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                             pRecordDate: dateTimeFormat(
                                                 "yyyy-MM-dd",
                                                 getCurrentTimestamp),
+                                            pCreatedBy:
+                                                FFAppState().user.userId,
                                             pCurrenciesJson:
                                                 functions.mapListDatatoJsonb(
                                                     _model.currencies.toList()),
-                                            pCreatedBy:
-                                                FFAppState().user.userId,
                                           );
 
                                           if ((_model.apiResultl36?.succeeded ??
                                               true)) {
-                                            FFAppState().isLoading1 = false;
+                                            _model.havestoreRe =
+                                                await CashierAmountLinesTable()
+                                                    .queryRows(
+                                              queryFn: (q) => q
+                                                  .eqOrNull(
+                                                    'company_id',
+                                                    FFAppState().companyChoosen,
+                                                  )
+                                                  .eqOrNull(
+                                                    'store_id',
+                                                    FFAppState().storeChoosen,
+                                                  )
+                                                  .eqOrNull(
+                                                    'created_at',
+                                                    supaSerialize<DateTime>(
+                                                        getCurrentTimestamp),
+                                                  ),
+                                            );
+                                            _model.cashAmountLine = [];
+                                            safeSetState(() {});
+                                            _model.cashAmountLine = _model
+                                                .havestoreRe!
+                                                .toList()
+                                                .cast<CashierAmountLinesRow>();
                                             safeSetState(() {});
                                           } else {
                                             await showDialog(
@@ -539,7 +572,28 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
 
                                           if ((_model.apiResulttuy?.succeeded ??
                                               true)) {
-                                            FFAppState().isLoading1 = false;
+                                            _model.havestoreNew =
+                                                await CashierAmountLinesTable()
+                                                    .queryRows(
+                                              queryFn: (q) => q
+                                                  .eqOrNull(
+                                                    'company_id',
+                                                    FFAppState().companyChoosen,
+                                                  )
+                                                  .eqOrNull(
+                                                    'store_id',
+                                                    FFAppState().storeChoosen,
+                                                  )
+                                                  .eqOrNull(
+                                                    'created_at',
+                                                    supaSerialize<DateTime>(
+                                                        getCurrentTimestamp),
+                                                  ),
+                                            );
+                                            _model.cashAmountLine = _model
+                                                .havestoreNew!
+                                                .toList()
+                                                .cast<CashierAmountLinesRow>();
                                             safeSetState(() {});
                                           } else {
                                             await showDialog(
@@ -547,6 +601,11 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                               builder: (alertDialogContext) {
                                                 return AlertDialog(
                                                   title: Text('Fail2'),
+                                                  content: Text((_model
+                                                              .apiResulttuy
+                                                              ?.jsonBody ??
+                                                          '')
+                                                      .toString()),
                                                   actions: [
                                                     TextButton(
                                                       onPressed: () =>
@@ -580,12 +639,7 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                 )
                                                 .eqOrNull(
                                                   'store_id',
-                                                  FFAppState().storeChoosen,
-                                                )
-                                                .eqOrNull(
-                                                  'record_date',
-                                                  supaSerialize<DateTime>(
-                                                      getCurrentTimestamp),
+                                                  '',
                                                 ),
                                           );
                                           _model.apiResultja0 =
@@ -738,190 +792,186 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                 ),
                               ),
                             ),
+                            Divider(
+                              thickness: 2.0,
+                              color: FlutterFlowTheme.of(context).alternate,
+                            ),
                             if (FFAppState().storeChoosen != ''
-                                ? ((_model.cashierAmountLinestore != null &&
-                                        (_model.cashierAmountLinestore)!
-                                            .isNotEmpty) ==
-                                    true)
-                                : ((_model.cashierAmountLineCompnay != null &&
-                                        (_model.cashierAmountLineCompnay)!
-                                            .isNotEmpty) ==
-                                    true))
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 20.0, 0.0, 0.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Builder(
-                                        builder: (context) {
-                                          final cashierAmountLine2 = (FFAppState().storeChoosen !=
-                                                              ''
-                                                      ? _model
-                                                          .cashierAmountLinestore
-                                                      : _model
-                                                          .cashierAmountLineCompnay)
-                                                  ?.toList() ??
-                                              [];
+                                ? (_model.cashAmountLine.firstOrNull != null)
+                                : (_model.cashAmountLine.firstOrNull != null))
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Builder(
+                                    builder: (context) {
+                                      final companyCurrencyView =
+                                          _model.companyCurrency.toList();
 
-                                          return ListView.separated(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount:
-                                                cashierAmountLine2.length,
-                                            separatorBuilder: (_, __) =>
-                                                SizedBox(height: 8.0),
-                                            itemBuilder: (context,
-                                                cashierAmountLine2Index) {
-                                              final cashierAmountLine2Item =
-                                                  cashierAmountLine2[
-                                                      cashierAmountLine2Index];
-                                              return Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        12.0, 0.0, 12.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              -1.0, 0.0),
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          _model.currencyType
-                                                              ?.where((e) =>
-                                                                  cashierAmountLine2Item
-                                                                      .currencyId ==
-                                                                  e.currencyId)
-                                                              .toList()
-                                                              .firstOrNull
-                                                              ?.currencyName,
-                                                          'Currency Name',
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: companyCurrencyView.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 8.0),
+                                        itemBuilder: (context,
+                                            companyCurrencyViewIndex) {
+                                          final companyCurrencyViewItem =
+                                              companyCurrencyView[
+                                                  companyCurrencyViewIndex];
+                                          return Visibility(
+                                            visible: FFAppState().storeChoosen !=
+                                                        ''
+                                                ? (_model.cashAmountLine
+                                                    .where((e) =>
+                                                        e.currencyId ==
+                                                        companyCurrencyViewItem
+                                                            .currencyId)
+                                                    .toList()
+                                                    .isNotEmpty)
+                                                : (_model.cashAmountLine
+                                                    .where((e) =>
+                                                        e.currencyId ==
+                                                        companyCurrencyViewItem
+                                                            .currencyId)
+                                                    .toList()
+                                                    .isNotEmpty),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 12.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: Text(
+                                                      valueOrDefault<String>(
+                                                        _model.currencyType
+                                                            ?.where((e) =>
+                                                                companyCurrencyViewItem
+                                                                    .currencyId ==
+                                                                e.currencyId)
+                                                            .toList()
+                                                            .firstOrNull
+                                                            ?.currencyName,
+                                                        'Error',
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .headlineMedium
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        Text(
+                                                          'Currency',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontStyle,
+                                                              ),
                                                         ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
+                                                        Text(
+                                                          'Quantity',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .headlineMedium
+                                                                      .titleMedium
                                                                       .fontWeight,
                                                                   fontStyle: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .headlineMedium
+                                                                      .titleMedium
                                                                       .fontStyle,
                                                                 ),
-                                                      ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontStyle,
+                                                              ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Text(
-                                                            'Currency',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                          ),
-                                                          Text(
-                                                            'Quantity',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleMedium
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMedium
-                                                                      .fontStyle,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Builder(
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    child: Builder(
                                                       builder: (context) {
-                                                        final denominationData = _model
-                                                                .currencyDenomination
-                                                                ?.where((e) =>
-                                                                    cashierAmountLine2Item
-                                                                        .currencyId ==
-                                                                    e.currencyId)
-                                                                .toList()
-                                                                .toList() ??
-                                                            [];
+                                                        final cashAmountLine2 =
+                                                            _model
+                                                                .cashAmountLine
+                                                                .toList();
 
                                                         return ListView
                                                             .separated(
@@ -936,17 +986,17 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                           scrollDirection:
                                                               Axis.vertical,
                                                           itemCount:
-                                                              denominationData
+                                                              cashAmountLine2
                                                                   .length,
                                                           separatorBuilder: (_,
                                                                   __) =>
                                                               SizedBox(
-                                                                  height: 8.0),
+                                                                  height: 12.0),
                                                           itemBuilder: (context,
-                                                              denominationDataIndex) {
-                                                            final denominationDataItem =
-                                                                denominationData[
-                                                                    denominationDataIndex];
+                                                              cashAmountLine2Index) {
+                                                            final cashAmountLine2Item =
+                                                                cashAmountLine2[
+                                                                    cashAmountLine2Index];
                                                             return Container(
                                                               decoration:
                                                                   BoxDecoration(
@@ -966,55 +1016,70 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                                     MainAxisAlignment
                                                                         .spaceEvenly,
                                                                 children: [
-                                                                  Text(
-                                                                    'Hello World',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          font:
-                                                                              GoogleFonts.notoSansJp(
-                                                                            fontWeight:
-                                                                                FlutterFlowTheme.of(context).bodyMedium.fontWeight,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                  SingleChildScrollView(
+                                                                    scrollDirection:
+                                                                        Axis.horizontal,
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            _model.currencyDenomination != null && (_model.currencyDenomination)!.isNotEmpty
+                                                                                ? formatNumber(
+                                                                                    _model.currencyDenomination?.where((e) => e.denominationId == cashAmountLine2Item.denominationId).toList().firstOrNull?.value,
+                                                                                    formatType: FormatType.decimal,
+                                                                                    decimalType: DecimalType.periodDecimal,
+                                                                                  )
+                                                                                : 'null',
+                                                                            'Value',
                                                                           ),
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontWeight,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .fontStyle,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .titleMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.notoSansJp(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                ),
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                              ),
                                                                         ),
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                   Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      cashierAmountLine2Item
-                                                                          .quantity
-                                                                          .toString(),
-                                                                      '123',
+                                                                    formatNumber(
+                                                                      cashAmountLine2Item
+                                                                          .quantity,
+                                                                      formatType:
+                                                                          FormatType
+                                                                              .decimal,
+                                                                      decimalType:
+                                                                          DecimalType
+                                                                              .periodDecimal,
                                                                     ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .bodyMedium
+                                                                        .titleMedium
                                                                         .override(
                                                                           font:
                                                                               GoogleFonts.notoSansJp(
                                                                             fontWeight:
-                                                                                FlutterFlowTheme.of(context).bodyMedium.fontWeight,
+                                                                                FlutterFlowTheme.of(context).titleMedium.fontWeight,
                                                                             fontStyle:
-                                                                                FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                                                           ),
                                                                           letterSpacing:
                                                                               0.0,
                                                                           fontWeight: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
+                                                                              .titleMedium
                                                                               .fontWeight,
                                                                           fontStyle: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
+                                                                              .titleMedium
                                                                               .fontStyle,
                                                                         ),
                                                                   ),
@@ -1025,16 +1090,16 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                         );
                                                       },
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           );
                                         },
-                                      ),
-                                    ],
+                                      );
+                                    },
                                   ),
-                                ),
+                                ],
                               ),
                           ].divide(SizedBox(height: 12.0)),
                         ),
