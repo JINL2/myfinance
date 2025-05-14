@@ -541,3 +541,81 @@ bool? isListHaveDenomination(
 
   return currnecyDenominationSupabase.any((row) => row.value == value);
 }
+
+bool? isListHaveDenominationDatatype(
+  List<DenominationsStruct>? denominations,
+  String? denominationId,
+) {
+  if (denominations == null || denominationId == null) return false;
+
+  final denominationSet = denominations
+      .map((item) => item.denominationId)
+      .whereType<String>() // null 값 제거
+      .toSet();
+
+  return denominationSet.contains(denominationId);
+}
+
+List<DenominationsStruct>? removeValuefromDenominationData(
+  String? denominationId,
+  int? value,
+  List<DenominationsStruct>? denominationInput,
+) {
+  if (denominationId == null || value == null || denominationInput == null) {
+    return denominationInput;
+  }
+
+  return denominationInput.map((item) {
+    if (item.denominationId == denominationId) {
+      return DenominationsStruct(
+        denominationId: item.denominationId,
+        quantity: value,
+      );
+    }
+    return item;
+  }).toList();
+}
+
+bool? isListHaveCurrnencies(
+  List<CurrenciesStruct>? currenciesDataType,
+  String? currencyId,
+) {
+  if (currenciesDataType == null || currencyId == null) return false;
+
+  final currencyIdSet = currenciesDataType
+      .map((item) => item.currencyId)
+      .whereType<String>() // null 안전 처리
+      .toSet();
+
+  return currencyIdSet.contains(currencyId);
+}
+
+List<CurrenciesStruct>? removeCurrencies(
+  List<CurrenciesStruct>? initialData,
+  String? currencyId,
+  CurrenciesStruct? inputData,
+) {
+  if (initialData == null || currencyId == null || inputData == null)
+    return null;
+
+  final updatedList =
+      initialData.where((item) => item.currencyId != currencyId).toList();
+
+  updatedList.add(inputData);
+
+  return updatedList;
+}
+
+dynamic mapListDatatoJsonb(List<CurrenciesStruct> list) {
+  return list
+      .map((currency) => {
+            "currency_id": currency.currencyId,
+            "denominations": currency.denominations
+                .map((denom) => {
+                      "denomination_id": denom.denominationId,
+                      "quantity": denom.quantity
+                    })
+                .toList()
+          })
+      .toList();
+}

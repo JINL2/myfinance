@@ -1312,6 +1312,59 @@ class GetNotMyCounterPartyCall {
           .toList();
 }
 
+class InsertCashLineCall {
+  static Future<ApiCallResponse> call({
+    String? pCompanyId = '',
+    String? pStoreId = '',
+    String? pLocationId = '',
+    String? pRecordDate = '',
+    dynamic pCurrenciesJson,
+    String? pCreatedBy = '',
+  }) async {
+    final pCurrencies = _serializeJson(pCurrenciesJson);
+    final ffApiRequestBody = '''
+{
+  "p_company_id":  "${escapeStringForJson(pCompanyId)}",
+
+  "p_store_id" :  "${escapeStringForJson(pStoreId)}",
+
+
+  "p_location_id" :  "${escapeStringForJson(pLocationId)}",
+
+
+
+
+  "p_record_date" : "${escapeStringForJson(pRecordDate)}",
+
+  "p_created_by" : "${escapeStringForJson(pCreatedBy)}",
+
+   "p_currencies" : ${pCurrencies}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'insertCashLine',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/insert_cashier_amount_lines',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

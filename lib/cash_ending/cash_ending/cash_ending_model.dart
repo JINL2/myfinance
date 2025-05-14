@@ -1,8 +1,10 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/form_field_controller.dart';
 import 'cash_ending_widget.dart' show CashEndingWidget;
 import 'package:flutter/material.dart';
 
@@ -43,6 +45,29 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
     updateFn(cashEnding ??= CashEndingStruct());
   }
 
+  List<CurrenciesStruct> currencies = [];
+  void addToCurrencies(CurrenciesStruct item) => currencies.add(item);
+  void removeFromCurrencies(CurrenciesStruct item) => currencies.remove(item);
+  void removeAtIndexFromCurrencies(int index) => currencies.removeAt(index);
+  void insertAtIndexInCurrencies(int index, CurrenciesStruct item) =>
+      currencies.insert(index, item);
+  void updateCurrenciesAtIndex(
+          int index, Function(CurrenciesStruct) updateFn) =>
+      currencies[index] = updateFn(currencies[index]);
+
+  List<CashierAmountLinesRow> cashAmountLine = [];
+  void addToCashAmountLine(CashierAmountLinesRow item) =>
+      cashAmountLine.add(item);
+  void removeFromCashAmountLine(CashierAmountLinesRow item) =>
+      cashAmountLine.remove(item);
+  void removeAtIndexFromCashAmountLine(int index) =>
+      cashAmountLine.removeAt(index);
+  void insertAtIndexInCashAmountLine(int index, CashierAmountLinesRow item) =>
+      cashAmountLine.insert(index, item);
+  void updateCashAmountLineAtIndex(
+          int index, Function(CashierAmountLinesRow) updateFn) =>
+      cashAmountLine[index] = updateFn(cashAmountLine[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
@@ -51,8 +76,23 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
   List<CompanyCurrencyRow>? getCompanyCurrency;
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
   List<CurrencyDenominationsRow>? currencyDenomination;
+  // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
+  List<CashierAmountLinesRow>? cashierAmountLinestore;
+  // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
+  List<CashierAmountLinesRow>? cashierAmountLineCompnay;
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
+  // State field(s) for DropDown widget.
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
+  ApiCallResponse? apiResultl36;
+  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
+  ApiCallResponse? apiResulttuy;
+  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
+  ApiCallResponse? apiResultja0;
+  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
+  ApiCallResponse? apiResult9hl;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 
