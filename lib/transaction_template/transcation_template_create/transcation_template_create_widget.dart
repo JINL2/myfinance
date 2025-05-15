@@ -366,14 +366,17 @@ class _TranscationTemplateCreateWidgetState
                           ].divide(SizedBox(height: 4.0)),
                         ),
                       ),
-                      if (FFAppState()
-                              .financeAccount
-                              .where((e) =>
-                                  _model.debitAccountIdValue == e.accountId)
-                              .toList()
-                              .firstOrNull
-                              ?.categoryTag ==
-                          'cash')
+                      if (_model.debitAccountIdValue != null &&
+                              _model.debitAccountIdValue != ''
+                          ? (FFAppState()
+                                  .financeAccount
+                                  .where((e) =>
+                                      _model.debitAccountIdValue == e.accountId)
+                                  .toList()
+                                  .firstOrNull
+                                  ?.categoryTag ==
+                              'cash')
+                          : false)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               8.0, 0.0, 8.0, 0.0),
@@ -599,14 +602,18 @@ class _TranscationTemplateCreateWidgetState
                           ].divide(SizedBox(height: 4.0)),
                         ),
                       ),
-                      if (FFAppState()
-                              .financeAccount
-                              .where((e) =>
-                                  _model.creditAccountIdValue == e.accountId)
-                              .toList()
-                              .firstOrNull
-                              ?.categoryTag ==
-                          'cash')
+                      if (_model.creditAccountIdValue != null &&
+                              _model.creditAccountIdValue != ''
+                          ? (FFAppState()
+                                  .financeAccount
+                                  .where((e) =>
+                                      _model.creditAccountIdValue ==
+                                      e.accountId)
+                                  .toList()
+                                  .firstOrNull
+                                  ?.categoryTag ==
+                              'cash')
+                          : false)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               8.0, 0.0, 8.0, 0.0),
