@@ -493,9 +493,15 @@ class _TransactionTemplateWidgetState extends State<TransactionTemplateWidget> {
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: TranscationTemplateCreateWidget(
-                                          transacDetail:
-                                              (transacDetail) async {},
+                                        child: Container(
+                                          height: MediaQuery.sizeOf(context)
+                                                  .height *
+                                              0.8,
+                                          child:
+                                              TranscationTemplateCreateWidget(
+                                            transacDetail:
+                                                (transacDetail) async {},
+                                          ),
                                         ),
                                       ),
                                     );
