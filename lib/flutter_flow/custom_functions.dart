@@ -520,15 +520,32 @@ String? simplePlusString(
   }
 }
 
-bool? isListHaveCurrnecyid(
-  List<CompanyCurrencyRow>? supabaseCurrnecy,
+bool? isListcashAmountSupa(
+  List<CashierAmountLinesRow>? cashAmountList,
   String? currencyId,
 ) {
-  if (supabaseCurrnecy == null || currencyId == null) {
+  if (cashAmountList == null || currencyId == null) {
     return false;
   }
 
-  return supabaseCurrnecy.any((row) => row.currencyId == currencyId);
+  return cashAmountList.any((row) => row.currencyId == currencyId);
+}
+
+dynamic mapTransactionDetailtoObject(List<TransactionDetailStruct> list) {
+  return list
+      .map((item) => {
+            "account_id": item.accountId,
+            "description": item.description,
+            "debit": item.debit,
+            "credit": item.credit,
+            "counterparty_id": item.counterpartyId,
+            "amount": item.amount,
+            if (item.cash != null &&
+                item.cash.cashLocationId != null &&
+                item.cash.cashLocationId != "")
+              "cash": {"cash_location_id": item.cash.cashLocationId}
+          })
+      .toList();
 }
 
 bool? isListHaveDenomination(
@@ -618,4 +635,15 @@ dynamic mapListDatatoJsonb(List<CurrenciesStruct> list) {
                 .toList()
           })
       .toList();
+}
+
+bool? isListHaveCurrnecyid(
+  List<CompanyCurrencyRow>? supabaseCurrency,
+  String? currencyId,
+) {
+  if (supabaseCurrency == null || currencyId == null) {
+    return false;
+  }
+
+  return supabaseCurrency.any((row) => row.currencyId == currencyId);
 }

@@ -1,9 +1,12 @@
 import '/backend/schema/structs/index.dart';
+import '/components/isloading_widget.dart';
+import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'cash_movement_widget.dart' show CashMovementWidget;
+import 'transaction_template_widget.dart' show TransactionTemplateWidget;
 import 'package:flutter/material.dart';
 
-class CashMovementModel extends FlutterFlowModel<CashMovementWidget> {
+class TransactionTemplateModel
+    extends FlutterFlowModel<TransactionTemplateWidget> {
   ///  Local state fields for this page.
 
   List<TransactionDetailStruct> transactionDetail = [];
@@ -20,9 +23,24 @@ class CashMovementModel extends FlutterFlowModel<CashMovementWidget> {
           int index, Function(TransactionDetailStruct) updateFn) =>
       transactionDetail[index] = updateFn(transactionDetail[index]);
 
-  @override
-  void initState(BuildContext context) {}
+  int? indexNumber;
+
+  ///  State fields for stateful widgets in this page.
+
+  // Model for menuBar component.
+  late MenuBarModel menuBarModel;
+  // Model for isloading component.
+  late IsloadingModel isloadingModel;
 
   @override
-  void dispose() {}
+  void initState(BuildContext context) {
+    menuBarModel = createModel(context, () => MenuBarModel());
+    isloadingModel = createModel(context, () => IsloadingModel());
+  }
+
+  @override
+  void dispose() {
+    menuBarModel.dispose();
+    isloadingModel.dispose();
+  }
 }

@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'cash_ending_component_model.dart';
@@ -86,19 +85,15 @@ class _CashEndingComponentWidgetState extends State<CashEndingComponentWidget> {
               child: TextFormField(
                 controller: _model.textController,
                 focusNode: _model.textFieldFocusNode,
-                onChanged: (_) => EasyDebounce.debounce(
-                  '_model.textController',
-                  Duration(milliseconds: 2000),
-                  () async {
-                    await widget.denominationMapping?.call(
-                      DenominationsStruct(
-                        denominationId:
-                            widget.currencyDenomination?.denominationId,
-                        quantity: int.tryParse(_model.textController.text),
-                      ),
-                    );
-                  },
-                ),
+                onFieldSubmitted: (_) async {
+                  await widget.denominationMapping?.call(
+                    DenominationsStruct(
+                      denominationId:
+                          widget.currencyDenomination?.denominationId,
+                      quantity: int.tryParse(_model.textController.text),
+                    ),
+                  );
+                },
                 autofocus: false,
                 obscureText: false,
                 decoration: InputDecoration(

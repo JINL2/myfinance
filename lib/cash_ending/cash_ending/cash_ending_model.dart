@@ -87,12 +87,8 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
   FormFieldController<String>? dropDownValueController;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
   ApiCallResponse? apiResultl36;
-  // Stores action output result for [Backend Call - Query Rows] action in Button widget.
-  List<CashierAmountLinesRow>? havestoreRe;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
   ApiCallResponse? apiResulttuy;
-  // Stores action output result for [Backend Call - Query Rows] action in Button widget.
-  List<CashierAmountLinesRow>? havestoreNew;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
   ApiCallResponse? apiResultja0;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.

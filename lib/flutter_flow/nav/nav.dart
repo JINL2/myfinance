@@ -221,14 +221,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CashEndingWidget(),
         ),
         FFRoute(
-          name: AccountMappingCopyWidget.routeName,
-          path: AccountMappingCopyWidget.routePath,
-          builder: (context, params) => AccountMappingCopyWidget(),
-        ),
-        FFRoute(
           name: CreateTemplateWidget.routeName,
           path: CreateTemplateWidget.routePath,
           builder: (context, params) => CreateTemplateWidget(),
+        ),
+        FFRoute(
+          name: TransactionTemplateWidget.routeName,
+          path: TransactionTemplateWidget.routePath,
+          builder: (context, params) => TransactionTemplateWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

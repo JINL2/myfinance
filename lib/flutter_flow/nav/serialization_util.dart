@@ -256,8 +256,12 @@ dynamic deserializeParam<T>(
             return CompaniesRow(data);
           case FixedAssetsRow:
             return FixedAssetsRow(data);
+          case ViewCashierRealLatestTotalRow:
+            return ViewCashierRealLatestTotalRow(data);
           case VCashLocationRow:
             return VCashLocationRow(data);
+          case TransactionTemplatesRow:
+            return TransactionTemplatesRow(data);
           case VUserRoleInfoRow:
             return VUserRoleInfoRow(data);
           case ProductsRow:

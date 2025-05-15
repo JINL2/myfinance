@@ -73,7 +73,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
     _model.textController1 ??= TextEditingController(
         text: ((widget.diff!).abs()).toString() != ''
             ? ((widget.diff!).abs()).toString()
-            : '0');
+            : '');
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.fixedAssetNameTextController ??= TextEditingController();

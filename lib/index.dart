@@ -40,6 +40,6 @@ export '/cash_movement/cash_movement/cash_movement_widget.dart'
 export '/register_denomination/register_denomination/register_denomination_widget.dart'
     show RegisterDenominationWidget;
 export '/cash_ending/cash_ending/cash_ending_widget.dart' show CashEndingWidget;
-export '/cash_movement/account_mapping_copy/account_mapping_copy_widget.dart'
-    show AccountMappingCopyWidget;
 export '/create_template/create_template_widget.dart' show CreateTemplateWidget;
+export '/transaction_template/transaction_template/transaction_template_widget.dart'
+    show TransactionTemplateWidget;
