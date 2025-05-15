@@ -88,6 +88,7 @@ class _TranscationTemplateCreateWidgetState
                 snapshot.data!;
 
             return Container(
+              height: MediaQuery.sizeOf(context).height * 0.8,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).alternate,
               ),
