@@ -698,190 +698,131 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                         ),
                       ].divide(SizedBox(height: 8.0)),
                     ),
-                    Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).alternate,
-                        borderRadius: BorderRadius.circular(8.0),
-                        border: Border.all(
+                    if (_model.accountTag == 'cash')
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).alternate,
-                          width: 1.0,
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).alternate,
+                            width: 1.0,
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 16.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Cash',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyLarge
-                                      .override(
-                                        font: GoogleFonts.notoSansJp(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 16.0, 16.0, 16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Cash',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          font: GoogleFonts.notoSansJp(
+                                            fontWeight: FontWeight.w600,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyLarge
+                                                    .fontStyle,
+                                          ),
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w600,
                                           fontStyle:
                                               FlutterFlowTheme.of(context)
                                                   .bodyLarge
                                                   .fontStyle,
                                         ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyLarge
-                                            .fontStyle,
-                                      ),
-                                ),
-                                Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 24.0,
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Cash Location',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
+                                  ),
+                                  Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                    size: 24.0,
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Cash Location',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                               fontStyle:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
                                                       .fontStyle,
                                             ),
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w500,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodyMedium
-                                                    .fontStyle,
-                                          ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      height: 50.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(4.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: FutureBuilder<
-                                                  List<CashLocationsRow>>(
-                                                future: CashLocationsTable()
-                                                    .queryRows(
-                                                  queryFn: (q) => q.eqOrNull(
-                                                    'company_id',
-                                                    widget.companyDoJournal,
-                                                  ),
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 80.0,
-                                                        height: 80.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<CashLocationsRow>
-                                                      cashlocatioCashLocationsRowList =
-                                                      snapshot.data!;
-
-                                                  return FlutterFlowDropDown<
-                                                      String>(
-                                                    controller: _model
-                                                            .cashlocatioValueController ??=
-                                                        FormFieldController<
-                                                            String>(
-                                                      _model.cashlocatioValue ??=
-                                                          '',
-                                                    ),
-                                                    options: List<String>.from(
-                                                        cashlocatioCashLocationsRowList
-                                                            .map((e) => e
-                                                                .cashLocationId)
-                                                            .toList()),
-                                                    optionLabels:
-                                                        cashlocatioCashLocationsRowList
-                                                            .map((e) =>
-                                                                e.locationName)
-                                                            .toList(),
-                                                    onChanged: (val) async {
+                                      Container(
+                                        width: double.infinity,
+                                        height: 50.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(4.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child:
+                                                    FlutterFlowDropDown<String>(
+                                                  controller: _model
+                                                          .cashlocatioValueController ??=
+                                                      FormFieldController<
+                                                          String>(null),
+                                                  options: [
+                                                    'Option 1',
+                                                    'Option 2',
+                                                    'Option 3'
+                                                  ],
+                                                  onChanged: (val) =>
                                                       safeSetState(() => _model
                                                               .cashlocatioValue =
-                                                          val);
-                                                      _model.cashLocationString =
-                                                          cashlocatioCashLocationsRowList
-                                                              .where((e) =>
-                                                                  _model
-                                                                      .cashlocatioValue ==
-                                                                  e.cashLocationId)
-                                                              .toList()
-                                                              .firstOrNull
-                                                              ?.locationName;
-                                                      safeSetState(() {});
-                                                    },
-                                                    width: 200.0,
-                                                    height: 40.0,
-                                                    textStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .notoSansJp(
-                                                                fontWeight: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                              letterSpacing:
-                                                                  0.0,
+                                                          val),
+                                                  width: 200.0,
+                                                  height: 40.0,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            font: GoogleFonts
+                                                                .notoSansJp(
                                                               fontWeight:
                                                                   FlutterFlowTheme.of(
                                                                           context)
@@ -893,48 +834,57 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                             ),
-                                                    hintText: 'Select...',
-                                                    icon: Icon(
-                                                      Icons
-                                                          .keyboard_arrow_down_rounded,
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      size: 24.0,
-                                                    ),
-                                                    fillColor: FlutterFlowTheme
-                                                            .of(context)
-                                                        .secondaryBackground,
-                                                    elevation: 2.0,
-                                                    borderColor:
-                                                        Colors.transparent,
-                                                    borderWidth: 0.0,
-                                                    borderRadius: 8.0,
-                                                    margin:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(12.0, 0.0,
-                                                                12.0, 0.0),
-                                                    hidesUnderline: true,
-                                                    isOverButton: false,
-                                                    isSearchable: false,
-                                                    isMultiSelect: false,
-                                                  );
-                                                },
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .fontStyle,
+                                                          ),
+                                                  hintText: 'Select...',
+                                                  icon: Icon(
+                                                    Icons
+                                                        .keyboard_arrow_down_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondaryBackground,
+                                                  elevation: 2.0,
+                                                  borderColor:
+                                                      Colors.transparent,
+                                                  borderWidth: 0.0,
+                                                  borderRadius: 8.0,
+                                                  margin: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          12.0, 0.0, 12.0, 0.0),
+                                                  hidesUnderline: true,
+                                                  isOverButton: false,
+                                                  isSearchable: false,
+                                                  isMultiSelect: false,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ].divide(SizedBox(height: 8.0)),
-                                ),
-                              ].divide(SizedBox(height: 12.0)),
-                            ),
-                          ].divide(SizedBox(height: 16.0)),
+                                    ].divide(SizedBox(height: 8.0)),
+                                  ),
+                                ].divide(SizedBox(height: 12.0)),
+                              ),
+                            ].divide(SizedBox(height: 16.0)),
+                          ),
                         ),
                       ),
-                    ),
                     if ((_model.accountTag == 'payable') ||
                         (_model.accountTag == 'receivable'))
                       Container(
