@@ -440,15 +440,6 @@ class _TransactionTemplateWidgetState extends State<TransactionTemplateWidget> {
                                                                             .templateId,
                                                                       ),
                                                                     );
-                                                                    _model.indexNumber =
-                                                                        listViewIndex;
-                                                                    safeSetState(
-                                                                        () {});
-                                                                    _model.removeAtIndexFromTransactionDetail(
-                                                                        _model
-                                                                            .indexNumber!);
-                                                                    safeSetState(
-                                                                        () {});
                                                                     FFAppState()
                                                                             .isLoading1 =
                                                                         false;
