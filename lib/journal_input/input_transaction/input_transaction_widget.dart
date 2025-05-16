@@ -698,7 +698,9 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                         ),
                       ].divide(SizedBox(height: 8.0)),
                     ),
-                    if (_model.accountTag == 'cash')
+                    if (_model.accountTag != null && _model.accountTag != ''
+                        ? (_model.accountTag == 'cash')
+                        : false)
                       Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -799,78 +801,134 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Expanded(
-                                                child:
-                                                    FlutterFlowDropDown<String>(
-                                                  controller: _model
-                                                          .cashlocatioValueController ??=
-                                                      FormFieldController<
-                                                          String>(null),
-                                                  options: [
-                                                    'Option 1',
-                                                    'Option 2',
-                                                    'Option 3'
-                                                  ],
-                                                  onChanged: (val) =>
-                                                      safeSetState(() => _model
-                                                              .cashlocatioValue =
-                                                          val),
-                                                  width: 200.0,
-                                                  height: 40.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            font: GoogleFonts
-                                                                .notoSansJp(
-                                                              fontWeight:
-                                                                  FlutterFlowTheme.of(
+                                                child: FutureBuilder<
+                                                    List<CashLocationsRow>>(
+                                                  future: CashLocationsTable()
+                                                      .queryRows(
+                                                    queryFn: (q) => q.eqOrNull(
+                                                      'company_id',
+                                                      widget.companyDoJournal,
+                                                    ),
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 80.0,
+                                                          height: 80.0,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            valueColor:
+                                                                AlwaysStoppedAnimation<
+                                                                    Color>(
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .primary,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    List<CashLocationsRow>
+                                                        cashlocatioCashLocationsRowList =
+                                                        snapshot.data!;
+
+                                                    return FlutterFlowDropDown<
+                                                        String>(
+                                                      controller: _model
+                                                              .cashlocatioValueController ??=
+                                                          FormFieldController<
+                                                              String>(
+                                                        _model.cashlocatioValue ??=
+                                                            '',
+                                                      ),
+                                                      options: List<
+                                                              String>.from(
+                                                          cashlocatioCashLocationsRowList
+                                                              .map((e) => e
+                                                                  .cashLocationId)
+                                                              .toList()),
+                                                      optionLabels:
+                                                          cashlocatioCashLocationsRowList
+                                                              .map((e) => e
+                                                                  .locationName)
+                                                              .toList(),
+                                                      onChanged: (val) async {
+                                                        safeSetState(() => _model
+                                                                .cashlocatioValue =
+                                                            val);
+                                                        _model.cashLocationString =
+                                                            cashlocatioCashLocationsRowList
+                                                                .where((e) =>
+                                                                    _model
+                                                                        .cashlocatioValue ==
+                                                                    e.cashLocationId)
+                                                                .toList()
+                                                                .firstOrNull
+                                                                ?.locationName;
+                                                        safeSetState(() {});
+                                                      },
+                                                      width: 200.0,
+                                                      height: 40.0,
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
+                                                                  fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontWeight,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
+                                                                  fontStyle: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
                                                                       .fontStyle,
-                                                            ),
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
+                                                                fontStyle: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .fontStyle,
-                                                          ),
-                                                  hintText: 'Select...',
-                                                  icon: Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    size: 24.0,
-                                                  ),
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
+                                                              ),
+                                                      hintText: 'Select...',
+                                                      icon: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        size: 24.0,
+                                                      ),
+                                                      fillColor: FlutterFlowTheme
+                                                              .of(context)
                                                           .secondaryBackground,
-                                                  elevation: 2.0,
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderWidth: 0.0,
-                                                  borderRadius: 8.0,
-                                                  margin: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          12.0, 0.0, 12.0, 0.0),
-                                                  hidesUnderline: true,
-                                                  isOverButton: false,
-                                                  isSearchable: false,
-                                                  isMultiSelect: false,
+                                                      elevation: 2.0,
+                                                      borderColor:
+                                                          Colors.transparent,
+                                                      borderWidth: 0.0,
+                                                      borderRadius: 8.0,
+                                                      margin:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0),
+                                                      hidesUnderline: true,
+                                                      isOverButton: false,
+                                                      isSearchable: false,
+                                                      isMultiSelect: false,
+                                                    );
+                                                  },
                                                 ),
                                               ),
                                             ],
