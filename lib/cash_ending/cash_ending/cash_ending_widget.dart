@@ -545,7 +545,9 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                       .eqOrNull(
                                                         'record_date',
                                                         supaSerialize<DateTime>(
-                                                            getCurrentTimestamp),
+                                                            functions.changeStringToDateTime(
+                                                                getCurrentTimestamp
+                                                                    .toString())),
                                                       ),
                                                 );
                                                 _model.apiResultl36 =
