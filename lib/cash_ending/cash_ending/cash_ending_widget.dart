@@ -527,10 +527,8 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                               _model.dropDownValue != '') {
                                             if (FFAppState().storeChoosen !=
                                                     '') {
-                                              if (_model.cashierAmountLinestore !=
-                                                      null &&
-                                                  (_model.cashierAmountLinestore)!
-                                                      .isNotEmpty) {
+                                              if (cashEndingCashierAmountLinesRowList
+                                                  .isNotEmpty) {
                                                 await CashierAmountLinesTable()
                                                     .delete(
                                                   matchingRows: (rows) => rows
@@ -647,10 +645,8 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                               FFAppState().isLoading1 = false;
                                               safeSetState(() {});
                                             } else {
-                                              if (_model.cashierAmountLineCompnay !=
-                                                      null &&
-                                                  (_model.cashierAmountLineCompnay)!
-                                                      .isNotEmpty) {
+                                              if (cashEndingCashierAmountLinesRowList
+                                                  .isNotEmpty) {
                                                 await DeleteCashAmountLineCall
                                                     .call(
                                                   pCompanyId: FFAppState()
