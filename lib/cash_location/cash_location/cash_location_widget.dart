@@ -176,53 +176,76 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: FutureBuilder<List<CashLocationsRow>>(
-                            future: CashLocationsTable().queryRows(
-                              queryFn: (q) => q
-                                  .eqOrNull(
-                                    'company_id',
-                                    FFAppState().companyChoosen,
-                                  )
-                                  .order('created_at', ascending: true),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 80.0,
-                                    height: 80.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            FutureBuilder<List<CashLocationsRow>>(
+                              future: CashLocationsTable().queryRows(
+                                queryFn: (q) => q
+                                    .eqOrNull(
+                                      'company_id',
+                                      FFAppState().companyChoosen,
+                                    )
+                                    .order('created_at', ascending: true),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 80.0,
+                                      height: 80.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
                                     ),
+                                  );
+                                }
+                                List<CashLocationsRow>
+                                    containerCashLocationsRowList =
+                                    snapshot.data!;
+
+                                return Container(
+                                  child: Builder(
+                                    builder: (context) {
+                                      final cashLocation = (FFAppState().storeChoosen ==
+                                                      ''
+                                              ? containerCashLocationsRowList
+                                                  .where((e) =>
+                                                      e.storeId == null ||
+                                                      e.storeId == '')
+                                                  .toList()
+                                                  .map((e) => e)
+                                                  .toList()
+                                              : containerCashLocationsRowList)
+                                          .toList();
+
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: cashLocation.length,
+                                        itemBuilder:
+                                            (context, cashLocationIndex) {
+                                          final cashLocationItem =
+                                              cashLocation[cashLocationIndex];
+                                          return CashLocationComponentWidget(
+                                            key: Key(
+                                                'Key4zw_${cashLocationIndex}_of_${cashLocation.length}'),
+                                            cashLocationData: cashLocationItem,
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
                                 );
-                              }
-                              List<CashLocationsRow>
-                                  listViewCashLocationsRowList = snapshot.data!;
-
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewCashLocationsRowList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewCashLocationsRow =
-                                      listViewCashLocationsRowList[
-                                          listViewIndex];
-                                  return CashLocationComponentWidget(
-                                    key: Key(
-                                        'Key4zw_${listViewIndex}_of_${listViewCashLocationsRowList.length}'),
-                                    cashLocationData: listViewCashLocationsRow,
-                                  );
-                                },
-                              );
-                            },
-                          ),
+                              },
+                            ),
+                          ],
                         ),
                       ].divide(SizedBox(height: 16.0)),
                     ),

@@ -37,8 +37,6 @@ class HomepageModel extends FlutterFlowModel<HomepageWidget> {
   late AddModel addByCodeModel;
   // Model for showCode.
   late AddModel showCodeModel;
-  // Stores action output result for [Backend Call - API (GetNotMyCounterParty)] action in Text widget.
-  ApiCallResponse? apiResultprb;
   // Stores action output result for [Backend Call - API (getUserCompanies)] action in Icon widget.
   ApiCallResponse? apiuser;
   // Stores action output result for [Backend Call - API (getCategoriesWithFeatures)] action in Icon widget.

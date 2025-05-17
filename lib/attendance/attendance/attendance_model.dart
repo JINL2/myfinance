@@ -1,6 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/backend/supabase/supabase.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -37,29 +34,9 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
 
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
-  // State field(s) for SelectStore widget.
-  String? selectStoreValue;
-  FormFieldController<String>? selectStoreValueController;
-  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in scanQR widget.
-  ApiCallResponse? getShiftMeta1;
-  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in scanQR widget.
-  List<ShiftMetaDataStruct>? getShiftMeta11;
-  // Stores action output result for [Backend Call - API (getUserShiftStatus)] action in scanQR widget.
-  ApiCallResponse? getUserShiftStatus1;
-  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftStatus] action in scanQR widget.
-  List<ShiftStatusStruct>? getUserShiftStatus11;
-  // State field(s) for CheckboxListTile widget.
-  Map<ShiftStatusStruct, bool> checkboxListTileValueMap = {};
-  List<ShiftStatusStruct> get checkboxListTileCheckedItems =>
-      checkboxListTileValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
-
-  // Stores action output result for [Backend Call - Query Rows] action in Attend widget.
-  List<ShiftRequestsRow>? getQuery1;
-  // Stores action output result for [Backend Call - Update Row(s)] action in Attend widget.
-  List<ShiftRequestsRow>? end;
+  // State field(s) for SelectStoreDropDown widget.
+  String? selectStoreDropDownValue;
+  FormFieldController<String>? selectStoreDropDownValueController;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

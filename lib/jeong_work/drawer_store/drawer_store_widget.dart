@@ -61,43 +61,59 @@ class _DrawerStoreWidgetState extends State<DrawerStoreWidget> {
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 0.0, 4.0),
-                    child: Text(
-                      valueOrDefault<String>(
-                        widget.storeInfo?.storeName,
-                        'Store Name',
-                      ),
-                      style: FlutterFlowTheme.of(context).titleLarge.override(
-                            font: GoogleFonts.notoSansJp(
-                              fontWeight: FlutterFlowTheme.of(context)
+                  Expanded(
+                    flex: 8,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 4.0, 0.0, 4.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                widget.storeInfo?.storeName,
+                                'Store Name',
+                              ),
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
                                   .titleLarge
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .titleLarge
-                                  .fontStyle,
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleLarge
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .fontStyle,
+                                  ),
                             ),
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .fontStyle,
                           ),
+                        ),
+                      ],
                     ),
                   ),
                   if (widget.storeInfo?.storeId == FFAppState().storeChoosen)
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-                      child: Icon(
-                        Icons.circle,
-                        color: FlutterFlowTheme.of(context).secondary,
-                        size: 24.0,
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                        child: Icon(
+                          Icons.circle,
+                          color: FlutterFlowTheme.of(context).secondary,
+                          size: 24.0,
+                        ),
                       ),
                     ),
                 ],
