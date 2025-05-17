@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -260,8 +261,13 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                   isMultiSelect: false,
                                 ),
                                 FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
+                                  onPressed: () async {
+                                    _model.shiftMetaData =
+                                        await GetshiftmetadataCall.call(
+                                      pStoreId: _model.selectedStoreId,
+                                    );
+
+                                    safeSetState(() {});
                                   },
                                   text: 'Confirm Select Store',
                                   options: FFButtonOptions(
@@ -304,39 +310,74 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                   .addToStart(SizedBox(height: 28.0))
                                   .addToEnd(SizedBox(height: 20.0)),
                             ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Hello World',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.notoSansJp(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
+                          if (_model.clicked ?? true)
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      12.0, 0.0, 12.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            functions.getStoreNameByIdFromList(
+                                                FFAppState()
+                                                    .user
+                                                    .companies
+                                                    .where((e) =>
+                                                        FFAppState()
+                                                            .companyChoosen ==
+                                                        e.companyId)
+                                                    .toList()
+                                                    .firstOrNull
+                                                    ?.stores
+                                                    .toList(),
+                                                _model.selectedStoreId),
+                                            'Store Name',
+                                          ),
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineMedium
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
                                       ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .fontStyle,
-                                    ),
-                              ),
-                              ListView(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [],
-                              ),
-                            ],
-                          ),
+                                    ],
+                                  ),
+                                ),
+                                ListView(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  children: [],
+                                ),
+                              ],
+                            ),
                         ],
                       ),
                     ),

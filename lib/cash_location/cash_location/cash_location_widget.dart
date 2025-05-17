@@ -220,7 +220,13 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
                                                   .toList()
                                                   .map((e) => e)
                                                   .toList()
-                                              : containerCashLocationsRowList)
+                                              : containerCashLocationsRowList
+                                                  .where((e) =>
+                                                      (e.storeId ==
+                                                          FFAppState()
+                                                              .storeChoosen) &&
+                                                      (e.storeId == ''))
+                                                  .toList())
                                           .toList();
 
                                       return ListView.builder(

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -37,6 +38,8 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
   // State field(s) for SelectStoreDropDown widget.
   String? selectStoreDropDownValue;
   FormFieldController<String>? selectStoreDropDownValueController;
+  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in Button widget.
+  ApiCallResponse? shiftMetaData;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 
