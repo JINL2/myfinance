@@ -900,7 +900,8 @@ class _TranscationTemplateCreateWidgetState
                                       'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
                                   description: _model.textController2.text,
                                   cash: CashStruct(
-                                    cashLocationId: _model.creditAccountIdValue,
+                                    cashLocationId:
+                                        _model.debutCashlocationValue,
                                   ),
                                   debit: '0',
                                   credit: '0',
@@ -977,7 +978,8 @@ class _TranscationTemplateCreateWidgetState
                                       'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
                                   description: _model.textController2.text,
                                   cash: CashStruct(
-                                    cashLocationId: _model.creditAccountIdValue,
+                                    cashLocationId:
+                                        _model.debutCashlocationValue,
                                   ),
                                   debit: '0',
                                   credit: '0',
@@ -1145,6 +1147,10 @@ class _TranscationTemplateCreateWidgetState
                                   debit: '0',
                                   credit: '0',
                                   amount: 0.0,
+                                  cash: CashStruct(
+                                    cashLocationId:
+                                        _model.debutCashlocationValue,
+                                  ),
                                 ));
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
