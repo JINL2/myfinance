@@ -896,8 +896,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.debitAccountIdValue,
                                   description: _model.textController2.text,
                                   cash: CashStruct(
                                     cashLocationId:
@@ -910,8 +909,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.creditAccountIdValue,
                                   description: _model.textController2.text,
                                   debit: '0',
                                   credit: '0',
@@ -974,8 +972,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.debitAccountIdValue,
                                   description: _model.textController2.text,
                                   cash: CashStruct(
                                     cashLocationId:
@@ -988,8 +985,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.creditAccountIdValue,
                                   description: _model.textController2.text,
                                   debit: '0',
                                   credit: '0',
@@ -1064,8 +1060,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.debitAccountIdValue,
                                   description: _model.textController2.text,
                                   debit: '0',
                                   credit: '0',
@@ -1074,8 +1069,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.creditAccountIdValue,
                                   description: _model.textController2.text,
                                   debit: '0',
                                   credit: '0',
@@ -1141,8 +1135,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.debitAccountIdValue,
                                   description: _model.textController2.text,
                                   debit: '0',
                                   credit: '0',
@@ -1155,8 +1148,7 @@ class _TranscationTemplateCreateWidgetState
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
                                     TransactionDetailStruct(
-                                  accountId:
-                                      'd4a7a16e-45a1-47fe-992b-ff807c8673f0',
+                                  accountId: _model.creditAccountIdValue,
                                   description: _model.textController2.text,
                                   debit: '0',
                                   credit: '0',
