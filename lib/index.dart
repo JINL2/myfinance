@@ -17,7 +17,6 @@ export '/auth/choose_company/choose_company_widget.dart'
     show ChooseCompanyWidget;
 export '/time_table/time_table_user/time_table_user_widget.dart'
     show TimeTableUserWidget;
-export '/attendance/testattend/testattend_widget.dart' show TestattendWidget;
 export '/input/input_widget.dart' show InputWidget;
 export '/cash_balance/cash_balance/cash_balance_widget.dart'
     show CashBalanceWidget;

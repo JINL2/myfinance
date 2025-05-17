@@ -176,131 +176,6 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                           menuName: 'Cash Ending',
                         ),
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Choose Location',
-                              style: FlutterFlowTheme.of(context)
-                                  .titleMedium
-                                  .override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleMedium
-                                          .fontStyle,
-                                    ),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontWeight,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .titleMedium
-                                        .fontStyle,
-                                  ),
-                            ),
-                            FutureBuilder<List<CashLocationsRow>>(
-                              future: CashLocationsTable().queryRows(
-                                queryFn: (q) => q
-                                    .eqOrNull(
-                                      'company_id',
-                                      FFAppState().companyChoosen,
-                                    )
-                                    .eqOrNull(
-                                      'location_type',
-                                      'cash',
-                                    ),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 80.0,
-                                      height: 80.0,
-                                      child: CircularProgressIndicator(
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                          FlutterFlowTheme.of(context).primary,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                List<CashLocationsRow>
-                                    dropDownCashLocationsRowList =
-                                    snapshot.data!;
-
-                                return FlutterFlowDropDown<String>(
-                                  controller: _model.dropDownValueController ??=
-                                      FormFieldController<String>(
-                                    _model.dropDownValue ??=
-                                        dropDownCashLocationsRowList
-                                            .firstOrNull?.cashLocationId,
-                                  ),
-                                  options: List<String>.from(
-                                      dropDownCashLocationsRowList
-                                          .map((e) => e.cashLocationId)
-                                          .toList()),
-                                  optionLabels: dropDownCashLocationsRowList
-                                      .map((e) => e.locationName)
-                                      .toList(),
-                                  onChanged: (val) => safeSetState(
-                                      () => _model.dropDownValue = val),
-                                  width: 200.0,
-                                  height: 40.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        font: GoogleFonts.notoSansJp(
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMedium
-                                                  .fontStyle,
-                                        ),
-                                        letterSpacing: 0.0,
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                  hintText: 'Select...',
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor: Colors.transparent,
-                                  borderWidth: 0.0,
-                                  borderRadius: 8.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      12.0, 0.0, 12.0, 0.0),
-                                  hidesUnderline: true,
-                                  isOverButton: false,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
                       Expanded(
                         child: Container(
                           decoration: BoxDecoration(
@@ -314,6 +189,161 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 20.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(
+                                          'Choose Location',
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleMedium
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleMedium
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleMedium
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .titleMedium
+                                                        .fontStyle,
+                                              ),
+                                        ),
+                                        FutureBuilder<List<CashLocationsRow>>(
+                                          future:
+                                              CashLocationsTable().queryRows(
+                                            queryFn: (q) => q
+                                                .eqOrNull(
+                                                  'company_id',
+                                                  FFAppState().companyChoosen,
+                                                )
+                                                .eqOrNull(
+                                                  'location_type',
+                                                  'cash',
+                                                ),
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 80.0,
+                                                  height: 80.0,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            List<CashLocationsRow>
+                                                dropDownCashLocationsRowList =
+                                                snapshot.data!;
+
+                                            return FlutterFlowDropDown<String>(
+                                              controller: _model
+                                                      .dropDownValueController ??=
+                                                  FormFieldController<String>(
+                                                _model.dropDownValue ??=
+                                                    dropDownCashLocationsRowList
+                                                        .firstOrNull
+                                                        ?.cashLocationId,
+                                              ),
+                                              options: List<String>.from(
+                                                  dropDownCashLocationsRowList
+                                                      .map((e) =>
+                                                          e.cashLocationId)
+                                                      .toList()),
+                                              optionLabels:
+                                                  dropDownCashLocationsRowList
+                                                      .map(
+                                                          (e) => e.locationName)
+                                                      .toList(),
+                                              onChanged: (val) => safeSetState(
+                                                  () => _model.dropDownValue =
+                                                      val),
+                                              width: 200.0,
+                                              height: 40.0,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.notoSansJp(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
+                                                  ),
+                                              hintText: 'Select...',
+                                              icon: Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              elevation: 2.0,
+                                              borderColor: Colors.transparent,
+                                              borderWidth: 0.0,
+                                              borderRadius: 8.0,
+                                              margin: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 12.0, 0.0),
+                                              hidesUnderline: true,
+                                              isOverButton: false,
+                                              isSearchable: false,
+                                              isMultiSelect: false,
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                   Builder(
                                     builder: (context) {
                                       final companyCurrencyType =
@@ -875,6 +905,7 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
 
                                               return ListView.separated(
                                                 padding: EdgeInsets.zero,
+                                                primary: false,
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
                                                 itemCount:
@@ -1076,6 +1107,8 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                                         0,
                                                                         0,
                                                                       ),
+                                                                      primary:
+                                                                          false,
                                                                       shrinkWrap:
                                                                           true,
                                                                       scrollDirection:

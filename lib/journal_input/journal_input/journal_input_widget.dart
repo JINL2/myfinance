@@ -86,21 +86,21 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      wrapWithModel(
-                        model: _model.menuBarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: MenuBarWidget(
-                          menuName: 'Journal Input',
-                        ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    wrapWithModel(
+                      model: _model.menuBarModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: MenuBarWidget(
+                        menuName: 'Journal Input',
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                        ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
+                      ),
+                      child: SingleChildScrollView(
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -1890,8 +1890,8 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               if ((FFAppState().isLoading1 == true) ||

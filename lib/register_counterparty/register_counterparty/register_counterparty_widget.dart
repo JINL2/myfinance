@@ -97,17 +97,11 @@ class _RegisterCounterpartyWidgetState
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                    ),
-                    child: wrapWithModel(
-                      model: _model.menuBarModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: MenuBarWidget(
-                        menuName: 'Counter Party',
-                      ),
+                  wrapWithModel(
+                    model: _model.menuBarModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: MenuBarWidget(
+                      menuName: 'Counter Party',
                     ),
                   ),
                   Expanded(

@@ -155,24 +155,18 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
           top: true,
           child: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                      ),
-                      child: wrapWithModel(
-                        model: _model.menuBarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: MenuBarWidget(
-                          menuName: 'Schedule',
-                        ),
-                      ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  wrapWithModel(
+                    model: _model.menuBarModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: MenuBarWidget(
+                      menuName: 'Schedule',
                     ),
-                    Container(
-                      height: MediaQuery.sizeOf(context).height * 1.0,
+                  ),
+                  Expanded(
+                    child: Container(
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
@@ -180,6 +174,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                         padding:
                             EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                         child: Container(
+                          height: MediaQuery.sizeOf(context).height * 1.0,
                           decoration: BoxDecoration(),
                           child: Column(
                             children: [
@@ -257,50 +252,34 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                   controller: _model.tabBarController,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 12.0, 0.0),
+                                      padding: EdgeInsets.all(12.0),
                                       child: SingleChildScrollView(
+                                        primary: false,
                                         child: Column(
-                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
                                           children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                FlutterFlowDropDown<String>(
-                                                  controller: _model
-                                                          .dropDownStoreValueController ??=
-                                                      FormFieldController<
-                                                          String>(
-                                                    _model.dropDownStoreValue ??=
-                                                        FFAppState()
-                                                            .user
-                                                            .companies
-                                                            .where((e) =>
-                                                                FFAppState()
-                                                                    .companyChoosen ==
-                                                                e.companyId)
-                                                            .toList()
-                                                            .firstOrNull
-                                                            ?.stores
-                                                            .firstOrNull
-                                                            ?.storeId,
-                                                  ),
-                                                  options: List<String>.from(
-                                                      FFAppState()
-                                                          .user
-                                                          .companies
-                                                          .where((e) =>
-                                                              FFAppState()
-                                                                  .companyChoosen ==
-                                                              e.companyId)
-                                                          .toList()
-                                                          .firstOrNull!
-                                                          .stores
-                                                          .map((e) => e.storeId)
-                                                          .toList()),
-                                                  optionLabels: FFAppState()
+                                            FlutterFlowDropDown<String>(
+                                              controller: _model
+                                                      .dropDownStoreValueController ??=
+                                                  FormFieldController<String>(
+                                                _model.dropDownStoreValue ??=
+                                                    FFAppState()
+                                                        .user
+                                                        .companies
+                                                        .where((e) =>
+                                                            FFAppState()
+                                                                .companyChoosen ==
+                                                            e.companyId)
+                                                        .toList()
+                                                        .firstOrNull
+                                                        ?.stores
+                                                        .firstOrNull
+                                                        ?.storeId,
+                                              ),
+                                              options: List<String>.from(
+                                                  FFAppState()
                                                       .user
                                                       .companies
                                                       .where((e) =>
@@ -310,186 +289,191 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                       .toList()
                                                       .firstOrNull!
                                                       .stores
-                                                      .map((e) => e.storeName)
-                                                      .toList(),
-                                                  onChanged: (val) async {
-                                                    safeSetState(() => _model
-                                                            .dropDownStoreValue =
-                                                        val);
-                                                    if (FFAppState()
-                                                            .isLoading3 ==
-                                                        false) {
-                                                      FFAppState().isLoading3 =
-                                                          true;
-                                                      safeSetState(() {});
-                                                      _model.shiftId = null;
-                                                      safeSetState(() {});
-                                                      if (functions
-                                                          .isListHaveDatatypeList(
-                                                              _model
-                                                                  .dropDownStoreValue,
-                                                              FFAppState()
-                                                                  .shiftMetaData
-                                                                  .toList())!) {
-                                                        FFAppState()
-                                                            .isLoading3 = false;
-                                                        safeSetState(() {});
-                                                      } else {
-                                                        _model.dream1 =
-                                                            await GetshiftmetadataCall
-                                                                .call(
-                                                          pStoreId: _model
+                                                      .map((e) => e.storeId)
+                                                      .toList()),
+                                              optionLabels: FFAppState()
+                                                  .user
+                                                  .companies
+                                                  .where((e) =>
+                                                      FFAppState()
+                                                          .companyChoosen ==
+                                                      e.companyId)
+                                                  .toList()
+                                                  .firstOrNull!
+                                                  .stores
+                                                  .map((e) => e.storeName)
+                                                  .toList(),
+                                              onChanged: (val) async {
+                                                safeSetState(() => _model
+                                                    .dropDownStoreValue = val);
+                                                if (FFAppState().isLoading3 ==
+                                                    false) {
+                                                  FFAppState().isLoading3 =
+                                                      true;
+                                                  safeSetState(() {});
+                                                  _model.shiftId = null;
+                                                  safeSetState(() {});
+                                                  if (functions
+                                                      .isListHaveDatatypeList(
+                                                          _model
                                                               .dropDownStoreValue,
-                                                        );
-
-                                                        if ((_model.dream1
-                                                                ?.succeeded ??
-                                                            true)) {
-                                                          _model.dream1Complete =
-                                                              await actions
-                                                                  .mergeAndRemoveDuplicatesShiftMeta(
-                                                            FFAppState()
-                                                                .shiftMetaData
-                                                                .toList(),
-                                                            ((_model.dream1?.jsonBody ??
-                                                                            '')
-                                                                        .toList()
-                                                                        .map<ShiftMetaDataStruct?>(ShiftMetaDataStruct
-                                                                            .maybeFromMap)
-                                                                        .toList()
-                                                                    as Iterable<
-                                                                        ShiftMetaDataStruct?>)
-                                                                .withoutNulls
-                                                                .toList(),
-                                                          );
                                                           FFAppState()
-                                                                  .shiftMetaData =
-                                                              _model
-                                                                  .dream1Complete!
-                                                                  .toList()
-                                                                  .cast<
-                                                                      ShiftMetaDataStruct>();
-                                                          safeSetState(() {});
-                                                        }
-                                                        _model.dream2 =
-                                                            await GetUserShiftStatusCall
-                                                                .call(
-                                                          pUserId: FFAppState()
-                                                              .user
-                                                              .userId,
-                                                          pStoreId: _model
-                                                              .dropDownStoreValue,
-                                                          pRequestDate: _model
-                                                              .selectedDatePageState
-                                                              ?.toString(),
-                                                        );
+                                                              .shiftMetaData
+                                                              .toList())!) {
+                                                    FFAppState().isLoading3 =
+                                                        false;
+                                                    safeSetState(() {});
+                                                  } else {
+                                                    _model.dream1 =
+                                                        await GetshiftmetadataCall
+                                                            .call(
+                                                      pStoreId: _model
+                                                          .dropDownStoreValue,
+                                                    );
 
-                                                        if ((_model.dream2
-                                                                ?.succeeded ??
-                                                            true)) {
-                                                          _model.dream2complete =
-                                                              await actions
-                                                                  .mergeAndRemoveDuplicatesShiftStatus(
-                                                            FFAppState()
-                                                                .shiftStatus
-                                                                .toList(),
-                                                            ((_model.dream2?.jsonBody ??
-                                                                            '')
-                                                                        .toList()
-                                                                        .map<ShiftStatusStruct?>(ShiftStatusStruct
-                                                                            .maybeFromMap)
-                                                                        .toList()
-                                                                    as Iterable<
-                                                                        ShiftStatusStruct?>)
-                                                                .withoutNulls
-                                                                .toList(),
-                                                          );
-                                                          FFAppState()
-                                                                  .shiftStatus =
-                                                              _model
-                                                                  .dream2complete!
-                                                                  .toList()
-                                                                  .cast<
-                                                                      ShiftStatusStruct>();
-                                                          safeSetState(() {});
-                                                        }
+                                                    if ((_model.dream1
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      _model.dream1Complete =
+                                                          await actions
+                                                              .mergeAndRemoveDuplicatesShiftMeta(
                                                         FFAppState()
-                                                            .isLoading3 = false;
-                                                        safeSetState(() {});
-                                                      }
-                                                    } else {
-                                                      FFAppState().isLoading3 =
-                                                          false;
+                                                            .shiftMetaData
+                                                            .toList(),
+                                                        ((_model.dream1?.jsonBody ??
+                                                                        '')
+                                                                    .toList()
+                                                                    .map<ShiftMetaDataStruct?>(
+                                                                        ShiftMetaDataStruct
+                                                                            .maybeFromMap)
+                                                                    .toList()
+                                                                as Iterable<
+                                                                    ShiftMetaDataStruct?>)
+                                                            .withoutNulls
+                                                            .toList(),
+                                                      );
+                                                      FFAppState()
+                                                              .shiftMetaData =
+                                                          _model.dream1Complete!
+                                                              .toList()
+                                                              .cast<
+                                                                  ShiftMetaDataStruct>();
                                                       safeSetState(() {});
                                                     }
+                                                    _model.dream2 =
+                                                        await GetUserShiftStatusCall
+                                                            .call(
+                                                      pUserId: FFAppState()
+                                                          .user
+                                                          .userId,
+                                                      pStoreId: _model
+                                                          .dropDownStoreValue,
+                                                      pRequestDate: _model
+                                                          .selectedDatePageState
+                                                          ?.toString(),
+                                                    );
 
+                                                    if ((_model.dream2
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      _model.dream2complete =
+                                                          await actions
+                                                              .mergeAndRemoveDuplicatesShiftStatus(
+                                                        FFAppState()
+                                                            .shiftStatus
+                                                            .toList(),
+                                                        ((_model.dream2?.jsonBody ??
+                                                                        '')
+                                                                    .toList()
+                                                                    .map<ShiftStatusStruct?>(
+                                                                        ShiftStatusStruct
+                                                                            .maybeFromMap)
+                                                                    .toList()
+                                                                as Iterable<
+                                                                    ShiftStatusStruct?>)
+                                                            .withoutNulls
+                                                            .toList(),
+                                                      );
+                                                      FFAppState().shiftStatus =
+                                                          _model.dream2complete!
+                                                              .toList()
+                                                              .cast<
+                                                                  ShiftStatusStruct>();
+                                                      safeSetState(() {});
+                                                    }
+                                                    FFAppState().isLoading3 =
+                                                        false;
                                                     safeSetState(() {});
-                                                  },
-                                                  width: 200.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            font: GoogleFonts
-                                                                .notoSansJp(
-                                                              fontWeight:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontWeight,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .fontStyle,
-                                                            ),
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                          ),
-                                                  hintText: 'Choose the store',
-                                                  icon: Icon(
-                                                    Icons
-                                                        .keyboard_arrow_down_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryText,
-                                                    size: 24.0,
+                                                  }
+                                                } else {
+                                                  FFAppState().isLoading3 =
+                                                      false;
+                                                  safeSetState(() {});
+                                                }
+
+                                                safeSetState(() {});
+                                              },
+                                              width: 200.0,
+                                              height: 50.0,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.notoSansJp(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .fontStyle,
+                                                    ),
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .fontStyle,
                                                   ),
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryBackground,
-                                                  elevation: 2.0,
-                                                  borderColor: Colors.black,
-                                                  borderWidth: 0.0,
-                                                  borderRadius: 12.0,
-                                                  margin: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          12.0, 0.0, 12.0, 0.0),
-                                                  hidesUnderline: true,
-                                                  isOverButton: false,
-                                                  isSearchable: false,
-                                                  isMultiSelect: false,
-                                                ),
-                                              ].divide(SizedBox(width: 8.0)),
+                                              hintText: 'Choose the store',
+                                              icon: Icon(
+                                                Icons
+                                                    .keyboard_arrow_down_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                size: 24.0,
+                                              ),
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              elevation: 2.0,
+                                              borderColor: Colors.black,
+                                              borderWidth: 0.0,
+                                              borderRadius: 12.0,
+                                              margin: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      12.0, 0.0, 12.0, 0.0),
+                                              hidesUnderline: true,
+                                              isOverButton: false,
+                                              isSearchable: false,
+                                              isMultiSelect: false,
                                             ),
                                             Container(
-                                              width: double.infinity,
                                               decoration: BoxDecoration(),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        24.0, 0.0, 24.0, 0.0),
+                                                        24.0, 0.0, 24.0, 20.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -521,359 +505,359 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                 ),
                                               ),
                                             ),
-                                            Container(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryBackground,
-                                              ),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(12.0, 0.0,
-                                                                0.0, 12.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: [
-                                                        Expanded(
-                                                          flex: 5,
-                                                          child: Text(
-                                                            'Shift',
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .headlineLarge
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      20.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontStyle,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          flex: 5,
-                                                          child: Text(
-                                                            'Time',
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .headlineLarge
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineLarge
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  fontSize:
-                                                                      20.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineLarge
-                                                                      .fontStyle,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  if (_model
-                                                          .selectedDatePageState !=
-                                                      null)
-                                                    Builder(
-                                                      builder: (context) {
-                                                        final shiftDetail =
-                                                            FFAppState()
-                                                                .shiftMetaData
-                                                                .where((e) =>
-                                                                    _model
-                                                                        .dropDownStoreValue ==
-                                                                    e.storeId)
-                                                                .toList();
-
-                                                        return ListView
-                                                            .separated(
-                                                          padding:
-                                                              EdgeInsets.zero,
-                                                          primary: false,
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.vertical,
-                                                          itemCount: shiftDetail
-                                                              .length,
-                                                          separatorBuilder: (_,
-                                                                  __) =>
-                                                              SizedBox(
-                                                                  height: 8.0),
-                                                          itemBuilder: (context,
-                                                              shiftDetailIndex) {
-                                                            final shiftDetailItem =
-                                                                shiftDetail[
-                                                                    shiftDetailIndex];
-                                                            return AnimatedOpacity(
-                                                              opacity: _model
-                                                                          .shiftId ==
-                                                                      shiftDetailItem
-                                                                          .shiftId
-                                                                  ? 1.0
-                                                                  : 0.1,
-                                                              duration:
-                                                                  300.0.ms,
-                                                              curve: Curves
-                                                                  .easeInOut,
-                                                              child: InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  _model.shiftId =
-                                                                      shiftDetailItem
-                                                                          .shiftId;
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                                child:
-                                                                    wrapWithModel(
-                                                                  model: _model
-                                                                      .shiftTestModels
-                                                                      .getModel(
-                                                                    shiftDetailItem
-                                                                        .shiftId,
-                                                                    shiftDetailIndex,
-                                                                  ),
-                                                                  updateCallback: () =>
-                                                                      safeSetState(
-                                                                          () {}),
-                                                                  child:
-                                                                      ShiftTestWidget(
-                                                                    key: Key(
-                                                                      'Keycb0_${shiftDetailItem.shiftId}',
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  12.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Expanded(
+                                                            flex: 5,
+                                                            child: Text(
+                                                              'Shift',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineLarge
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLarge
+                                                                          .fontStyle,
                                                                     ),
-                                                                    shiftName:
-                                                                        shiftDetailItem
-                                                                            .shiftName,
-                                                                    startTime:
-                                                                        shiftDetailItem
-                                                                            .startTime,
-                                                                    endTime:
-                                                                        shiftDetailItem
-                                                                            .endTime,
-                                                                    shiftId:
-                                                                        shiftDetailItem
-                                                                            .shiftId,
-                                                                    selectedDate: dateTimeFormat(
-                                                                        "yyyy-MM-dd",
-                                                                        _model
-                                                                            .selectedDatePageState),
+                                                                    fontSize:
+                                                                        20.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontStyle,
                                                                   ),
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            flex: 5,
+                                                            child: Text(
+                                                              'Time',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineLarge
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLarge
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineLarge
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    fontSize:
+                                                                        20.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineLarge
+                                                                        .fontStyle,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      40.0, 0.0, 40.0, 0.0),
-                                              child: Container(
-                                                width: double.infinity,
-                                                decoration: BoxDecoration(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryBackground,
-                                                ),
-                                                child: SingleChildScrollView(
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          if (_model.shiftId !=
-                                                                  null &&
-                                                              _model.shiftId !=
-                                                                  '') {
-                                                            if (FFAppState()
-                                                                    .isLoading2 ==
-                                                                false) {
+                                                    if (_model
+                                                            .selectedDatePageState !=
+                                                        null)
+                                                      Builder(
+                                                        builder: (context) {
+                                                          final shiftDetail =
                                                               FFAppState()
-                                                                      .isLoading2 =
-                                                                  true;
-                                                              safeSetState(
-                                                                  () {});
-                                                              if (FFAppState()
-                                                                      .shiftStatus
-                                                                      .where((e) =>
-                                                                          (_model.shiftId == e.shiftId) &&
-                                                                          (e.requestDate ==
-                                                                              dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)))
-                                                                      .toList()
-                                                                      .firstOrNull !=
-                                                                  null) {
-                                                                if (FFAppState()
-                                                                    .shiftStatus
-                                                                    .where((e) =>
-                                                                        (dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState) ==
-                                                                            e
-                                                                                .requestDate) &&
-                                                                        (_model.shiftId ==
-                                                                            e.shiftId))
-                                                                    .toList()
-                                                                    .firstOrNull!
-                                                                    .isApproved) {
-                                                                  await showDialog(
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (alertDialogContext) {
-                                                                      return AlertDialog(
-                                                                        title: Text(
-                                                                            'Already Approved'),
-                                                                        content:
-                                                                            Text('Ask To Manager'),
-                                                                        actions: [
-                                                                          TextButton(
-                                                                            onPressed: () =>
-                                                                                Navigator.pop(alertDialogContext),
-                                                                            child:
-                                                                                Text('Ok'),
-                                                                          ),
-                                                                        ],
-                                                                      );
-                                                                    },
-                                                                  );
-                                                                } else {
-                                                                  _model.returnDelete1 =
-                                                                      await ShiftRequestsTable()
-                                                                          .delete(
-                                                                    matchingRows:
-                                                                        (rows) =>
-                                                                            rows.eqOrNull(
-                                                                      'shift_request_id',
-                                                                      FFAppState()
-                                                                          .shiftStatus
-                                                                          .where((e) =>
-                                                                              valueOrDefault<bool>(
-                                                                                (_model.shiftId == e.shiftId) && (e.requestDate == dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
-                                                                                false,
-                                                                              ))
-                                                                          .toList()
-                                                                          .firstOrNull
-                                                                          ?.shiftRequestId,
-                                                                    ),
-                                                                    returnRows:
-                                                                        true,
-                                                                  );
-                                                                  FFAppState().shiftStatus = functions
-                                                                      .removeFromList(
-                                                                          FFAppState()
-                                                                              .shiftStatus
-                                                                              .map((e) => e
-                                                                                  .toMap())
-                                                                              .toList(),
-                                                                          _model
-                                                                              .returnDelete1
-                                                                              ?.firstOrNull
-                                                                              ?.shiftRequestId,
-                                                                          'shift_request_id')!
-                                                                      .map((e) =>
-                                                                          ShiftStatusStruct.maybeFromMap(
-                                                                              e))
-                                                                      .withoutNulls
-                                                                      .toList()
-                                                                      .cast<
-                                                                          ShiftStatusStruct>();
-                                                                  safeSetState(
-                                                                      () {});
-                                                                }
-
-                                                                FFAppState()
-                                                                        .isLoading2 =
-                                                                    false;
-                                                                safeSetState(
-                                                                    () {});
-                                                              } else {
-                                                                _model.insert1 =
-                                                                    await ShiftRequestsTable()
-                                                                        .insert({
-                                                                  'user_id':
-                                                                      FFAppState()
-                                                                          .user
-                                                                          .userId,
-                                                                  'shift_id':
+                                                                  .shiftMetaData
+                                                                  .where((e) =>
                                                                       _model
+                                                                          .dropDownStoreValue ==
+                                                                      e.storeId)
+                                                                  .toList();
+
+                                                          return ListView
+                                                              .separated(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            primary: false,
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                shiftDetail
+                                                                    .length,
+                                                            separatorBuilder:
+                                                                (_, __) =>
+                                                                    SizedBox(
+                                                                        height:
+                                                                            8.0),
+                                                            itemBuilder: (context,
+                                                                shiftDetailIndex) {
+                                                              final shiftDetailItem =
+                                                                  shiftDetail[
+                                                                      shiftDetailIndex];
+                                                              return AnimatedOpacity(
+                                                                opacity: _model
+                                                                            .shiftId ==
+                                                                        shiftDetailItem
+                                                                            .shiftId
+                                                                    ? 1.0
+                                                                    : 0.1,
+                                                                duration:
+                                                                    300.0.ms,
+                                                                curve: Curves
+                                                                    .easeInOut,
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    _model.shiftId =
+                                                                        shiftDetailItem
+                                                                            .shiftId;
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  },
+                                                                  child:
+                                                                      wrapWithModel(
+                                                                    model: _model
+                                                                        .shiftTestModels
+                                                                        .getModel(
+                                                                      shiftDetailItem
                                                                           .shiftId,
-                                                                  'store_id': _model
-                                                                      .dropDownStoreValue,
-                                                                  'request_date':
-                                                                      supaSerialize<
-                                                                              DateTime>(
+                                                                      shiftDetailIndex,
+                                                                    ),
+                                                                    updateCallback: () =>
+                                                                        safeSetState(
+                                                                            () {}),
+                                                                    child:
+                                                                        ShiftTestWidget(
+                                                                      key: Key(
+                                                                        'Keycb0_${shiftDetailItem.shiftId}',
+                                                                      ),
+                                                                      shiftName:
+                                                                          shiftDetailItem
+                                                                              .shiftName,
+                                                                      startTime:
+                                                                          shiftDetailItem
+                                                                              .startTime,
+                                                                      endTime:
+                                                                          shiftDetailItem
+                                                                              .endTime,
+                                                                      shiftId:
+                                                                          shiftDetailItem
+                                                                              .shiftId,
+                                                                      selectedDate: dateTimeFormat(
+                                                                          "yyyy-MM-dd",
                                                                           _model
                                                                               .selectedDatePageState),
-                                                                  'start_time': supaSerialize<DateTime>(functions.changeStringToDateTime(FFAppState()
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(80.0, 32.0,
+                                                          80.0, 0.0),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      if (_model.shiftId !=
+                                                              null &&
+                                                          _model.shiftId !=
+                                                              '') {
+                                                        if (FFAppState()
+                                                                .isLoading2 ==
+                                                            false) {
+                                                          FFAppState()
+                                                                  .isLoading2 =
+                                                              true;
+                                                          safeSetState(() {});
+                                                          if (FFAppState()
+                                                                  .shiftStatus
+                                                                  .where((e) =>
+                                                                      (_model.shiftId ==
+                                                                          e
+                                                                              .shiftId) &&
+                                                                      (e.requestDate ==
+                                                                          dateTimeFormat(
+                                                                              "yyyy-MM-dd",
+                                                                              _model.selectedDatePageState)))
+                                                                  .toList()
+                                                                  .firstOrNull !=
+                                                              null) {
+                                                            if (FFAppState()
+                                                                .shiftStatus
+                                                                .where((e) =>
+                                                                    (dateTimeFormat(
+                                                                            "yyyy-MM-dd",
+                                                                            _model
+                                                                                .selectedDatePageState) ==
+                                                                        e
+                                                                            .requestDate) &&
+                                                                    (_model.shiftId ==
+                                                                        e.shiftId))
+                                                                .toList()
+                                                                .firstOrNull!
+                                                                .isApproved) {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Already Approved'),
+                                                                    content: Text(
+                                                                        'Ask To Manager'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            } else {
+                                                              _model.returnDelete1 =
+                                                                  await ShiftRequestsTable()
+                                                                      .delete(
+                                                                matchingRows:
+                                                                    (rows) => rows
+                                                                        .eqOrNull(
+                                                                  'shift_request_id',
+                                                                  FFAppState()
+                                                                      .shiftStatus
+                                                                      .where((e) =>
+                                                                          valueOrDefault<
+                                                                              bool>(
+                                                                            (_model.shiftId == e.shiftId) &&
+                                                                                (e.requestDate == dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
+                                                                            false,
+                                                                          ))
+                                                                      .toList()
+                                                                      .firstOrNull
+                                                                      ?.shiftRequestId,
+                                                                ),
+                                                                returnRows:
+                                                                    true,
+                                                              );
+                                                              FFAppState().shiftStatus = functions
+                                                                  .removeFromList(
+                                                                      FFAppState()
+                                                                          .shiftStatus
+                                                                          .map((e) => e
+                                                                              .toMap())
+                                                                          .toList(),
+                                                                      _model
+                                                                          .returnDelete1
+                                                                          ?.firstOrNull
+                                                                          ?.shiftRequestId,
+                                                                      'shift_request_id')!
+                                                                  .map((e) =>
+                                                                      ShiftStatusStruct
+                                                                          .maybeFromMap(
+                                                                              e))
+                                                                  .withoutNulls
+                                                                  .toList()
+                                                                  .cast<
+                                                                      ShiftStatusStruct>();
+                                                              safeSetState(
+                                                                  () {});
+                                                            }
+
+                                                            FFAppState()
+                                                                    .isLoading2 =
+                                                                false;
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            _model.insert1 =
+                                                                await ShiftRequestsTable()
+                                                                    .insert({
+                                                              'user_id':
+                                                                  FFAppState()
+                                                                      .user
+                                                                      .userId,
+                                                              'shift_id': _model
+                                                                  .shiftId,
+                                                              'store_id': _model
+                                                                  .dropDownStoreValue,
+                                                              'request_date':
+                                                                  supaSerialize<
+                                                                          DateTime>(
+                                                                      _model
+                                                                          .selectedDatePageState),
+                                                              'start_time': supaSerialize<
+                                                                      DateTime>(
+                                                                  functions.changeStringToDateTime(FFAppState()
                                                                       .shiftMetaData
                                                                       .where((e) =>
                                                                           _model
@@ -882,7 +866,9 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                                       .toList()
                                                                       .firstOrNull
                                                                       ?.startTime)),
-                                                                  'end_time': supaSerialize<DateTime>(functions.changeStringToDateTime(FFAppState()
+                                                              'end_time': supaSerialize<
+                                                                      DateTime>(
+                                                                  functions.changeStringToDateTime(FFAppState()
                                                                       .shiftMetaData
                                                                       .where((e) =>
                                                                           _model
@@ -891,115 +877,107 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                                       .toList()
                                                                       .firstOrNull
                                                                       ?.endTime)),
-                                                                });
-                                                                FFAppState()
-                                                                    .addToShiftStatus(
-                                                                        ShiftStatusStruct(
-                                                                  shiftId: _model
-                                                                      .insert1
-                                                                      ?.shiftId,
-                                                                  requestDate: dateTimeFormat(
-                                                                      "yyyy-MM-dd",
-                                                                      _model
-                                                                          .insert1
-                                                                          ?.requestDate),
-                                                                  totalRegistered:
-                                                                      1,
-                                                                  isRegisteredByMe:
-                                                                      true,
-                                                                  shiftRequestId:
-                                                                      _model
-                                                                          .insert1
-                                                                          ?.shiftRequestId,
-                                                                  isApproved:
-                                                                      false,
-                                                                  storeId: _model
-                                                                      .dropDownStoreValue,
-                                                                ));
-                                                                safeSetState(
-                                                                    () {});
-                                                              }
-
-                                                              FFAppState()
-                                                                      .isLoading2 =
-                                                                  false;
-                                                              safeSetState(
-                                                                  () {});
-                                                            }
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'Choose Shift'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
+                                                            });
+                                                            FFAppState()
+                                                                .addToShiftStatus(
+                                                                    ShiftStatusStruct(
+                                                              shiftId: _model
+                                                                  .insert1
+                                                                  ?.shiftId,
+                                                              requestDate: dateTimeFormat(
+                                                                  "yyyy-MM-dd",
+                                                                  _model.insert1
+                                                                      ?.requestDate),
+                                                              totalRegistered:
+                                                                  1,
+                                                              isRegisteredByMe:
+                                                                  true,
+                                                              shiftRequestId: _model
+                                                                  .insert1
+                                                                  ?.shiftRequestId,
+                                                              isApproved: false,
+                                                              storeId: _model
+                                                                  .dropDownStoreValue,
+                                                            ));
+                                                            safeSetState(() {});
                                                           }
 
+                                                          FFAppState()
+                                                                  .isLoading2 =
+                                                              false;
                                                           safeSetState(() {});
-                                                        },
-                                                        child: wrapWithModel(
-                                                          model:
-                                                              _model.adddModel,
-                                                          updateCallback: () =>
-                                                              safeSetState(
-                                                                  () {}),
-                                                          child: AddWidget(
-                                                            name: FFAppState()
-                                                                    .shiftStatus
-                                                                    .where((e) =>
-                                                                        valueOrDefault<
-                                                                            bool>(
-                                                                          (_model.shiftId == e.shiftId) &&
-                                                                              (e.requestDate == dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
-                                                                          false,
-                                                                        ))
-                                                                    .toList()
-                                                                    .isNotEmpty
-                                                                ? 'Cancel'
-                                                                : 'Register',
-                                                            color: FFAppState()
-                                                                    .shiftStatus
-                                                                    .where((e) =>
-                                                                        valueOrDefault<
-                                                                            bool>(
-                                                                          (_model.shiftId == e.shiftId) &&
-                                                                              (e.requestDate == dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
-                                                                          false,
-                                                                        ))
-                                                                    .toList()
-                                                                    .isNotEmpty
-                                                                ? FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .tertiary
-                                                                : FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                          ),
-                                                        ),
+                                                        }
+                                                      } else {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'Choose Shift'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }
+
+                                                      safeSetState(() {});
+                                                    },
+                                                    child: wrapWithModel(
+                                                      model: _model.adddModel,
+                                                      updateCallback: () =>
+                                                          safeSetState(() {}),
+                                                      child: AddWidget(
+                                                        name: FFAppState()
+                                                                .shiftStatus
+                                                                .where((e) =>
+                                                                    valueOrDefault<
+                                                                        bool>(
+                                                                      (_model.shiftId == e.shiftId) &&
+                                                                          (e.requestDate ==
+                                                                              dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
+                                                                      false,
+                                                                    ))
+                                                                .toList()
+                                                                .isNotEmpty
+                                                            ? 'Cancel'
+                                                            : 'Register',
+                                                        color: FFAppState()
+                                                                .shiftStatus
+                                                                .where((e) =>
+                                                                    valueOrDefault<
+                                                                        bool>(
+                                                                      (_model.shiftId == e.shiftId) &&
+                                                                          (e.requestDate ==
+                                                                              dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
+                                                                      false,
+                                                                    ))
+                                                                .toList()
+                                                                .isNotEmpty
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .tertiary
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ]
                                               .divide(SizedBox(height: 24.0))
                                               .addToStart(
-                                                  SizedBox(height: 32.0))
-                                              .addToEnd(SizedBox(height: 32.0)),
+                                                  SizedBox(height: 16.0)),
                                         ),
                                       ),
                                     ),
@@ -1033,7 +1011,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                         0.0, 4.0, 0.0, 4.0),
                                                 child: Column(
                                                   mainAxisSize:
-                                                      MainAxisSize.max,
+                                                      MainAxisSize.min,
                                                   children: [
                                                     Text(
                                                       'Filter',
@@ -1386,8 +1364,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                 ),
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 9,
+                                            Flexible(
                                               child: Container(
                                                 width:
                                                     MediaQuery.sizeOf(context)
@@ -1399,9 +1376,10 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                       .primaryBackground,
                                                 ),
                                                 child: SingleChildScrollView(
+                                                  primary: false,
                                                   child: Column(
                                                     mainAxisSize:
-                                                        MainAxisSize.min,
+                                                        MainAxisSize.max,
                                                     children: [
                                                       wrapWithModel(
                                                         model: _model
@@ -1426,7 +1404,10 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                 ),
                                               ),
                                             ),
-                                          ].addToStart(SizedBox(height: 32.0)),
+                                          ]
+                                              .addToStart(
+                                                  SizedBox(height: 32.0))
+                                              .addToEnd(SizedBox(height: 32.0)),
                                         ),
                                       ),
                                     ),
@@ -1438,8 +1419,8 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               if ((FFAppState().isLoading1 == true) ||
                   FFAppState().isLoading2 ||

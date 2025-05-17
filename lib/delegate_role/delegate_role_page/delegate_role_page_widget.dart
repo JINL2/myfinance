@@ -76,58 +76,38 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
                         children: [
                           Align(
                             alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 12.0),
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          AlignmentDirectional(-1.0, 0.0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          FFAppState()
-                                              .user
-                                              .companies
-                                              .where((e) =>
-                                                  FFAppState().companyChoosen ==
-                                                  e.companyId)
-                                              .toList()
-                                              .firstOrNull
-                                              ?.companyName,
-                                          'Error',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineSmall
-                                            .override(
-                                              font: GoogleFonts.notoSansJp(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontStyle,
-                                              ),
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .headlineSmall
-                                                      .fontStyle,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                            child: Text(
+                              valueOrDefault<String>(
+                                FFAppState()
+                                    .user
+                                    .companies
+                                    .where((e) =>
+                                        FFAppState().companyChoosen ==
+                                        e.companyId)
+                                    .toList()
+                                    .firstOrNull
+                                    ?.companyName,
+                                'Error',
                               ),
+                              style: FlutterFlowTheme.of(context)
+                                  .headlineSmall
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .headlineSmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .headlineSmall
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .headlineSmall
+                                        .fontStyle,
+                                  ),
                             ),
                           ),
                           FutureBuilder<List<VUserRoleInfoRow>>(
@@ -191,7 +171,7 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
                               );
                             },
                           ),
-                        ],
+                        ].divide(SizedBox(height: 12.0)),
                       ),
                     ),
                   ),

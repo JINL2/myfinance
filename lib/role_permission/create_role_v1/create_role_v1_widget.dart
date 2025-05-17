@@ -147,214 +147,228 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
                 validator: _model.textControllerValidator.asValidator(context),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-              child: Builder(
-                builder: (context) {
-                  final categoryInfo = FFAppState().categoryFeatures.toList();
+            SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                    child: Builder(
+                      builder: (context) {
+                        final categoryInfo =
+                            FFAppState().categoryFeatures.toList();
 
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: categoryInfo.length,
-                    itemBuilder: (context, categoryInfoIndex) {
-                      final categoryInfoItem = categoryInfo[categoryInfoIndex];
-                      return Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(-1.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 4.0),
-                                  child: Text(
-                                    valueOrDefault<String>(
-                                      categoryInfoItem.categoryName,
-                                      'Error',
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .headlineMedium
-                                        .override(
-                                          font: GoogleFonts.notoSansJp(
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineMedium
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineMedium
-                                                    .fontStyle,
-                                          ),
-                                          letterSpacing: 0.0,
-                                          fontWeight:
-                                              FlutterFlowTheme.of(context)
-                                                  .headlineMedium
-                                                  .fontWeight,
-                                          fontStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .headlineMedium
-                                                  .fontStyle,
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          primary: false,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: categoryInfo.length,
+                          itemBuilder: (context, categoryInfoIndex) {
+                            final categoryInfoItem =
+                                categoryInfo[categoryInfoIndex];
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(-1.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 4.0),
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          categoryInfoItem.categoryName,
+                                          'Error',
                                         ),
-                                  ),
-                                ),
-                              ),
-                              Builder(
-                                builder: (context) {
-                                  final featureInfo =
-                                      categoryInfoItem.features.toList();
-
-                                  return ListView.separated(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: featureInfo.length,
-                                    separatorBuilder: (_, __) =>
-                                        SizedBox(height: 8.0),
-                                    itemBuilder: (context, featureInfoIndex) {
-                                      final featureInfoItem =
-                                          featureInfo[featureInfoIndex];
-                                      return Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12.0, 0.0, 12.0, 0.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFF0F3F9),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 8.0, 0.0, 8.0),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    featureInfoItem.featureName,
-                                                    'Feature Name',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleMedium
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .notoSansJp(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMedium
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMedium
-                                                                  .fontStyle,
-                                                        ),
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleMedium
-                                                                .fontStyle,
-                                                      ),
-                                                ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineMedium
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineMedium
+                                                        .fontStyle,
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: Theme(
-                                                  data: ThemeData(
-                                                    checkboxTheme:
-                                                        CheckboxThemeData(
-                                                      visualDensity:
-                                                          VisualDensity.compact,
-                                                      materialTapTargetSize:
-                                                          MaterialTapTargetSize
-                                                              .shrinkWrap,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4.0),
+                                              letterSpacing: 0.0,
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineMedium
+                                                      .fontStyle,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Builder(
+                                    builder: (context) {
+                                      final featureInfo =
+                                          categoryInfoItem.features.toList();
+
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: featureInfo.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 8.0),
+                                        itemBuilder:
+                                            (context, featureInfoIndex) {
+                                          final featureInfoItem =
+                                              featureInfo[featureInfoIndex];
+                                          return Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 0.0, 12.0, 0.0),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFF0F3F9),
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 8.0,
+                                                                0.0, 8.0),
+                                                    child: Text(
+                                                      valueOrDefault<String>(
+                                                        featureInfoItem
+                                                            .featureName,
+                                                        'Feature Name',
                                                       ),
-                                                    ),
-                                                    unselectedWidgetColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .alternate,
-                                                  ),
-                                                  child: Checkbox(
-                                                    value: _model
-                                                                .checkboxValueMap[
-                                                            featureInfoItem] ??=
-                                                        false,
-                                                    onChanged:
-                                                        (newValue) async {
-                                                      safeSetState(() => _model
-                                                                  .checkboxValueMap[
-                                                              featureInfoItem] =
-                                                          newValue!);
-                                                      if (newValue!) {
-                                                        FFAppState()
-                                                            .addToSelectedFeatures(
-                                                                featureInfoItem
-                                                                    .featureId);
-                                                        safeSetState(() {});
-                                                      } else {
-                                                        FFAppState()
-                                                            .removeFromSelectedFeatures(
-                                                                featureInfoItem
-                                                                    .featureId);
-                                                        safeSetState(() {});
-                                                      }
-                                                    },
-                                                    side: BorderSide(
-                                                      width: 2,
-                                                      color:
+                                                      style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .alternate,
+                                                              .titleMedium
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium
+                                                                    .fontStyle,
+                                                              ),
                                                     ),
-                                                    activeColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .primary,
-                                                    checkColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .info,
                                                   ),
-                                                ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Theme(
+                                                      data: ThemeData(
+                                                        checkboxTheme:
+                                                            CheckboxThemeData(
+                                                          visualDensity:
+                                                              VisualDensity
+                                                                  .compact,
+                                                          materialTapTargetSize:
+                                                              MaterialTapTargetSize
+                                                                  .shrinkWrap,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4.0),
+                                                          ),
+                                                        ),
+                                                        unselectedWidgetColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                      ),
+                                                      child: Checkbox(
+                                                        value: _model
+                                                                .checkboxValueMap[
+                                                            featureInfoItem] ??= false,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          safeSetState(() =>
+                                                              _model.checkboxValueMap[
+                                                                      featureInfoItem] =
+                                                                  newValue!);
+                                                          if (newValue!) {
+                                                            FFAppState()
+                                                                .addToSelectedFeatures(
+                                                                    featureInfoItem
+                                                                        .featureId);
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            FFAppState()
+                                                                .removeFromSelectedFeatures(
+                                                                    featureInfoItem
+                                                                        .featureId);
+                                                            safeSetState(() {});
+                                                          }
+                                                        },
+                                                        side: BorderSide(
+                                                          width: 2,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                        ),
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        checkColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .info,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        ),
+                                            ),
+                                          );
+                                        },
                                       );
                                     },
-                                  );
-                                },
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             Align(

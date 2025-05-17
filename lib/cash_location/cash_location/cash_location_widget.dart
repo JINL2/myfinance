@@ -56,17 +56,11 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: wrapWithModel(
-                  model: _model.menuBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: MenuBarWidget(
-                    menuName: 'Cash Location',
-                  ),
+              wrapWithModel(
+                model: _model.menuBarModel,
+                updateCallback: () => safeSetState(() {}),
+                child: MenuBarWidget(
+                  menuName: 'Cash Location',
                 ),
               ),
               Expanded(
@@ -79,7 +73,7 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -88,59 +82,42 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          valueOrDefault<String>(
-                                            FFAppState()
-                                                .user
-                                                .companies
-                                                .where((e) =>
-                                                    FFAppState()
-                                                        .companyChoosen ==
-                                                    e.companyId)
-                                                .toList()
-                                                .firstOrNull
-                                                ?.companyName,
-                                            'CompanyName',
-                                          ),
-                                          maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                font: GoogleFonts.notoSansJp(
-                                                  fontWeight:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineSmall
-                                                          .fontWeight,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineSmall
-                                                          .fontStyle,
-                                                ),
-                                                letterSpacing: 0.0,
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .fontStyle,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
+                              Flexible(
+                                child: Text(
+                                  valueOrDefault<String>(
+                                    FFAppState()
+                                        .user
+                                        .companies
+                                        .where((e) =>
+                                            FFAppState().companyChoosen ==
+                                            e.companyId)
+                                        .toList()
+                                        .firstOrNull
+                                        ?.companyName,
+                                    'CompanyName',
                                   ),
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .headlineSmall
+                                      .override(
+                                        font: GoogleFonts.notoSansJp(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .headlineSmall
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .fontStyle,
+                                      ),
                                 ),
                               ),
                               Padding(
@@ -229,6 +206,7 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
 
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
+                                primary: false,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
                                 itemCount: listViewCashLocationsRowList.length,

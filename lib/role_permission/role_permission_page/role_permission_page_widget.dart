@@ -67,17 +67,11 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primaryBackground,
-                ),
-                child: wrapWithModel(
-                  model: _model.menuBarModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: MenuBarWidget(
-                    menuName: 'Role List',
-                  ),
+              wrapWithModel(
+                model: _model.menuBarModel,
+                updateCallback: () => safeSetState(() {}),
+                child: MenuBarWidget(
+                  menuName: 'Role List',
                 ),
               ),
               Expanded(
@@ -86,39 +80,50 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            40.0, 0.0, 40.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        FFAppState()
-                                            .user
-                                            .companies
-                                            .where((e) =>
-                                                FFAppState().companyChoosen ==
-                                                e.companyId)
-                                            .toList()
-                                            .firstOrNull
-                                            ?.companyName,
-                                        'CompanyName',
-                                      ),
-                                      maxLines: 1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineSmall
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              40.0, 0.0, 40.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          FFAppState()
+                                              .user
+                                              .companies
+                                              .where((e) =>
+                                                  FFAppState().companyChoosen ==
+                                                  e.companyId)
+                                              .toList()
+                                              .firstOrNull
+                                              ?.companyName,
+                                          'CompanyName',
+                                        ),
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              font: GoogleFonts.notoSansJp(
+                                                fontWeight:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontWeight,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .fontStyle,
+                                              ),
+                                              letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineSmall
@@ -128,153 +133,151 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                                                       .headlineSmall
                                                       .fontStyle,
                                             ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .headlineSmall
-                                                    .fontStyle,
-                                          ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.0, 0.0, 0.0, 0.0),
-                              child: Container(
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    if (FFAppState().isLoading1 == false) {
-                                      FFAppState().isLoading1 = true;
-                                      safeSetState(() {});
-                                      await showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
-                                        enableDrag: false,
-                                        context: context,
-                                        builder: (context) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              FocusScope.of(context).unfocus();
-                                              FocusManager.instance.primaryFocus
-                                                  ?.unfocus();
-                                            },
-                                            child: Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: Container(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        0.8,
-                                                child: PopupWidget(
-                                                  popupTitle: 'Create Role',
-                                                  widgetBuilder: () =>
-                                                      CreateRoleV1Widget(
-                                                    companyId: FFAppState()
-                                                        .companyChoosen,
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 0.0, 0.0),
+                                child: Container(
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (FFAppState().isLoading1 == false) {
+                                        FFAppState().isLoading1 = true;
+                                        safeSetState(() {});
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          context: context,
+                                          builder: (context) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                FocusScope.of(context)
+                                                    .unfocus();
+                                                FocusManager
+                                                    .instance.primaryFocus
+                                                    ?.unfocus();
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: Container(
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.8,
+                                                  child: PopupWidget(
+                                                    popupTitle: 'Create Role',
+                                                    widgetBuilder: () =>
+                                                        CreateRoleV1Widget(
+                                                      companyId: FFAppState()
+                                                          .companyChoosen,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      ).then((value) => safeSetState(() {}));
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(() {}));
 
-                                      FFAppState().isLoading1 = false;
-                                      safeSetState(() {});
-                                    }
-                                  },
-                                  child: wrapWithModel(
-                                    model: _model.addModel,
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: AddWidget(
-                                      name: '+ Add role',
+                                        FFAppState().isLoading1 = false;
+                                        safeSetState(() {});
+                                      }
+                                    },
+                                    child: wrapWithModel(
+                                      model: _model.addModel,
+                                      updateCallback: () => safeSetState(() {}),
+                                      child: AddWidget(
+                                        name: '+ Add role',
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 16.0, 16.0, 0.0),
-                        child: FutureBuilder<List<ViewRolesWithPermissionsRow>>(
-                          future: ViewRolesWithPermissionsTable().queryRows(
-                            queryFn: (q) => q
-                                .eqOrNull(
-                                  'company_id',
-                                  FFAppState().companyChoosen,
-                                )
-                                .neqOrNull(
-                                  'role_type',
-                                  'owner',
-                                )
-                                .order('created_at', ascending: true),
+                            ],
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 80.0,
-                                  height: 80.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 16.0, 16.0, 0.0),
+                          child:
+                              FutureBuilder<List<ViewRolesWithPermissionsRow>>(
+                            future: ViewRolesWithPermissionsTable().queryRows(
+                              queryFn: (q) => q
+                                  .eqOrNull(
+                                    'company_id',
+                                    FFAppState().companyChoosen,
+                                  )
+                                  .neqOrNull(
+                                    'role_type',
+                                    'owner',
+                                  )
+                                  .order('created_at', ascending: true),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 80.0,
+                                    height: 80.0,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        FlutterFlowTheme.of(context).primary,
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            }
-                            List<ViewRolesWithPermissionsRow>
-                                listViewViewRolesWithPermissionsRowList =
-                                snapshot.data!;
-
-                            return ListView.separated(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: listViewViewRolesWithPermissionsRowList
-                                  .length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 12.0),
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewViewRolesWithPermissionsRow =
-                                    listViewViewRolesWithPermissionsRowList[
-                                        listViewIndex];
-                                return wrapWithModel(
-                                  model: _model.rolePermissioComponentModels
-                                      .getModel(
-                                    listViewViewRolesWithPermissionsRow.roleId!,
-                                    listViewIndex,
-                                  ),
-                                  updateCallback: () => safeSetState(() {}),
-                                  child: RolePermissioComponentWidget(
-                                    key: Key(
-                                      'Key4ch_${listViewViewRolesWithPermissionsRow.roleId!}',
-                                    ),
-                                    roleDetails:
-                                        listViewViewRolesWithPermissionsRow,
                                   ),
                                 );
-                              },
-                            );
-                          },
+                              }
+                              List<ViewRolesWithPermissionsRow>
+                                  listViewViewRolesWithPermissionsRowList =
+                                  snapshot.data!;
+
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                primary: false,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount:
+                                    listViewViewRolesWithPermissionsRowList
+                                        .length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 12.0),
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewViewRolesWithPermissionsRow =
+                                      listViewViewRolesWithPermissionsRowList[
+                                          listViewIndex];
+                                  return wrapWithModel(
+                                    model: _model.rolePermissioComponentModels
+                                        .getModel(
+                                      listViewViewRolesWithPermissionsRow
+                                          .roleId!,
+                                      listViewIndex,
+                                    ),
+                                    updateCallback: () => safeSetState(() {}),
+                                    child: RolePermissioComponentWidget(
+                                      key: Key(
+                                        'Key4ch_${listViewViewRolesWithPermissionsRow.roleId!}',
+                                      ),
+                                      roleDetails:
+                                          listViewViewRolesWithPermissionsRow,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

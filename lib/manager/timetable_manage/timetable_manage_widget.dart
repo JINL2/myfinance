@@ -643,6 +643,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
 
                                                 return ListView.builder(
                                                   padding: EdgeInsets.zero,
+                                                  primary: false,
                                                   shrinkWrap: true,
                                                   scrollDirection:
                                                       Axis.vertical,
@@ -723,6 +724,8 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                                   padding:
                                                                       EdgeInsets
                                                                           .zero,
+                                                                  primary:
+                                                                      false,
                                                                   shrinkWrap:
                                                                       true,
                                                                   scrollDirection:
@@ -1241,7 +1244,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                                     .bodyMedium
                                                                     .fontStyle,
                                                               ),
-                                                      hintText: 'Choose Store',
+                                                      hintText: 'Select',
                                                       icon: Icon(
                                                         Icons
                                                             .keyboard_arrow_down_rounded,

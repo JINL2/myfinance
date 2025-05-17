@@ -67,7 +67,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
         FFAppState().isLoading1 = true;
         safeSetState(() {});
         _model.userinformation1 = await GetUserCompaniesCall.call(
-          pUserId: FFAppState().user.userId,
+          pUserId: currentUserUid,
         );
 
         if ((_model.userinformation1?.succeeded ?? true)) {
@@ -288,6 +288,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
 
                             return ListView.separated(
                               padding: EdgeInsets.zero,
+                              primary: false,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: companyInfo.length,
@@ -1051,7 +1052,6 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                     ),
                   ),
                   Expanded(
-                    flex: 90,
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       height: 100.0,

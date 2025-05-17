@@ -76,6 +76,7 @@ class _ManagershiftListWidgetState extends State<ManagershiftListWidget> {
 
                 return ListView.separated(
                   padding: EdgeInsets.zero,
+                  primary: false,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: managerShift.length,

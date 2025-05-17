@@ -53,7 +53,7 @@ class _TableSchduleWidgetState extends State<TableSchduleWidget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -214,6 +214,7 @@ class _TableSchduleWidgetState extends State<TableSchduleWidget> {
 
                             return ListView.separated(
                               padding: EdgeInsets.zero,
+                              primary: false,
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
                               itemCount: shiftStatusDetail.length,

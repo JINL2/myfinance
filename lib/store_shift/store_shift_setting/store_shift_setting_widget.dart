@@ -276,6 +276,7 @@ class _StoreShiftSettingWidgetState extends State<StoreShiftSettingWidget> {
 
                                 return ListView.separated(
                                   padding: EdgeInsets.zero,
+                                  primary: false,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
                                   itemCount: listViewStoreShiftsRowList.length,

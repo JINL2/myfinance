@@ -138,11 +138,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TimeTableUserWidget(),
         ),
         FFRoute(
-          name: TestattendWidget.routeName,
-          path: TestattendWidget.routePath,
-          builder: (context, params) => TestattendWidget(),
-        ),
-        FFRoute(
           name: InputWidget.routeName,
           path: InputWidget.routePath,
           builder: (context, params) => InputWidget(),

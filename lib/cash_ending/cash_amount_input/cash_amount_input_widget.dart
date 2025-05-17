@@ -95,6 +95,7 @@ class _CashAmountInputWidgetState extends State<CashAmountInputWidget> {
 
                       return ListView.separated(
                         padding: EdgeInsets.zero,
+                        primary: false,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: currency.length,
