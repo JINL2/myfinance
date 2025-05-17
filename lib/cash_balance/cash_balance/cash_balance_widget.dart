@@ -74,10 +74,12 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
                               0.0, 0.0, 0.0, 16.0),
                           child: FutureBuilder<List<VCashLocationRow>>(
                             future: VCashLocationTable().queryRows(
-                              queryFn: (q) => q.eqOrNull(
-                                'company_id',
-                                FFAppState().companyChoosen,
-                              ),
+                              queryFn: (q) => q
+                                  .eqOrNull(
+                                    'company_id',
+                                    FFAppState().companyChoosen,
+                                  )
+                                  .order('cash_difference'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -130,7 +132,6 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
                                                 Container(
-                                                  width: 60.0,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
