@@ -261,7 +261,7 @@ class _EmployeeSettingUpdateV1WidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12.0, 16.0, 12.0, 20.0),
+              padding: EdgeInsetsDirectional.fromSTEB(12.0, 16.0, 12.0, 36.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,

@@ -477,7 +477,7 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 36.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,

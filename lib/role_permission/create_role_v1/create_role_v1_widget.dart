@@ -445,7 +445,7 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
                 ),
               ),
             ),
-          ],
+          ].addToEnd(SizedBox(height: 36.0)),
         ),
       ),
     );

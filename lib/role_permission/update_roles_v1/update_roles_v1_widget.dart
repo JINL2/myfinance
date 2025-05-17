@@ -558,7 +558,9 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                             ),
                           ),
                         ),
-                      ].divide(SizedBox(width: 8.0)),
+                      ]
+                          .divide(SizedBox(width: 8.0))
+                          .addToEnd(SizedBox(width: 36.0)),
                     ),
                   ),
                 ],

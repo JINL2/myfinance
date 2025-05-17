@@ -525,7 +525,9 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                             ),
                           ),
                         ),
-                      ].divide(SizedBox(height: 5.0)),
+                      ]
+                          .divide(SizedBox(height: 5.0))
+                          .addToEnd(SizedBox(height: 32.0)),
                     ),
                   ),
                 ),
