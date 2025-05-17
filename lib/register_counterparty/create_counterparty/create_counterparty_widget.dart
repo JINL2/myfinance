@@ -45,20 +45,6 @@ class _CreateCounterpartyWidgetState extends State<CreateCounterpartyWidget> {
       );
 
       if ((_model.getnotmycounterParty?.succeeded ?? true)) {
-        await showDialog(
-          context: context,
-          builder: (alertDialogContext) {
-            return AlertDialog(
-              title: Text('Success'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(alertDialogContext),
-                  child: Text('Ok'),
-                ),
-              ],
-            );
-          },
-        );
         FFAppState().isLoading2 = false;
         safeSetState(() {});
       } else {

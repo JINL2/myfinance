@@ -133,7 +133,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
           FFAppState().isLoading2 = true;
           safeSetState(() {});
           _model.userinformation2 = await GetUserCompaniesCall.call(
-            pUserId: FFAppState().user.userId,
+            pUserId: currentUserUid,
           );
 
           if ((_model.userinformation2?.succeeded ?? true)) {
