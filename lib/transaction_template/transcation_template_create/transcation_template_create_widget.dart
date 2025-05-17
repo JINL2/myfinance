@@ -416,37 +416,12 @@ class _TranscationTemplateCreateWidgetState
                                     _model.debutCashlocationValue ??= '',
                                   ),
                                   options: List<String>.from(
-                                      FFAppState().storeChoosen == ''
-                                          ? containerCashLocationsRowList
-                                              .where((e) =>
-                                                  e.storeId == null ||
-                                                  e.storeId == '')
-                                              .toList()
-                                          : containerCashLocationsRowList
-                                              .where((e) =>
-                                                  (e.storeId ==
-                                                      FFAppState()
-                                                          .storeChoosen) ||
-                                                  (e.storeId == null ||
-                                                      e.storeId == ''))
-                                              .toList()
-                                              .map((e) => e.cashLocationId)
-                                              .toList()),
-                                  optionLabels: FFAppState().storeChoosen == ''
-                                      ? containerCashLocationsRowList
-                                          .where((e) =>
-                                              e.storeId == null ||
-                                              e.storeId == '')
-                                          .toList()
-                                      : containerCashLocationsRowList
-                                          .where((e) =>
-                                              (e.storeId ==
-                                                  FFAppState().storeChoosen) ||
-                                              (e.storeId == null ||
-                                                  e.storeId == ''))
-                                          .toList()
-                                          .map((e) => e.locationName)
-                                          .toList(),
+                                      containerCashLocationsRowList
+                                          .map((e) => e.cashLocationId)
+                                          .toList()),
+                                  optionLabels: containerCashLocationsRowList
+                                      .map((e) => e.locationName)
+                                      .toList(),
                                   onChanged: (val) => safeSetState(() =>
                                       _model.debutCashlocationValue = val),
                                   width: 200.0,
