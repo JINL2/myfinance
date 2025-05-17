@@ -668,12 +668,15 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: Align(
-                                    alignment: AlignmentDirectional(1.0, 0.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 12.0, 0.0),
+                                  child: Container(
+                                    width: 48.0,
+                                    height: 48.0,
+                                    decoration: BoxDecoration(),
+                                    child: Align(
+                                      alignment: AlignmentDirectional(1.0, 0.0),
                                       child: InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
@@ -717,7 +720,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                             FFAppState().user.profileImage,
                                             width: 48.0,
                                             height: 48.0,
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.contain,
                                           ),
                                         ),
                                       ),

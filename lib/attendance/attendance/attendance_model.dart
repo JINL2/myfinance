@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -38,8 +39,18 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
   // State field(s) for SelectStoreDropDown widget.
   String? selectStoreDropDownValue;
   FormFieldController<String>? selectStoreDropDownValueController;
+  // Stores action output result for [Backend Call - API (getUserShiftStatus)] action in Button widget.
+  ApiCallResponse? shiftStatus1;
   // Stores action output result for [Backend Call - API (getshiftmetadata)] action in Button widget.
-  ApiCallResponse? shiftMetaData;
+  ApiCallResponse? metaData;
+  // State field(s) for CheckboxListTile widget.
+  Map<ShiftStatusStruct, bool> checkboxListTileValueMap = {};
+  List<ShiftStatusStruct> get checkboxListTileCheckedItems =>
+      checkboxListTileValueMap.entries
+          .where((e) => e.value)
+          .map((e) => e.key)
+          .toList();
+
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

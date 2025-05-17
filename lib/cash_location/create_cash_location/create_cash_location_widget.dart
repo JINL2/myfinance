@@ -539,7 +539,7 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
 
                     safeSetState(() {});
                   },
-                  text: 'Create Counterparty',
+                  text: 'Create Cash Location',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 48.0,

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -262,10 +263,90 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                 ),
                                 FFButtonWidget(
                                   onPressed: () async {
-                                    _model.shiftMetaData =
+                                    FFAppState().isLoading1 = true;
+                                    safeSetState(() {});
+                                    _model.clicked = true;
+                                    safeSetState(() {});
+                                    _model.shiftStatus1 =
+                                        await GetUserShiftStatusCall.call(
+                                      pUserId: FFAppState().user.userId,
+                                      pStoreId: _model.selectedStoreId,
+                                      pRequestDate: dateTimeFormat(
+                                          "yyyy-MM-dd", getCurrentTimestamp),
+                                    );
+
+                                    if ((_model.shiftStatus1?.succeeded ??
+                                        true)) {
+                                      FFAppState().shiftStatus =
+                                          ((_model.shiftStatus1?.jsonBody ?? '')
+                                                      .toList()
+                                                      .map<ShiftStatusStruct?>(
+                                                          ShiftStatusStruct
+                                                              .maybeFromMap)
+                                                      .toList()
+                                                  as Iterable<
+                                                      ShiftStatusStruct?>)
+                                              .withoutNulls
+                                              .toList()
+                                              .cast<ShiftStatusStruct>();
+                                      safeSetState(() {});
+                                    } else {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text('Fail'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+
+                                    _model.metaData =
                                         await GetshiftmetadataCall.call(
                                       pStoreId: _model.selectedStoreId,
                                     );
+
+                                    if ((_model.metaData?.succeeded ?? true)) {
+                                      FFAppState().shiftMetaData = ((_model
+                                                          .metaData?.jsonBody ??
+                                                      '')
+                                                  .toList()
+                                                  .map<ShiftMetaDataStruct?>(
+                                                      ShiftMetaDataStruct
+                                                          .maybeFromMap)
+                                                  .toList()
+                                              as Iterable<ShiftMetaDataStruct?>)
+                                          .withoutNulls
+                                          .toList()
+                                          .cast<ShiftMetaDataStruct>();
+                                      safeSetState(() {});
+                                    } else {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (alertDialogContext) {
+                                          return AlertDialog(
+                                            title: Text('Fail'),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    alertDialogContext),
+                                                child: Text('Ok'),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    }
+
+                                    FFAppState().isLoading1 = false;
+                                    safeSetState(() {});
 
                                     safeSetState(() {});
                                   },
@@ -370,11 +451,242 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                     ],
                                   ),
                                 ),
-                                ListView(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  children: [],
+                                Builder(
+                                  builder: (context) {
+                                    final shiftStatus = FFAppState()
+                                        .shiftStatus
+                                        .where((e) =>
+                                            (e.requestDate ==
+                                                dateTimeFormat("yyyy-MM-dd",
+                                                    getCurrentTimestamp)) &&
+                                            (e.isApproved == true))
+                                        .toList();
+
+                                    return ListView.separated(
+                                      padding: EdgeInsets.fromLTRB(
+                                        0,
+                                        4.0,
+                                        0,
+                                        0,
+                                      ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: shiftStatus.length,
+                                      separatorBuilder: (_, __) =>
+                                          SizedBox(height: 12.0),
+                                      itemBuilder: (context, shiftStatusIndex) {
+                                        final shiftStatusItem =
+                                            shiftStatus[shiftStatusIndex];
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 12.0, 0.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        12.0, 0.0, 12.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  4.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Shift: ',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Text(
+                                                        valueOrDefault<String>(
+                                                          FFAppState()
+                                                              .shiftMetaData
+                                                              .where((e) =>
+                                                                  e.shiftId ==
+                                                                  shiftStatusItem
+                                                                      .shiftId)
+                                                              .toList()
+                                                              .firstOrNull
+                                                              ?.shiftName,
+                                                          'Shift Name',
+                                                        ),
+                                                        maxLines: 1,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Material(
+                                                color: Colors.transparent,
+                                                child: Theme(
+                                                  data: ThemeData(
+                                                    checkboxTheme:
+                                                        CheckboxThemeData(
+                                                      visualDensity:
+                                                          VisualDensity.compact,
+                                                      materialTapTargetSize:
+                                                          MaterialTapTargetSize
+                                                              .shrinkWrap,
+                                                    ),
+                                                    unselectedWidgetColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .alternate,
+                                                  ),
+                                                  child: CheckboxListTile(
+                                                    value: _model
+                                                            .checkboxListTileValueMap[
+                                                        shiftStatusItem] ??= false,
+                                                    onChanged:
+                                                        _model.blockSelect!
+                                                            ? null
+                                                            : (newValue) async {
+                                                                safeSetState(() =>
+                                                                    _model.checkboxListTileValueMap[
+                                                                            shiftStatusItem] =
+                                                                        newValue!);
+                                                                if (newValue!) {
+                                                                  _model.blockSelect =
+                                                                      true;
+                                                                  _model.selectedRequestId =
+                                                                      shiftStatusItem
+                                                                          .shiftRequestId;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                }
+                                                              },
+                                                    title: Text(
+                                                      valueOrDefault<String>(
+                                                        shiftStatusItem
+                                                            .requestDate,
+                                                        'Date',
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleLarge
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleLarge
+                                                                      .fontStyle,
+                                                                ),
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLarge
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleLarge
+                                                                    .fontStyle,
+                                                              ),
+                                                    ),
+                                                    tileColor: FlutterFlowTheme
+                                                            .of(context)
+                                                        .secondaryBackground,
+                                                    activeColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .primary,
+                                                    checkColor: _model
+                                                            .blockSelect!
+                                                        ? null
+                                                        : FlutterFlowTheme.of(
+                                                                context)
+                                                            .info,
+                                                    dense: false,
+                                                    controlAffinity:
+                                                        ListTileControlAffinity
+                                                            .trailing,
+                                                    contentPadding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 0.0,
+                                                                12.0, 0.0),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ],
                             ),
