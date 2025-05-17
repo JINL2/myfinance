@@ -224,7 +224,7 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
                                                   .where((e) =>
                                                       (e.storeId ==
                                                           FFAppState()
-                                                              .storeChoosen) &&
+                                                              .storeChoosen) ||
                                                       (e.storeId == ''))
                                                   .toList())
                                           .toList();
