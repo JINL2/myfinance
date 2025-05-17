@@ -34,8 +34,7 @@ export '/manager/timetable_manage/timetable_manage_widget.dart'
     show TimetableManageWidget;
 export '/journal_input/journal_input/journal_input_widget.dart'
     show JournalInputWidget;
-export '/cash_movement/cash_movement/cash_movement_widget.dart'
-    show CashMovementWidget;
+export '/cash_movement/cash_movement_widget.dart' show CashMovementWidget;
 export '/register_denomination/register_denomination/register_denomination_widget.dart'
     show RegisterDenominationWidget;
 export '/cash_ending/cash_ending/cash_ending_widget.dart' show CashEndingWidget;
