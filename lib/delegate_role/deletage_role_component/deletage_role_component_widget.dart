@@ -98,84 +98,128 @@ class _DeletageRoleComponentWidgetState
           padding: EdgeInsets.all(12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  borderRadius: BorderRadius.circular(8.0),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Image.network(
+                        widget.detailInfo!.profileImage!,
+                        width: 38.0,
+                        height: 38.0,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              Expanded(
+                flex: 6,
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 4.0, 0.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(12.0),
-                        child: Image.network(
-                          widget.detailInfo!.profileImage!,
-                          width: 40.0,
-                          height: 40.0,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Text(
-                                valueOrDefault<String>(
-                                  widget.detailInfo?.fullName,
-                                  'Error',
-                                ),
-                                textAlign: TextAlign.start,
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      font: GoogleFonts.notoSansJp(
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .fontStyle,
-                                      ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .titleSmall
-                                          .fontStyle,
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              12.0, 0.0, 0.0, 0.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              widget.detailInfo?.fullName,
+                                              'Error',
+                                            ),
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.notoSansJp(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                              ),
-                            ),
-                            Text(
-                              valueOrDefault<String>(
-                                widget.detailInfo?.roleName,
-                                'Error',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    font: GoogleFonts.notoSansJp(
-                                      fontWeight: FontWeight.normal,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                    ),
-                                    color: Color(0xFF111111),
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.normal,
-                                    fontStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .fontStyle,
                                   ),
-                            ),
-                          ],
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              widget.detailInfo?.roleName,
+                                              'Error',
+                                            ),
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .labelMedium
+                                                .override(
+                                                  font: GoogleFonts.notoSansJp(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .labelMedium
+                                                            .fontStyle,
+                                                  ),
+                                                  color: Color(0xFF111111),
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.normal,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -183,42 +227,39 @@ class _DeletageRoleComponentWidgetState
                 ),
               ),
               if (widget.detailInfo?.roleName != 'Owner')
-                Flexible(
-                  child: Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        if (FFAppState().isLoading1 == false) {
-                          FFAppState().isLoading1 = true;
-                          safeSetState(() {});
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: PopupWidget(
-                                  popupTitle: 'Change Role',
-                                  widgetBuilder: () => DelegateRoleV1Widget(
-                                    roleInformation: widget.detailInfo!,
-                                  ),
+                Expanded(
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      if (FFAppState().isLoading1 == false) {
+                        FFAppState().isLoading1 = true;
+                        safeSetState(() {});
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: PopupWidget(
+                                popupTitle: 'Change Role',
+                                widgetBuilder: () => DelegateRoleV1Widget(
+                                  roleInformation: widget.detailInfo!,
                                 ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
+                              ),
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
 
-                          FFAppState().isLoading1 = false;
-                          safeSetState(() {});
-                        }
-                      },
-                      child: widget.icon!,
-                    ),
+                        FFAppState().isLoading1 = false;
+                        safeSetState(() {});
+                      }
+                    },
+                    child: widget.icon!,
                   ),
                 ),
             ].divide(SizedBox(width: 1.0)),

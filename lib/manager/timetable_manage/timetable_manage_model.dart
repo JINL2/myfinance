@@ -64,13 +64,10 @@ class TimetableManageModel extends FlutterFlowModel<TimetableManageWidget> {
   ApiCallResponse? getManagerShiftRefresh1;
   // Model for CalnderComp component.
   late CalnderCompModel calnderCompModel;
-  // State field(s) for CheckToggle widget.
-  Map<PendingEmployeesStruct, bool> checkToggleValueMap = {};
-  List<PendingEmployeesStruct> get checkToggleCheckedItems =>
-      checkToggleValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
+  // State field(s) for Checkbox widget.
+  Map<PendingEmployeesStruct, bool> checkboxValueMap = {};
+  List<PendingEmployeesStruct> get checkboxCheckedItems =>
+      checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
   // Stores action output result for [Backend Call - API (toggleshiftapproval)] action in Button widget.
   ApiCallResponse? changeSupaBaseApprove1;

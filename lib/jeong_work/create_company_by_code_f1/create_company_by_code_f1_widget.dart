@@ -337,7 +337,15 @@ class _CreateCompanyByCodeF1WidgetState
                       safeSetState(() {});
                     }
 
-                    context.pushNamed(HomepageWidget.routeName);
+                    context.pushNamed(
+                      HomepageWidget.routeName,
+                      queryParameters: {
+                        'firstLogin': serializeParam(
+                          true,
+                          ParamType.bool,
+                        ),
+                      }.withoutNulls,
+                    );
                   }
 
                   safeSetState(() {});

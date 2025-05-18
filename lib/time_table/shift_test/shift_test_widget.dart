@@ -65,35 +65,24 @@ class _ShiftTestWidgetState extends State<ShiftTestWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    flex: 5,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
-                              child: Text(
-                                valueOrDefault<String>(
-                                  widget.shiftName,
-                                  'Shift Name',
-                                ),
-                                textAlign: TextAlign.start,
-                                maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: GoogleFonts.notoSansJp(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .fontStyle,
-                                      ),
-                                      fontSize: 20.0,
-                                      letterSpacing: 0.0,
+                          Align(
+                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                widget.shiftName,
+                                'Shift Name',
+                              ),
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
                                       fontWeight: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .fontWeight,
@@ -101,7 +90,15 @@ class _ShiftTestWidgetState extends State<ShiftTestWidget> {
                                           .bodyMedium
                                           .fontStyle,
                                     ),
-                              ),
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
                             ),
                           ),
                         ],
@@ -109,7 +106,6 @@ class _ShiftTestWidgetState extends State<ShiftTestWidget> {
                     ),
                   ),
                   Expanded(
-                    flex: 5,
                     child: SingleChildScrollView(
                       scrollDirection: Axis.horizontal,
                       child: Row(

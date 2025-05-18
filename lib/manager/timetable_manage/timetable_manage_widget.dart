@@ -672,44 +672,57 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                managerInfoItem
-                                                                    .shiftName,
-                                                                'Shift Name',
-                                                              ),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .headlineMedium
-                                                                  .override(
-                                                                    font: GoogleFonts
-                                                                        .notoSansJp(
-                                                                      fontWeight: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineMedium
-                                                                          .fontWeight,
-                                                                      fontStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineMedium
-                                                                          .fontStyle,
-                                                                    ),
-                                                                    fontSize:
-                                                                        20.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .headlineMedium
-                                                                        .fontStyle,
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Expanded(
+                                                                  flex: 1,
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Text(
+                                                                          valueOrDefault<
+                                                                              String>(
+                                                                            managerInfoItem.shiftName,
+                                                                            'Shift Name',
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.start,
+                                                                          maxLines:
+                                                                              1,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .headlineMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.notoSansJp(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                                                                                ),
+                                                                                fontSize: 20.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
+                                                                ),
+                                                                Expanded(
+                                                                  flex: 1,
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [],
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
                                                             Builder(
                                                               builder:
@@ -739,76 +752,84 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                                     final penddingItem =
                                                                         pendding[
                                                                             penddingIndex];
-                                                                    return Material(
-                                                                      color: Colors
-                                                                          .transparent,
+                                                                    return Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          12.0,
+                                                                          0.0,
+                                                                          12.0,
+                                                                          0.0),
                                                                       child:
-                                                                          Theme(
-                                                                        data:
-                                                                            ThemeData(
-                                                                          checkboxTheme:
-                                                                              CheckboxThemeData(
-                                                                            visualDensity:
-                                                                                VisualDensity.compact,
-                                                                            materialTapTargetSize:
-                                                                                MaterialTapTargetSize.shrinkWrap,
-                                                                          ),
-                                                                          unselectedWidgetColor:
-                                                                              FlutterFlowTheme.of(context).alternate,
-                                                                        ),
-                                                                        child:
-                                                                            CheckboxListTile(
-                                                                          value: _model.checkToggleValueMap[penddingItem] ??=
-                                                                              false,
-                                                                          onChanged:
-                                                                              (newValue) async {
-                                                                            safeSetState(() =>
-                                                                                _model.checkToggleValueMap[penddingItem] = newValue!);
-                                                                            if (newValue!) {
-                                                                              _model.addToSelectedShiftRequestId(penddingItem.shiftRequestId);
-                                                                              safeSetState(() {});
-                                                                            } else {
-                                                                              _model.removeFromSelectedShiftRequestId(penddingItem.shiftRequestId);
-                                                                              safeSetState(() {});
-                                                                            }
-                                                                          },
-                                                                          title:
-                                                                              Text(
-                                                                            valueOrDefault<String>(
-                                                                              penddingItem.userName,
-                                                                              'userName',
-                                                                            ),
-                                                                            style: FlutterFlowTheme.of(context).titleLarge.override(
-                                                                                  font: GoogleFonts.notoSansJp(
-                                                                                    fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            flex:
+                                                                                9,
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      penddingItem.userName,
+                                                                                      'userName',
+                                                                                    ),
+                                                                                    maxLines: 1,
+                                                                                    style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                          font: GoogleFonts.notoSansJp(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                          ),
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).titleSmall.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                                                                                        ),
                                                                                   ),
-                                                                                  letterSpacing: 0.0,
-                                                                                  fontWeight: FlutterFlowTheme.of(context).titleLarge.fontWeight,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleLarge.fontStyle,
                                                                                 ),
+                                                                              ],
+                                                                            ),
                                                                           ),
-                                                                          tileColor:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                          activeColor:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                          checkColor:
-                                                                              FlutterFlowTheme.of(context).info,
-                                                                          dense:
-                                                                              false,
-                                                                          controlAffinity:
-                                                                              ListTileControlAffinity.trailing,
-                                                                          contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                                                              12.0,
-                                                                              0.0,
-                                                                              12.0,
-                                                                              0.0),
-                                                                          shape:
-                                                                              RoundedRectangleBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(8.0),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                1,
+                                                                            child:
+                                                                                Theme(
+                                                                              data: ThemeData(
+                                                                                checkboxTheme: CheckboxThemeData(
+                                                                                  visualDensity: VisualDensity.compact,
+                                                                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius.circular(4.0),
+                                                                                  ),
+                                                                                ),
+                                                                                unselectedWidgetColor: FlutterFlowTheme.of(context).alternate,
+                                                                              ),
+                                                                              child: Checkbox(
+                                                                                value: _model.checkboxValueMap[penddingItem] ??= false,
+                                                                                onChanged: (newValue) async {
+                                                                                  safeSetState(() => _model.checkboxValueMap[penddingItem] = newValue!);
+                                                                                  if (newValue!) {
+                                                                                    _model.addToSelectedShiftRequestId(penddingItem.shiftRequestId);
+                                                                                    safeSetState(() {});
+                                                                                  } else {
+                                                                                    _model.removeFromSelectedShiftRequestId(penddingItem.shiftRequestId);
+                                                                                    safeSetState(() {});
+                                                                                  }
+                                                                                },
+                                                                                side: BorderSide(
+                                                                                  width: 2,
+                                                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                                                ),
+                                                                                activeColor: FlutterFlowTheme.of(context).primary,
+                                                                                checkColor: FlutterFlowTheme.of(context).info,
+                                                                              ),
+                                                                            ),
                                                                           ),
-                                                                        ),
+                                                                        ],
                                                                       ),
                                                                     );
                                                                   },

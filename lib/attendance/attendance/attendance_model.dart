@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/supabase/supabase.dart';
 import '/components/isloading_widget.dart';
 import '/components/menu_bar_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/index.dart';
 import 'attendance_widget.dart' show AttendanceWidget;
 import 'package:flutter/material.dart';
 
@@ -18,18 +20,6 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
 
   String? selectedStoreId;
 
-  List<String> finishShiftRequestId = [];
-  void addToFinishShiftRequestId(String item) => finishShiftRequestId.add(item);
-  void removeFromFinishShiftRequestId(String item) =>
-      finishShiftRequestId.remove(item);
-  void removeAtIndexFromFinishShiftRequestId(int index) =>
-      finishShiftRequestId.removeAt(index);
-  void insertAtIndexInFinishShiftRequestId(int index, String item) =>
-      finishShiftRequestId.insert(index, item);
-  void updateFinishShiftRequestIdAtIndex(
-          int index, Function(String) updateFn) =>
-      finishShiftRequestId[index] = updateFn(finishShiftRequestId[index]);
-
   bool? clicked;
 
   ///  State fields for stateful widgets in this page.
@@ -43,14 +33,13 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
   ApiCallResponse? shiftStatus1;
   // Stores action output result for [Backend Call - API (getshiftmetadata)] action in Button widget.
   ApiCallResponse? metaData;
-  // State field(s) for CheckboxListTile widget.
-  Map<ShiftStatusStruct, bool> checkboxListTileValueMap = {};
-  List<ShiftStatusStruct> get checkboxListTileCheckedItems =>
-      checkboxListTileValueMap.entries
-          .where((e) => e.value)
-          .map((e) => e.key)
-          .toList();
+  // State field(s) for Checkbox widget.
+  Map<ShiftStatusStruct, bool> checkboxValueMap = {};
+  List<ShiftStatusStruct> get checkboxCheckedItems =>
+      checkboxValueMap.entries.where((e) => e.value).map((e) => e.key).toList();
 
+  // Stores action output result for [Backend Call - Query Rows] action in Button widget.
+  List<ShiftRequestsRow>? callShiftStatus;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

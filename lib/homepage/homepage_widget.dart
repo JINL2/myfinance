@@ -674,7 +674,9 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                   child: Container(
                                     width: 48.0,
                                     height: 48.0,
-                                    decoration: BoxDecoration(),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                    ),
                                     child: Align(
                                       alignment: AlignmentDirectional(1.0, 0.0),
                                       child: InkWell(

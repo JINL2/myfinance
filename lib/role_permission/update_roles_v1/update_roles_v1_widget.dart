@@ -395,7 +395,8 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 8.0),
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 32.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,

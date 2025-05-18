@@ -55,7 +55,7 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 32.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

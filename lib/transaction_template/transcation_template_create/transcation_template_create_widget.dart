@@ -886,12 +886,27 @@ class _TranscationTemplateCreateWidgetState
                                   (FFAppState()
                                           .financeAccount
                                           .where((e) =>
-                                              _model.debitAccountIdValue ==
+                                              _model.creditAccountIdValue ==
                                               e.accountId)
                                           .toList()
-                                          .lastOrNull
+                                          .firstOrNull
                                           ?.categoryTag ==
                                       'cash')) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: Text('1'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                                 FFAppState().isLoading2 = true;
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
@@ -968,6 +983,21 @@ class _TranscationTemplateCreateWidgetState
 
                                 Navigator.pop(context);
                               } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: Text('2'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                                 FFAppState().isLoading2 = true;
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
@@ -1056,6 +1086,21 @@ class _TranscationTemplateCreateWidgetState
                                       .firstOrNull
                                       ?.categoryTag ==
                                   'cash') {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: Text('3'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                                 FFAppState().isLoading2 = true;
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
@@ -1131,6 +1176,21 @@ class _TranscationTemplateCreateWidgetState
 
                                 Navigator.pop(context);
                               } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      content: Text('4'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                                 FFAppState().isLoading2 = true;
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
@@ -1140,10 +1200,6 @@ class _TranscationTemplateCreateWidgetState
                                   debit: '0',
                                   credit: '0',
                                   amount: 0.0,
-                                  cash: CashStruct(
-                                    cashLocationId:
-                                        _model.debutCashlocationValue,
-                                  ),
                                 ));
                                 safeSetState(() {});
                                 _model.addToTransactionDetail(
@@ -1211,7 +1267,7 @@ class _TranscationTemplateCreateWidgetState
 
                             safeSetState(() {});
                           },
-                          text: 'Create Counterparty',
+                          text: 'Create Transaction',
                           options: FFButtonOptions(
                             width: double.infinity,
                             height: 48.0,

@@ -18,6 +18,18 @@ class VUserSalaryInfoRow extends SupabaseDataRow {
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
 
+  String? get firstName => getField<String>('first_name');
+  set firstName(String? value) => setField<String>('first_name', value);
+
+  String? get lastName => getField<String>('last_name');
+  set lastName(String? value) => setField<String>('last_name', value);
+
+  String? get fullName => getField<String>('full_name');
+  set fullName(String? value) => setField<String>('full_name', value);
+
+  String? get profileImage => getField<String>('profile_image');
+  set profileImage(String? value) => setField<String>('profile_image', value);
+
   String? get salaryId => getField<String>('salary_id');
   set salaryId(String? value) => setField<String>('salary_id', value);
 
@@ -38,9 +50,6 @@ class VUserSalaryInfoRow extends SupabaseDataRow {
 
   String? get roleName => getField<String>('role_name');
   set roleName(String? value) => setField<String>('role_name', value);
-
-  String? get fullName => getField<String>('full_name');
-  set fullName(String? value) => setField<String>('full_name', value);
 
   String? get currencyName => getField<String>('currency_name');
   set currencyName(String? value) => setField<String>('currency_name', value);

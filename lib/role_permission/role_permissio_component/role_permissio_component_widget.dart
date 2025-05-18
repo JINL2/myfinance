@@ -91,77 +91,94 @@ class _RolePermissioComponentWidgetState
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Align(
-              alignment: AlignmentDirectional(-1.0, 0.0),
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 0.0, 12.0),
-                child: Text(
-                  valueOrDefault<String>(
-                    widget.roleDetails?.roleName,
-                    'Error',
-                  ),
-                  maxLines: 1,
-                  style: FlutterFlowTheme.of(context).titleMedium.override(
-                        font: GoogleFonts.notoSansJp(
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleMedium
-                              .fontWeight,
-                          fontStyle: FlutterFlowTheme.of(context)
-                              .titleMedium
-                              .fontStyle,
+            Expanded(
+              flex: 8,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Align(
+                      alignment: AlignmentDirectional(-1.0, 0.0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 12.0, 0.0, 12.0),
+                        child: Text(
+                          valueOrDefault<String>(
+                            widget.roleDetails?.roleName,
+                            'Error',
+                          ),
+                          maxLines: 1,
+                          style:
+                              FlutterFlowTheme.of(context).titleMedium.override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleMedium
+                                        .fontStyle,
+                                  ),
                         ),
-                        letterSpacing: 0.0,
-                        fontWeight:
-                            FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                        fontStyle:
-                            FlutterFlowTheme.of(context).titleMedium.fontStyle,
                       ),
-                ),
+                    ),
+                  ),
+                ],
               ),
             ),
             if (widget.roleDetails?.roleType != 'owner')
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    if (FFAppState().isLoading2 == false) {
-                      FFAppState().isLoading2 = true;
-                      safeSetState(() {});
-                      await showModalBottomSheet(
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        enableDrag: false,
-                        context: context,
-                        builder: (context) {
-                          return Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: Container(
-                              height: MediaQuery.sizeOf(context).height * 0.8,
-                              child: PopupWidget(
-                                popupTitle: 'Update Role',
-                                widgetTitle1: '',
-                                widgetBuilder: () => UpdateRolesV1Widget(
-                                  roleDetail: widget.roleDetails!,
-                                  companyId: FFAppState().companyChoosen,
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      if (FFAppState().isLoading2 == false) {
+                        FFAppState().isLoading2 = true;
+                        safeSetState(() {});
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          enableDrag: false,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.viewInsetsOf(context),
+                              child: Container(
+                                height: MediaQuery.sizeOf(context).height * 0.8,
+                                child: PopupWidget(
+                                  popupTitle: 'Update Role',
+                                  widgetTitle1: '',
+                                  widgetBuilder: () => UpdateRolesV1Widget(
+                                    roleDetail: widget.roleDetails!,
+                                    companyId: FFAppState().companyChoosen,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ).then((value) => safeSetState(() {}));
+                            );
+                          },
+                        ).then((value) => safeSetState(() {}));
 
-                      FFAppState().isLoading2 = false;
-                      safeSetState(() {});
-                    }
-                  },
-                  child: Icon(
-                    Icons.edit_outlined,
-                    color: FlutterFlowTheme.of(context).primary,
-                    size: 28.0,
+                        FFAppState().isLoading2 = false;
+                        safeSetState(() {});
+                      }
+                    },
+                    child: Icon(
+                      Icons.edit_outlined,
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 28.0,
+                    ),
                   ),
                 ),
               ),
