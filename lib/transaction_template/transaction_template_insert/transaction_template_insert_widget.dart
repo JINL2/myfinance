@@ -285,7 +285,7 @@ class _TransactionTemplateInsertWidgetState
 
                     safeSetState(() {});
                   },
-                  text: 'Create Counterparty',
+                  text: 'Insert Transaction',
                   options: FFButtonOptions(
                     width: double.infinity,
                     height: 48.0,

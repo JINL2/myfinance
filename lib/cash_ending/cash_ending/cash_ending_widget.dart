@@ -266,21 +266,64 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                               controller: _model
                                                       .dropDownValueController ??=
                                                   FormFieldController<String>(
-                                                _model.dropDownValue ??=
-                                                    dropDownCashLocationsRowList
+                                                _model
+                                                    .dropDownValue ??= FFAppState()
+                                                                .storeChoosen !=
+                                                            ''
+                                                    ? dropDownCashLocationsRowList
+                                                        .where((e) =>
+                                                            FFAppState()
+                                                                .storeChoosen ==
+                                                            e.storeId)
+                                                        .toList()
+                                                        .firstOrNull
+                                                        ?.cashLocationId
+                                                    : dropDownCashLocationsRowList
+                                                        .where((e) =>
+                                                            (FFAppState()
+                                                                    .companyChoosen ==
+                                                                e.companyId) &&
+                                                            (e.storeId ==
+                                                                    null ||
+                                                                e.storeId ==
+                                                                    ''))
+                                                        .toList()
                                                         .firstOrNull
                                                         ?.cashLocationId,
                                               ),
                                               options: List<String>.from(
                                                   dropDownCashLocationsRowList
-                                                      .map((e) =>
-                                                          e.cashLocationId)
+                                                      .where((e) => FFAppState()
+                                                                      .storeChoosen !=
+                                                                  ''
+                                                          ? (FFAppState()
+                                                                  .storeChoosen ==
+                                                              e.storeId)
+                                                          : ((e.companyId ==
+                                                                  FFAppState()
+                                                                      .companyChoosen) &&
+                                                              (e.storeId ==
+                                                                      null ||
+                                                                  e.storeId ==
+                                                                      '')))
+                                                      .toList()
+                                                      .map((e) => e.companyId)
                                                       .toList()),
-                                              optionLabels:
-                                                  dropDownCashLocationsRowList
-                                                      .map(
-                                                          (e) => e.locationName)
-                                                      .toList(),
+                                              optionLabels: dropDownCashLocationsRowList
+                                                  .where((e) => FFAppState()
+                                                                  .storeChoosen !=
+                                                              ''
+                                                      ? (FFAppState()
+                                                              .storeChoosen ==
+                                                          e.storeId)
+                                                      : ((e.companyId ==
+                                                              FFAppState()
+                                                                  .companyChoosen) &&
+                                                          (e.storeId == null ||
+                                                              e.storeId == '')))
+                                                  .toList()
+                                                  .map((e) => e.locationName)
+                                                  .toList(),
                                               onChanged: (val) => safeSetState(
                                                   () => _model.dropDownValue =
                                                       val),
@@ -919,21 +962,26 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                       listViewCompanyCurrencyRowList[
                                                           listViewIndex];
                                                   return Visibility(
-                                                    visible: (FFAppState()
-                                                                        .storeChoosen !=
+                                                    visible: (FFAppState().storeChoosen !=
                                                                     ''
                                                             ? functions.isListcashAmountSupa(
                                                                 cashEndingCashierAmountLinesRowList
+                                                                    .where((e) =>
+                                                                        e.locationId ==
+                                                                        _model
+                                                                            .dropDownValue)
                                                                     .toList(),
                                                                 listViewCompanyCurrencyRow
                                                                     .currencyId)
                                                             : functions.isListcashAmountSupa(
                                                                 cashEndingCashierAmountLinesRowList
                                                                     .where((e) =>
-                                                                        e.storeId ==
-                                                                            null ||
-                                                                        e.storeId ==
-                                                                            '')
+                                                                        (e.storeId == null ||
+                                                                            e.storeId ==
+                                                                                '') &&
+                                                                        (e.locationId ==
+                                                                            _model
+                                                                                .dropDownValue))
                                                                     .toList(),
                                                                 listViewCompanyCurrencyRow
                                                                     .currencyId)) ??
@@ -1085,17 +1133,10 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                                         ? cashEndingCashierAmountLinesRowList
                                                                             .where((e) =>
                                                                                 (FFAppState().storeChoosen == e.storeId) &&
-                                                                                (e.currencyId ==
-                                                                                    listViewCompanyCurrencyRow
-                                                                                        .currencyId))
+                                                                                (e.currencyId == listViewCompanyCurrencyRow.currencyId) &&
+                                                                                (e.locationId == _model.dropDownValue))
                                                                             .toList()
-                                                                        : cashEndingCashierAmountLinesRowList
-                                                                            .where((e) =>
-                                                                                (e.storeId == null || e.storeId == '') &&
-                                                                                (e.currencyId == listViewCompanyCurrencyRow.currencyId))
-                                                                            .toList()
-                                                                            .sortedList(keyOf: (e) => e.quantity, desc: true)
-                                                                            .toList();
+                                                                        : cashEndingCashierAmountLinesRowList.where((e) => (e.storeId == null || e.storeId == '') && (e.currencyId == listViewCompanyCurrencyRow.currencyId)).toList().sortedList(keyOf: (e) => e.quantity, desc: true).toList();
 
                                                                     return ListView
                                                                         .separated(
