@@ -360,7 +360,7 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
                                                                         formatType:
                                                                             FormatType.decimal,
                                                                         decimalType:
-                                                                            DecimalType.automatic,
+                                                                            DecimalType.commaDecimal,
                                                                       ),
                                                                       '0',
                                                                     ),
@@ -458,7 +458,7 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
                                                                         formatType:
                                                                             FormatType.decimal,
                                                                         decimalType:
-                                                                            DecimalType.automatic,
+                                                                            DecimalType.commaDecimal,
                                                                       ),
                                                                       '0',
                                                                     ),
