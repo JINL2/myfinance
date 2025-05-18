@@ -62,444 +62,432 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
                 ),
               ),
               Expanded(
-                child: FutureBuilder<List<VCashLocationRow>>(
-                  future: VCashLocationTable().queryRows(
-                    queryFn: (q) => q.eqOrNull(
-                      'company_id',
-                      FFAppState().companyChoosen,
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                  child: FutureBuilder<List<VCashLocationRow>>(
+                    future: VCashLocationTable().queryRows(
+                      queryFn: (q) => q.eqOrNull(
+                        'company_id',
+                        FFAppState().companyChoosen,
+                      ),
                     ),
-                  ),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 80.0,
-                          height: 80.0,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              FlutterFlowTheme.of(context).primary,
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 80.0,
+                            height: 80.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
                             ),
                           ),
+                        );
+                      }
+                      List<VCashLocationRow> containerVCashLocationRowList =
+                          snapshot.data!;
+
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primaryBackground,
                         ),
-                      );
-                    }
-                    List<VCashLocationRow> containerVCashLocationRowList =
-                        snapshot.data!;
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 16.0),
+                                child: Builder(
+                                  builder: (context) {
+                                    final cashLocationDetail = (FFAppState().storeChoosen != ''
+                                            ? containerVCashLocationRowList
+                                                .where((e) =>
+                                                    FFAppState().storeChoosen ==
+                                                    e.storeId)
+                                                .toList()
+                                            : containerVCashLocationRowList
+                                                .where((e) =>
+                                                    e.storeId == null ||
+                                                    e.storeId == '')
+                                                .toList())
+                                        .toList();
 
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).primaryBackground,
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 16.0),
-                              child: Builder(
-                                builder: (context) {
-                                  final cashLocationDetail = (FFAppState().storeChoosen != ''
-                                          ? containerVCashLocationRowList
-                                              .where((e) =>
-                                                  FFAppState().storeChoosen ==
-                                                  e.storeId)
-                                              .toList()
-                                          : containerVCashLocationRowList
-                                              .where((e) =>
-                                                  e.storeId == null ||
-                                                  e.storeId == '')
-                                              .toList())
-                                      .toList();
-
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    primary: false,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: cashLocationDetail.length,
-                                    itemBuilder:
-                                        (context, cashLocationDetailIndex) {
-                                      final cashLocationDetailItem =
-                                          cashLocationDetail[
-                                              cashLocationDetailIndex];
-                                      return Opacity(
-                                        opacity: cashLocationDetailItem
-                                                    .cashDifference ==
-                                                0.0
-                                            ? 0.5
-                                            : 1.0,
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 8.0),
-                                          child: InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              if (cashLocationDetailItem
-                                                      .cashDifference !=
-                                                  0.0) {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  enableDrag: false,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return GestureDetector(
-                                                      onTap: () {
-                                                        FocusScope.of(context)
-                                                            .unfocus();
-                                                        FocusManager.instance
-                                                            .primaryFocus
-                                                            ?.unfocus();
-                                                      },
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            SelectMappingWidget(
-                                                          cashLocationId:
-                                                              cashLocationDetailItem
-                                                                  .cashLocationId,
-                                                          cashDifferences:
-                                                              cashLocationDetailItem
-                                                                  .cashDifference,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then((value) =>
-                                                    safeSetState(() {}));
-                                              }
-                                            },
-                                            child: Card(
-                                              clipBehavior:
-                                                  Clip.antiAliasWithSaveLayer,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 1.0,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(12.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
-                                                          ),
-                                                          child: Visibility(
-                                                            visible:
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      primary: false,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: cashLocationDetail.length,
+                                      itemBuilder:
+                                          (context, cashLocationDetailIndex) {
+                                        final cashLocationDetailItem =
+                                            cashLocationDetail[
+                                                cashLocationDetailIndex];
+                                        return Opacity(
+                                          opacity: cashLocationDetailItem
+                                                      .cashDifference ==
+                                                  0.0
+                                              ? 0.5
+                                              : 1.0,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                if (cashLocationDetailItem
+                                                        .cashDifference !=
+                                                    0.0) {
+                                                  await showModalBottomSheet(
+                                                    isScrollControlled: true,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    enableDrag: false,
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return GestureDetector(
+                                                        onTap: () {
+                                                          FocusScope.of(context)
+                                                              .unfocus();
+                                                          FocusManager.instance
+                                                              .primaryFocus
+                                                              ?.unfocus();
+                                                        },
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              SelectMappingWidget(
+                                                            cashLocationId:
                                                                 cashLocationDetailItem
-                                                                        .cashDifference ==
-                                                                    0.0,
-                                                            child: Icon(
-                                                              Icons
-                                                                  .check_box_rounded,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              size: 24.0,
-                                                            ),
+                                                                    .cashLocationId,
+                                                            cashDifferences:
+                                                                cashLocationDetailItem
+                                                                    .cashDifference,
                                                           ),
                                                         ),
-                                                      ].divide(SizedBox(
-                                                          width: 12.0)),
-                                                    ),
-                                                    Expanded(
-                                                      child: Row(
+                                                      );
+                                                    },
+                                                  ).then((value) =>
+                                                      safeSetState(() {}));
+                                                }
+                                              },
+                                              child: Card(
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                elevation: 1.0,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(12.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Expanded(
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                            child: Visibility(
+                                                              visible:
+                                                                  cashLocationDetailItem
+                                                                          .cashDifference ==
+                                                                      0.0,
+                                                              child: Icon(
+                                                                Icons
+                                                                    .check_box_rounded,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryBackground,
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            -1.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          8.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          SingleChildScrollView(
-                                                                        scrollDirection:
-                                                                            Axis.horizontal,
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Text(
-                                                                              valueOrDefault<String>(
-                                                                                cashLocationDetailItem.locationName,
-                                                                                'Error',
-                                                                              ),
-                                                                              maxLines: 1,
-                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                    font: GoogleFonts.notoSansJp(
-                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                    ),
-                                                                                    letterSpacing: 0.0,
-                                                                                    fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                  ),
-                                                                            ),
-                                                                            if (cashLocationDetailItem.cashDifference !=
-                                                                                0.0)
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
-                                                                                child: Text(
-                                                                                  valueOrDefault<String>(
-                                                                                    formatNumber(
-                                                                                      cashLocationDetailItem.cashDifference,
-                                                                                      formatType: FormatType.decimal,
-                                                                                      decimalType: DecimalType.commaDecimal,
-                                                                                    ),
-                                                                                    '234,234',
-                                                                                  ),
-                                                                                  style: FlutterFlowTheme.of(context).bodyLarge.override(
-                                                                                        font: GoogleFonts.notoSansJp(
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                        ),
-                                                                                        color: FlutterFlowTheme.of(context).tertiary,
-                                                                                        letterSpacing: 0.0,
-                                                                                        fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
-                                                                                        fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 7,
-                                                                        child:
-                                                                            Align(
-                                                                          alignment: AlignmentDirectional(
-                                                                              1.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                0.0,
-                                                                                8.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Stack(
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                                                                                  child: Text(
-                                                                                    'Journal',
-                                                                                    maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.notoSansJp(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                          ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            formatNumber(
-                                                                              cashLocationDetailItem.totalJournalCashAmount,
-                                                                              formatType: FormatType.decimal,
-                                                                              decimalType: DecimalType.commaDecimal,
-                                                                            ),
-                                                                            '234,234',
-                                                                          ),
-                                                                          textAlign:
-                                                                              TextAlign.end,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.notoSansJp(
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        flex: 7,
-                                                                        child:
-                                                                            Align(
-                                                                          alignment: AlignmentDirectional(
-                                                                              1.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                0.0,
-                                                                                8.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Stack(
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
-                                                                                  child: Text(
-                                                                                    'Real',
-                                                                                    maxLines: 1,
-                                                                                    style: FlutterFlowTheme.of(context).bodySmall.override(
-                                                                                          font: GoogleFonts.notoSansJp(
-                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                          ),
-                                                                                          color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                          letterSpacing: 0.0,
-                                                                                          fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
-                                                                                          fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            formatNumber(
-                                                                              cashLocationDetailItem.totalRealCashAmount,
-                                                                              formatType: FormatType.decimal,
-                                                                              decimalType: DecimalType.commaDecimal,
-                                                                            ),
-                                                                            '234,234',
-                                                                          ),
-                                                                          textAlign:
-                                                                              TextAlign.end,
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.notoSansJp(
-                                                                                  fontWeight: FontWeight.w600,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                                ),
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
+                                                                    .primary,
+                                                                size: 24.0,
                                                               ),
                                                             ),
                                                           ),
-                                                        ],
+                                                        ].divide(SizedBox(
+                                                            width: 12.0)),
                                                       ),
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(width: 8.0)),
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                ),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Align(
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              -1.0,
+                                                                              0.0),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            SingleChildScrollView(
+                                                                          scrollDirection:
+                                                                              Axis.horizontal,
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Text(
+                                                                                valueOrDefault<String>(
+                                                                                  cashLocationDetailItem.locationName,
+                                                                                  'Error',
+                                                                                ),
+                                                                                maxLines: 1,
+                                                                                style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                      font: GoogleFonts.notoSansJp(
+                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                      ),
+                                                                                      letterSpacing: 0.0,
+                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                    ),
+                                                                              ),
+                                                                              if (cashLocationDetailItem.cashDifference != 0.0)
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 0.0, 0.0),
+                                                                                  child: Text(
+                                                                                    valueOrDefault<String>(
+                                                                                      formatNumber(
+                                                                                        cashLocationDetailItem.cashDifference,
+                                                                                        formatType: FormatType.decimal,
+                                                                                        decimalType: DecimalType.commaDecimal,
+                                                                                      ),
+                                                                                      '234,234',
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyLarge.override(
+                                                                                          font: GoogleFonts.notoSansJp(
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                          ),
+                                                                                          color: FlutterFlowTheme.of(context).tertiary,
+                                                                                          letterSpacing: 0.0,
+                                                                                          fontWeight: FlutterFlowTheme.of(context).bodyLarge.fontWeight,
+                                                                                          fontStyle: FlutterFlowTheme.of(context).bodyLarge.fontStyle,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              7,
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(1.0, 0.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                              child: Stack(
+                                                                                children: [
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                                    child: Text(
+                                                                                      'Journal',
+                                                                                      maxLines: 1,
+                                                                                      style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                            font: GoogleFonts.notoSansJp(
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                            ),
+                                                                                            color: FlutterFlowTheme.of(context).primaryText,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              8.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            valueOrDefault<String>(
+                                                                              formatNumber(
+                                                                                cashLocationDetailItem.totalJournalCashAmount,
+                                                                                formatType: FormatType.decimal,
+                                                                                decimalType: DecimalType.commaDecimal,
+                                                                              ),
+                                                                              '234,234',
+                                                                            ),
+                                                                            textAlign:
+                                                                                TextAlign.end,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  font: GoogleFonts.notoSansJp(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          flex:
+                                                                              7,
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(1.0, 0.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                              child: Stack(
+                                                                                children: [
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                                    child: Text(
+                                                                                      'Real',
+                                                                                      maxLines: 1,
+                                                                                      style: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                            font: GoogleFonts.notoSansJp(
+                                                                                              fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                              fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                            ),
+                                                                                            color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                            letterSpacing: 0.0,
+                                                                                            fontWeight: FlutterFlowTheme.of(context).bodySmall.fontWeight,
+                                                                                            fontStyle: FlutterFlowTheme.of(context).bodySmall.fontStyle,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              8.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            valueOrDefault<String>(
+                                                                              formatNumber(
+                                                                                cashLocationDetailItem.totalRealCashAmount,
+                                                                                formatType: FormatType.decimal,
+                                                                                decimalType: DecimalType.commaDecimal,
+                                                                              ),
+                                                                              '234,234',
+                                                                            ),
+                                                                            textAlign:
+                                                                                TextAlign.end,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  font: GoogleFonts.notoSansJp(
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                  ),
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ].divide(
+                                                        SizedBox(width: 8.0)),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               ),
             ].divide(SizedBox(height: 16.0)),
