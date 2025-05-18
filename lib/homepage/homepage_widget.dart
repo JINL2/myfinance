@@ -1038,7 +1038,6 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                   Expanded(
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 100.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
                       ),

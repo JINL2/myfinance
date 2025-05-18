@@ -452,9 +452,14 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
                                                                   child: Text(
                                                                     valueOrDefault<
                                                                         String>(
-                                                                      listViewVCashLocationRow
-                                                                          .totalRealCashAmount
-                                                                          ?.toString(),
+                                                                      formatNumber(
+                                                                        listViewVCashLocationRow
+                                                                            .totalRealCashAmount,
+                                                                        formatType:
+                                                                            FormatType.decimal,
+                                                                        decimalType:
+                                                                            DecimalType.automatic,
+                                                                      ),
                                                                       '0',
                                                                     ),
                                                                     textAlign:
