@@ -64,7 +64,7 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Expanded(
                       flex: 2,
@@ -120,7 +120,7 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
                       ),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 6,
                       child: Align(
                         alignment: AlignmentDirectional(0.0, 0.0),
                         child: Padding(
@@ -184,38 +184,51 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
                     ),
                     Expanded(
                       flex: 4,
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 8.0, 0.0),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 0.0, 0.0),
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          FFAppState()
-                                              .shiftMetaData
-                                              .where((e) =>
-                                                  widget.shiftId == e.shiftId)
-                                              .toList()
-                                              .firstOrNull
-                                              ?.shiftName,
-                                          'Shift name',
-                                        ),
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              font: GoogleFonts.notoSansJp(
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          valueOrDefault<String>(
+                                            FFAppState()
+                                                .shiftMetaData
+                                                .where((e) =>
+                                                    widget.shiftId ==
+                                                    e.shiftId)
+                                                .toList()
+                                                .firstOrNull
+                                                ?.shiftName,
+                                            'Shift name',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .titleSmall
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                                letterSpacing: 0.0,
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
                                                         .titleSmall
@@ -225,63 +238,61 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
                                                         .titleSmall
                                                         .fontStyle,
                                               ),
-                                              letterSpacing: 0.0,
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .fontStyle,
-                                            ),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.startTime))} ~${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.endTime))}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .override(
-                                            font: GoogleFonts.notoSansJp(
-                                              fontWeight:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .fontWeight,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmall
-                                                      .fontStyle,
-                                            ),
-                                            letterSpacing: 0.0,
-                                            fontWeight:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodySmall
-                                                    .fontWeight,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .bodySmall
-                                                    .fontStyle,
-                                          ),
                                     ),
                                   ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.startTime))} ~${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.endTime))}',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodySmall
+                                    .override(
+                                      font: GoogleFonts.notoSansJp(
+                                        fontWeight: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontWeight,
+                                        fontStyle: FlutterFlowTheme.of(context)
+                                            .bodySmall
+                                            .fontStyle,
+                                      ),
+                                      letterSpacing: 0.0,
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodySmall
+                                          .fontStyle,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    if (widget.storeShift?.isApproved == true)
+                      Align(
+                        alignment: AlignmentDirectional(1.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              8.0, 0.0, 0.0, 0.0),
+                          child: Icon(
+                            Icons.check_circle,
+                            color: FlutterFlowTheme.of(context).primary,
+                            size: 24.0,
                           ),
                         ),
                       ),
-                    ),
                   ],
                 ),
-                if (widget.storeShift?.isApproved == true)
-                  Align(
-                    alignment: AlignmentDirectional(1.0, 0.0),
-                    child: Icon(
-                      Icons.check_circle,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 24.0,
-                    ),
-                  ),
               ],
             ),
           ],
