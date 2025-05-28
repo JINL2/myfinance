@@ -712,209 +712,58 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                       ),
                                                   ],
                                                 ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(80.0, 32.0,
-                                                          80.0, 0.0),
-                                                  child: InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      if (_model.shiftId !=
-                                                              null &&
-                                                          _model.shiftId !=
-                                                              '') {
-                                                        if (FFAppState()
-                                                                .isLoading2 ==
-                                                            false) {
-                                                          FFAppState()
-                                                                  .isLoading2 =
-                                                              true;
-                                                          safeSetState(() {});
-                                                          if (FFAppState()
-                                                                  .shiftStatus
-                                                                  .where((e) =>
-                                                                      (_model.shiftId ==
-                                                                          e
-                                                                              .shiftId) &&
-                                                                      (e.requestDate ==
-                                                                          dateTimeFormat(
-                                                                              "yyyy-MM-dd",
-                                                                              _model.selectedDatePageState)))
-                                                                  .toList()
-                                                                  .firstOrNull !=
-                                                              null) {
-                                                            if (FFAppState()
-                                                                .shiftStatus
-                                                                .where((e) =>
-                                                                    (dateTimeFormat(
-                                                                            "yyyy-MM-dd",
-                                                                            _model
-                                                                                .selectedDatePageState) ==
-                                                                        e
-                                                                            .requestDate) &&
-                                                                    (_model.shiftId ==
-                                                                        e.shiftId))
-                                                                .toList()
-                                                                .firstOrNull!
-                                                                .isApproved) {
-                                                              await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (alertDialogContext) {
-                                                                  return AlertDialog(
-                                                                    title: Text(
-                                                                        'Already Approved'),
-                                                                    content: Text(
-                                                                        'Ask To Manager'),
-                                                                    actions: [
-                                                                      TextButton(
-                                                                        onPressed:
-                                                                            () =>
-                                                                                Navigator.pop(alertDialogContext),
-                                                                        child: Text(
-                                                                            'Ok'),
-                                                                      ),
-                                                                    ],
-                                                                  );
-                                                                },
-                                                              );
-                                                            } else {
-                                                              _model.returnDelete1 =
-                                                                  await ShiftRequestsTable()
-                                                                      .delete(
-                                                                matchingRows:
-                                                                    (rows) => rows
-                                                                        .eqOrNull(
-                                                                  'shift_request_id',
-                                                                  FFAppState()
-                                                                      .shiftStatus
-                                                                      .where((e) =>
-                                                                          valueOrDefault<
-                                                                              bool>(
-                                                                            (_model.shiftId == e.shiftId) &&
-                                                                                (e.requestDate == dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
-                                                                            false,
-                                                                          ))
-                                                                      .toList()
-                                                                      .firstOrNull
-                                                                      ?.shiftRequestId,
-                                                                ),
-                                                                returnRows:
-                                                                    true,
-                                                              );
-                                                              FFAppState().shiftStatus = functions
-                                                                  .removeFromList(
-                                                                      FFAppState()
-                                                                          .shiftStatus
-                                                                          .map((e) => e
-                                                                              .toMap())
-                                                                          .toList(),
+                                              ],
+                                            ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                if (_model.shiftId != null &&
+                                                    _model.shiftId != '') {
+                                                  if (FFAppState().isLoading2 ==
+                                                      false) {
+                                                    FFAppState().isLoading2 =
+                                                        true;
+                                                    safeSetState(() {});
+                                                    if (FFAppState()
+                                                            .shiftStatus
+                                                            .where((e) =>
+                                                                (_model.shiftId ==
+                                                                    e
+                                                                        .shiftId) &&
+                                                                (e.requestDate ==
+                                                                    dateTimeFormat(
+                                                                        "yyyy-MM-dd",
+                                                                        _model
+                                                                            .selectedDatePageState)))
+                                                            .toList()
+                                                            .firstOrNull !=
+                                                        null) {
+                                                      if (FFAppState()
+                                                          .shiftStatus
+                                                          .where((e) =>
+                                                              (_model.shiftId ==
+                                                                  e.shiftId) &&
+                                                              (e.requestDate ==
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
                                                                       _model
-                                                                          .returnDelete1
-                                                                          ?.firstOrNull
-                                                                          ?.shiftRequestId,
-                                                                      'shift_request_id')!
-                                                                  .map((e) =>
-                                                                      ShiftStatusStruct
-                                                                          .maybeFromMap(
-                                                                              e))
-                                                                  .withoutNulls
-                                                                  .toList()
-                                                                  .cast<
-                                                                      ShiftStatusStruct>();
-                                                              safeSetState(
-                                                                  () {});
-                                                            }
-
-                                                            FFAppState()
-                                                                    .isLoading2 =
-                                                                false;
-                                                            safeSetState(() {});
-                                                          } else {
-                                                            _model.insert1 =
-                                                                await ShiftRequestsTable()
-                                                                    .insert({
-                                                              'user_id':
-                                                                  FFAppState()
-                                                                      .user
-                                                                      .userId,
-                                                              'shift_id': _model
-                                                                  .shiftId,
-                                                              'store_id': _model
-                                                                  .dropDownStoreValue,
-                                                              'request_date':
-                                                                  supaSerialize<
-                                                                          DateTime>(
-                                                                      _model
-                                                                          .selectedDatePageState),
-                                                              'start_time': supaSerialize<
-                                                                      DateTime>(
-                                                                  functions.changeStringToDateTime(FFAppState()
-                                                                      .shiftMetaData
-                                                                      .where((e) =>
-                                                                          _model
-                                                                              .shiftId ==
-                                                                          e.shiftId)
-                                                                      .toList()
-                                                                      .firstOrNull
-                                                                      ?.startTime)),
-                                                              'end_time': supaSerialize<
-                                                                      DateTime>(
-                                                                  functions.changeStringToDateTime(FFAppState()
-                                                                      .shiftMetaData
-                                                                      .where((e) =>
-                                                                          _model
-                                                                              .shiftId ==
-                                                                          e.shiftId)
-                                                                      .toList()
-                                                                      .firstOrNull
-                                                                      ?.endTime)),
-                                                            });
-                                                            FFAppState()
-                                                                .addToShiftStatus(
-                                                                    ShiftStatusStruct(
-                                                              shiftId: _model
-                                                                  .insert1
-                                                                  ?.shiftId,
-                                                              requestDate: dateTimeFormat(
-                                                                  "yyyy-MM-dd",
-                                                                  _model.insert1
-                                                                      ?.requestDate),
-                                                              totalRegistered:
-                                                                  1,
-                                                              isRegisteredByMe:
-                                                                  true,
-                                                              shiftRequestId: _model
-                                                                  .insert1
-                                                                  ?.shiftRequestId,
-                                                              isApproved: false,
-                                                              storeId: _model
-                                                                  .dropDownStoreValue,
-                                                            ));
-                                                            safeSetState(() {});
-                                                          }
-
-                                                          FFAppState()
-                                                                  .isLoading2 =
-                                                              false;
-                                                          safeSetState(() {});
-                                                        }
-                                                      } else {
+                                                                          .selectedDatePageState)))
+                                                          .toList()
+                                                          .firstOrNull!
+                                                          .isApproved) {
                                                         await showDialog(
                                                           context: context,
                                                           builder:
                                                               (alertDialogContext) {
                                                             return AlertDialog(
                                                               title: Text(
-                                                                  'Choose Shift'),
+                                                                  'Already Approved'),
+                                                              content: Text(
+                                                                  'Ask To Manager'),
                                                               actions: [
                                                                 TextButton(
                                                                   onPressed: () =>
@@ -927,52 +776,190 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                             );
                                                           },
                                                         );
+                                                      } else {
+                                                        _model.deleteResult =
+                                                            await ShiftRequestsTable()
+                                                                .delete(
+                                                          matchingRows:
+                                                              (rows) =>
+                                                                  rows.eqOrNull(
+                                                            'shift_request_id',
+                                                            FFAppState()
+                                                                .shiftStatus
+                                                                .where((e) =>
+                                                                    (_model.shiftId ==
+                                                                        e
+                                                                            .shiftId) &&
+                                                                    (e.requestDate ==
+                                                                        dateTimeFormat(
+                                                                            "yyyy-MM-dd",
+                                                                            _model.selectedDatePageState)))
+                                                                .toList()
+                                                                .firstOrNull
+                                                                ?.shiftRequestId,
+                                                          ),
+                                                          returnRows: true,
+                                                        );
+                                                        FFAppState().shiftStatus = functions
+                                                            .removeFromList(
+                                                                FFAppState()
+                                                                    .shiftStatus
+                                                                    .map((e) => e
+                                                                        .toMap())
+                                                                    .toList(),
+                                                                _model
+                                                                    .deleteResult
+                                                                    ?.firstOrNull
+                                                                    ?.shiftRequestId,
+                                                                'shift_request_id')!
+                                                            .map((e) =>
+                                                                ShiftStatusStruct
+                                                                    .maybeFromMap(
+                                                                        e))
+                                                            .withoutNulls
+                                                            .toList()
+                                                            .cast<
+                                                                ShiftStatusStruct>();
+                                                        safeSetState(() {});
                                                       }
 
+                                                      FFAppState().isLoading2 =
+                                                          false;
                                                       safeSetState(() {});
+                                                    } else {
+                                                      _model.insertShift =
+                                                          await ShiftRequestsTable()
+                                                              .insert({
+                                                        'user_id': FFAppState()
+                                                            .user
+                                                            .userId,
+                                                        'shift_id':
+                                                            _model.shiftId,
+                                                        'store_id': _model
+                                                            .dropDownStoreValue,
+                                                        'request_date':
+                                                            supaSerialize<
+                                                                    DateTime>(
+                                                                _model
+                                                                    .selectedDatePageState),
+                                                        'is_approved': false,
+                                                        'start_time': supaSerialize<
+                                                                DateTime>(
+                                                            functions.changeStringToDateTime(
+                                                                FFAppState()
+                                                                    .shiftMetaData
+                                                                    .where((e) =>
+                                                                        _model
+                                                                            .shiftId ==
+                                                                        e.shiftId)
+                                                                    .toList()
+                                                                    .firstOrNull
+                                                                    ?.startTime)),
+                                                        'end_time': supaSerialize<
+                                                                DateTime>(
+                                                            functions.changeStringToDateTime(
+                                                                FFAppState()
+                                                                    .shiftMetaData
+                                                                    .where((e) =>
+                                                                        _model
+                                                                            .shiftId ==
+                                                                        e.shiftId)
+                                                                    .toList()
+                                                                    .firstOrNull
+                                                                    ?.endTime)),
+                                                      });
+                                                      FFAppState()
+                                                          .addToShiftStatus(
+                                                              ShiftStatusStruct(
+                                                        shiftId: _model
+                                                            .insertShift
+                                                            ?.shiftId,
+                                                        requestDate:
+                                                            dateTimeFormat(
+                                                                "yyyy-MM-dd",
+                                                                _model
+                                                                    .insertShift
+                                                                    ?.requestDate),
+                                                        totalRegistered: 1,
+                                                        isRegisteredByMe: true,
+                                                        shiftRequestId: _model
+                                                            .insertShift
+                                                            ?.shiftRequestId,
+                                                        isApproved: false,
+                                                        storeId: _model
+                                                            .insertShift
+                                                            ?.storeId,
+                                                      ));
+                                                      safeSetState(() {});
+                                                    }
+
+                                                    FFAppState().isLoading2 =
+                                                        false;
+                                                    safeSetState(() {});
+                                                  }
+                                                } else {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text('Fail'),
+                                                        content: Text(
+                                                            'Choose Shift'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('Ok'),
+                                                          ),
+                                                        ],
+                                                      );
                                                     },
-                                                    child: wrapWithModel(
-                                                      model: _model.adddModel,
-                                                      updateCallback: () =>
-                                                          safeSetState(() {}),
-                                                      child: AddWidget(
-                                                        name: FFAppState()
-                                                                .shiftStatus
-                                                                .where((e) =>
-                                                                    valueOrDefault<
-                                                                        bool>(
-                                                                      (_model.shiftId == e.shiftId) &&
-                                                                          (e.requestDate ==
-                                                                              dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
-                                                                      false,
-                                                                    ))
-                                                                .toList()
-                                                                .isNotEmpty
-                                                            ? 'Cancel'
-                                                            : 'Register',
-                                                        color: FFAppState()
-                                                                .shiftStatus
-                                                                .where((e) =>
-                                                                    valueOrDefault<
-                                                                        bool>(
-                                                                      (_model.shiftId == e.shiftId) &&
-                                                                          (e.requestDate ==
-                                                                              dateTimeFormat("yyyy-MM-dd", _model.selectedDatePageState)),
-                                                                      false,
-                                                                    ))
-                                                                .toList()
-                                                                .isNotEmpty
-                                                            ? FlutterFlowTheme
-                                                                    .of(context)
-                                                                .tertiary
-                                                            : FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  );
+                                                }
+
+                                                safeSetState(() {});
+                                              },
+                                              child: wrapWithModel(
+                                                model: _model.addModel,
+                                                updateCallback: () =>
+                                                    safeSetState(() {}),
+                                                child: AddWidget(
+                                                  name: FFAppState()
+                                                          .shiftStatus
+                                                          .where((e) =>
+                                                              (_model.shiftId ==
+                                                                  e.shiftId) &&
+                                                              (e.requestDate ==
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
+                                                                      _model
+                                                                          .selectedDatePageState)))
+                                                          .toList()
+                                                          .isNotEmpty
+                                                      ? 'Cancel'
+                                                      : 'Register',
+                                                  color: FFAppState()
+                                                          .shiftStatus
+                                                          .where((e) =>
+                                                              (_model.shiftId ==
+                                                                  e.shiftId) &&
+                                                              (e.requestDate ==
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
+                                                                      _model
+                                                                          .selectedDatePageState)))
+                                                          .toList()
+                                                          .isNotEmpty
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .tertiary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary,
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ]
                                               .divide(SizedBox(height: 24.0))

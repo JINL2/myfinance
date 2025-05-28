@@ -326,21 +326,11 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                                                       value: _model
                                                                   .checkboxValueMap[
                                                               featureInfoItem] ??=
-                                                          functions.isListHaveString(
+                                                          functions.isListHave(
                                                               featureInfoItem
                                                                   .featureId,
-                                                              FFAppState()
-                                                                  .user
-                                                                  .companies
-                                                                  .where((e) =>
-                                                                      FFAppState()
-                                                                          .companyChoosen ==
-                                                                      e.companyId)
-                                                                  .toList()
-                                                                  .firstOrNull
-                                                                  ?.role
-                                                                  .permissions
-                                                                  .toList())!,
+                                                              widget.roleDetail
+                                                                  ?.permissions)!,
                                                       onChanged:
                                                           (newValue) async {
                                                         safeSetState(() => _model
@@ -485,6 +475,7 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                               updateCallback: () => safeSetState(() {}),
                               child: AddButtonWidget(
                                 textParameter: 'Update Role',
+                                height: 48,
                               ),
                             ),
                           ),
@@ -554,6 +545,7 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                                 updateCallback: () => safeSetState(() {}),
                                 child: AddButtonWidget(
                                   textParameter: 'Delete Role',
+                                  height: 48,
                                 ),
                               ),
                             ),

@@ -10,10 +10,14 @@ class AddWidget extends StatefulWidget {
     super.key,
     this.name,
     Color? color,
+    this.width,
+    this.height,
   }) : this.color = color ?? const Color(0xFF0065FF);
 
   final String? name;
   final Color color;
+  final int? width;
+  final int? height;
 
   @override
   State<AddWidget> createState() => _AddWidgetState();
@@ -49,6 +53,8 @@ class _AddWidgetState extends State<AddWidget> {
         Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Container(
+            width: widget.width != null ? widget.width?.toDouble() : null,
+            height: widget.height != null ? widget.height?.toDouble() : null,
             decoration: BoxDecoration(
               color: widget.color,
               borderRadius: BorderRadius.only(

@@ -65,12 +65,12 @@ class TimeTableUserModel extends FlutterFlowModel<TimeTableUserWidget> {
   late RegisterCalCompModel registerCalCompModel;
   // Models for shift_test dynamic component.
   late FlutterFlowDynamicModels<ShiftTestModel> shiftTestModels;
-  // Model for addd.
-  late AddModel adddModel;
-  // Stores action output result for [Backend Call - Delete Row(s)] action in addd widget.
-  List<ShiftRequestsRow>? returnDelete1;
-  // Stores action output result for [Backend Call - Insert Row] action in addd widget.
-  ShiftRequestsRow? insert1;
+  // Model for add component.
+  late AddModel addModel;
+  // Stores action output result for [Backend Call - Delete Row(s)] action in add widget.
+  List<ShiftRequestsRow>? deleteResult;
+  // Stores action output result for [Backend Call - Insert Row] action in add widget.
+  ShiftRequestsRow? insertShift;
   // State field(s) for filterStore widget.
   String? filterStoreValue;
   FormFieldController<String>? filterStoreValueController;
@@ -94,7 +94,7 @@ class TimeTableUserModel extends FlutterFlowModel<TimeTableUserWidget> {
     menuBarModel = createModel(context, () => MenuBarModel());
     registerCalCompModel = createModel(context, () => RegisterCalCompModel());
     shiftTestModels = FlutterFlowDynamicModels(() => ShiftTestModel());
-    adddModel = createModel(context, () => AddModel());
+    addModel = createModel(context, () => AddModel());
     tableSchduleModel = createModel(context, () => TableSchduleModel());
     isloadingModel = createModel(context, () => IsloadingModel());
   }
@@ -105,7 +105,7 @@ class TimeTableUserModel extends FlutterFlowModel<TimeTableUserWidget> {
     tabBarController?.dispose();
     registerCalCompModel.dispose();
     shiftTestModels.dispose();
-    adddModel.dispose();
+    addModel.dispose();
     tableSchduleModel.dispose();
     isloadingModel.dispose();
   }

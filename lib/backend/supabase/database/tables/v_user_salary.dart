@@ -1,19 +1,21 @@
 import '../database.dart';
 
-class VUserSalaryInfoTable extends SupabaseTable<VUserSalaryInfoRow> {
+class VUserSalaryTable extends SupabaseTable<VUserSalaryRow> {
   @override
-  String get tableName => 'v_user_salary_info';
+  String get tableName => 'v_user_salary';
 
   @override
-  VUserSalaryInfoRow createRow(Map<String, dynamic> data) =>
-      VUserSalaryInfoRow(data);
+  VUserSalaryRow createRow(Map<String, dynamic> data) => VUserSalaryRow(data);
 }
 
-class VUserSalaryInfoRow extends SupabaseDataRow {
-  VUserSalaryInfoRow(Map<String, dynamic> data) : super(data);
+class VUserSalaryRow extends SupabaseDataRow {
+  VUserSalaryRow(Map<String, dynamic> data) : super(data);
 
   @override
-  SupabaseTable get table => VUserSalaryInfoTable();
+  SupabaseTable get table => VUserSalaryTable();
+
+  String? get salaryId => getField<String>('salary_id');
+  set salaryId(String? value) => setField<String>('salary_id', value);
 
   String? get userId => getField<String>('user_id');
   set userId(String? value) => setField<String>('user_id', value);
@@ -29,9 +31,6 @@ class VUserSalaryInfoRow extends SupabaseDataRow {
 
   String? get profileImage => getField<String>('profile_image');
   set profileImage(String? value) => setField<String>('profile_image', value);
-
-  String? get salaryId => getField<String>('salary_id');
-  set salaryId(String? value) => setField<String>('salary_id', value);
 
   String? get companyId => getField<String>('company_id');
   set companyId(String? value) => setField<String>('company_id', value);

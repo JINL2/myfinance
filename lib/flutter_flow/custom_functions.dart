@@ -647,3 +647,12 @@ bool? isListHaveCurrnecyid(
 
   return supabaseCurrency.any((row) => row.currencyId == currencyId);
 }
+
+double? lat(
+  LatLng? location,
+  bool? trueLatFalstLng,
+) {
+  if (location == null || trueLatFalstLng == null) return null;
+
+  return trueLatFalstLng ? location.latitude : location.longitude;
+}

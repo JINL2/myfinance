@@ -353,7 +353,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                   },
                                   text: 'Confirm Select Store',
                                   options: FFButtonOptions(
-                                    height: 40.0,
+                                    height: 48.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -667,22 +667,23 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                                             value: _model
                                                                     .checkboxValueMap[
                                                                 shiftStatusItem] ??= false,
-                                                            onChanged:
-                                                                (newValue) async {
-                                                              safeSetState(() =>
-                                                                  _model.checkboxValueMap[
-                                                                          shiftStatusItem] =
-                                                                      newValue!);
-                                                              if (newValue!) {
-                                                                _model.blockSelect =
-                                                                    true;
-                                                                _model.selectedRequestId =
-                                                                    shiftStatusItem
-                                                                        .shiftRequestId;
-                                                                safeSetState(
-                                                                    () {});
-                                                              }
-                                                            },
+                                                            onChanged: _model
+                                                                    .blockSelect!
+                                                                ? null
+                                                                : (newValue) async {
+                                                                    safeSetState(() =>
+                                                                        _model.checkboxValueMap[shiftStatusItem] =
+                                                                            newValue!);
+                                                                    if (newValue!) {
+                                                                      _model.blockSelect =
+                                                                          true;
+                                                                      _model.selectedRequestId =
+                                                                          shiftStatusItem
+                                                                              .shiftRequestId;
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    }
+                                                                  },
                                                             side: BorderSide(
                                                               width: 2,
                                                               color: FlutterFlowTheme
@@ -693,8 +694,10 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                                                 FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                            checkColor:
-                                                                FlutterFlowTheme.of(
+                                                            checkColor: _model
+                                                                    .blockSelect!
+                                                                ? null
+                                                                : FlutterFlowTheme.of(
                                                                         context)
                                                                     .info,
                                                           ),
@@ -749,27 +752,101 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                             },
                                           );
                                         } else {
-                                          await ShiftRequestsTable().update(
-                                            data: {
-                                              'actual_end_time':
-                                                  supaSerialize<DateTime>(
-                                                      getCurrentTimestamp),
-                                              'checkout_location':
-                                                  currentUserLocationValue
-                                                      ?.toString(),
-                                            },
-                                            matchingRows: (rows) =>
-                                                rows.eqOrNull(
-                                              'shift_request_id',
-                                              _model.selectedRequestId,
-                                            ),
+                                          _model.end =
+                                              await UpdateShiftRequestsEndCall
+                                                  .call(
+                                            pShiftRequestId:
+                                                _model.selectedRequestId,
+                                            pActualEndTime:
+                                                getCurrentTimestamp.toString(),
+                                            pEndLat: functions.lat(
+                                                currentUserLocationValue, true),
+                                            pEndLng: functions.lat(
+                                                currentUserLocationValue,
+                                                false),
                                           );
+
+                                          if ((_model.end?.succeeded ?? true)) {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'Success Finish Work'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title:
+                                                      Text('Fail Finish Work'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          FFAppState().isLoading1 = false;
+                                          safeSetState(() {});
+                                        }
+
+                                        FFAppState().isLoading1 = false;
+                                        safeSetState(() {});
+                                      } else {
+                                        _model.start =
+                                            await UpdateShiftReqeustStartCall
+                                                .call(
+                                          pShiftRequestId:
+                                              _model.selectedRequestId,
+                                          pActualStartTime:
+                                              getCurrentTimestamp.toString(),
+                                          pStartLat: functions.lat(
+                                              currentUserLocationValue, true),
+                                          pStartLng: functions.lat(
+                                              currentUserLocationValue, false),
+                                        );
+
+                                        if ((_model.start?.succeeded ?? true)) {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
                                               return AlertDialog(
-                                                title:
-                                                    Text('Success Finish Work'),
+                                                title: Text('Success Attend'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Fail Attend'),
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () =>
@@ -785,37 +862,6 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
 
                                         FFAppState().isLoading1 = false;
                                         safeSetState(() {});
-                                      } else {
-                                        await ShiftRequestsTable().update(
-                                          data: {
-                                            'actual_start_time':
-                                                supaSerialize<DateTime>(
-                                                    getCurrentTimestamp),
-                                            'checkin_location':
-                                                currentUserLocationValue
-                                                    ?.toString(),
-                                          },
-                                          matchingRows: (rows) => rows.eqOrNull(
-                                            'shift_request_id',
-                                            _model.selectedRequestId,
-                                          ),
-                                        );
-                                        await showDialog(
-                                          context: context,
-                                          builder: (alertDialogContext) {
-                                            return AlertDialog(
-                                              title: Text('Success Attend'),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () =>
-                                                      Navigator.pop(
-                                                          alertDialogContext),
-                                                  child: Text('Ok'),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
                                       }
 
                                       FFAppState().isLoading1 = false;
@@ -828,7 +874,8 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                     },
                                     text: 'Attend',
                                     options: FFButtonOptions(
-                                      height: 40.0,
+                                      width: 132.0,
+                                      height: 48.0,
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       iconPadding:
@@ -864,7 +911,7 @@ class _AttendanceWidgetState extends State<AttendanceWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                   ),
-                                ].divide(SizedBox(height: 12.0)),
+                                ].divide(SizedBox(height: 32.0)),
                               ),
                             ),
                         ],

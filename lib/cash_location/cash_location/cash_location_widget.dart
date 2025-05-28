@@ -152,8 +152,14 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
                                                 padding:
                                                     MediaQuery.viewInsetsOf(
                                                         context),
-                                                child:
-                                                    CreateCashLocationWidget(),
+                                                child: Container(
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          0.8,
+                                                  child:
+                                                      CreateCashLocationWidget(),
+                                                ),
                                               ),
                                             );
                                           },

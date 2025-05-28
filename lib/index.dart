@@ -17,7 +17,6 @@ export '/auth/choose_company/choose_company_widget.dart'
     show ChooseCompanyWidget;
 export '/time_table/time_table_user/time_table_user_widget.dart'
     show TimeTableUserWidget;
-export '/input/input_widget.dart' show InputWidget;
 export '/cash_balance/cash_balance/cash_balance_widget.dart'
     show CashBalanceWidget;
 export '/cash_location/cash_location/cash_location_widget.dart'
@@ -34,10 +33,15 @@ export '/manager/timetable_manage/timetable_manage_widget.dart'
     show TimetableManageWidget;
 export '/journal_input/journal_input/journal_input_widget.dart'
     show JournalInputWidget;
-export '/cash_movement/cash_movement_widget.dart' show CashMovementWidget;
 export '/register_denomination/register_denomination/register_denomination_widget.dart'
     show RegisterDenominationWidget;
 export '/cash_ending/cash_ending/cash_ending_widget.dart' show CashEndingWidget;
-export '/create_template/create_template_widget.dart' show CreateTemplateWidget;
 export '/transaction_template/transaction_template/transaction_template_widget.dart'
     show TransactionTemplateWidget;
+export '/balance_sheet/balance_sheet/balance_sheet_widget.dart'
+    show BalanceSheetWidget;
+export '/income_statement/income_statement/income_statement_widget.dart'
+    show IncomeStatementWidget;
+export '/bank_vault_ending/bank_vault_ending/bank_vault_ending_widget.dart'
+    show BankVaultEndingWidget;
+export '/test/test/test_widget.dart' show TestWidget;

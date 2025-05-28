@@ -55,7 +55,7 @@ class _AccountMappingComponentWidgetState
               color: FlutterFlowTheme.of(context).secondaryBackground,
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 40.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

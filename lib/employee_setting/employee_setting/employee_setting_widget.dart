@@ -60,7 +60,7 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
         body: SafeArea(
           top: true,
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               wrapWithModel(
                 model: _model.menuBarModel,
@@ -71,7 +71,6 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
               ),
               Expanded(
                 child: Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
                   ),
@@ -80,10 +79,10 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
                         EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                     child: SingleChildScrollView(
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          FutureBuilder<List<VUserSalaryInfoRow>>(
-                            future: VUserSalaryInfoTable().queryRows(
+                          FutureBuilder<List<VUserSalaryRow>>(
+                            future: VUserSalaryTable().queryRows(
                               queryFn: (q) => q.eqOrNull(
                                 'company_id',
                                 FFAppState().companyChoosen,
@@ -104,8 +103,7 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
                                   ),
                                 );
                               }
-                              List<VUserSalaryInfoRow>
-                                  listViewVUserSalaryInfoRowList =
+                              List<VUserSalaryRow> listViewVUserSalaryRowList =
                                   snapshot.data!;
 
                               return ListView.separated(
@@ -113,34 +111,25 @@ class _EmployeeSettingWidgetState extends State<EmployeeSettingWidget> {
                                 primary: false,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
-                                itemCount:
-                                    listViewVUserSalaryInfoRowList.length,
+                                itemCount: listViewVUserSalaryRowList.length,
                                 separatorBuilder: (_, __) =>
                                     SizedBox(height: 12.0),
                                 itemBuilder: (context, listViewIndex) {
-                                  final listViewVUserSalaryInfoRow =
-                                      listViewVUserSalaryInfoRowList[
-                                          listViewIndex];
-                                  return wrapWithModel(
-                                    model: _model.employeeSettingComponentModels
-                                        .getModel(
-                                      listViewVUserSalaryInfoRow.userId!,
-                                      listViewIndex,
-                                    ),
-                                    updateCallback: () => safeSetState(() {}),
-                                    child: EmployeeSettingComponentWidget(
-                                      key: Key(
-                                        'Keyf1x_${listViewVUserSalaryInfoRow.userId!}',
-                                      ),
-                                      detailInfoQuary:
-                                          listViewVUserSalaryInfoRow,
-                                    ),
+                                  final listViewVUserSalaryRow =
+                                      listViewVUserSalaryRowList[listViewIndex];
+                                  return EmployeeSettingComponentWidget(
+                                    key: Key(
+                                        'Keyf1x_${listViewIndex}_of_${listViewVUserSalaryRowList.length}'),
+                                    detailInfoQuary: listViewVUserSalaryRow,
                                   );
                                 },
                               );
                             },
                           ),
-                        ],
+                        ]
+                            .divide(SizedBox(height: 20.0))
+                            .addToStart(SizedBox(height: 12.0))
+                            .addToEnd(SizedBox(height: 40.0)),
                       ),
                     ),
                   ),

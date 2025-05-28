@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -15,6 +16,7 @@ class ShiftTestWidget extends StatefulWidget {
     this.endTime,
     this.selectedDate,
     this.shiftId,
+    this.otherStaffs,
   });
 
   final String? shiftName;
@@ -22,6 +24,7 @@ class ShiftTestWidget extends StatefulWidget {
   final String? endTime;
   final String? selectedDate;
   final String? shiftId;
+  final List<OtherStaffsStruct>? otherStaffs;
 
   @override
   State<ShiftTestWidget> createState() => _ShiftTestWidgetState();

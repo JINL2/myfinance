@@ -55,7 +55,7 @@ class _EditProfileNameWidgetState extends State<EditProfileNameWidget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 40.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -222,7 +222,7 @@ class _EditProfileNameWidgetState extends State<EditProfileNameWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 20.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,

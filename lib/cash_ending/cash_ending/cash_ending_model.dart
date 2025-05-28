@@ -68,10 +68,14 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
           int index, Function(CashierAmountLinesRow) updateFn) =>
       cashAmountLine[index] = updateFn(cashAmountLine[index]);
 
+  String? selectedCashierLocation;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
   List<CurrencyTypesRow>? currencyType;
+  // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
+  List<CashLocationsRow>? oPLCashLocation;
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
   List<CompanyCurrencyRow>? getCompanyCurrency;
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
@@ -82,9 +86,9 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
   List<CashierAmountLinesRow>? cashierAmountLineCompnay;
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
-  // State field(s) for DropDown widget.
-  String? dropDownValue;
-  FormFieldController<String>? dropDownValueController;
+  // State field(s) for cashlocationDropDown widget.
+  String? cashlocationDropDownValue;
+  FormFieldController<String>? cashlocationDropDownValueController;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
   ApiCallResponse? apiResultl36;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.

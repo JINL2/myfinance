@@ -10,10 +10,14 @@ class AddButtonWidget extends StatefulWidget {
     super.key,
     required this.textParameter,
     Color? colorParameter,
+    this.height,
+    this.width,
   }) : this.colorParameter = colorParameter ?? const Color(0xFF0065FF);
 
   final String? textParameter;
   final Color colorParameter;
+  final int? height;
+  final int? width;
 
   @override
   State<AddButtonWidget> createState() => _AddButtonWidgetState();
@@ -47,6 +51,8 @@ class _AddButtonWidgetState extends State<AddButtonWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
+          width: widget.width != null ? widget.width?.toDouble() : null,
+          height: widget.height != null ? widget.height?.toDouble() : null,
           decoration: BoxDecoration(
             color: widget.colorParameter,
             borderRadius: BorderRadius.circular(8.0),

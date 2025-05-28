@@ -51,7 +51,7 @@ class _CreateCodeF1WidgetState extends State<CreateCodeF1Widget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 48.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -118,24 +118,27 @@ class _CreateCodeF1WidgetState extends State<CreateCodeF1Widget> {
                 ),
               ),
             ),
-            Text(
-              'Store Code',
-              style: FlutterFlowTheme.of(context).titleMedium.override(
-                    font: GoogleFonts.notoSansJp(
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
+              child: Text(
+                'Store Code',
+                style: FlutterFlowTheme.of(context).titleMedium.override(
+                      font: GoogleFonts.notoSansJp(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                      ),
+                      letterSpacing: 0.0,
                       fontWeight:
                           FlutterFlowTheme.of(context).titleMedium.fontWeight,
                       fontStyle:
                           FlutterFlowTheme.of(context).titleMedium.fontStyle,
                     ),
-                    letterSpacing: 0.0,
-                    fontWeight:
-                        FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                    fontStyle:
-                        FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                  ),
+              ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 20.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
               child: Container(
                 width: MediaQuery.sizeOf(context).width * 1.0,
                 decoration: BoxDecoration(

@@ -17,7 +17,7 @@ class EmployeeSettingUpdateV1Widget extends StatefulWidget {
     required this.salaryInformation,
   });
 
-  final VUserSalaryInfoRow? salaryInformation;
+  final VUserSalaryRow? salaryInformation;
 
   @override
   State<EmployeeSettingUpdateV1Widget> createState() =>
@@ -60,7 +60,7 @@ class _EmployeeSettingUpdateV1WidgetState
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 40.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -261,7 +261,7 @@ class _EmployeeSettingUpdateV1WidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(12.0, 16.0, 12.0, 36.0),
+              padding: EdgeInsetsDirectional.fromSTEB(12.0, 16.0, 12.0, 0.0),
               child: InkWell(
                 splashColor: Colors.transparent,
                 focusColor: Colors.transparent,
@@ -327,6 +327,7 @@ class _EmployeeSettingUpdateV1WidgetState
                   updateCallback: () => safeSetState(() {}),
                   child: AddWidget(
                     name: 'Confirm',
+                    height: 48,
                   ),
                 ),
               ),

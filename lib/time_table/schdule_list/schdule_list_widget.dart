@@ -191,32 +191,47 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Expanded(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 0.0, 0.0),
-                                        child: Text(
-                                          valueOrDefault<String>(
-                                            FFAppState()
-                                                .shiftMetaData
-                                                .where((e) =>
-                                                    widget.shiftId ==
-                                                    e.shiftId)
-                                                .toList()
-                                                .firstOrNull
-                                                ?.shiftName,
-                                            'Shift name',
-                                          ),
-                                          textAlign: TextAlign.center,
-                                          maxLines: 1,
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleSmall
-                                              .override(
-                                                font: GoogleFonts.notoSansJp(
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 0.0, 0.0, 0.0),
+                                          child: Text(
+                                            valueOrDefault<String>(
+                                              FFAppState()
+                                                  .shiftMetaData
+                                                  .where((e) =>
+                                                      widget.shiftId ==
+                                                      e.shiftId)
+                                                  .toList()
+                                                  .firstOrNull
+                                                  ?.shiftName,
+                                              'Shift name',
+                                            ),
+                                            textAlign: TextAlign.center,
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.notoSansJp(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                                  letterSpacing: 0.0,
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
@@ -228,35 +243,38 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
                                                           .titleSmall
                                                           .fontStyle,
                                                 ),
-                                                letterSpacing: 0.0,
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .fontStyle,
-                                              ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.startTime))} ~${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.endTime))}',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
-                                      font: GoogleFonts.notoSansJp(
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.startTime))} ~${functions.formatTimeOnly(functions.changeStringToDateTime(FFAppState().shiftMetaData.where((e) => widget.shiftId == e.shiftId).toList().firstOrNull?.endTime))}',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodySmall
+                                      .override(
+                                        font: GoogleFonts.notoSansJp(
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodySmall
+                                                  .fontStyle,
+                                        ),
+                                        letterSpacing: 0.0,
                                         fontWeight: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .fontWeight,
@@ -264,16 +282,9 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
                                             .bodySmall
                                             .fontStyle,
                                       ),
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .fontStyle,
-                                    ),
-                              ),
-                            ],
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

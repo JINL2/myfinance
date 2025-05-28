@@ -266,7 +266,9 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                       .fontStyle,
                                 ),
                       ),
-                    ],
+                    ]
+                        .addToStart(SizedBox(width: 12.0))
+                        .addToEnd(SizedBox(width: 12.0)),
                   ),
                 ),
               ),
@@ -376,57 +378,68 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                             ),
                           ),
                         ),
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            if (FFAppState().isLoading1 == false) {
-                              FFAppState().isLoading1 = true;
-                              safeSetState(() {});
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                context: context,
-                                builder: (context) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
-                                      FocusManager.instance.primaryFocus
-                                          ?.unfocus();
-                                    },
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: PopupWidget(
-                                        popupTitle: 'Create Store',
-                                        widgetBuilder: () =>
-                                            CreateStoreF1Widget(
-                                          widgetTitle1: 'Store Name',
-                                          widgetTitle2: 'Store Address',
-                                          widgetTitle3: 'Store Phone Number',
-                                          companyId:
-                                              FFAppState().companyChoosen,
+                        if (FFAppState()
+                                .user
+                                .companies
+                                .where((e) =>
+                                    FFAppState().companyChoosen == e.companyId)
+                                .toList()
+                                .firstOrNull
+                                ?.role
+                                .roleName ==
+                            'Owner')
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (FFAppState().isLoading1 == false) {
+                                FFAppState().isLoading1 = true;
+                                safeSetState(() {});
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                        FocusManager.instance.primaryFocus
+                                            ?.unfocus();
+                                      },
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: PopupWidget(
+                                          popupTitle: 'Create Store',
+                                          widgetBuilder: () =>
+                                              CreateStoreF1Widget(
+                                            widgetTitle1: 'Store Name',
+                                            widgetTitle2: 'Store Address',
+                                            widgetTitle3: 'Store Phone Number',
+                                            companyId:
+                                                FFAppState().companyChoosen,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ).then((value) => safeSetState(() {}));
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
 
-                              FFAppState().isLoading1 = false;
-                              safeSetState(() {});
-                            }
-                          },
-                          child: wrapWithModel(
-                            model: _model.addStoreModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: AddWidget(
-                              name: 'Add Store',
+                                FFAppState().isLoading1 = false;
+                                safeSetState(() {});
+                              }
+                            },
+                            child: wrapWithModel(
+                              model: _model.addStoreModel,
+                              updateCallback: () => safeSetState(() {}),
+                              child: AddWidget(
+                                name: 'Add Store',
+                              ),
                             ),
                           ),
-                        ),
                         InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
@@ -526,8 +539,8 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                           ),
                         ),
                       ]
-                          .divide(SizedBox(height: 5.0))
-                          .addToEnd(SizedBox(height: 32.0)),
+                          .divide(SizedBox(height: 12.0))
+                          .addToEnd(SizedBox(height: 40.0)),
                     ),
                   ),
                 ),
@@ -578,7 +591,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
                                           Icons.menu,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
-                                          size: 30.0,
+                                          size: 44.0,
                                         ),
                                       ),
                                     ),

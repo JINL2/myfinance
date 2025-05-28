@@ -72,7 +72,7 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 40.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -445,59 +445,37 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
               isSearchable: false,
               isMultiSelect: false,
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
-              child: InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  if ((_model.startingTime != null) &&
-                      (_model.endingTime != null)) {
-                    if (FFAppState().isLoading3 == false) {
-                      FFAppState().isLoading3 = true;
-                      safeSetState(() {});
-                      _model.updateshift1 = await StoreShiftsTable().update(
-                        data: {
-                          'shift_name': _model.shiftNameTextController.text,
-                          'start_time': supaSerialize<PostgresTime>(
-                              PostgresTime(_model.startingTime)),
-                          'end_time': supaSerialize<PostgresTime>(
-                              PostgresTime(_model.endingTime)),
-                          'number_shift': _model.maxShiftValue,
-                        },
-                        matchingRows: (rows) => rows.eqOrNull(
-                          'shift_id',
-                          widget.shiftInfo?.shiftId,
-                        ),
-                        returnRows: true,
-                      );
-                      await showDialog(
-                        context: context,
-                        builder: (alertDialogContext) {
-                          return AlertDialog(
-                            title: Text('Edit Shift Success'),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(alertDialogContext),
-                                child: Text('Ok'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      FFAppState().isLoading3 = false;
-                      safeSetState(() {});
-                      Navigator.pop(context);
-                    }
-                  } else {
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                if ((_model.startingTime != null) &&
+                    (_model.endingTime != null)) {
+                  if (FFAppState().isLoading3 == false) {
+                    FFAppState().isLoading3 = true;
+                    safeSetState(() {});
+                    _model.updateshift1 = await StoreShiftsTable().update(
+                      data: {
+                        'shift_name': _model.shiftNameTextController.text,
+                        'start_time': supaSerialize<PostgresTime>(
+                            PostgresTime(_model.startingTime)),
+                        'end_time': supaSerialize<PostgresTime>(
+                            PostgresTime(_model.endingTime)),
+                        'number_shift': _model.maxShiftValue,
+                      },
+                      matchingRows: (rows) => rows.eqOrNull(
+                        'shift_id',
+                        widget.shiftInfo?.shiftId,
+                      ),
+                      returnRows: true,
+                    );
                     await showDialog(
                       context: context,
                       builder: (alertDialogContext) {
                         return AlertDialog(
-                          title: Text('Set Time First'),
+                          title: Text('Edit Shift Success'),
                           actions: [
                             TextButton(
                               onPressed: () =>
@@ -508,16 +486,34 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
                         );
                       },
                     );
+                    FFAppState().isLoading3 = false;
+                    safeSetState(() {});
+                    Navigator.pop(context);
                   }
+                } else {
+                  await showDialog(
+                    context: context,
+                    builder: (alertDialogContext) {
+                      return AlertDialog(
+                        title: Text('Set Time First'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
 
-                  safeSetState(() {});
-                },
-                child: wrapWithModel(
-                  model: _model.addModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: AddWidget(
-                    name: 'Save',
-                  ),
+                safeSetState(() {});
+              },
+              child: wrapWithModel(
+                model: _model.addModel,
+                updateCallback: () => safeSetState(() {}),
+                child: AddWidget(
+                  name: 'Save',
                 ),
               ),
             ),

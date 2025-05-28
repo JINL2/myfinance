@@ -1,5 +1,4 @@
 import '/components/menu_bar_widget.dart';
-import '/employee_setting/employee_setting_component/employee_setting_component_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'employee_setting_widget.dart' show EmployeeSettingWidget;
 import 'package:flutter/material.dart';
@@ -9,20 +8,14 @@ class EmployeeSettingModel extends FlutterFlowModel<EmployeeSettingWidget> {
 
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
-  // Models for employeeSettingComponent dynamic component.
-  late FlutterFlowDynamicModels<EmployeeSettingComponentModel>
-      employeeSettingComponentModels;
 
   @override
   void initState(BuildContext context) {
     menuBarModel = createModel(context, () => MenuBarModel());
-    employeeSettingComponentModels =
-        FlutterFlowDynamicModels(() => EmployeeSettingComponentModel());
   }
 
   @override
   void dispose() {
     menuBarModel.dispose();
-    employeeSettingComponentModels.dispose();
   }
 }

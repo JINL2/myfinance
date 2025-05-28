@@ -387,7 +387,9 @@ class _RegisterDenominationWidgetState
                               );
                             },
                           ),
-                        ].divide(SizedBox(height: 8.0)),
+                        ]
+                            .divide(SizedBox(height: 12.0))
+                            .addToStart(SizedBox(height: 12.0)),
                       ),
                     ),
                   ),

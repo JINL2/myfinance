@@ -1508,6 +1508,8 @@ class _JournalInputWidgetState extends State<JournalInputWidget> {
                                                           .companyChoosenValue,
                                                       storeDoJournal: _model
                                                           .storeChoosenValue,
+                                                      storeId: _model
+                                                          .storeChoosenValue,
                                                       transactionDetailCallback:
                                                           (transactionDetail) async {
                                                         _model.addToTransactionDetail(

@@ -63,7 +63,7 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
         color: FlutterFlowTheme.of(context).primaryBackground,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 40.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -476,53 +476,50 @@ class _StoreShiftCreateWidgetState extends State<StoreShiftCreateWidget> {
                 isMultiSelect: false,
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 36.0),
-              child: InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  if (FFAppState().isLoading3 == false) {
-                    FFAppState().isLoading3 = true;
-                    safeSetState(() {});
-                    await StoreShiftsTable().insert({
-                      'store_id': widget.storeId,
-                      'shift_name': _model.shiftNameTextController.text,
-                      'start_time': supaSerialize<PostgresTime>(
-                          PostgresTime(_model.startingTime)),
-                      'end_time': supaSerialize<PostgresTime>(
-                          PostgresTime(_model.endingTime)),
-                      'is_active': true,
-                      'number_shift': _model.numberofPeopleValue,
-                    });
-                    await showDialog(
-                      context: context,
-                      builder: (alertDialogContext) {
-                        return AlertDialog(
-                          title: Text('Add Shft Success'),
-                          actions: [
-                            TextButton(
-                              onPressed: () =>
-                                  Navigator.pop(alertDialogContext),
-                              child: Text('Ok'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                    FFAppState().isLoading3 = false;
-                    safeSetState(() {});
-                    Navigator.pop(context);
-                  }
-                },
-                child: wrapWithModel(
-                  model: _model.addModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: AddWidget(
-                    name: 'Create',
-                  ),
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                if (FFAppState().isLoading3 == false) {
+                  FFAppState().isLoading3 = true;
+                  safeSetState(() {});
+                  await StoreShiftsTable().insert({
+                    'store_id': widget.storeId,
+                    'shift_name': _model.shiftNameTextController.text,
+                    'start_time': supaSerialize<PostgresTime>(
+                        PostgresTime(_model.startingTime)),
+                    'end_time': supaSerialize<PostgresTime>(
+                        PostgresTime(_model.endingTime)),
+                    'is_active': true,
+                    'number_shift': _model.numberofPeopleValue,
+                  });
+                  await showDialog(
+                    context: context,
+                    builder: (alertDialogContext) {
+                      return AlertDialog(
+                        title: Text('Add Shft Success'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(alertDialogContext),
+                            child: Text('Ok'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                  FFAppState().isLoading3 = false;
+                  safeSetState(() {});
+                  Navigator.pop(context);
+                }
+              },
+              child: wrapWithModel(
+                model: _model.addModel,
+                updateCallback: () => safeSetState(() {}),
+                child: AddWidget(
+                  name: 'Create',
+                  height: 48,
                 ),
               ),
             ),

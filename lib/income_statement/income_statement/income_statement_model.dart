@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'toast03_widget.dart' show Toast03Widget;
+import 'income_statement_widget.dart' show IncomeStatementWidget;
 import 'package:flutter/material.dart';
 
-class Toast03Model extends FlutterFlowModel<Toast03Widget> {
+class IncomeStatementModel extends FlutterFlowModel<IncomeStatementWidget> {
   @override
   void initState(BuildContext context) {}
 

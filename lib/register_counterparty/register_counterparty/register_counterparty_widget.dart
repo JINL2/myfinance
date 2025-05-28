@@ -222,6 +222,7 @@ class _RegisterCounterpartyWidgetState
                                               safeSetState(() {}),
                                           child: AddWidget(
                                             name: '+Add',
+                                            height: 48,
                                           ),
                                         ),
                                       ),

@@ -82,7 +82,7 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                   ),
                   child: SingleChildScrollView(
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(

@@ -1,9 +1,9 @@
 import '/auth/supabase_auth/auth_util.dart';
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/jeong_work/popup/popup_widget.dart';
+import '/my_page/delete_confirmation/delete_confirmation_widget.dart';
 import '/my_page/edit_profile_image/edit_profile_image_widget.dart';
 import '/my_page/edit_profile_name/edit_profile_name_widget.dart';
 import '/my_page/edit_store/edit_store_widget.dart';
@@ -387,24 +387,22 @@ class _MyPageWidgetState extends State<MyPageWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          Function() _navigate = () {};
-                          _model.apiResultz2a =
-                              await DeleteDataGroup.deleteowneruserCall.call(
-                            pUserId: FFAppState().user.userId,
-                          );
-
-                          if ((_model.apiResultz2a?.succeeded ?? true)) {
-                            GoRouter.of(context).prepareAuthEvent();
-                            await authManager.signOut();
-                            GoRouter.of(context).clearRedirectLocation();
-
-                            _navigate = () => context.goNamedAuth(
-                                Auth1Widget.routeName, context.mounted);
-                          }
-
-                          _navigate();
-
-                          safeSetState(() {});
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return Padding(
+                                padding: MediaQuery.viewInsetsOf(context),
+                                child: Container(
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.5,
+                                  child: DeleteConfirmationWidget(),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
                         },
                         child: Column(
                           mainAxisSize: MainAxisSize.max,

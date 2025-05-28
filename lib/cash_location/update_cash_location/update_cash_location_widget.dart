@@ -71,9 +71,8 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
         color: FlutterFlowTheme.of(context).alternate,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+        padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 40.0),
         child: SingleChildScrollView(
-          primary: false,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,10 +372,11 @@ class _UpdateCashLocationWidgetState extends State<UpdateCashLocationWidget> {
                         _model.typeDropDownValue ??=
                             widget.cashLocationInfo?.locationType,
                       ),
-                      options: List<String>.from(['cash', 'bank']),
+                      options: List<String>.from(['cash', 'bank', 'vault']),
                       optionLabels: [
                         'Cashier (Related to Cash)',
-                        'Bank (Related to Transfer)'
+                        'Bank (Related to Transfer)',
+                        'Vault (Related to Vault)'
                       ],
                       onChanged: (val) =>
                           safeSetState(() => _model.typeDropDownValue = val),

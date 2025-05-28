@@ -19,7 +19,7 @@ class EmployeeSettingComponentWidget extends StatefulWidget {
     this.icon,
   }) : this.color = color ?? Colors.white;
 
-  final VUserSalaryInfoRow? detailInfoQuary;
+  final VUserSalaryRow? detailInfoQuary;
   final Color color;
   final Widget? icon;
 
@@ -89,7 +89,6 @@ class _EmployeeSettingComponentWidgetState
     return ClipRRect(
       borderRadius: BorderRadius.circular(12.0),
       child: Container(
-        width: double.infinity,
         height: 72.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,

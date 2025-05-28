@@ -56,7 +56,7 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
         color: FlutterFlowTheme.of(context).alternate,
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
+        padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 40.0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -353,10 +353,11 @@ class _CreateCashLocationWidgetState extends State<CreateCashLocationWidget> {
                           FormFieldController<String>(
                         _model.typeDropDownValue ??= '',
                       ),
-                      options: List<String>.from(['cash', 'bank']),
+                      options: List<String>.from(['cash', 'bank', 'vault']),
                       optionLabels: [
                         'Cashier (Related to Cash)',
-                        'Bank (Related to Transfer)'
+                        'Bank (Related to Transfer)',
+                        'Vault (Related to Vault)'
                       ],
                       onChanged: (val) =>
                           safeSetState(() => _model.typeDropDownValue = val),

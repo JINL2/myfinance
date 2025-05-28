@@ -240,8 +240,6 @@ dynamic deserializeParam<T>(
             return CompanyCurrencyRow(data);
           case RolePermissionsRow:
             return RolePermissionsRow(data);
-          case VUserSalaryInfoRow:
-            return VUserSalaryInfoRow(data);
           case UserCompaniesRow:
             return UserCompaniesRow(data);
           case ShiftRequestsRow:
@@ -256,12 +254,18 @@ dynamic deserializeParam<T>(
             return CompaniesRow(data);
           case FixedAssetsRow:
             return FixedAssetsRow(data);
+          case VUserSalaryRow:
+            return VUserSalaryRow(data);
           case ViewCashierRealLatestTotalRow:
             return ViewCashierRealLatestTotalRow(data);
           case VCashLocationRow:
             return VCashLocationRow(data);
           case TransactionTemplatesRow:
             return TransactionTemplatesRow(data);
+          case BankAmountRow:
+            return BankAmountRow(data);
+          case VJournalLinesReadableRow:
+            return VJournalLinesReadableRow(data);
           case VUserRoleInfoRow:
             return VUserRoleInfoRow(data);
           case ProductsRow:
@@ -270,16 +274,24 @@ dynamic deserializeParam<T>(
             return AccountsRow(data);
           case ViewRolesWithPermissionsRow:
             return ViewRolesWithPermissionsRow(data);
+          case VIncomeStatementByStoreRow:
+            return VIncomeStatementByStoreRow(data);
           case StoreShiftsRow:
             return StoreShiftsRow(data);
           case GeographyColumnsRow:
             return GeographyColumnsRow(data);
+          case VStoreIncomeSummaryRow:
+            return VStoreIncomeSummaryRow(data);
           case InventoryTransactionsRow:
             return InventoryTransactionsRow(data);
           case CashLocationsWithTotalAmountRow:
             return CashLocationsWithTotalAmountRow(data);
+          case VBalanceSheetByStoreRow:
+            return VBalanceSheetByStoreRow(data);
           case UserRolesRow:
             return UserRolesRow(data);
+          case VStoreBalanceSummaryRow:
+            return VStoreBalanceSummaryRow(data);
           case JournalLinesRow:
             return JournalLinesRow(data);
           case CounterpartiesRow:

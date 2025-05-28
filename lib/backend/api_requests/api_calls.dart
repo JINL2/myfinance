@@ -1047,6 +1047,11 @@ class GetUserShiftStatusCall {
           .map((x) => castToType<bool>(x))
           .withoutNulls
           .toList();
+  static int? totalOtherStaffs(dynamic response) =>
+      castToType<int>(getJsonField(
+        response,
+        r'''$[:].total_other_staffs''',
+      ));
 }
 
 class GetshiftmetadataCall {
@@ -1426,6 +1431,212 @@ class CreateTamplateCall {
       callName: 'createTamplate',
       apiUrl:
           'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/insert_transaction_template',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UpdateShiftReqeustStartCall {
+  static Future<ApiCallResponse> call({
+    String? pShiftRequestId = '',
+    String? pActualStartTime,
+    double? pStartLat,
+    double? pStartLng,
+  }) async {
+    pActualStartTime ??= null;
+    pStartLat ??= null;
+    pStartLng ??= null;
+
+    final ffApiRequestBody = '''
+{
+  "p_shift_request_id": "${escapeStringForJson(pShiftRequestId)}",
+  "p_actual_start_time": "${escapeStringForJson(pActualStartTime)}",
+  "p_start_lat": ${pStartLat},
+  "p_start_lng": ${pStartLng}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateShiftReqeustStart',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/update_shift_request_start',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UpdateShiftRequestsEndCall {
+  static Future<ApiCallResponse> call({
+    String? pShiftRequestId = '',
+    String? pActualEndTime = '',
+    double? pEndLat,
+    double? pEndLng,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "p_shift_request_id": "${escapeStringForJson(pShiftRequestId)}",
+  "p_actual_end_time": "${escapeStringForJson(pActualEndTime)}",
+  "p_end_lat": ${pEndLat},
+  "p_end_lng": ${pEndLng}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateShiftRequestsEnd',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/update_shift_request_end',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetBalanceDfiferencesCall {
+  static Future<ApiCallResponse> call({
+    String? storeId = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getBalanceDfiferences',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/v_store_balance_summary?select=*&store_id=eq.${storeId}',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Range': '0-9',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static int? debit(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].total_debit''',
+      ));
+  static int? credit(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].total_credit''',
+      ));
+  static int? diff(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$[:].balance_difference''',
+      ));
+}
+
+class UpdateStoreLocationCall {
+  static Future<ApiCallResponse> call({
+    String? pStoreId = '',
+    double? pStoreLat,
+    double? pStoreLng,
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "p_store_id": "${escapeStringForJson(pStoreId)}",
+  "p_store_lat": ${pStoreLat},
+  "p_store_lng": ${pStoreLng}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateStoreLocation',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/update_store_location',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class BankAmountInsertCall {
+  static Future<ApiCallResponse> call({
+    String? pCompanyId = '',
+    String? pStoreId,
+    String? pRecordDate = '',
+    String? pLocationId = '',
+    String? pCurrencyId = '',
+    int? pTotalAmount,
+    String? pCreatedBy = '',
+  }) async {
+    pStoreId ??= null;
+
+    final ffApiRequestBody = '''
+{
+  "p_company_id": "${escapeStringForJson(pCompanyId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}",
+  "p_record_date": "${escapeStringForJson(pRecordDate)}",
+  "p_location_id": "${escapeStringForJson(pLocationId)}",
+  "p_currency_id": "${escapeStringForJson(pCurrencyId)}",
+  "p_total_amount": ${pTotalAmount},
+  "p_created_by": "${escapeStringForJson(pCreatedBy)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'bankAmountInsert',
+      apiUrl:
+          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/bank_amount_insert',
       callType: ApiCallType.POST,
       headers: {
         'apikey':

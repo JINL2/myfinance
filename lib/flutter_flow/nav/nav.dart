@@ -8,7 +8,6 @@ import '/backend/schema/structs/index.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
-import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -138,11 +137,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TimeTableUserWidget(),
         ),
         FFRoute(
-          name: InputWidget.routeName,
-          path: InputWidget.routePath,
-          builder: (context, params) => InputWidget(),
-        ),
-        FFRoute(
           name: CashBalanceWidget.routeName,
           path: CashBalanceWidget.routePath,
           builder: (context, params) => CashBalanceWidget(),
@@ -201,11 +195,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => JournalInputWidget(),
         ),
         FFRoute(
-          name: CashMovementWidget.routeName,
-          path: CashMovementWidget.routePath,
-          builder: (context, params) => CashMovementWidget(),
-        ),
-        FFRoute(
           name: RegisterDenominationWidget.routeName,
           path: RegisterDenominationWidget.routePath,
           builder: (context, params) => RegisterDenominationWidget(),
@@ -216,14 +205,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CashEndingWidget(),
         ),
         FFRoute(
-          name: CreateTemplateWidget.routeName,
-          path: CreateTemplateWidget.routePath,
-          builder: (context, params) => CreateTemplateWidget(),
-        ),
-        FFRoute(
           name: TransactionTemplateWidget.routeName,
           path: TransactionTemplateWidget.routePath,
           builder: (context, params) => TransactionTemplateWidget(),
+        ),
+        FFRoute(
+          name: BalanceSheetWidget.routeName,
+          path: BalanceSheetWidget.routePath,
+          builder: (context, params) => BalanceSheetWidget(),
+        ),
+        FFRoute(
+          name: IncomeStatementWidget.routeName,
+          path: IncomeStatementWidget.routePath,
+          builder: (context, params) => IncomeStatementWidget(),
+        ),
+        FFRoute(
+          name: BankVaultEndingWidget.routeName,
+          path: BankVaultEndingWidget.routePath,
+          builder: (context, params) => BankVaultEndingWidget(),
+        ),
+        FFRoute(
+          name: TestWidget.routeName,
+          path: TestWidget.routePath,
+          builder: (context, params) => TestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -408,15 +412,11 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 80.0,
-                    height: 80.0,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
+              ? Container(
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/ChatGPT_Image_May_18,_2025,_06_30_02_PM.png',
+                    fit: BoxFit.cover,
                   ),
                 )
               : page;

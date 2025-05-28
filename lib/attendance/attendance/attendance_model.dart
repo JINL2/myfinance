@@ -40,6 +40,10 @@ class AttendanceModel extends FlutterFlowModel<AttendanceWidget> {
 
   // Stores action output result for [Backend Call - Query Rows] action in Button widget.
   List<ShiftRequestsRow>? callShiftStatus;
+  // Stores action output result for [Backend Call - API (updateShiftRequestsEnd)] action in Button widget.
+  ApiCallResponse? end;
+  // Stores action output result for [Backend Call - API (updateShiftReqeustStart)] action in Button widget.
+  ApiCallResponse? start;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

@@ -70,7 +70,7 @@ class _AddCurrencyWidgetState extends State<AddCurrencyWidget> {
             color: FlutterFlowTheme.of(context).primaryBackground,
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 40.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
@@ -193,7 +193,8 @@ class _AddCurrencyWidgetState extends State<AddCurrencyWidget> {
                     },
                     text: 'Confirm',
                     options: FFButtonOptions(
-                      height: 40.0,
+                      width: 136.0,
+                      height: 48.0,
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:

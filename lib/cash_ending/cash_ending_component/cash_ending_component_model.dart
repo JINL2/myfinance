@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 
 class CashEndingComponentModel
     extends FlutterFlowModel<CashEndingComponentWidget> {
+  ///  Local state fields for this component.
+
+  int? quantity;
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for TextField widget.

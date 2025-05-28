@@ -185,6 +185,7 @@ class _DelegateRoleV1WidgetState extends State<DelegateRoleV1Widget> {
                   updateCallback: () => safeSetState(() {}),
                   child: AddWidget(
                     name: 'Save',
+                    height: 48,
                   ),
                 ),
               ),

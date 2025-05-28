@@ -41,68 +41,57 @@ class _MenuBarWidgetState extends State<MenuBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: AlignmentDirectional(0.0, 0.0),
-      children: [
-        Align(
-          alignment: AlignmentDirectional(-1.0, 0.0),
-          child: InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () async {
-              FFAppState().isLoading1 = false;
-              FFAppState().isLoading2 = false;
-              FFAppState().isLoading3 = false;
-              safeSetState(() {});
-              context.safePop();
-            },
-            child: Icon(
-              Icons.arrow_back_ios_new,
+    return Padding(
+      padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
+      child: InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
+          FFAppState().isLoading1 = false;
+          FFAppState().isLoading2 = false;
+          FFAppState().isLoading3 = false;
+          safeSetState(() {});
+          context.safePop();
+        },
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.arrow_back_ios_outlined,
               color: FlutterFlowTheme.of(context).primaryText,
-              size: 24.0,
+              size: 32.0,
             ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 12.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Flexible(
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 4.0),
-                  child: Text(
-                    valueOrDefault<String>(
-                      widget.menuName,
-                      'error',
-                    ),
-                    textAlign: TextAlign.center,
-                    style: FlutterFlowTheme.of(context).titleLarge.override(
-                          font: GoogleFonts.notoSansJp(
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .titleLarge
-                                .fontStyle,
-                          ),
-                          letterSpacing: 0.0,
-                          fontWeight: FlutterFlowTheme.of(context)
-                              .titleLarge
-                              .fontWeight,
-                          fontStyle:
-                              FlutterFlowTheme.of(context).titleLarge.fontStyle,
-                        ),
-                  ),
+            Expanded(
+              child: Text(
+                valueOrDefault<String>(
+                  widget.menuName,
+                  'error',
                 ),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: FlutterFlowTheme.of(context).titleLarge.override(
+                      font: GoogleFonts.notoSansJp(
+                        fontWeight:
+                            FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                        fontStyle:
+                            FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                      ),
+                      fontSize: 24.0,
+                      letterSpacing: 0.0,
+                      fontWeight:
+                          FlutterFlowTheme.of(context).titleLarge.fontWeight,
+                      fontStyle:
+                          FlutterFlowTheme.of(context).titleLarge.fontStyle,
+                      lineHeight: 1.0,
+                    ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

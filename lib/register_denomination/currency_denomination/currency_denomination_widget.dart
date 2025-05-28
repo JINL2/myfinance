@@ -62,15 +62,15 @@ class _CurrencyDenominationWidgetState
               color: FlutterFlowTheme.of(context).primaryBackground,
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
-                    child: SingleChildScrollView(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 40.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -410,34 +410,60 @@ class _CurrencyDenominationWidgetState
                         ].divide(SizedBox(height: 20.0)),
                       ),
                     ),
-                  ),
-                  FFButtonWidget(
-                    onPressed: () async {
-                      if (FFAppState().isLoading2 == false) {
-                        FFAppState().isLoading2 = true;
-                        safeSetState(() {});
-                        _model.denomination =
-                            await CurrencyDenominationsTable().queryRows(
-                          queryFn: (q) => q
-                              .eqOrNull(
-                                'currency_id',
-                                widget.currnecyid,
-                              )
-                              .eqOrNull(
-                                'company_id',
-                                FFAppState().companyChoosen,
-                              ),
-                        );
-                        if (_model.d1TextController.text != '') {
-                          if (functions.isListHaveDenomination(
-                              _model.denomination?.toList(),
-                              int.tryParse(_model.d1TextController.text))!) {
+                    FFButtonWidget(
+                      onPressed: () async {
+                        if (FFAppState().isLoading2 == false) {
+                          FFAppState().isLoading2 = true;
+                          safeSetState(() {});
+                          _model.denomination =
+                              await CurrencyDenominationsTable().queryRows(
+                            queryFn: (q) => q
+                                .eqOrNull(
+                                  'currency_id',
+                                  widget.currnecyid,
+                                )
+                                .eqOrNull(
+                                  'company_id',
+                                  FFAppState().companyChoosen,
+                                ),
+                          );
+                          if (_model.d1TextController.text != '') {
+                            if (functions.isListHaveDenomination(
+                                _model.denomination?.toList(),
+                                int.tryParse(_model.d1TextController.text))!) {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text(
+                                        'You Already Have ${_model.d1TextController.text} Value'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              await CurrencyDenominationsTable().insert({
+                                'currency_id': widget.currnecyid,
+                                'value': double.tryParse(
+                                    _model.d1TextController.text),
+                                'company_id': FFAppState().companyChoosen,
+                              });
+                            }
+
+                            FFAppState().isLoading2 = false;
+                            safeSetState(() {});
+                          } else {
                             await showDialog(
                               context: context,
                               builder: (alertDialogContext) {
                                 return AlertDialog(
-                                  title: Text(
-                                      'You Already Have ${_model.d1TextController.text} Value'),
+                                  title: Text('Insert Value'),
                                   actions: [
                                     TextButton(
                                       onPressed: () =>
@@ -448,53 +474,36 @@ class _CurrencyDenominationWidgetState
                                 );
                               },
                             );
-                          } else {
-                            await CurrencyDenominationsTable().insert({
-                              'currency_id': widget.currnecyid,
-                              'value':
-                                  double.tryParse(_model.d1TextController.text),
-                              'company_id': FFAppState().companyChoosen,
-                            });
                           }
 
                           FFAppState().isLoading2 = false;
                           safeSetState(() {});
-                        } else {
-                          await showDialog(
-                            context: context,
-                            builder: (alertDialogContext) {
-                              return AlertDialog(
-                                title: Text('Insert Value'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () =>
-                                        Navigator.pop(alertDialogContext),
-                                    child: Text('Ok'),
-                                  ),
-                                ],
-                              );
-                            },
-                          );
                         }
+                        Navigator.pop(context);
 
-                        FFAppState().isLoading2 = false;
                         safeSetState(() {});
-                      }
-                      Navigator.pop(context);
-
-                      safeSetState(() {});
-                    },
-                    text: 'Confirm',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                font: GoogleFonts.notoSansJp(
+                      },
+                      text: 'Confirm',
+                      options: FFButtonOptions(
+                        width: 136.0,
+                        height: 48.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .fontStyle,
+                                  ),
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
                                   fontWeight: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .fontWeight,
@@ -502,20 +511,12 @@ class _CurrencyDenominationWidgetState
                                       .titleSmall
                                       .fontStyle,
                                 ),
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .fontStyle,
-                              ),
-                      elevation: 0.0,
-                      borderRadius: BorderRadius.circular(8.0),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
                     ),
-                  ),
-                ].divide(SizedBox(height: 12.0)),
+                  ].divide(SizedBox(height: 12.0)),
+                ),
               ),
             ),
           ),

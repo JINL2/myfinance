@@ -74,26 +74,36 @@ class _CashLocationComponentWidgetState
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-1.0, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 12.0, 0.0, 12.0),
-                          child: Text(
-                            valueOrDefault<String>(
-                              widget.cashLocationData?.locationName,
-                              'Error',
-                            ),
-                            maxLines: 1,
-                            style: FlutterFlowTheme.of(context)
-                                .titleMedium
-                                .override(
-                                  font: GoogleFonts.notoSansJp(
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-1.0, 0.0),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 12.0, 0.0, 12.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                widget.cashLocationData?.locationName,
+                                'Error',
+                              ),
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
+                                  .titleMedium
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .fontStyle,
+                                    ),
+                                    letterSpacing: 0.0,
                                     fontWeight: FlutterFlowTheme.of(context)
                                         .titleMedium
                                         .fontWeight,
@@ -101,18 +111,11 @@ class _CashLocationComponentWidgetState
                                         .titleMedium
                                         .fontStyle,
                                   ),
-                                  letterSpacing: 0.0,
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .titleMedium
-                                      .fontStyle,
-                                ),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -135,8 +138,11 @@ class _CashLocationComponentWidgetState
                         builder: (context) {
                           return Padding(
                             padding: MediaQuery.viewInsetsOf(context),
-                            child: UpdateCashLocationWidget(
-                              cashLocationInfo: widget.cashLocationData!,
+                            child: Container(
+                              height: MediaQuery.sizeOf(context).height * 0.8,
+                              child: UpdateCashLocationWidget(
+                                cashLocationInfo: widget.cashLocationData!,
+                              ),
                             ),
                           );
                         },

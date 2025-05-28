@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_getters_setters
 
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -14,13 +13,19 @@ class ShiftStatusStruct extends BaseStruct {
     String? shiftRequestId,
     bool? isApproved,
     String? storeId,
+    int? totalOtherStaffs,
+
+    /// other_staffs
+    List<OtherStaffsStruct>? otherStaffs,
   })  : _shiftId = shiftId,
         _requestDate = requestDate,
         _totalRegistered = totalRegistered,
         _isRegisteredByMe = isRegisteredByMe,
         _shiftRequestId = shiftRequestId,
         _isApproved = isApproved,
-        _storeId = storeId;
+        _storeId = storeId,
+        _totalOtherStaffs = totalOtherStaffs,
+        _otherStaffs = otherStaffs;
 
   // "shift_id" field.
   String? _shiftId;
@@ -74,6 +79,27 @@ class ShiftStatusStruct extends BaseStruct {
 
   bool hasStoreId() => _storeId != null;
 
+  // "total_other_staffs" field.
+  int? _totalOtherStaffs;
+  int get totalOtherStaffs => _totalOtherStaffs ?? 0;
+  set totalOtherStaffs(int? val) => _totalOtherStaffs = val;
+
+  void incrementTotalOtherStaffs(int amount) =>
+      totalOtherStaffs = totalOtherStaffs + amount;
+
+  bool hasTotalOtherStaffs() => _totalOtherStaffs != null;
+
+  // "other_staffs" field.
+  List<OtherStaffsStruct>? _otherStaffs;
+  List<OtherStaffsStruct> get otherStaffs => _otherStaffs ?? const [];
+  set otherStaffs(List<OtherStaffsStruct>? val) => _otherStaffs = val;
+
+  void updateOtherStaffs(Function(List<OtherStaffsStruct>) updateFn) {
+    updateFn(_otherStaffs ??= []);
+  }
+
+  bool hasOtherStaffs() => _otherStaffs != null;
+
   static ShiftStatusStruct fromMap(Map<String, dynamic> data) =>
       ShiftStatusStruct(
         shiftId: data['shift_id'] as String?,
@@ -83,6 +109,11 @@ class ShiftStatusStruct extends BaseStruct {
         shiftRequestId: data['shift_request_id'] as String?,
         isApproved: data['is_approved'] as bool?,
         storeId: data['store_id'] as String?,
+        totalOtherStaffs: castToType<int>(data['total_other_staffs']),
+        otherStaffs: getStructList(
+          data['other_staffs'],
+          OtherStaffsStruct.fromMap,
+        ),
       );
 
   static ShiftStatusStruct? maybeFromMap(dynamic data) => data is Map
@@ -97,6 +128,8 @@ class ShiftStatusStruct extends BaseStruct {
         'shift_request_id': _shiftRequestId,
         'is_approved': _isApproved,
         'store_id': _storeId,
+        'total_other_staffs': _totalOtherStaffs,
+        'other_staffs': _otherStaffs?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -128,6 +161,15 @@ class ShiftStatusStruct extends BaseStruct {
         'store_id': serializeParam(
           _storeId,
           ParamType.String,
+        ),
+        'total_other_staffs': serializeParam(
+          _totalOtherStaffs,
+          ParamType.int,
+        ),
+        'other_staffs': serializeParam(
+          _otherStaffs,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -168,6 +210,17 @@ class ShiftStatusStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        totalOtherStaffs: deserializeParam(
+          data['total_other_staffs'],
+          ParamType.int,
+          false,
+        ),
+        otherStaffs: deserializeStructParam<OtherStaffsStruct>(
+          data['other_staffs'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: OtherStaffsStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -175,6 +228,7 @@ class ShiftStatusStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is ShiftStatusStruct &&
         shiftId == other.shiftId &&
         requestDate == other.requestDate &&
@@ -182,7 +236,9 @@ class ShiftStatusStruct extends BaseStruct {
         isRegisteredByMe == other.isRegisteredByMe &&
         shiftRequestId == other.shiftRequestId &&
         isApproved == other.isApproved &&
-        storeId == other.storeId;
+        storeId == other.storeId &&
+        totalOtherStaffs == other.totalOtherStaffs &&
+        listEquality.equals(otherStaffs, other.otherStaffs);
   }
 
   @override
@@ -193,7 +249,9 @@ class ShiftStatusStruct extends BaseStruct {
         isRegisteredByMe,
         shiftRequestId,
         isApproved,
-        storeId
+        storeId,
+        totalOtherStaffs,
+        otherStaffs
       ]);
 }
 
@@ -205,6 +263,7 @@ ShiftStatusStruct createShiftStatusStruct({
   String? shiftRequestId,
   bool? isApproved,
   String? storeId,
+  int? totalOtherStaffs,
 }) =>
     ShiftStatusStruct(
       shiftId: shiftId,
@@ -214,4 +273,5 @@ ShiftStatusStruct createShiftStatusStruct({
       shiftRequestId: shiftRequestId,
       isApproved: isApproved,
       storeId: storeId,
+      totalOtherStaffs: totalOtherStaffs,
     );

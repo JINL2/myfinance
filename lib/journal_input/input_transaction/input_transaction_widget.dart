@@ -27,6 +27,7 @@ class InputTransactionWidget extends StatefulWidget {
     this.isCash,
     this.countercompanyId,
     this.isInternal,
+    this.storeId,
   }) : this.debtOrCredit = debtOrCredit ?? true;
 
   final Future Function(TransactionDetailStruct transactionDetail)?
@@ -42,6 +43,7 @@ class InputTransactionWidget extends StatefulWidget {
   final Future Function(bool? isCash)? isCash;
   final Future Function(String? countercompanyId)? countercompanyId;
   final Future Function(bool isInternal)? isInternal;
+  final String? storeId;
 
   @override
   State<InputTransactionWidget> createState() => _InputTransactionWidgetState();
@@ -108,7 +110,7 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
               borderRadius: BorderRadius.circular(12.0),
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 40.0),
               child: SingleChildScrollView(
                 primary: false,
                 child: Column(
@@ -846,11 +848,21 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                       options: List<
                                                               String>.from(
                                                           cashlocatioCashLocationsRowList
+                                                              .where((e) =>
+                                                                  e.storeId ==
+                                                                  widget
+                                                                      .storeId)
+                                                              .toList()
                                                               .map((e) => e
                                                                   .cashLocationId)
                                                               .toList()),
                                                       optionLabels:
                                                           cashlocatioCashLocationsRowList
+                                                              .where((e) =>
+                                                                  e.storeId ==
+                                                                  widget
+                                                                      .storeId)
+                                                              .toList()
                                                               .map((e) => e
                                                                   .locationName)
                                                               .toList(),

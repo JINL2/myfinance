@@ -15,6 +15,7 @@ export 'features_struct.dart';
 export 'finance_account_struct.dart';
 export 'fix_asset_struct.dart';
 export 'manager_shift_detail_struct.dart';
+export 'other_staffs_struct.dart';
 export 'pending_employees_struct.dart';
 export 'role_struct.dart';
 export 'shift_meta_data_struct.dart';

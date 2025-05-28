@@ -63,7 +63,7 @@ class _CashAmountInputWidgetState extends State<CashAmountInputWidget> {
             color: FlutterFlowTheme.of(context).primaryBackground,
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 20.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 40.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -146,7 +146,8 @@ class _CashAmountInputWidgetState extends State<CashAmountInputWidget> {
                     },
                     text: 'Confirm',
                     options: FFButtonOptions(
-                      height: 40.0,
+                      width: 136.0,
+                      height: 58.0,
                       padding:
                           EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
                       iconPadding:
