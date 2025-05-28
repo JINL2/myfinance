@@ -23,6 +23,8 @@ class BankVaultEndingModel extends FlutterFlowModel<BankVaultEndingWidget> {
           int index, Function(CurrenciesStruct) updateFn) =>
       currencies[index] = updateFn(currencies[index]);
 
+  bool yesterdayCheck = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in bankVaultEnding widget.
