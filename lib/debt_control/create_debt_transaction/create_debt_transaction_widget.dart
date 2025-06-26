@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -2066,6 +2065,7 @@ class _CreateDebtTransactionWidgetState
                           builder: (alertDialogContext) {
                             return AlertDialog(
                               title: Text('Success'),
+                              content: Text('SuengBin'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
@@ -2076,8 +2076,7 @@ class _CreateDebtTransactionWidgetState
                             );
                           },
                         );
-
-                        context.goNamed(DebtControlWidget.routeName);
+                        Navigator.pop(context);
                       } else {
                         await showDialog(
                           context: context,

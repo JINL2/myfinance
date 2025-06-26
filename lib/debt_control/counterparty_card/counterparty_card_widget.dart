@@ -380,6 +380,7 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
 
                                     return ListView.separated(
                                       padding: EdgeInsets.zero,
+                                      primary: false,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: headquarters.length,
@@ -541,6 +542,7 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
 
                                     return ListView.separated(
                                       padding: EdgeInsets.zero,
+                                      primary: false,
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
                                       itemCount: stores.length,
