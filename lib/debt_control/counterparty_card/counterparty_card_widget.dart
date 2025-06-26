@@ -222,11 +222,41 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                   .fontStyle,
                             ),
                       ),
+                      Text(
+                        getJsonField(
+                          widget.counterpartyCard,
+                          r'''$.net_balance''',
+                        ).toString(),
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.notoSansJp(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              letterSpacing: 0.0,
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                      ),
                     ].divide(SizedBox(height: 4.0)),
                   ),
                 ),
                 Text(
-                  '999999',
+                  formatNumber(
+                    functions.jsonToDouble(getJsonField(
+                      widget.counterpartyCard,
+                      r'''$.net_balance''',
+                    )),
+                    formatType: FormatType.decimal,
+                    decimalType: DecimalType.periodDecimal,
+                  ),
                   style: FlutterFlowTheme.of(context).titleMedium.override(
                         font: GoogleFonts.notoSansJp(
                           fontWeight: FontWeight.w600,
@@ -234,11 +264,11 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                               .titleMedium
                               .fontStyle,
                         ),
-                        color: functions.changeStringToInt(getJsonField(
+                        color: functions.jsonToDouble(getJsonField(
                                   widget.counterpartyCard,
                                   r'''$.net_balance''',
-                                ).toString()) >=
-                                0
+                                )) >=
+                                0.0
                             ? FlutterFlowTheme.of(context).primary
                             : FlutterFlowTheme.of(context).tertiary,
                         fontSize: 16.0,
