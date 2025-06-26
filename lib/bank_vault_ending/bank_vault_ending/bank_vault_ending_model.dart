@@ -25,6 +25,21 @@ class BankVaultEndingModel extends FlutterFlowModel<BankVaultEndingWidget> {
 
   bool yesterdayCheck = false;
 
+  List<VaultAmountLineStruct> valutAmountLine = [];
+  void addToValutAmountLine(VaultAmountLineStruct item) =>
+      valutAmountLine.add(item);
+  void removeFromValutAmountLine(VaultAmountLineStruct item) =>
+      valutAmountLine.remove(item);
+  void removeAtIndexFromValutAmountLine(int index) =>
+      valutAmountLine.removeAt(index);
+  void insertAtIndexInValutAmountLine(int index, VaultAmountLineStruct item) =>
+      valutAmountLine.insert(index, item);
+  void updateValutAmountLineAtIndex(
+          int index, Function(VaultAmountLineStruct) updateFn) =>
+      valutAmountLine[index] = updateFn(valutAmountLine[index]);
+
+  bool? callback = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in bankVaultEnding widget.
@@ -34,29 +49,30 @@ class BankVaultEndingModel extends FlutterFlowModel<BankVaultEndingWidget> {
   // Stores action output result for [Backend Call - Query Rows] action in bankVaultEnding widget.
   List<CompanyCurrencyRow>? oPLCompanyCurrency;
   // Stores action output result for [Backend Call - Query Rows] action in bankVaultEnding widget.
-  List<CurrencyDenominationsRow>? oPLCurrencyDenomination;
+  List<VBankAmountRow>? oPLBankAmount;
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
   // State field(s) for cashlocationDropDown widget.
   String? cashlocationDropDownValue;
   FormFieldController<String>? cashlocationDropDownValueController;
-  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
-  ApiCallResponse? apiResultla7;
-  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
-  ApiCallResponse? apiResultggc;
-  // Stores action output result for [Backend Call - API (deleteCashAmountLine)] action in Button widget.
-  ApiCallResponse? apiResult6mc;
-  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
-  ApiCallResponse? apiResult3ck;
-  // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
-  ApiCallResponse? apiResultpqu;
-  // State field(s) for currencyDropDown widget.
-  String? currencyDropDownValue;
-  FormFieldController<String>? currencyDropDownValueController;
+  // State field(s) for currencyDropdownVault widget.
+  String? currencyDropdownVaultValue;
+  FormFieldController<String>? currencyDropdownVaultValueController;
+  // State field(s) for debitcredit widget.
+  bool? debitcreditValue;
+  // Stores action output result for [Backend Call - API (vaultAmountInsert)] action in Button widget.
+  ApiCallResponse? debitAPI;
+  // Stores action output result for [Backend Call - API (vaultAmountInsert)] action in Button widget.
+  ApiCallResponse? creditAPI;
+  // State field(s) for currencyDropDownBank widget.
+  String? currencyDropDownBankValue;
+  FormFieldController<String>? currencyDropDownBankValueController;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - API (bankAmountInsert)] action in Button widget.
+  ApiCallResponse? bankamountAPI;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

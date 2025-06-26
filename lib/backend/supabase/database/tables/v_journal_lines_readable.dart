@@ -46,4 +46,13 @@ class VJournalLinesReadableRow extends SupabaseDataRow {
 
   String? get journalType => getField<String>('journal_type');
   set journalType(String? value) => setField<String>('journal_type', value);
+
+  String? get journalId => getField<String>('journal_id');
+  set journalId(String? value) => setField<String>('journal_id', value);
+
+  String? get lineId => getField<String>('line_id');
+  set lineId(String? value) => setField<String>('line_id', value);
+
+  String? get fullName => getField<String>('full_name');
+  set fullName(String? value) => setField<String>('full_name', value);
 }

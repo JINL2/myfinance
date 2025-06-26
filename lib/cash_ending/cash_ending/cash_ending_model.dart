@@ -70,6 +70,10 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
 
   String? selectedCashierLocation;
 
+  bool yesterdayCheck = false;
+
+  dynamic currecyCheck;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
@@ -80,10 +84,6 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
   List<CompanyCurrencyRow>? getCompanyCurrency;
   // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
   List<CurrencyDenominationsRow>? currencyDenomination;
-  // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
-  List<CashierAmountLinesRow>? cashierAmountLinestore;
-  // Stores action output result for [Backend Call - Query Rows] action in cashEnding widget.
-  List<CashierAmountLinesRow>? cashierAmountLineCompnay;
   // Model for menuBar component.
   late MenuBarModel menuBarModel;
   // State field(s) for cashlocationDropDown widget.
@@ -97,6 +97,13 @@ class CashEndingModel extends FlutterFlowModel<CashEndingWidget> {
   ApiCallResponse? apiResultja0;
   // Stores action output result for [Backend Call - API (insertCashLine)] action in Button widget.
   ApiCallResponse? apiResult9hl;
+  // State field(s) for FilterDropDown widget.
+  String? filterDropDownValue;
+  FormFieldController<String>? filterDropDownValueController;
+  // Stores action output result for [Backend Call - API (getlatestcashieramountlines)] action in FilterDropDown widget.
+  ApiCallResponse? calltoday;
+  // Stores action output result for [Backend Call - API (getlatestcashieramountlines)] action in FilterDropDown widget.
+  ApiCallResponse? callyesterday;
   // Model for isloading component.
   late IsloadingModel isloadingModel;
 

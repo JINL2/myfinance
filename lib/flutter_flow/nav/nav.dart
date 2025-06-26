@@ -87,79 +87,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? HomepageWidget() : Auth1Widget(),
         ),
         FFRoute(
-          name: Auth1Widget.routeName,
-          path: Auth1Widget.routePath,
-          builder: (context, params) => Auth1Widget(),
-        ),
-        FFRoute(
-          name: UserProfileInputWidget.routeName,
-          path: UserProfileInputWidget.routePath,
-          builder: (context, params) => UserProfileInputWidget(),
-        ),
-        FFRoute(
-          name: StoreShiftSettingWidget.routeName,
-          path: StoreShiftSettingWidget.routePath,
-          builder: (context, params) => StoreShiftSettingWidget(),
-        ),
-        FFRoute(
-          name: DelegateRolePageWidget.routeName,
-          path: DelegateRolePageWidget.routePath,
-          builder: (context, params) => DelegateRolePageWidget(),
-        ),
-        FFRoute(
-          name: EmployeeSettingWidget.routeName,
-          path: EmployeeSettingWidget.routePath,
-          builder: (context, params) => EmployeeSettingWidget(),
-        ),
-        FFRoute(
-          name: MyPageWidget.routeName,
-          path: MyPageWidget.routePath,
-          builder: (context, params) => MyPageWidget(),
-        ),
-        FFRoute(
-          name: RegisterCounterpartyWidget.routeName,
-          path: RegisterCounterpartyWidget.routePath,
-          builder: (context, params) => RegisterCounterpartyWidget(),
-        ),
-        FFRoute(
-          name: AddFixAssetWidget.routeName,
-          path: AddFixAssetWidget.routePath,
-          builder: (context, params) => AddFixAssetWidget(),
-        ),
-        FFRoute(
-          name: ChooseCompanyWidget.routeName,
-          path: ChooseCompanyWidget.routePath,
-          builder: (context, params) => ChooseCompanyWidget(),
-        ),
-        FFRoute(
-          name: TimeTableUserWidget.routeName,
-          path: TimeTableUserWidget.routePath,
-          builder: (context, params) => TimeTableUserWidget(),
-        ),
-        FFRoute(
           name: CashBalanceWidget.routeName,
           path: CashBalanceWidget.routePath,
           builder: (context, params) => CashBalanceWidget(),
         ),
         FFRoute(
-          name: CashLocationWidget.routeName,
-          path: CashLocationWidget.routePath,
-          builder: (context, params) => CashLocationWidget(),
-        ),
-        FFRoute(
-          name: CashControlWidget.routeName,
-          path: CashControlWidget.routePath,
-          builder: (context, params) => CashControlWidget(),
-        ),
-        FFRoute(
-          name: AccountMappingWidget.routeName,
-          path: AccountMappingWidget.routePath,
-          builder: (context, params) => AccountMappingWidget(),
-        ),
-        FFRoute(
-          name: RolePermissionPageWidget.routeName,
-          path: RolePermissionPageWidget.routePath,
-          builder: (context, params) => RolePermissionPageWidget(),
+          name: BankVaultEndingWidget.routeName,
+          path: BankVaultEndingWidget.routePath,
+          builder: (context, params) => BankVaultEndingWidget(),
         ),
         FFRoute(
           name: HomepageWidget.routeName,
@@ -180,9 +115,109 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
+          name: StoreShiftSettingWidget.routeName,
+          path: StoreShiftSettingWidget.routePath,
+          builder: (context, params) => StoreShiftSettingWidget(),
+        ),
+        FFRoute(
+          name: TransactionHistoryWidget.routeName,
+          path: TransactionHistoryWidget.routePath,
+          builder: (context, params) => TransactionHistoryWidget(),
+        ),
+        FFRoute(
+          name: ResetPasswordWidget.routeName,
+          path: ResetPasswordWidget.routePath,
+          builder: (context, params) => ResetPasswordWidget(),
+        ),
+        FFRoute(
+          name: NewpasswordWidget.routeName,
+          path: NewpasswordWidget.routePath,
+          builder: (context, params) => NewpasswordWidget(),
+        ),
+        FFRoute(
+          name: UserProfileInputWidget.routeName,
+          path: UserProfileInputWidget.routePath,
+          builder: (context, params) => UserProfileInputWidget(),
+        ),
+        FFRoute(
+          name: CashLocationWidget.routeName,
+          path: CashLocationWidget.routePath,
+          builder: (context, params) => CashLocationWidget(),
+        ),
+        FFRoute(
+          name: AccountMappingWidget.routeName,
+          path: AccountMappingWidget.routePath,
+          builder: (context, params) => AccountMappingWidget(),
+        ),
+        FFRoute(
+          name: Auth1Widget.routeName,
+          path: Auth1Widget.routePath,
+          builder: (context, params) => Auth1Widget(),
+        ),
+        FFRoute(
+          name: TransactionTemplateWidget.routeName,
+          path: TransactionTemplateWidget.routePath,
+          builder: (context, params) => TransactionTemplateWidget(),
+        ),
+        FFRoute(
+          name: CashControlWidget.routeName,
+          path: CashControlWidget.routePath,
+          builder: (context, params) => CashControlWidget(),
+        ),
+        FFRoute(
+          name: AddFixAssetWidget.routeName,
+          path: AddFixAssetWidget.routePath,
+          builder: (context, params) => AddFixAssetWidget(),
+        ),
+        FFRoute(
+          name: TimeTableUserWidget.routeName,
+          path: TimeTableUserWidget.routePath,
+          builder: (context, params) => TimeTableUserWidget(),
+        ),
+        FFRoute(
+          name: MyPageWidget.routeName,
+          path: MyPageWidget.routePath,
+          builder: (context, params) => MyPageWidget(),
+        ),
+        FFRoute(
+          name: RegisterCounterpartyWidget.routeName,
+          path: RegisterCounterpartyWidget.routePath,
+          builder: (context, params) => RegisterCounterpartyWidget(),
+        ),
+        FFRoute(
+          name: RolePermissionPageWidget.routeName,
+          path: RolePermissionPageWidget.routePath,
+          builder: (context, params) => RolePermissionPageWidget(),
+        ),
+        FFRoute(
+          name: DelegateRolePageWidget.routeName,
+          path: DelegateRolePageWidget.routePath,
+          builder: (context, params) => DelegateRolePageWidget(),
+        ),
+        FFRoute(
           name: AttendanceWidget.routeName,
           path: AttendanceWidget.routePath,
           builder: (context, params) => AttendanceWidget(),
+        ),
+        FFRoute(
+          name: RegisterDenominationWidget.routeName,
+          path: RegisterDenominationWidget.routePath,
+          builder: (context, params) => RegisterDenominationWidget(),
+        ),
+        FFRoute(
+          name: EmployeeSettingWidget.routeName,
+          path: EmployeeSettingWidget.routePath,
+          builder: (context, params) => EmployeeSettingWidget(),
+        ),
+        FFRoute(
+          name: IncomeStatementWidget.routeName,
+          path: IncomeStatementWidget.routePath,
+          builder: (context, params) => IncomeStatementWidget(),
+        ),
+        FFRoute(
+          name: ChooseCompanyWidget.routeName,
+          path: ChooseCompanyWidget.routePath,
+          builder: (context, params) => ChooseCompanyWidget(),
         ),
         FFRoute(
           name: TimetableManageWidget.routeName,
@@ -195,9 +230,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => JournalInputWidget(),
         ),
         FFRoute(
-          name: RegisterDenominationWidget.routeName,
-          path: RegisterDenominationWidget.routePath,
-          builder: (context, params) => RegisterDenominationWidget(),
+          name: BalanceSheetWidget.routeName,
+          path: BalanceSheetWidget.routePath,
+          builder: (context, params) => BalanceSheetWidget(),
+        ),
+        FFRoute(
+          name: TestWidget.routeName,
+          path: TestWidget.routePath,
+          builder: (context, params) => TestWidget(),
         ),
         FFRoute(
           name: CashEndingWidget.routeName,
@@ -205,29 +245,34 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CashEndingWidget(),
         ),
         FFRoute(
-          name: TransactionTemplateWidget.routeName,
-          path: TransactionTemplateWidget.routePath,
-          builder: (context, params) => TransactionTemplateWidget(),
+          name: DebtControlWidget.routeName,
+          path: DebtControlWidget.routePath,
+          builder: (context, params) => DebtControlWidget(),
         ),
         FFRoute(
-          name: BalanceSheetWidget.routeName,
-          path: BalanceSheetWidget.routePath,
-          builder: (context, params) => BalanceSheetWidget(),
+          name: EmployeeWidget.routeName,
+          path: EmployeeWidget.routePath,
+          builder: (context, params) => EmployeeWidget(),
         ),
         FFRoute(
-          name: IncomeStatementWidget.routeName,
-          path: IncomeStatementWidget.routePath,
-          builder: (context, params) => IncomeStatementWidget(),
+          name: CashLocation1Widget.routeName,
+          path: CashLocation1Widget.routePath,
+          builder: (context, params) => CashLocation1Widget(),
         ),
         FFRoute(
-          name: BankVaultEndingWidget.routeName,
-          path: BankVaultEndingWidget.routePath,
-          builder: (context, params) => BankVaultEndingWidget(),
+          name: ManagerPageTestWidget.routeName,
+          path: ManagerPageTestWidget.routePath,
+          builder: (context, params) => ManagerPageTestWidget(),
         ),
         FFRoute(
-          name: TestWidget.routeName,
-          path: TestWidget.routePath,
-          builder: (context, params) => TestWidget(),
+          name: TimeTableUsertestWidget.routeName,
+          path: TimeTableUsertestWidget.routePath,
+          builder: (context, params) => TimeTableUsertestWidget(),
+        ),
+        FFRoute(
+          name: TimetableManagetestWidget.routeName,
+          path: TimetableManagetestWidget.routePath,
+          builder: (context, params) => TimetableManagetestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

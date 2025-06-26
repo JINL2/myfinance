@@ -1308,16 +1308,25 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                     _model.isinternalValue =
                                                         newValue!);
                                               },
-                                              side: BorderSide(
-                                                width: 2,
-                                                color: _model.isInternal!
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .alternate,
-                                              ),
+                                              side: ((_model.isInternal!
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate) !=
+                                                      null)
+                                                  ? BorderSide(
+                                                      width: 2,
+                                                      color: (_model.isInternal!
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate),
+                                                    )
+                                                  : null,
                                               activeColor: _model.isInternal!
                                                   ? FlutterFlowTheme.of(context)
                                                       .primary
@@ -1390,16 +1399,26 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
                                                       _model.checkboxValue =
                                                           newValue!);
                                                 },
-                                                side: BorderSide(
-                                                  width: 2,
-                                                  color: _model.isAccountMap!
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .alternate,
-                                                ),
+                                                side: ((_model.isAccountMap!
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate) !=
+                                                        null)
+                                                    ? BorderSide(
+                                                        width: 2,
+                                                        color: (_model
+                                                                .isAccountMap!
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary
+                                                            : FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate),
+                                                      )
+                                                    : null,
                                                 activeColor:
                                                     _model.isAccountMap!
                                                         ? FlutterFlowTheme.of(

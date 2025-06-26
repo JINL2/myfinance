@@ -83,7 +83,7 @@ class _AddWidgetState extends State<AddWidget> {
                               .labelMedium
                               .fontStyle,
                         ),
-                        color: FlutterFlowTheme.of(context).info,
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                         letterSpacing: 0.0,
                         fontWeight:
                             FlutterFlowTheme.of(context).labelMedium.fontWeight,

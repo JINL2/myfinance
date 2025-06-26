@@ -854,6 +854,71 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
                   ),
                 ),
               ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    if (FFAppState().isLoading2 == false) {
+                      FFAppState().isLoading2 = true;
+                      safeSetState(() {});
+                      await CounterpartiesTable().delete(
+                        matchingRows: (rows) => rows.eqOrNull(
+                          'counterparty_id',
+                          widget.counterpartyInfo?.counterpartyId,
+                        ),
+                      );
+                      await showDialog(
+                        context: context,
+                        builder: (alertDialogContext) {
+                          return AlertDialog(
+                            title: Text('success'),
+                            content: Text('delete Counterparty'),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(alertDialogContext),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                      FFAppState().isLoading2 = false;
+                      safeSetState(() {});
+                      Navigator.pop(context);
+                    }
+                  },
+                  text: 'Delete Counterparty',
+                  options: FFButtonOptions(
+                    width: double.infinity,
+                    height: 48.0,
+                    padding: EdgeInsets.all(8.0),
+                    iconPadding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: Color(0xFF4A90E2),
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          font: GoogleFonts.notoSansJp(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .fontStyle,
+                          ),
+                          color: Colors.white,
+                          fontSize: 16.0,
+                          letterSpacing: 0.0,
+                          fontWeight: FontWeight.bold,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).titleSmall.fontStyle,
+                        ),
+                    elevation: 0.0,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+              ),
             ].divide(SizedBox(height: 16.0)),
           ),
         ),

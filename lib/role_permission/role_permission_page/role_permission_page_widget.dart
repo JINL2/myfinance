@@ -256,7 +256,7 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                                       listViewViewRolesWithPermissionsRowList[
                                           listViewIndex];
                                   return wrapWithModel(
-                                    model: _model.rolePermissioComponentModels
+                                    model: _model.debtControlComponentModels
                                         .getModel(
                                       listViewViewRolesWithPermissionsRow
                                           .roleId!,

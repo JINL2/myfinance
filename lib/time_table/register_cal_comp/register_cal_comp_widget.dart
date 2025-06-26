@@ -14,7 +14,7 @@ export 'register_cal_comp_model.dart';
 class RegisterCalCompWidget extends StatefulWidget {
   const RegisterCalCompWidget({
     super.key,
-    required this.inputDateComPara,
+    this.inputDateComPara,
     this.onSelectDateAction,
     this.initialSelectedDate,
   });
@@ -213,7 +213,7 @@ class _RegisterCalCompWidgetState extends State<RegisterCalCompWidget> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 7,
                       crossAxisSpacing: 2.0,
-                      mainAxisSpacing: 2.0,
+                      mainAxisSpacing: 4.0,
                       childAspectRatio: 1.0,
                     ),
                     primary: false,

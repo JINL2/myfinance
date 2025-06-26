@@ -7,16 +7,16 @@ import 'package:flutter/material.dart';
 class EditProfileImageModel extends FlutterFlowModel<EditProfileImageWidget> {
   ///  State fields for stateful widgets in this component.
 
-  bool isDataUploading1 = false;
-  FFUploadedFile uploadedLocalFile1 =
+  bool isDataUploading_localimage = false;
+  FFUploadedFile uploadedLocalFile_localimage =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
   // Model for add_button component.
   late AddButtonModel addButtonModel;
-  bool isDataUploading2 = false;
-  FFUploadedFile uploadedLocalFile2 =
+  bool isDataUploading_uploaded = false;
+  FFUploadedFile uploadedLocalFile_uploaded =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-  String uploadedFileUrl2 = '';
+  String uploadedFileUrl_uploaded = '';
 
   // Model for isloading component.
   late IsloadingModel isloadingModel;

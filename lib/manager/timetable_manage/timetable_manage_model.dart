@@ -73,16 +73,16 @@ class TimetableManageModel extends FlutterFlowModel<TimetableManageWidget> {
   ApiCallResponse? changeSupaBaseApprove1;
   // Stores action output result for [Custom Action - changeManagerShiftList] action in Button widget.
   List<ManagerShiftDetailStruct>? newShiftDetail1;
-  // State field(s) for filterStore widget.
-  String? filterStoreValue;
-  FormFieldController<String>? filterStoreValueController;
-  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in filterStore widget.
+  // State field(s) for filterStore22 widget.
+  String? filterStore22Value;
+  FormFieldController<String>? filterStore22ValueController;
+  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in filterStore22 widget.
   ApiCallResponse? meta11;
-  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in filterStore widget.
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in filterStore22 widget.
   List<ShiftMetaDataStruct>? meta12;
-  // Stores action output result for [Backend Call - API (GetManagerShift)] action in filterStore widget.
+  // Stores action output result for [Backend Call - API (GetManagerShift)] action in filterStore22 widget.
   ApiCallResponse? manager11;
-  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesManagerShift] action in filterStore widget.
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesManagerShift] action in filterStore22 widget.
   List<ManagerShiftDetailStruct>? manager12;
   // State field(s) for oKSwitch widget.
   bool? oKSwitchValue;

@@ -163,6 +163,7 @@ class _ShiftDetailWidgetState extends State<ShiftDetailWidget> {
 
                         return ListView.separated(
                           padding: EdgeInsets.zero,
+                          primary: false,
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: approved.length,
@@ -253,7 +254,7 @@ class _ShiftDetailWidgetState extends State<ShiftDetailWidget> {
                                                 false) {
                                               FFAppState().isLoading1 = true;
                                               safeSetState(() {});
-                                              _model.query =
+                                              _model.vShiftRequest =
                                                   await VShiftRequestTable()
                                                       .queryRows(
                                                 queryFn: (q) => q.eqOrNull(
@@ -297,7 +298,8 @@ class _ShiftDetailWidgetState extends State<ShiftDetailWidget> {
                                                             widget
                                                                 .managerDetail,
                                                         supabaseCall: _model
-                                                            .query?.firstOrNull,
+                                                            .vShiftRequest
+                                                            ?.firstOrNull,
                                                       ),
                                                     ),
                                                   );

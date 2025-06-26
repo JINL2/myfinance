@@ -478,6 +478,8 @@ class _AccountMappingComponentWidgetState
                           builder: (alertDialogContext) {
                             return AlertDialog(
                               title: Text('finished'),
+                              content: Text((_model.insertapi?.jsonBody ?? '')
+                                  .toString()),
                               actions: [
                                 TextButton(
                                   onPressed: () =>

@@ -101,4 +101,31 @@ class ShiftRequestsRow extends SupabaseDataRow {
 
   double? get bonusAmount => getField<double>('bonus_amount');
   set bonusAmount(double? value) => setField<double>('bonus_amount', value);
+
+  DateTime? get confirmStartTime => getField<DateTime>('confirm_start_time');
+  set confirmStartTime(DateTime? value) =>
+      setField<DateTime>('confirm_start_time', value);
+
+  DateTime? get confirmEndTime => getField<DateTime>('confirm_end_time');
+  set confirmEndTime(DateTime? value) =>
+      setField<DateTime>('confirm_end_time', value);
+
+  String? get noticeTag => getField<String>('notice_tag');
+  set noticeTag(String? value) => setField<String>('notice_tag', value);
+
+  bool? get isReported => getField<bool>('is_reported');
+  set isReported(bool? value) => setField<bool>('is_reported', value);
+
+  DateTime? get reportTime => getField<DateTime>('report_time');
+  set reportTime(DateTime? value) => setField<DateTime>('report_time', value);
+
+  String? get problemType => getField<String>('problem_type');
+  set problemType(String? value) => setField<String>('problem_type', value);
+
+  bool? get isProblem => getField<bool>('is_problem');
+  set isProblem(bool? value) => setField<bool>('is_problem', value);
+
+  bool? get isProblemSolved => getField<bool>('is_problem_solved');
+  set isProblemSolved(bool? value) =>
+      setField<bool>('is_problem_solved', value);
 }

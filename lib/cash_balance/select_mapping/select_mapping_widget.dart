@@ -168,8 +168,7 @@ class _SelectMappingWidgetState extends State<SelectMappingWidget> {
                           .call(
                         pCompanyId: FFAppState().companyChoosen,
                         pStoreId: FFAppState().storeChoosen,
-                        pEntryDate:
-                            dateTimeFormat("yyyy-MM-dd", getCurrentTimestamp),
+                        pEntryDate: getCurrentTimestamp.toString(),
                         pBaseAmount: (widget.cashDifferences!).abs(),
                         pLinesJson: _model.transactionDetail
                             .map((e) => e.toMap())
@@ -277,8 +276,7 @@ class _SelectMappingWidgetState extends State<SelectMappingWidget> {
                           .call(
                         pCompanyId: FFAppState().companyChoosen,
                         pStoreId: FFAppState().storeChoosen,
-                        pEntryDate:
-                            dateTimeFormat("yyyy-MM-dd", getCurrentTimestamp),
+                        pEntryDate: getCurrentTimestamp.toString(),
                         pBaseAmount: (widget.cashDifferences!).abs(),
                         pLinesJson: _model.transactionDetail
                             .map((e) => e.toMap())

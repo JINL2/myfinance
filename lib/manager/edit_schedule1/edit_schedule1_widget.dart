@@ -3,7 +3,8 @@ import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/manager/delete_schedule_y_n/delete_schedule_y_n_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,8 +58,8 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
           dateTimeFormat("HH:mm", widget.supabaseCall?.actualStartTime);
       _model.realEndTime =
           dateTimeFormat("HH:mm", widget.supabaseCall?.actualEndTime);
-      _model.adjustedStartTime = widget.supabaseCall?.actualStartTime;
-      _model.adjustedEndTime = widget.supabaseCall?.actualEndTime;
+      _model.adjustedStartTime = widget.supabaseCall?.confirmStartTime;
+      _model.adjustedEndTime = widget.supabaseCall?.confirmEndTime;
       safeSetState(() {});
     });
 
@@ -469,20 +470,19 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                                 null &&
                                                             _model.realStartTime !=
                                                                 ''
-                                                        ? functions.combineSystimeWithMunite(
-                                                            FFAppState()
-                                                                .shiftMetaData
-                                                                .where((e) =>
-                                                                    _model
-                                                                        .shiftId ==
-                                                                    e.shiftId)
-                                                                .toList()
-                                                                .firstOrNull
-                                                                ?.startTime,
+                                                        ? dateTimeFormat(
+                                                            "HH:mm",
                                                             widget.supabaseCall
-                                                                ?.lateDeducutAmount
-                                                                ?.toString())
-                                                        : 'Not Attend Yet',
+                                                                ?.confirmStartTime)
+                                                        : (widget.supabaseCall
+                                                                    ?.confirmStartTime !=
+                                                                null
+                                                            ? dateTimeFormat(
+                                                                "HH:mm",
+                                                                widget
+                                                                    .supabaseCall
+                                                                    ?.confirmStartTime)
+                                                            : 'Not Finished Yet'),
                                                     'Not Attend Yet',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -792,20 +792,19 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                                 null &&
                                                             _model.realEndTime !=
                                                                 ''
-                                                        ? functions.combineSystimeWithMunite(
-                                                            FFAppState()
-                                                                .shiftMetaData
-                                                                .where((e) =>
-                                                                    _model
-                                                                        .shiftId ==
-                                                                    e.shiftId)
-                                                                .toList()
-                                                                .firstOrNull
-                                                                ?.endTime,
+                                                        ? dateTimeFormat(
+                                                            "HH:mm",
                                                             widget.supabaseCall
-                                                                ?.overtimeAmount
-                                                                ?.toString())
-                                                        : 'Not Finished Yet',
+                                                                ?.confirmEndTime)
+                                                        : (widget.supabaseCall
+                                                                    ?.confirmEndTime !=
+                                                                null
+                                                            ? dateTimeFormat(
+                                                                "HH:mm",
+                                                                widget
+                                                                    .supabaseCall
+                                                                    ?.confirmEndTime)
+                                                            : 'Not Finished Yet'),
                                                     'Not Finished Yet',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -1191,7 +1190,7 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                                 null &&
                                                             _model.realStartTime !=
                                                                 ''
-                                                        ? '${widget.supabaseCall?.checkinDistanceFromStore?.toString()}Far From Store'
+                                                        ? '${widget.supabaseCall?.checkinDistanceFromStore?.toString()}m Far'
                                                         : 'Not Started Yet',
                                                     '00m Far From Store',
                                                   ),
@@ -1294,7 +1293,7 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                                 null &&
                                                             _model.realEndTime !=
                                                                 ''
-                                                        ? '${widget.supabaseCall?.checkoutDistanceFromStore?.toString()}Far From Store'
+                                                        ? '${widget.supabaseCall?.checkoutDistanceFromStore?.toString()}m Far'
                                                         : 'Not Finished Yet',
                                                     '00m Far From Store',
                                                   ),
@@ -1741,7 +1740,7 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Adjusted Start Time',
+                                    'Confirm Start Time',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -1773,10 +1772,13 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                     children: [
                                       Text(
                                         valueOrDefault<String>(
-                                          _model.adjustedStartTime != null
+                                          _model.fixedStarttime != null
                                               ? dateTimeFormat("HH:mm",
-                                                  _model.adjustedStartTime)
-                                              : 'Set Time Please',
+                                                  _model.fixedStarttime)
+                                              : dateTimeFormat(
+                                                  "HH:mm",
+                                                  widget.supabaseCall
+                                                      ?.confirmStartTime),
                                           'Set Time Please',
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -1792,6 +1794,12 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                         .bodyLarge
                                                         .fontStyle,
                                               ),
+                                              color: _model.fixedStarttime !=
+                                                      null
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .tertiary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -1805,38 +1813,96 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                       ),
                                       FFButtonWidget(
                                         onPressed: () async {
-                                          final _datePicked1Time =
-                                              await showTimePicker(
-                                            context: context,
-                                            initialTime: TimeOfDay.fromDateTime(
-                                                getCurrentTimestamp),
-                                          );
-                                          if (_datePicked1Time != null) {
-                                            safeSetState(() {
-                                              _model.datePicked1 = DateTime(
-                                                getCurrentTimestamp.year,
-                                                getCurrentTimestamp.month,
-                                                getCurrentTimestamp.day,
-                                                _datePicked1Time.hour,
-                                                _datePicked1Time.minute,
-                                              );
-                                            });
-                                          } else if (_model.datePicked1 !=
-                                              null) {
-                                            safeSetState(() {
-                                              _model.datePicked1 =
-                                                  getCurrentTimestamp;
-                                            });
-                                          }
-                                          _model.adjustedStartTime =
+                                          await showModalBottomSheet<bool>(
+                                              context: context,
+                                              builder: (context) {
+                                                final _datePicked1CupertinoTheme =
+                                                    CupertinoTheme.of(context);
+                                                return Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      3,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  child: CupertinoTheme(
+                                                    data:
+                                                        _datePicked1CupertinoTheme
+                                                            .copyWith(
+                                                      textTheme:
+                                                          _datePicked1CupertinoTheme
+                                                              .textTheme
+                                                              .copyWith(
+                                                        dateTimePickerTextStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    child: CupertinoDatePicker(
+                                                      mode:
+                                                          CupertinoDatePickerMode
+                                                              .time,
+                                                      minimumDate:
+                                                          DateTime(1900),
+                                                      initialDateTime: (widget
+                                                              .supabaseCall
+                                                              ?.confirmStartTime ??
+                                                          DateTime.now()),
+                                                      maximumDate:
+                                                          DateTime(2050),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      use24hFormat: false,
+                                                      onDateTimeChanged:
+                                                          (newDateTime) =>
+                                                              safeSetState(() {
+                                                        _model.datePicked1 =
+                                                            newDateTime;
+                                                      }),
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                          _model.fixedStarttime =
                                               _model.datePicked1;
                                           safeSetState(() {});
                                         },
                                         text: 'Change',
                                         icon: Icon(
                                           Icons.access_time,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
                                           size: 15.0,
                                         ),
                                         options: FFButtonOptions(
@@ -1846,6 +1912,9 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                           iconPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
+                                          iconColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           textStyle: FlutterFlowTheme.of(
@@ -1900,7 +1969,7 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Adjusted End Time',
+                                    'Confirm End Time',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -1932,10 +2001,13 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                     children: [
                                       Text(
                                         valueOrDefault<String>(
-                                          _model.adjustedEndTime != null
-                                              ? dateTimeFormat("HH:mm",
-                                                  _model.adjustedEndTime)
-                                              : 'Set Time Please',
+                                          _model.fixedEndTime != null
+                                              ? dateTimeFormat(
+                                                  "HH:mm", _model.fixedEndTime)
+                                              : dateTimeFormat(
+                                                  "HH:mm",
+                                                  widget.supabaseCall
+                                                      ?.confirmEndTime),
                                           'Set Time Please',
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -1951,6 +2023,11 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                         .bodyLarge
                                                         .fontStyle,
                                               ),
+                                              color: _model.fixedEndTime != null
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .tertiary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primaryText,
                                               letterSpacing: 0.0,
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
@@ -1964,38 +2041,96 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                       ),
                                       FFButtonWidget(
                                         onPressed: () async {
-                                          final _datePicked2Time =
-                                              await showTimePicker(
-                                            context: context,
-                                            initialTime: TimeOfDay.fromDateTime(
-                                                getCurrentTimestamp),
-                                          );
-                                          if (_datePicked2Time != null) {
-                                            safeSetState(() {
-                                              _model.datePicked2 = DateTime(
-                                                getCurrentTimestamp.year,
-                                                getCurrentTimestamp.month,
-                                                getCurrentTimestamp.day,
-                                                _datePicked2Time.hour,
-                                                _datePicked2Time.minute,
-                                              );
-                                            });
-                                          } else if (_model.datePicked2 !=
-                                              null) {
-                                            safeSetState(() {
-                                              _model.datePicked2 =
-                                                  getCurrentTimestamp;
-                                            });
-                                          }
-                                          _model.adjustedEndTime =
+                                          await showModalBottomSheet<bool>(
+                                              context: context,
+                                              builder: (context) {
+                                                final _datePicked2CupertinoTheme =
+                                                    CupertinoTheme.of(context);
+                                                return Container(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height /
+                                                      3,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .width,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  child: CupertinoTheme(
+                                                    data:
+                                                        _datePicked2CupertinoTheme
+                                                            .copyWith(
+                                                      textTheme:
+                                                          _datePicked2CupertinoTheme
+                                                              .textTheme
+                                                              .copyWith(
+                                                        dateTimePickerTextStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    child: CupertinoDatePicker(
+                                                      mode:
+                                                          CupertinoDatePickerMode
+                                                              .time,
+                                                      minimumDate:
+                                                          DateTime(1900),
+                                                      initialDateTime: (widget
+                                                              .supabaseCall
+                                                              ?.confirmEndTime ??
+                                                          DateTime.now()),
+                                                      maximumDate:
+                                                          DateTime(2050),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryBackground,
+                                                      use24hFormat: false,
+                                                      onDateTimeChanged:
+                                                          (newDateTime) =>
+                                                              safeSetState(() {
+                                                        _model.datePicked2 =
+                                                            newDateTime;
+                                                      }),
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                          _model.fixedEndTime =
                                               _model.datePicked2;
                                           safeSetState(() {});
                                         },
                                         text: 'Change',
                                         icon: Icon(
                                           Icons.access_time,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
                                           size: 15.0,
                                         ),
                                         options: FFButtonOptions(
@@ -2005,6 +2140,9 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                           iconPadding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
+                                          iconColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           textStyle: FlutterFlowTheme.of(
@@ -2231,6 +2369,61 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                         children: [
                           FFButtonWidget(
                             onPressed: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              0.5,
+                                      child: DeleteScheduleYNWidget(
+                                        shiftrequestId: widget.shiftRequestId!,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+
+                              Navigator.pop(context);
+                            },
+                            text: 'Delete',
+                            options: FFButtonOptions(
+                              height: 40.0,
+                              padding: EdgeInsets.all(16.0),
+                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 0.0),
+                              color: FlutterFlowTheme.of(context).tertiary,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyLarge
+                                  .override(
+                                    font: GoogleFonts.notoSansJp(
+                                      fontWeight: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontWeight,
+                                      fontStyle: FlutterFlowTheme.of(context)
+                                          .bodyLarge
+                                          .fontStyle,
+                                    ),
+                                    color: FlutterFlowTheme.of(context).info,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .fontStyle,
+                                  ),
+                              elevation: 0.0,
+                              borderRadius: BorderRadius.circular(25.0),
+                            ),
+                          ),
+                          FFButtonWidget(
+                            onPressed: () async {
                               if (FFAppState().isLoading1 == false) {
                                 FFAppState().isLoading1 = true;
                                 safeSetState(() {});
@@ -2244,28 +2437,11 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                             .incentiveTextFieldTextController
                                             .text)
                                         : 0.0,
-                                    'late_deducut_amount': functions
-                                        .extratimeIntCalculator(
-                                            FFAppState()
-                                                .shiftMetaData
-                                                .where((e) =>
-                                                    _model.shiftId == e.shiftId)
-                                                .toList()
-                                                .firstOrNull
-                                                ?.startTime,
-                                            _model.adjustedStartTime)
-                                        ?.toDouble(),
-                                    'overtime_amount': functions
-                                        .extratimeIntCalculator(
-                                            FFAppState()
-                                                .shiftMetaData
-                                                .where((e) =>
-                                                    _model.shiftId == e.shiftId)
-                                                .toList()
-                                                .firstOrNull
-                                                ?.endTime,
-                                            _model.adjustedEndTime)
-                                        ?.toDouble(),
+                                    'confirm_start_time':
+                                        supaSerialize<DateTime>(
+                                            _model.fixedStarttime),
+                                    'confirm_end_time': supaSerialize<DateTime>(
+                                        _model.fixedEndTime),
                                   },
                                   matchingRows: (rows) => rows.eqOrNull(
                                     'shift_request_id',

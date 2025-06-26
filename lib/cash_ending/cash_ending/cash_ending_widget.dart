@@ -63,48 +63,6 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
           FFAppState().companyChoosen,
         ),
       );
-      if (FFAppState().storeChoosen != '') {
-        _model.cashierAmountLinestore =
-            await CashierAmountLinesTable().queryRows(
-          queryFn: (q) => q
-              .eqOrNull(
-                'company_id',
-                FFAppState().companyChoosen,
-              )
-              .eqOrNull(
-                'store_id',
-                FFAppState().storeChoosen,
-              )
-              .eqOrNull(
-                'record_date',
-                supaSerialize<DateTime>(getCurrentTimestamp),
-              ),
-        );
-        _model.cashAmountLine = _model.cashierAmountLinestore!
-            .toList()
-            .cast<CashierAmountLinesRow>();
-        safeSetState(() {});
-      } else {
-        _model.cashierAmountLineCompnay =
-            await CashierAmountLinesTable().queryRows(
-          queryFn: (q) => q
-              .eqOrNull(
-                'company_id',
-                FFAppState().companyChoosen,
-              )
-              .eqOrNull(
-                'record_date',
-                supaSerialize<DateTime>(getCurrentTimestamp),
-              ),
-        );
-        _model.cashAmountLine = _model.cashierAmountLineCompnay!
-            .where((e) => e.storeId == null || e.storeId == '')
-            .toList()
-            .toList()
-            .cast<CashierAmountLinesRow>();
-        safeSetState(() {});
-      }
-
       _model.companyCurrency =
           _model.getCompanyCurrency!.toList().cast<CompanyCurrencyRow>();
       _model.currencyDenomination1 = _model.currencyDenomination!
@@ -127,614 +85,705 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return FutureBuilder<List<CashierAmountLinesRow>>(
-      future: CashierAmountLinesTable().queryRows(
-        queryFn: (q) => q
-            .eqOrNull(
-              'company_id',
-              FFAppState().companyChoosen,
-            )
-            .eqOrNull(
-              'record_date',
-              supaSerialize<DateTime>(getCurrentTimestamp),
-            ),
-      ),
-      builder: (context, snapshot) {
-        // Customize what your widget looks like when it's loading.
-        if (!snapshot.hasData) {
-          return Scaffold(
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            body: Center(
-              child: SizedBox(
-                width: 80.0,
-                height: 80.0,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(
-                    FlutterFlowTheme.of(context).primary,
-                  ),
-                ),
-              ),
-            ),
-          );
-        }
-        List<CashierAmountLinesRow> cashEndingCashierAmountLinesRowList =
-            snapshot.data!;
-
-        return GestureDetector(
-          onTap: () {
-            FocusScope.of(context).unfocus();
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: Scaffold(
-            key: scaffoldKey,
-            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            body: SafeArea(
-              top: true,
-              child: Stack(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        body: SafeArea(
+          top: true,
+          child: Stack(
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      wrapWithModel(
-                        model: _model.menuBarModel,
-                        updateCallback: () => safeSetState(() {}),
-                        child: MenuBarWidget(
-                          menuName: 'Cash Ending',
-                        ),
+                  wrapWithModel(
+                    model: _model.menuBarModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: MenuBarWidget(
+                      menuName: 'Cash Ending',
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primaryBackground,
                       ),
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 12.0, 0.0),
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 20.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          'Choose Location',
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleMedium
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 0.0, 12.0, 0.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 0.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      'Choose Location',
+                                      style: FlutterFlowTheme.of(context)
+                                          .titleMedium
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
+                                              fontWeight:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .fontWeight,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .fontStyle,
+                                            ),
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
+                                    FutureBuilder<List<CashLocationsRow>>(
+                                      future: CashLocationsTable().queryRows(
+                                        queryFn: (q) => q
+                                            .eqOrNull(
+                                              'company_id',
+                                              FFAppState().companyChoosen,
+                                            )
+                                            .eqOrNull(
+                                              'location_type',
+                                              'cash',
+                                            ),
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 80.0,
+                                              height: 80.0,
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    AlwaysStoppedAnimation<
+                                                        Color>(
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<CashLocationsRow>
+                                            cashlocationDropDownCashLocationsRowList =
+                                            snapshot.data!;
+
+                                        return FlutterFlowDropDown<String>(
+                                          controller: _model
+                                                  .cashlocationDropDownValueController ??=
+                                              FormFieldController<String>(
+                                            _model.cashlocationDropDownValue ??=
+                                                '',
+                                          ),
+                                          options: List<
+                                              String>.from(FFAppState().storeChoosen !=
+                                                      ''
+                                              ? cashlocationDropDownCashLocationsRowList
+                                                  .where((e) =>
+                                                      FFAppState()
+                                                          .storeChoosen ==
+                                                      e.storeId)
+                                                  .toList()
+                                                  .map((e) => e.cashLocationId)
+                                                  .toList()
+                                              : cashlocationDropDownCashLocationsRowList
+                                                  .where((e) =>
+                                                      e.storeId == null ||
+                                                      e.storeId == '')
+                                                  .toList()
+                                                  .map((e) => e.cashLocationId)
+                                                  .toList()),
+                                          optionLabels: FFAppState().storeChoosen !=
+                                                      ''
+                                              ? cashlocationDropDownCashLocationsRowList
+                                                  .where((e) =>
+                                                      FFAppState()
+                                                          .storeChoosen ==
+                                                      e.storeId)
+                                                  .toList()
+                                                  .map((e) => e.locationName)
+                                                  .toList()
+                                              : cashlocationDropDownCashLocationsRowList
+                                                  .where((e) =>
+                                                      e.storeId == null ||
+                                                      e.storeId == '')
+                                                  .toList()
+                                                  .map((e) => e.locationName)
+                                                  .toList(),
+                                          onChanged: (val) async {
+                                            safeSetState(() => _model
+                                                    .cashlocationDropDownValue =
+                                                val);
+                                            _model.selectedCashierLocation =
+                                                _model
+                                                    .cashlocationDropDownValue;
+                                            _model.yesterdayCheck = false;
+                                            safeSetState(() {});
+                                          },
+                                          width: 200.0,
+                                          height: 40.0,
+                                          textStyle: FlutterFlowTheme.of(
+                                                  context)
+                                              .bodyMedium
                                               .override(
                                                 font: GoogleFonts.notoSansJp(
                                                   fontWeight:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleMedium
+                                                          .bodyMedium
                                                           .fontWeight,
                                                   fontStyle:
                                                       FlutterFlowTheme.of(
                                                               context)
-                                                          .titleMedium
+                                                          .bodyMedium
                                                           .fontStyle,
                                                 ),
                                                 letterSpacing: 0.0,
                                                 fontWeight:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleMedium
+                                                        .bodyMedium
                                                         .fontWeight,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
-                                                        .titleMedium
+                                                        .bodyMedium
                                                         .fontStyle,
                                               ),
-                                        ),
-                                        FutureBuilder<List<CashLocationsRow>>(
-                                          future:
-                                              CashLocationsTable().queryRows(
-                                            queryFn: (q) => q
-                                                .eqOrNull(
-                                                  'company_id',
-                                                  FFAppState().companyChoosen,
-                                                )
-                                                .eqOrNull(
-                                                  'location_type',
-                                                  'cash',
-                                                ),
+                                          hintText: 'Select...',
+                                          icon: Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
                                           ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 80.0,
-                                                  height: 80.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            List<CashLocationsRow>
-                                                cashlocationDropDownCashLocationsRowList =
-                                                snapshot.data!;
-
-                                            return FlutterFlowDropDown<String>(
-                                              controller: _model
-                                                      .cashlocationDropDownValueController ??=
-                                                  FormFieldController<String>(
-                                                _model.cashlocationDropDownValue ??=
-                                                    '',
-                                              ),
-                                              options: List<String>.from(FFAppState()
-                                                              .storeChoosen !=
-                                                          ''
-                                                  ? cashlocationDropDownCashLocationsRowList
-                                                      .where((e) =>
-                                                          FFAppState()
-                                                              .storeChoosen ==
-                                                          e.storeId)
-                                                      .toList()
-                                                      .map((e) =>
-                                                          e.cashLocationId)
-                                                      .toList()
-                                                  : cashlocationDropDownCashLocationsRowList
-                                                      .where((e) =>
-                                                          e.storeId == null ||
-                                                          e.storeId == '')
-                                                      .toList()
-                                                      .map((e) =>
-                                                          e.cashLocationId)
-                                                      .toList()),
-                                              optionLabels: FFAppState()
-                                                              .storeChoosen !=
-                                                          ''
-                                                  ? cashlocationDropDownCashLocationsRowList
-                                                      .where((e) =>
-                                                          FFAppState()
-                                                              .storeChoosen ==
-                                                          e.storeId)
-                                                      .toList()
-                                                      .map(
-                                                          (e) => e.locationName)
-                                                      .toList()
-                                                  : cashlocationDropDownCashLocationsRowList
-                                                      .where((e) =>
-                                                          e.storeId == null ||
-                                                          e.storeId == '')
-                                                      .toList()
-                                                      .map(
-                                                          (e) => e.locationName)
-                                                      .toList(),
-                                              onChanged: (val) async {
-                                                safeSetState(() => _model
-                                                        .cashlocationDropDownValue =
-                                                    val);
-                                                _model.selectedCashierLocation =
-                                                    _model
-                                                        .cashlocationDropDownValue;
-                                                safeSetState(() {});
-                                              },
-                                              width: 200.0,
-                                              height: 40.0,
-                                              textStyle: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    font:
-                                                        GoogleFonts.notoSansJp(
-                                                      fontWeight:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontWeight,
-                                                      fontStyle:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .fontStyle,
-                                                    ),
-                                                    letterSpacing: 0.0,
-                                                    fontWeight:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontWeight,
-                                                    fontStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .fontStyle,
-                                                  ),
-                                              hintText: 'Select...',
-                                              icon: Icon(
-                                                Icons
-                                                    .keyboard_arrow_down_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryText,
-                                                size: 24.0,
-                                              ),
-                                              fillColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
-                                              elevation: 2.0,
-                                              borderColor: Colors.transparent,
-                                              borderWidth: 0.0,
-                                              borderRadius: 8.0,
-                                              margin: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      12.0, 0.0, 12.0, 0.0),
-                                              hidesUnderline: true,
-                                              isOverButton: false,
-                                              isSearchable: false,
-                                              isMultiSelect: false,
-                                            );
-                                          },
-                                        ),
-                                      ],
+                                          fillColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryBackground,
+                                          elevation: 2.0,
+                                          borderColor: Colors.transparent,
+                                          borderWidth: 0.0,
+                                          borderRadius: 8.0,
+                                          margin:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 12.0, 0.0),
+                                          hidesUnderline: true,
+                                          isOverButton: false,
+                                          isSearchable: false,
+                                          isMultiSelect: false,
+                                        );
+                                      },
                                     ),
-                                  ),
-                                  Stack(
-                                    children: [
-                                      if (_model.oPLCashLocation
-                                              ?.where((e) =>
-                                                  _model
-                                                      .selectedCashierLocation ==
-                                                  e.cashLocationId)
-                                              .toList()
-                                              .firstOrNull
-                                              ?.locationType ==
-                                          'cash')
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Builder(
-                                              builder: (context) {
-                                                final companyCurrencyType =
-                                                    _model.companyCurrency
-                                                        .toList();
+                                  ],
+                                ),
+                              ),
+                              Stack(
+                                children: [
+                                  if (_model.oPLCashLocation
+                                          ?.where((e) =>
+                                              _model.selectedCashierLocation ==
+                                              e.cashLocationId)
+                                          .toList()
+                                          .firstOrNull
+                                          ?.locationType ==
+                                      'cash')
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Builder(
+                                          builder: (context) {
+                                            final companyCurrencyType =
+                                                _model.companyCurrency.toList();
 
-                                                return ListView.separated(
-                                                  padding: EdgeInsets.zero,
-                                                  primary: false,
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  itemCount: companyCurrencyType
-                                                      .length,
-                                                  separatorBuilder: (_, __) =>
-                                                      SizedBox(height: 16.0),
-                                                  itemBuilder: (context,
-                                                      companyCurrencyTypeIndex) {
-                                                    final companyCurrencyTypeItem =
-                                                        companyCurrencyType[
-                                                            companyCurrencyTypeIndex];
-                                                    return Container(
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    12.0,
-                                                                    4.0,
-                                                                    12.0,
-                                                                    4.0),
-                                                        child: Row(
+                                            return ListView.separated(
+                                              padding: EdgeInsets.zero,
+                                              primary: false,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount:
+                                                  companyCurrencyType.length,
+                                              separatorBuilder: (_, __) =>
+                                                  SizedBox(height: 16.0),
+                                              itemBuilder: (context,
+                                                  companyCurrencyTypeIndex) {
+                                                final companyCurrencyTypeItem =
+                                                    companyCurrencyType[
+                                                        companyCurrencyTypeIndex];
+                                                return Container(
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(12.0, 4.0,
+                                                                12.0, 4.0),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Row(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
                                                           children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Text(
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                    _model
-                                                                        .currencyType
-                                                                        ?.where((e) =>
-                                                                            companyCurrencyTypeItem.currencyId ==
-                                                                            e.currencyId)
-                                                                        .toList()
-                                                                        .firstOrNull
-                                                                        ?.currencyName,
-                                                                    'Error',
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineSmall
-                                                                      .override(
-                                                                        font: GoogleFonts
-                                                                            .notoSansJp(
-                                                                          fontWeight: FlutterFlowTheme.of(context)
-                                                                              .headlineSmall
-                                                                              .fontWeight,
-                                                                          fontStyle: FlutterFlowTheme.of(context)
-                                                                              .headlineSmall
-                                                                              .fontStyle,
-                                                                        ),
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight: FlutterFlowTheme.of(context)
-                                                                            .headlineSmall
-                                                                            .fontWeight,
-                                                                        fontStyle: FlutterFlowTheme.of(context)
-                                                                            .headlineSmall
-                                                                            .fontStyle,
-                                                                      ),
-                                                                ),
-                                                                if (functions.isListHaveCurrnencies(
-                                                                        _model
-                                                                            .currencies
-                                                                            .toList(),
+                                                            Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                _model
+                                                                    .currencyType
+                                                                    ?.where((e) =>
                                                                         companyCurrencyTypeItem
-                                                                            .currencyId) ??
-                                                                    true)
-                                                                  Icon(
-                                                                    Icons
-                                                                        .check_circle_rounded,
-                                                                    color: FlutterFlowTheme.of(
+                                                                            .currencyId ==
+                                                                        e.currencyId)
+                                                                    .toList()
+                                                                    .firstOrNull
+                                                                    ?.currencyName,
+                                                                'Error',
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .start,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineSmall
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineSmall
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineSmall
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primary,
-                                                                    size: 24.0,
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
                                                                   ),
-                                                              ].divide(SizedBox(
-                                                                  width: 14.0)),
                                                             ),
-                                                            InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                await showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  enableDrag:
-                                                                      false,
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) {
-                                                                    return GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        FocusScope.of(context)
-                                                                            .unfocus();
-                                                                        FocusManager
-                                                                            .instance
-                                                                            .primaryFocus
-                                                                            ?.unfocus();
-                                                                      },
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            MediaQuery.viewInsetsOf(context),
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              MediaQuery.sizeOf(context).height * 0.8,
-                                                                          child:
-                                                                              CashAmountInputWidget(
-                                                                            currencyId:
-                                                                                companyCurrencyTypeItem.currencyId,
-                                                                            currencyDenominationData:
-                                                                                _model.currencyDenomination?.where((e) => companyCurrencyTypeItem.currencyId == e.currencyId).toList(),
-                                                                            currencyType:
-                                                                                _model.currencyType?.where((e) => e.currencyId == companyCurrencyTypeItem.currencyId).toList(),
-                                                                            currencies:
-                                                                                (currencies) async {
-                                                                              if (functions.isListHaveCurrnencies(_model.currencies.toList(), currencies?.currencyId)!) {
-                                                                                _model.currencies = functions.removeCurrencies(_model.currencies.toList(), companyCurrencyTypeItem.currencyId, currencies)!.toList().cast<CurrenciesStruct>();
-                                                                                safeSetState(() {});
-                                                                              } else {
-                                                                                _model.addToCurrencies(currencies!);
-                                                                                safeSetState(() {});
-                                                                              }
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  },
-                                                                ).then((value) =>
-                                                                    safeSetState(
-                                                                        () {}));
-                                                              },
-                                                              child: Icon(
+                                                            if (functions.isListHaveCurrnencies(
+                                                                    _model
+                                                                        .currencies
+                                                                        .toList(),
+                                                                    companyCurrencyTypeItem
+                                                                        .currencyId) ??
+                                                                true)
+                                                              Icon(
                                                                 Icons
-                                                                    .add_circle_outline,
+                                                                    .check_circle_rounded,
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
                                                                     .primary,
-                                                                size: 40.0,
+                                                                size: 24.0,
                                                               ),
-                                                            ),
-                                                          ],
+                                                          ].divide(SizedBox(
+                                                              width: 14.0)),
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 20.0, 0.0, 0.0),
-                                              child: FFButtonWidget(
-                                                onPressed: () async {
-                                                  if (FFAppState().isLoading1 ==
-                                                      false) {
-                                                    FFAppState().isLoading1 =
-                                                        true;
-                                                    safeSetState(() {});
-                                                    if (_model.cashlocationDropDownValue !=
-                                                            null &&
-                                                        _model.cashlocationDropDownValue !=
-                                                            '') {
-                                                      if (FFAppState()
-                                                                  .storeChoosen !=
-                                                              '') {
-                                                        if (cashEndingCashierAmountLinesRowList
-                                                            .isNotEmpty) {
-                                                          await CashierAmountLinesTable()
-                                                              .delete(
-                                                            matchingRows:
-                                                                (rows) => rows
-                                                                    .eqOrNull(
-                                                                      'company_id',
-                                                                      FFAppState()
-                                                                          .companyChoosen,
-                                                                    )
-                                                                    .eqOrNull(
-                                                                      'store_id',
-                                                                      FFAppState()
-                                                                          .storeChoosen,
-                                                                    )
-                                                                    .eqOrNull(
-                                                                      'record_date',
-                                                                      supaSerialize<
-                                                                              DateTime>(
-                                                                          functions
-                                                                              .changeStringToDateTime(getCurrentTimestamp.toString())),
-                                                                    ),
-                                                          );
-                                                          _model.apiResultl36 =
-                                                              await InsertCashLineCall
-                                                                  .call(
-                                                            pCompanyId: FFAppState()
-                                                                .companyChoosen,
-                                                            pStoreId: FFAppState()
-                                                                .storeChoosen,
-                                                            pLocationId: _model
-                                                                .cashlocationDropDownValue,
-                                                            pRecordDate:
-                                                                dateTimeFormat(
-                                                                    "yyyy-MM-dd",
-                                                                    getCurrentTimestamp),
-                                                            pCreatedBy:
-                                                                FFAppState()
-                                                                    .user
-                                                                    .userId,
-                                                            pCurrenciesJson: functions
-                                                                .mapListDatatoJsonb(_model
-                                                                    .currencies
-                                                                    .toList()),
-                                                          );
-
-                                                          if (!(_model
-                                                                  .apiResultl36
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            await showDialog(
+                                                        InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            await showModalBottomSheet(
+                                                              isScrollControlled:
+                                                                  true,
+                                                              backgroundColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              enableDrag: false,
                                                               context: context,
                                                               builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'Fail1'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'Ok'),
+                                                                  (context) {
+                                                                return GestureDetector(
+                                                                  onTap: () {
+                                                                    FocusScope.of(
+                                                                            context)
+                                                                        .unfocus();
+                                                                    FocusManager
+                                                                        .instance
+                                                                        .primaryFocus
+                                                                        ?.unfocus();
+                                                                  },
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: MediaQuery
+                                                                        .viewInsetsOf(
+                                                                            context),
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          MediaQuery.sizeOf(context).height *
+                                                                              0.8,
+                                                                      child:
+                                                                          CashAmountInputWidget(
+                                                                        currencyId:
+                                                                            companyCurrencyTypeItem.currencyId,
+                                                                        currencyDenominationData: _model
+                                                                            .currencyDenomination
+                                                                            ?.where((e) =>
+                                                                                companyCurrencyTypeItem.currencyId ==
+                                                                                e.currencyId)
+                                                                            .toList(),
+                                                                        currencyType: _model
+                                                                            .currencyType
+                                                                            ?.where((e) =>
+                                                                                e.currencyId ==
+                                                                                companyCurrencyTypeItem.currencyId)
+                                                                            .toList(),
+                                                                        currencies:
+                                                                            (currencies) async {
+                                                                          if (functions.isListHaveCurrnencies(
+                                                                              _model.currencies.toList(),
+                                                                              currencies?.currencyId)!) {
+                                                                            _model.currencies =
+                                                                                functions.removeCurrencies(_model.currencies.toList(), companyCurrencyTypeItem.currencyId, currencies)!.toList().cast<CurrenciesStruct>();
+                                                                            safeSetState(() {});
+                                                                          } else {
+                                                                            _model.addToCurrencies(currencies!);
+                                                                            safeSetState(() {});
+                                                                          }
+                                                                        },
+                                                                      ),
                                                                     ),
-                                                                  ],
+                                                                  ),
                                                                 );
                                                               },
+                                                            ).then((value) =>
+                                                                safeSetState(
+                                                                    () {}));
+                                                          },
+                                                          child: Icon(
+                                                            Icons
+                                                                .add_circle_outline,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            size: 40.0,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 20.0, 0.0, 0.0),
+                                          child: FFButtonWidget(
+                                            onPressed: ((_model.currencies
+                                                        .isNotEmpty) ==
+                                                    false)
+                                                ? null
+                                                : () async {
+                                                    if (FFAppState()
+                                                            .isLoading1 ==
+                                                        false) {
+                                                      FFAppState().isLoading1 =
+                                                          true;
+                                                      safeSetState(() {});
+                                                      if (_model.cashlocationDropDownValue !=
+                                                              null &&
+                                                          _model.cashlocationDropDownValue !=
+                                                              '') {
+                                                        if (FFAppState()
+                                                                    .storeChoosen !=
+                                                                '') {
+                                                          if (_model.currencies
+                                                              .isNotEmpty) {
+                                                            _model.apiResultl36 =
+                                                                await InsertCashLineCall
+                                                                    .call(
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
+                                                              pStoreId: FFAppState()
+                                                                  .storeChoosen,
+                                                              pLocationId: _model
+                                                                  .cashlocationDropDownValue,
+                                                              pRecordDate:
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
+                                                                      getCurrentTimestamp),
+                                                              pCreatedBy:
+                                                                  FFAppState()
+                                                                      .user
+                                                                      .userId,
+                                                              pCurrenciesJson: functions
+                                                                  .mapListDatatoJsonb(_model
+                                                                      .currencies
+                                                                      .toList()),
+                                                              pCreatedAt:
+                                                                  getCurrentTimestamp
+                                                                      .toString(),
                                                             );
+
+                                                            if (!(_model
+                                                                    .apiResultl36
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Fail1'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+                                                            FFAppState()
+                                                                    .isLoading1 =
+                                                                false;
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            _model.apiResulttuy =
+                                                                await InsertCashLineCall
+                                                                    .call(
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
+                                                              pLocationId: _model
+                                                                  .cashlocationDropDownValue,
+                                                              pRecordDate:
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
+                                                                      getCurrentTimestamp),
+                                                              pCurrenciesJson: functions
+                                                                  .mapListDatatoJsonb(_model
+                                                                      .currencies
+                                                                      .toList()),
+                                                              pCreatedBy:
+                                                                  FFAppState()
+                                                                      .user
+                                                                      .userId,
+                                                              pStoreId: FFAppState()
+                                                                  .storeChoosen,
+                                                              pCreatedAt:
+                                                                  getCurrentTimestamp
+                                                                      .toString(),
+                                                            );
+
+                                                            if (!(_model
+                                                                    .apiResulttuy
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Fail2'),
+                                                                    content: Text(
+                                                                        (_model.apiResulttuy?.jsonBody ??
+                                                                                '')
+                                                                            .toString()),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+                                                            FFAppState()
+                                                                    .isLoading1 =
+                                                                false;
+                                                            safeSetState(() {});
                                                           }
+
                                                           FFAppState()
                                                                   .isLoading1 =
                                                               false;
                                                           safeSetState(() {});
                                                         } else {
-                                                          _model.apiResulttuy =
-                                                              await InsertCashLineCall
-                                                                  .call(
-                                                            pCompanyId: FFAppState()
-                                                                .companyChoosen,
-                                                            pLocationId: _model
-                                                                .cashlocationDropDownValue,
-                                                            pRecordDate:
-                                                                dateTimeFormat(
-                                                                    "yyyy-MM-dd",
-                                                                    getCurrentTimestamp),
-                                                            pCurrenciesJson: functions
-                                                                .mapListDatatoJsonb(_model
-                                                                    .currencies
-                                                                    .toList()),
-                                                            pCreatedBy:
-                                                                FFAppState()
-                                                                    .user
-                                                                    .userId,
-                                                            pStoreId: FFAppState()
-                                                                .storeChoosen,
-                                                          );
-
-                                                          if (!(_model
-                                                                  .apiResulttuy
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'Fail2'),
-                                                                  content: Text(
-                                                                      (_model.apiResulttuy?.jsonBody ??
-                                                                              '')
-                                                                          .toString()),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
+                                                          if (_model.currencies
+                                                              .isNotEmpty) {
+                                                            _model.apiResultja0 =
+                                                                await InsertCashLineCall
+                                                                    .call(
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
+                                                              pLocationId: _model
+                                                                  .cashlocationDropDownValue,
+                                                              pRecordDate:
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
+                                                                      getCurrentTimestamp),
+                                                              pCurrenciesJson: functions
+                                                                  .mapListDatatoJsonb(_model
+                                                                      .currencies
+                                                                      .toList()),
+                                                              pCreatedBy:
+                                                                  FFAppState()
+                                                                      .user
+                                                                      .userId,
+                                                              pCreatedAt:
+                                                                  getCurrentTimestamp
+                                                                      .toString(),
                                                             );
+
+                                                            if ((_model
+                                                                    .apiResultja0
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              FFAppState()
+                                                                      .isLoading1 =
+                                                                  false;
+                                                              safeSetState(
+                                                                  () {});
+                                                            } else {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Fail3'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+
+                                                            FFAppState()
+                                                                    .isLoading1 =
+                                                                false;
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            _model.apiResult9hl =
+                                                                await InsertCashLineCall
+                                                                    .call(
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
+                                                              pLocationId: _model
+                                                                  .cashlocationDropDownValue,
+                                                              pRecordDate:
+                                                                  dateTimeFormat(
+                                                                      "yyyy-MM-dd",
+                                                                      getCurrentTimestamp),
+                                                              pCurrenciesJson: functions
+                                                                  .mapListDatatoJsonb(_model
+                                                                      .currencies
+                                                                      .toList()),
+                                                              pCreatedBy:
+                                                                  FFAppState()
+                                                                      .user
+                                                                      .userId,
+                                                              pCreatedAt:
+                                                                  getCurrentTimestamp
+                                                                      .toString(),
+                                                            );
+
+                                                            if ((_model
+                                                                    .apiResult9hl
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              FFAppState()
+                                                                      .isLoading1 =
+                                                                  false;
+                                                              safeSetState(
+                                                                  () {});
+                                                            } else {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Fail4'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+
+                                                            FFAppState()
+                                                                    .isLoading1 =
+                                                                false;
+                                                            safeSetState(() {});
                                                           }
+
                                                           FFAppState()
                                                                   .isLoading1 =
                                                               false;
@@ -745,409 +794,536 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                             .isLoading1 = false;
                                                         safeSetState(() {});
                                                       } else {
-                                                        if (cashEndingCashierAmountLinesRowList
-                                                            .isNotEmpty) {
-                                                          await DeleteCashAmountLineCall
-                                                              .call(
-                                                            pCompanyId: FFAppState()
-                                                                .companyChoosen,
-                                                            pRecordDate:
-                                                                dateTimeFormat(
-                                                                    "yyyy-MM-dd",
-                                                                    getCurrentTimestamp),
-                                                          );
-
-                                                          _model.apiResultja0 =
-                                                              await InsertCashLineCall
-                                                                  .call(
-                                                            pCompanyId: FFAppState()
-                                                                .companyChoosen,
-                                                            pLocationId: _model
-                                                                .cashlocationDropDownValue,
-                                                            pRecordDate:
-                                                                dateTimeFormat(
-                                                                    "yyyy-MM-dd",
-                                                                    getCurrentTimestamp),
-                                                            pCurrenciesJson: functions
-                                                                .mapListDatatoJsonb(_model
-                                                                    .currencies
-                                                                    .toList()),
-                                                            pCreatedBy:
-                                                                FFAppState()
-                                                                    .user
-                                                                    .userId,
-                                                          );
-
-                                                          if ((_model
-                                                                  .apiResultja0
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            FFAppState()
-                                                                    .isLoading1 =
-                                                                false;
-                                                            safeSetState(() {});
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'Fail3'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'Choose Cashier First'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
                                                             );
-                                                          }
-
-                                                          FFAppState()
-                                                                  .isLoading1 =
-                                                              false;
-                                                          safeSetState(() {});
-                                                        } else {
-                                                          _model.apiResult9hl =
-                                                              await InsertCashLineCall
-                                                                  .call(
-                                                            pCompanyId: FFAppState()
-                                                                .companyChoosen,
-                                                            pLocationId: _model
-                                                                .cashlocationDropDownValue,
-                                                            pRecordDate:
-                                                                dateTimeFormat(
-                                                                    "yyyy-MM-dd",
-                                                                    getCurrentTimestamp),
-                                                            pCurrenciesJson: functions
-                                                                .mapListDatatoJsonb(_model
-                                                                    .currencies
-                                                                    .toList()),
-                                                            pCreatedBy:
-                                                                FFAppState()
-                                                                    .user
-                                                                    .userId,
-                                                          );
-
-                                                          if ((_model
-                                                                  .apiResult9hl
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            FFAppState()
-                                                                    .isLoading1 =
-                                                                false;
-                                                            safeSetState(() {});
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'Fail4'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
-                                                            );
-                                                          }
-
-                                                          FFAppState()
-                                                                  .isLoading1 =
-                                                              false;
-                                                          safeSetState(() {});
-                                                        }
-
-                                                        FFAppState()
-                                                            .isLoading1 = false;
-                                                        safeSetState(() {});
+                                                          },
+                                                        );
                                                       }
 
                                                       FFAppState().isLoading1 =
                                                           false;
                                                       safeSetState(() {});
-                                                    } else {
-                                                      await showDialog(
-                                                        context: context,
-                                                        builder:
-                                                            (alertDialogContext) {
-                                                          return AlertDialog(
-                                                            title: Text(
-                                                                'Choose Cashier First'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        },
-                                                      );
                                                     }
-
                                                     FFAppState().isLoading1 =
                                                         false;
                                                     safeSetState(() {});
-                                                  }
-                                                  FFAppState().isLoading1 =
-                                                      false;
-                                                  safeSetState(() {});
 
-                                                  safeSetState(() {});
-                                                },
-                                                text: 'Confirm',
-                                                options: FFButtonOptions(
-                                                  height: 40.0,
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          16.0, 0.0, 16.0, 0.0),
-                                                  iconPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(0.0, 0.0,
-                                                              0.0, 0.0),
+                                                    safeSetState(() {});
+                                                  },
+                                            text: 'Confirm',
+                                            options: FFButtonOptions(
+                                              height: 40.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color: (_model.currencies
+                                                          .isNotEmpty) ==
+                                                      true
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
+                                                  .titleSmall
+                                                  .override(
+                                                    font:
+                                                        GoogleFonts.notoSansJp(
+                                                      fontWeight:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontWeight,
+                                                      fontStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .fontStyle,
+                                                    ),
+                                                    color: (_model.currencies
+                                                                .isNotEmpty) ==
+                                                            true
+                                                        ? Colors.white
+                                                        : FlutterFlowTheme.of(
+                                                                context)
+                                                            .primaryText,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
+                                                  ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ),
+                                        Divider(
+                                          thickness: 2.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                        ),
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(0.0, 0.0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 12.0, 0.0, 0.0),
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context)
+                                                      .width *
+                                                  1.0,
+                                              height: 80.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                border: Border.all(
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleSmall
-                                                          .override(
-                                                            font: GoogleFonts
-                                                                .notoSansJp(
-                                                              fontWeight:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontWeight,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleSmall
-                                                                      .fontStyle,
-                                                            ),
-                                                            color: Colors.white,
-                                                            letterSpacing: 0.0,
-                                                            fontWeight:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontWeight,
-                                                            fontStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmall
-                                                                    .fontStyle,
-                                                          ),
-                                                  elevation: 0.0,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          8.0),
+                                                  width: 2.0,
                                                 ),
                                               ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Filter',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      20.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      FlutterFlowDropDown<
+                                                          String>(
+                                                        controller: _model
+                                                                .filterDropDownValueController ??=
+                                                            FormFieldController<
+                                                                String>(null),
+                                                        options: [
+                                                          'Today',
+                                                          'Yesterday'
+                                                        ],
+                                                        onChanged: (val) async {
+                                                          safeSetState(() =>
+                                                              _model.filterDropDownValue =
+                                                                  val);
+                                                          if (_model
+                                                                  .filterDropDownValue ==
+                                                              'Today') {
+                                                            _model.calltoday =
+                                                                await GetlatestcashieramountlinesCall
+                                                                    .call(
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
+                                                              pStoreId: FFAppState()
+                                                                  .storeChoosen,
+                                                              pRequestDate: functions
+                                                                  .changeDateTimeToString(
+                                                                      getCurrentTimestamp),
+                                                            );
+
+                                                            _model.currecyCheck =
+                                                                (_model.calltoday
+                                                                        ?.jsonBody ??
+                                                                    '');
+                                                            safeSetState(() {});
+                                                          } else {
+                                                            _model.callyesterday =
+                                                                await GetlatestcashieramountlinesCall
+                                                                    .call(
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
+                                                              pStoreId: FFAppState()
+                                                                  .storeChoosen,
+                                                              pRequestDate: functions
+                                                                  .changeDateTimeToStringtYesterday(
+                                                                      getCurrentTimestamp),
+                                                            );
+
+                                                            _model
+                                                                .currecyCheck = (_model
+                                                                    .callyesterday
+                                                                    ?.jsonBody ??
+                                                                '');
+                                                            safeSetState(() {});
+                                                          }
+
+                                                          safeSetState(() {});
+                                                        },
+                                                        width: 200.0,
+                                                        height: 30.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                        hintText: 'Choose Day',
+                                                        icon: Icon(
+                                                          Icons
+                                                              .keyboard_arrow_down_rounded,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          size: 24.0,
+                                                        ),
+                                                        fillColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryBackground,
+                                                        elevation: 2.0,
+                                                        borderColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        borderWidth: 0.0,
+                                                        borderRadius: 8.0,
+                                                        margin:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    12.0,
+                                                                    0.0,
+                                                                    12.0,
+                                                                    0.0),
+                                                        hidesUnderline: true,
+                                                        isOverButton: false,
+                                                        isSearchable: false,
+                                                        isMultiSelect: false,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ].divide(SizedBox(height: 8.0)),
+                                              ),
                                             ),
-                                            Divider(
-                                              thickness: 2.0,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                            ),
-                                            if (cashEndingCashierAmountLinesRowList
-                                                    .firstOrNull !=
-                                                null)
+                                          ),
+                                        ),
+                                        if (getJsonField(
+                                              _model.currecyCheck,
+                                              r'''$.full_name''',
+                                            ) !=
+                                            null)
+                                          Stack(
+                                            children: [
                                               Column(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  FutureBuilder<
-                                                      List<CompanyCurrencyRow>>(
-                                                    future:
-                                                        CompanyCurrencyTable()
-                                                            .queryRows(
-                                                      queryFn: (q) =>
-                                                          q.eqOrNull(
-                                                        'company_id',
-                                                        FFAppState()
-                                                            .companyChoosen,
-                                                      ),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 80.0,
-                                                            height: 80.0,
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                              valueColor:
-                                                                  AlwaysStoppedAnimation<
-                                                                      Color>(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                              ),
-                                                            ),
+                                                  Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            'Last Update Time',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
+                                                                ),
                                                           ),
-                                                        );
-                                                      }
-                                                      List<CompanyCurrencyRow>
-                                                          listViewCompanyCurrencyRowList =
-                                                          snapshot.data!;
+                                                          Text(
+                                                            dateTimeFormat(
+                                                                "d/M h:mm a",
+                                                                functions
+                                                                    .changeStringToDateTime(
+                                                                        getJsonField(
+                                                                  _model
+                                                                      .currecyCheck,
+                                                                  r'''$.last_update_time''',
+                                                                ).toString())),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 20.0)),
+                                                      ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            'Last Confirm User',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .fontStyle,
+                                                                ),
+                                                          ),
+                                                          Text(
+                                                            getJsonField(
+                                                              _model
+                                                                  .currecyCheck,
+                                                              r'''$.full_name''',
+                                                            ).toString(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontWeight,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontWeight,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 20.0)),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Stack(
+                                                    children: [
+                                                      Builder(
+                                                        builder: (context) {
+                                                          final currency =
+                                                              getJsonField(
+                                                            _model.currecyCheck,
+                                                            r'''$.currencies''',
+                                                          ).toList();
 
-                                                      return ListView.separated(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        primary: false,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            listViewCompanyCurrencyRowList
-                                                                .length,
-                                                        separatorBuilder:
-                                                            (_, __) => SizedBox(
-                                                                height: 8.0),
-                                                        itemBuilder: (context,
-                                                            listViewIndex) {
-                                                          final listViewCompanyCurrencyRow =
-                                                              listViewCompanyCurrencyRowList[
-                                                                  listViewIndex];
-                                                          return Visibility(
-                                                            visible: (FFAppState().storeChoosen !=
-                                                                            ''
-                                                                    ? functions.isListcashAmountSupa(
-                                                                        cashEndingCashierAmountLinesRowList
-                                                                            .where((e) =>
-                                                                                e.locationId ==
-                                                                                _model
-                                                                                    .cashlocationDropDownValue)
-                                                                            .toList(),
-                                                                        listViewCompanyCurrencyRow
-                                                                            .currencyId)
-                                                                    : functions.isListcashAmountSupa(
-                                                                        cashEndingCashierAmountLinesRowList
-                                                                            .where((e) =>
-                                                                                (e.storeId == null || e.storeId == '') &&
-                                                                                (e.locationId == _model.cashlocationDropDownValue))
-                                                                            .toList(),
-                                                                        listViewCompanyCurrencyRow.currencyId)) ??
-                                                                true,
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
+                                                          return ListView
+                                                              .separated(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            primary: false,
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                currency.length,
+                                                            separatorBuilder:
+                                                                (_, __) =>
+                                                                    SizedBox(
+                                                                        height:
+                                                                            8.0),
+                                                            itemBuilder: (context,
+                                                                currencyIndex) {
+                                                              final currencyItem =
+                                                                  currency[
+                                                                      currencyIndex];
+                                                              return Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           12.0,
                                                                           0.0,
                                                                           12.0,
                                                                           0.0),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            -1.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                        _model
-                                                                            .currencyType
-                                                                            ?.where((e) =>
-                                                                                listViewCompanyCurrencyRow.currencyId ==
-                                                                                e.currencyId)
-                                                                            .toList()
-                                                                            .firstOrNull
-                                                                            ?.currencyName,
-                                                                        'Error',
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .headlineMedium
-                                                                          .override(
-                                                                            font:
-                                                                                GoogleFonts.notoSansJp(
-                                                                              fontWeight: FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                                                                              fontStyle: FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                                                                            ),
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FlutterFlowTheme.of(context).headlineMedium.fontWeight,
-                                                                            fontStyle:
-                                                                                FlutterFlowTheme.of(context).headlineMedium.fontStyle,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            12.0,
-                                                                            0.0,
-                                                                            12.0,
-                                                                            0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
-                                                                      children: [
-                                                                        Text(
-                                                                          'Currency',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .titleMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.notoSansJp(
-                                                                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                ),
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Quantity',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .titleMedium
-                                                                              .override(
-                                                                                font: GoogleFonts.notoSansJp(
-                                                                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                ),
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                              ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                  Column(
+                                                                  child: Column(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .min,
                                                                     children: [
+                                                                      Align(
+                                                                        alignment: AlignmentDirectional(
+                                                                            -1.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          getJsonField(
+                                                                            currencyItem,
+                                                                            r'''$.currency_code''',
+                                                                          ).toString(),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .headlineMedium
+                                                                              .override(
+                                                                                font: GoogleFonts.notoSansJp(
+                                                                                  fontWeight: FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                                                                                  fontStyle: FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                                                                                ),
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FlutterFlowTheme.of(context).headlineMedium.fontWeight,
+                                                                                fontStyle: FlutterFlowTheme.of(context).headlineMedium.fontStyle,
+                                                                              ),
+                                                                        ),
+                                                                      ),
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             12.0,
@@ -1155,117 +1331,215 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
                                                                             12.0,
                                                                             0.0),
                                                                         child:
-                                                                            Builder(
-                                                                          builder:
-                                                                              (context) {
-                                                                            final cashAmountLine22 = FFAppState().storeChoosen != ''
-                                                                                ? cashEndingCashierAmountLinesRowList.where((e) => (FFAppState().storeChoosen == e.storeId) && (e.currencyId == listViewCompanyCurrencyRow.currencyId) && (e.locationId == _model.cashlocationDropDownValue)).toList()
-                                                                                : cashEndingCashierAmountLinesRowList.where((e) => (e.storeId == null || e.storeId == '') && (e.currencyId == listViewCompanyCurrencyRow.currencyId) && (e.locationId == _model.cashlocationDropDownValue)).toList().sortedList(keyOf: (e) => e.quantity, desc: true).toList();
-
-                                                                            return ListView.separated(
-                                                                              padding: EdgeInsets.fromLTRB(
-                                                                                0,
-                                                                                4.0,
-                                                                                0,
-                                                                                0,
-                                                                              ),
-                                                                              primary: false,
-                                                                              shrinkWrap: true,
-                                                                              scrollDirection: Axis.vertical,
-                                                                              itemCount: cashAmountLine22.length,
-                                                                              separatorBuilder: (_, __) => SizedBox(height: 12.0),
-                                                                              itemBuilder: (context, cashAmountLine22Index) {
-                                                                                final cashAmountLine22Item = cashAmountLine22[cashAmountLine22Index];
-                                                                                return Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
-                                                                                  child: Container(
-                                                                                    decoration: BoxDecoration(
-                                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                      borderRadius: BorderRadius.circular(12.0),
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
+                                                                          children: [
+                                                                            Text(
+                                                                              'Currency',
+                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                    font: GoogleFonts.notoSansJp(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                                                                     ),
-                                                                                    child: Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 4.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                        children: [
-                                                                                          Text(
-                                                                                            formatNumber(
-                                                                                              _model.currencyDenomination!.where((e) => cashAmountLine22Item.denominationId == e.denominationId).toList().firstOrNull!.value,
-                                                                                              formatType: FormatType.decimal,
-                                                                                              decimalType: DecimalType.periodDecimal,
-                                                                                            ),
-                                                                                            style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                                  font: GoogleFonts.notoSansJp(
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                                  ),
-                                                                                                  letterSpacing: 0.0,
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                                ),
-                                                                                          ),
-                                                                                          Text(
-                                                                                            cashAmountLine22Item.quantity.toString(),
-                                                                                            style: FlutterFlowTheme.of(context).titleMedium.override(
-                                                                                                  font: GoogleFonts.notoSansJp(
-                                                                                                    fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                                  ),
-                                                                                                  letterSpacing: 0.0,
-                                                                                                  fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
-                                                                                                  fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
-                                                                                                ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
                                                                                   ),
+                                                                            ),
+                                                                            Text(
+                                                                              'Quantity',
+                                                                              style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                    font: GoogleFonts.notoSansJp(
+                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                    ),
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                    fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.min,
+                                                                        children: [
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                12.0,
+                                                                                0.0,
+                                                                                12.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Builder(
+                                                                              builder: (context) {
+                                                                                final cashendingresult1 = getJsonField(
+                                                                                  currencyItem,
+                                                                                  r'''$.denominations''',
+                                                                                ).toList();
+
+                                                                                return ListView.separated(
+                                                                                  padding: EdgeInsets.fromLTRB(
+                                                                                    0,
+                                                                                    4.0,
+                                                                                    0,
+                                                                                    0,
+                                                                                  ),
+                                                                                  primary: false,
+                                                                                  shrinkWrap: true,
+                                                                                  scrollDirection: Axis.vertical,
+                                                                                  itemCount: cashendingresult1.length,
+                                                                                  separatorBuilder: (_, __) => SizedBox(height: 12.0),
+                                                                                  itemBuilder: (context, cashendingresult1Index) {
+                                                                                    final cashendingresult1Item = cashendingresult1[cashendingresult1Index];
+                                                                                    return Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 12.0, 8.0),
+                                                                                      child: Container(
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                          borderRadius: BorderRadius.circular(12.0),
+                                                                                        ),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 4.0),
+                                                                                          child: Row(
+                                                                                            mainAxisSize: MainAxisSize.max,
+                                                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                            children: [
+                                                                                              Text(
+                                                                                                getJsonField(
+                                                                                                  cashendingresult1Item,
+                                                                                                  r'''$.denomination_value''',
+                                                                                                ).toString(),
+                                                                                                style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                      font: GoogleFonts.notoSansJp(
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                      ),
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                              Text(
+                                                                                                getJsonField(
+                                                                                                  cashendingresult1Item,
+                                                                                                  r'''$.quantity''',
+                                                                                                ).toString(),
+                                                                                                style: FlutterFlowTheme.of(context).titleMedium.override(
+                                                                                                      font: GoogleFonts.notoSansJp(
+                                                                                                        fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                        fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                      ),
+                                                                                                      letterSpacing: 0.0,
+                                                                                                      fontWeight: FlutterFlowTheme.of(context).titleMedium.fontWeight,
+                                                                                                      fontStyle: FlutterFlowTheme.of(context).titleMedium.fontStyle,
+                                                                                                    ),
+                                                                                              ),
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    );
+                                                                                  },
                                                                                 );
                                                                               },
-                                                                            );
-                                                                          },
-                                                                        ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                ],
-                                                              ),
-                                                            ),
+                                                                ),
+                                                              );
+                                                            },
                                                           );
                                                         },
-                                                      );
-                                                    },
+                                                      ),
+                                                    ],
                                                   ),
-                                                ].divide(
-                                                    SizedBox(height: 12.0)),
+                                                ]
+                                                    .divide(
+                                                        SizedBox(height: 12.0))
+                                                    .addToStart(
+                                                        SizedBox(height: 20.0)),
                                               ),
-                                          ],
+                                            ],
+                                          ),
+                                        Container(
+                                          decoration: BoxDecoration(),
+                                          child: Visibility(
+                                            visible: getJsonField(
+                                                  _model.currecyCheck,
+                                                  r'''$.full_name''',
+                                                ) ==
+                                                null,
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 20.0, 0.0, 0.0),
+                                              child: Text(
+                                                'Insert Data First',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .notoSansJp(
+                                                            fontWeight:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineSmall
+                                                                    .fontWeight,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineSmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineSmall
+                                                                  .fontWeight,
+                                                          fontStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineSmall
+                                                                  .fontStyle,
+                                                        ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                    ],
-                                  ),
-                                ].divide(SizedBox(height: 12.0)),
+                                      ],
+                                    ),
+                                ],
                               ),
-                            ),
+                            ].divide(SizedBox(height: 12.0)),
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 8.0)),
-                  ),
-                  if ((FFAppState().isLoading1 == true) ||
-                      FFAppState().isLoading2 ||
-                      FFAppState().isLoading3)
-                    wrapWithModel(
-                      model: _model.isloadingModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: IsloadingWidget(),
                     ),
-                ],
+                  ),
+                ].divide(SizedBox(height: 8.0)),
               ),
-            ),
+              if ((FFAppState().isLoading1 == true) ||
+                  FFAppState().isLoading2 ||
+                  FFAppState().isLoading3)
+                wrapWithModel(
+                  model: _model.isloadingModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: IsloadingWidget(),
+                ),
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

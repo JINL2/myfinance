@@ -13,15 +13,15 @@ class RolePermissionPageModel
   late MenuBarModel menuBarModel;
   // Model for add component.
   late AddModel addModel;
-  // Models for rolePermissioComponent dynamic component.
+  // Models for debtControlComponent.
   late FlutterFlowDynamicModels<RolePermissioComponentModel>
-      rolePermissioComponentModels;
+      debtControlComponentModels;
 
   @override
   void initState(BuildContext context) {
     menuBarModel = createModel(context, () => MenuBarModel());
     addModel = createModel(context, () => AddModel());
-    rolePermissioComponentModels =
+    debtControlComponentModels =
         FlutterFlowDynamicModels(() => RolePermissioComponentModel());
   }
 
@@ -29,6 +29,6 @@ class RolePermissionPageModel
   void dispose() {
     menuBarModel.dispose();
     addModel.dispose();
-    rolePermissioComponentModels.dispose();
+    debtControlComponentModels.dispose();
   }
 }

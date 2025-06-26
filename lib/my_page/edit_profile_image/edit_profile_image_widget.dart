@@ -68,7 +68,8 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                     if (selectedMedia != null &&
                         selectedMedia.every((m) =>
                             validateFileFormat(m.storagePath, context))) {
-                      safeSetState(() => _model.isDataUploading1 = true);
+                      safeSetState(
+                          () => _model.isDataUploading_localimage = true);
                       var selectedUploadedFiles = <FFUploadedFile>[];
 
                       try {
@@ -82,12 +83,12 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                                 ))
                             .toList();
                       } finally {
-                        _model.isDataUploading1 = false;
+                        _model.isDataUploading_localimage = false;
                       }
                       if (selectedUploadedFiles.length ==
                           selectedMedia.length) {
                         safeSetState(() {
-                          _model.uploadedLocalFile1 =
+                          _model.uploadedLocalFile_localimage =
                               selectedUploadedFiles.first;
                         });
                       } else {
@@ -109,7 +110,7 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                             shape: BoxShape.circle,
                           ),
                           child: Image.memory(
-                            _model.uploadedLocalFile1.bytes ??
+                            _model.uploadedLocalFile_localimage.bytes ??
                                 Uint8List.fromList([]),
                             fit: BoxFit.cover,
                           ),
@@ -143,7 +144,8 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                         FFAppState().isLoading2 = true;
                         safeSetState(() {});
                         {
-                          safeSetState(() => _model.isDataUploading2 = true);
+                          safeSetState(
+                              () => _model.isDataUploading_uploaded = true);
                           var selectedUploadedFiles = <FFUploadedFile>[];
                           var selectedMedia = <SelectedFile>[];
                           var downloadUrls = <String>[];
@@ -153,10 +155,12 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                               'Uploading file...',
                               showLoading: true,
                             );
-                            selectedUploadedFiles =
-                                _model.uploadedLocalFile1.bytes!.isNotEmpty
-                                    ? [_model.uploadedLocalFile1]
-                                    : <FFUploadedFile>[];
+                            selectedUploadedFiles = _model
+                                    .uploadedLocalFile_localimage
+                                    .bytes!
+                                    .isNotEmpty
+                                ? [_model.uploadedLocalFile_localimage]
+                                : <FFUploadedFile>[];
                             selectedMedia = selectedFilesFromUploadedFiles(
                               selectedUploadedFiles,
                               storageFolderPath: 'profileimage',
@@ -167,15 +171,16 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                             );
                           } finally {
                             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            _model.isDataUploading2 = false;
+                            _model.isDataUploading_uploaded = false;
                           }
                           if (selectedUploadedFiles.length ==
                                   selectedMedia.length &&
                               downloadUrls.length == selectedMedia.length) {
                             safeSetState(() {
-                              _model.uploadedLocalFile2 =
+                              _model.uploadedLocalFile_uploaded =
                                   selectedUploadedFiles.first;
-                              _model.uploadedFileUrl2 = downloadUrls.first;
+                              _model.uploadedFileUrl_uploaded =
+                                  downloadUrls.first;
                             });
                             showUploadMessage(context, 'Success!');
                           } else {
@@ -186,12 +191,13 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
                         }
 
                         FFAppState().updateUserStruct(
-                          (e) => e..profileImage = _model.uploadedFileUrl2,
+                          (e) =>
+                              e..profileImage = _model.uploadedFileUrl_uploaded,
                         );
                         safeSetState(() {});
                         await UsersTable().update(
                           data: {
-                            'profile_image': _model.uploadedFileUrl2,
+                            'profile_image': _model.uploadedFileUrl_uploaded,
                           },
                           matchingRows: (rows) => rows.eqOrNull(
                             'user_id',

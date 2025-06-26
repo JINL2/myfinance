@@ -36,4 +36,19 @@ class CashLocationsRow extends SupabaseDataRow {
 
   String? get locationInfo => getField<String>('location_info');
   set locationInfo(String? value) => setField<String>('location_info', value);
+
+  String? get currencyCode => getField<String>('currency_code');
+  set currencyCode(String? value) => setField<String>('currency_code', value);
+
+  String? get bankAccount => getField<String>('bank_account');
+  set bankAccount(String? value) => setField<String>('bank_account', value);
+
+  DateTime? get deletedAt => getField<DateTime>('deleted_at');
+  set deletedAt(DateTime? value) => setField<DateTime>('deleted_at', value);
+
+  String? get bankName => getField<String>('bank_name');
+  set bankName(String? value) => setField<String>('bank_name', value);
+
+  String? get icon => getField<String>('icon');
+  set icon(String? value) => setField<String>('icon', value);
 }

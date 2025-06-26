@@ -123,7 +123,6 @@ class _StoreShiftComponentWidgetState extends State<StoreShiftComponentWidget> {
                             child: PopupWidget(
                               popupTitle: 'Update Shift',
                               widgetBuilder: () => StoreShiftUpdateV1Widget(
-                                storeId: '',
                                 shiftInfo: widget.storeShift!,
                               ),
                             ),

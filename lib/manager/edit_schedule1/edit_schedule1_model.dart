@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import 'edit_schedule1_widget.dart' show EditSchedule1Widget;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EditSchedule1Model extends FlutterFlowModel<EditSchedule1Widget> {
@@ -20,6 +21,10 @@ class EditSchedule1Model extends FlutterFlowModel<EditSchedule1Widget> {
   DateTime? adjustedStartTime;
 
   DateTime? adjustedEndTime;
+
+  DateTime? fixedStarttime;
+
+  DateTime? fixedEndTime;
 
   ///  State fields for stateful widgets in this component.
 

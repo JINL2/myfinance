@@ -24,8 +24,8 @@ class VBalanceSheetByStoreRow extends SupabaseDataRow {
   String? get storeName => getField<String>('store_name');
   set storeName(String? value) => setField<String>('store_name', value);
 
-  String? get accountGroup => getField<String>('account_group');
-  set accountGroup(String? value) => setField<String>('account_group', value);
+  String? get accountType => getField<String>('account_type');
+  set accountType(String? value) => setField<String>('account_type', value);
 
   String? get accountName => getField<String>('account_name');
   set accountName(String? value) => setField<String>('account_name', value);

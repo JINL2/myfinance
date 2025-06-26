@@ -64,6 +64,17 @@ class FFAppState extends ChangeNotifier {
               .toList() ??
           _financeAccount;
     });
+    _safeInit(() {
+      if (prefs.containsKey('ff_currencyData')) {
+        try {
+          final serializedData = prefs.getString('ff_currencyData') ?? '{}';
+          _currencyData = CurrencyCompanyDataStruct.fromSerializableMap(
+              jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
   }
 
   void update(VoidCallback callback) {
@@ -345,6 +356,56 @@ class FFAppState extends ChangeNotifier {
   bool get isLoading3 => _isLoading3;
   set isLoading3(bool value) {
     _isLoading3 = value;
+  }
+
+  String _rangeHeader = '';
+  String get rangeHeader => _rangeHeader;
+  set rangeHeader(String value) {
+    _rangeHeader = value;
+  }
+
+  /// lazyloading
+  int _offest = 0;
+  int get offest => _offest;
+  set offest(int value) {
+    _offest = value;
+  }
+
+  /// lazyloading
+  int _limit = 10;
+  int get limit => _limit;
+  set limit(int value) {
+    _limit = value;
+  }
+
+  CurrencyCompanyDataStruct _currencyData = CurrencyCompanyDataStruct();
+  CurrencyCompanyDataStruct get currencyData => _currencyData;
+  set currencyData(CurrencyCompanyDataStruct value) {
+    _currencyData = value;
+    prefs.setString('ff_currencyData', value.serialize());
+  }
+
+  void updateCurrencyDataStruct(Function(CurrencyCompanyDataStruct) updateFn) {
+    updateFn(_currencyData);
+    prefs.setString('ff_currencyData', _currencyData.serialize());
+  }
+
+  bool _isUpdate = false;
+  bool get isUpdate => _isUpdate;
+  set isUpdate(bool value) {
+    _isUpdate = value;
+  }
+
+  dynamic _reUsableJson;
+  dynamic get reUsableJson => _reUsableJson;
+  set reUsableJson(dynamic value) {
+    _reUsableJson = value;
+  }
+
+  String _isSelectedId = '';
+  String get isSelectedId => _isSelectedId;
+  set isSelectedId(String value) {
+    _isSelectedId = value;
   }
 }
 

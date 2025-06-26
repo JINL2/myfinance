@@ -159,7 +159,7 @@ class _BalanceSheetWidgetState extends State<BalanceSheetWidget> {
                         'store_id',
                         FFAppState().storeChoosen,
                       )
-                      .order('account_group', ascending: true),
+                      .order('account_type', ascending: true),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.

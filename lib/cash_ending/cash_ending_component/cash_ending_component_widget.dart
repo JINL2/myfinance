@@ -182,7 +182,8 @@ class _CashEndingComponentWidgetState extends State<CashEndingComponentWidget> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         filled: true,
-                        fillColor: FlutterFlowTheme.of(context).info,
+                        fillColor:
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: GoogleFonts.notoSansJp(

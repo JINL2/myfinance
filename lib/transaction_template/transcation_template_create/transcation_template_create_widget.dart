@@ -417,9 +417,17 @@ class _TranscationTemplateCreateWidgetState
                                   ),
                                   options: List<String>.from(
                                       containerCashLocationsRowList
+                                          .where((e) =>
+                                              e.storeId ==
+                                              FFAppState().storeChoosen)
+                                          .toList()
                                           .map((e) => e.cashLocationId)
                                           .toList()),
                                   optionLabels: containerCashLocationsRowList
+                                      .where((e) =>
+                                          e.storeId ==
+                                          FFAppState().storeChoosen)
+                                      .toList()
                                       .map((e) => e.locationName)
                                       .toList(),
                                   onChanged: (val) => safeSetState(() =>
@@ -654,9 +662,17 @@ class _TranscationTemplateCreateWidgetState
                                   ),
                                   options: List<String>.from(
                                       containerCashLocationsRowList
+                                          .where((e) =>
+                                              e.storeId ==
+                                              FFAppState().storeChoosen)
+                                          .toList()
                                           .map((e) => e.cashLocationId)
                                           .toList()),
                                   optionLabels: containerCashLocationsRowList
+                                      .where((e) =>
+                                          e.storeId ==
+                                          FFAppState().storeChoosen)
+                                      .toList()
                                       .map((e) => e.locationName)
                                       .toList(),
                                   onChanged: (val) => safeSetState(

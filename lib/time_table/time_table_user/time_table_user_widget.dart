@@ -629,11 +629,11 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                             itemCount:
                                                                 shiftDetail
                                                                     .length,
-                                                            separatorBuilder:
-                                                                (_, __) =>
-                                                                    SizedBox(
-                                                                        height:
-                                                                            8.0),
+                                                            separatorBuilder: (_,
+                                                                    __) =>
+                                                                SizedBox(
+                                                                    height:
+                                                                        12.0),
                                                             itemBuilder: (context,
                                                                 shiftDetailIndex) {
                                                               final shiftDetailItem =
@@ -702,6 +702,9 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                                           "yyyy-MM-dd",
                                                                           _model
                                                                               .selectedDatePageState),
+                                                                      requestDate:
+                                                                          _model
+                                                                              .selectedDatePageState!,
                                                                     ),
                                                                   ),
                                                                 ),
@@ -845,28 +848,38 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                         'is_approved': false,
                                                         'start_time': supaSerialize<
                                                                 DateTime>(
-                                                            functions.changeStringToDateTime(
+                                                            functions.insertStartEndTime(
                                                                 FFAppState()
                                                                     .shiftMetaData
                                                                     .where((e) =>
                                                                         _model
                                                                             .shiftId ==
-                                                                        e.shiftId)
+                                                                        e
+                                                                            .shiftId)
                                                                     .toList()
                                                                     .firstOrNull
-                                                                    ?.startTime)),
+                                                                    ?.startTime,
+                                                                dateTimeFormat(
+                                                                    "yyyyy-MM-dd",
+                                                                    _model
+                                                                        .selectedDatePageState))),
                                                         'end_time': supaSerialize<
                                                                 DateTime>(
-                                                            functions.changeStringToDateTime(
+                                                            functions.insertStartEndTime(
                                                                 FFAppState()
                                                                     .shiftMetaData
                                                                     .where((e) =>
                                                                         _model
                                                                             .shiftId ==
-                                                                        e.shiftId)
+                                                                        e
+                                                                            .shiftId)
                                                                     .toList()
                                                                     .firstOrNull
-                                                                    ?.endTime)),
+                                                                    ?.endTime,
+                                                                dateTimeFormat(
+                                                                    "yyyyy-MM-dd",
+                                                                    _model
+                                                                        .selectedDatePageState))),
                                                       });
                                                       FFAppState()
                                                           .addToShiftStatus(
@@ -958,6 +971,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                       : FlutterFlowTheme.of(
                                                               context)
                                                           .primary,
+                                                  height: 45,
                                                 ),
                                               ),
                                             ),

@@ -750,9 +750,10 @@ class _Auth1WidgetState extends State<Auth1Widget>
                                                       .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
                                                   child: FFButtonWidget(
-                                                    onPressed: () {
-                                                      print(
-                                                          'Button pressed ...');
+                                                    onPressed: () async {
+                                                      context.pushNamed(
+                                                          ResetPasswordWidget
+                                                              .routeName);
                                                     },
                                                     text: 'Forgot Password',
                                                     options: FFButtonOptions(

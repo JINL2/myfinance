@@ -99,8 +99,23 @@ class _HomeCateListViewV1WidgetState extends State<HomeCateListViewV1Widget> {
                             12.0, 0.0, 12.0, 0.0),
                         child: Builder(
                           builder: (context) {
-                            final categoryInfo =
-                                widget.cateInfo?.features.toList() ?? [];
+                            final categoryInfo = widget.cateInfo?.features
+                                    .where((e) => functions.isListHaveString(
+                                        e.featureId,
+                                        FFAppState()
+                                            .user
+                                            .companies
+                                            .where((e) =>
+                                                FFAppState().companyChoosen ==
+                                                e.companyId)
+                                            .toList()
+                                            .firstOrNull
+                                            ?.role
+                                            .permissions
+                                            .toList())!)
+                                    .toList()
+                                    .toList() ??
+                                [];
 
                             return GridView.builder(
                               padding: EdgeInsets.fromLTRB(

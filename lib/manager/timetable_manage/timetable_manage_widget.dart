@@ -820,10 +820,12 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                                                     safeSetState(() {});
                                                                                   }
                                                                                 },
-                                                                                side: BorderSide(
-                                                                                  width: 2,
-                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                ),
+                                                                                side: (FlutterFlowTheme.of(context).alternate != null)
+                                                                                    ? BorderSide(
+                                                                                        width: 2,
+                                                                                        color: FlutterFlowTheme.of(context).alternate,
+                                                                                      )
+                                                                                    : null,
                                                                                 activeColor: FlutterFlowTheme.of(context).primary,
                                                                                 checkColor: FlutterFlowTheme.of(context).info,
                                                                               ),
@@ -1075,10 +1077,10 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                     ),
                                                     FlutterFlowDropDown<String>(
                                                       controller: _model
-                                                              .filterStoreValueController ??=
+                                                              .filterStore22ValueController ??=
                                                           FormFieldController<
                                                               String>(
-                                                        _model.filterStoreValue ??=
+                                                        _model.filterStore22Value ??=
                                                             '',
                                                       ),
                                                       options: List<
@@ -1111,7 +1113,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                           .toList(),
                                                       onChanged: (val) async {
                                                         safeSetState(() => _model
-                                                                .filterStoreValue =
+                                                                .filterStore22Value =
                                                             val);
                                                         _model.selectedStoreId =
                                                             _model
@@ -1126,7 +1128,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                           safeSetState(() {});
                                                           if (functions.isListHaveDatatypeList(
                                                               _model
-                                                                  .filterStoreValue,
+                                                                  .filterStore22Value,
                                                               FFAppState()
                                                                   .shiftMetaData
                                                                   .toList())!) {
@@ -1139,7 +1141,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                                 await GetshiftmetadataCall
                                                                     .call(
                                                               pStoreId: _model
-                                                                  .filterStoreValue,
+                                                                  .filterStore22Value,
                                                             );
 
                                                             if ((_model.meta11
@@ -1180,7 +1182,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                                 await GetManagerShiftCall
                                                                     .call(
                                                               pStoreId: _model
-                                                                  .filterStoreValue,
+                                                                  .filterStore22Value,
                                                               pRequestDate: _model
                                                                   .selectedDate
                                                                   ?.toString(),
@@ -1493,7 +1495,7 @@ class _TimetableManageWidgetState extends State<TimetableManageWidget>
                                                     safeSetState(() {}),
                                                 child: ManagershiftListWidget(
                                                   storeId:
-                                                      _model.selectedStoreId,
+                                                      _model.filterStore22Value,
                                                   okswitch:
                                                       _model.oKSwitchValue,
                                                 ),

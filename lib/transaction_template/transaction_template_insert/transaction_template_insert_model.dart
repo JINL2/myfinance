@@ -30,6 +30,10 @@ class TransactionTemplateInsertModel
   TextEditingController? cashLocationNameTextController;
   String? Function(BuildContext, String?)?
       cashLocationNameTextControllerValidator;
+  // State field(s) for Description widget.
+  FocusNode? descriptionFocusNode;
+  TextEditingController? descriptionTextController;
+  String? Function(BuildContext, String?)? descriptionTextControllerValidator;
   // Stores action output result for [Backend Call - API (insertjournalwitheverything)] action in Button widget.
   ApiCallResponse? apiResult5ze;
 
@@ -40,5 +44,8 @@ class TransactionTemplateInsertModel
   void dispose() {
     cashLocationNameFocusNode?.dispose();
     cashLocationNameTextController?.dispose();
+
+    descriptionFocusNode?.dispose();
+    descriptionTextController?.dispose();
   }
 }

@@ -57,6 +57,7 @@ class _HomepageWidgetState extends State<HomepageWidget> {
       FFAppState().isLoading1 = false;
       FFAppState().isLoading2 = false;
       FFAppState().isLoading3 = false;
+      FFAppState().offest = 0;
       safeSetState(() {});
       _model.firstLogIn =
           widget.firstLogin != null ? widget.firstLogin : false;

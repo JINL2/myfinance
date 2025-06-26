@@ -41,4 +41,7 @@ class StoreShiftsRow extends SupabaseDataRow {
 
   int? get numberShift => getField<int>('number_shift');
   set numberShift(int? value) => setField<int>('number_shift', value);
+
+  bool get isCanOvertime => getField<bool>('is_can_overtime')!;
+  set isCanOvertime(bool value) => setField<bool>('is_can_overtime', value);
 }

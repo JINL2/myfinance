@@ -222,6 +222,8 @@ dynamic deserializeParam<T>(
             return FiscalYearsRow(data);
           case SpatialRefSysRow:
             return SpatialRefSysRow(data);
+          case VShiftRequestWithUserRow:
+            return VShiftRequestWithUserRow(data);
           case RecurringJournalsRow:
             return RecurringJournalsRow(data);
           case CashLocationsRow:
@@ -240,6 +242,8 @@ dynamic deserializeParam<T>(
             return CompanyCurrencyRow(data);
           case RolePermissionsRow:
             return RolePermissionsRow(data);
+          case VSalaryIndividualRow:
+            return VSalaryIndividualRow(data);
           case UserCompaniesRow:
             return UserCompaniesRow(data);
           case ShiftRequestsRow:
@@ -262,10 +266,14 @@ dynamic deserializeParam<T>(
             return VCashLocationRow(data);
           case TransactionTemplatesRow:
             return TransactionTemplatesRow(data);
+          case VaultAmountLineRow:
+            return VaultAmountLineRow(data);
           case BankAmountRow:
             return BankAmountRow(data);
           case VJournalLinesReadableRow:
             return VJournalLinesReadableRow(data);
+          case VUserSalaryWorkingRow:
+            return VUserSalaryWorkingRow(data);
           case VUserRoleInfoRow:
             return VUserRoleInfoRow(data);
           case ProductsRow:
@@ -286,6 +294,8 @@ dynamic deserializeParam<T>(
             return InventoryTransactionsRow(data);
           case CashLocationsWithTotalAmountRow:
             return CashLocationsWithTotalAmountRow(data);
+          case VShiftRequestWithRealtimeProblemRow:
+            return VShiftRequestWithRealtimeProblemRow(data);
           case VBalanceSheetByStoreRow:
             return VBalanceSheetByStoreRow(data);
           case UserRolesRow:
@@ -306,6 +316,10 @@ dynamic deserializeParam<T>(
             return UserSalariesRow(data);
           case AccountMappingsRow:
             return AccountMappingsRow(data);
+          case VStoreShiftsRow:
+            return VStoreShiftsRow(data);
+          case ShiftEditLogsRow:
+            return ShiftEditLogsRow(data);
           case CashierAmountLinesRow:
             return CashierAmountLinesRow(data);
           case CashControlRow:
@@ -326,6 +340,8 @@ dynamic deserializeParam<T>(
             return DepreciationMethodsRow(data);
           case StoresRow:
             return StoresRow(data);
+          case VBankAmountRow:
+            return VBankAmountRow(data);
           case JournalEntriesRow:
             return JournalEntriesRow(data);
           case CategoriesRow:

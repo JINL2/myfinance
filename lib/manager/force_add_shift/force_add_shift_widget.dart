@@ -43,6 +43,7 @@ class _ForceAddShiftWidgetState extends State<ForceAddShiftWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.selectedDate = getCurrentTimestamp;
       safeSetState(() {});
     });
   }
@@ -123,8 +124,7 @@ class _ForceAddShiftWidgetState extends State<ForceAddShiftWidget> {
                                 ),
                                 child: CupertinoDatePicker(
                                   mode: CupertinoDatePickerMode.date,
-                                  minimumDate:
-                                      (getCurrentTimestamp ?? DateTime(1900)),
+                                  minimumDate: DateTime(1900),
                                   initialDateTime: getCurrentTimestamp,
                                   maximumDate: DateTime(2050),
                                   backgroundColor: FlutterFlowTheme.of(context)
@@ -176,7 +176,7 @@ class _ForceAddShiftWidgetState extends State<ForceAddShiftWidget> {
                 Flexible(
                   flex: 5,
                   child: Text(
-                    dateTimeFormat("yyyy-MM-dd", _model.datePicked),
+                    dateTimeFormat("yyyy-MM-dd", _model.selectedDate),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.notoSansJp(
                             fontWeight: FlutterFlowTheme.of(context)

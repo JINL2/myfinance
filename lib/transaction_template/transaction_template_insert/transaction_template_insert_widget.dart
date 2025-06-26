@@ -54,6 +54,9 @@ class _TransactionTemplateInsertWidgetState
 
     _model.cashLocationNameTextController ??= TextEditingController();
     _model.cashLocationNameFocusNode ??= FocusNode();
+
+    _model.descriptionTextController ??= TextEditingController();
+    _model.descriptionFocusNode ??= FocusNode();
   }
 
   @override
@@ -201,6 +204,87 @@ class _TransactionTemplateInsertWidgetState
                       validator: _model.cashLocationNameTextControllerValidator
                           .asValidator(context),
                     ),
+                    TextFormField(
+                      controller: _model.descriptionTextController,
+                      focusNode: _model.descriptionFocusNode,
+                      autofocus: false,
+                      textInputAction: TextInputAction.next,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: 'Description',
+                        hintStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  font: GoogleFonts.notoSansJp(
+                                    fontWeight: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontWeight,
+                                    fontStyle: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .fontStyle,
+                                  ),
+                                  letterSpacing: 0.0,
+                                  fontWeight: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontWeight,
+                                  fontStyle: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .fontStyle,
+                                ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0xFFE0E0E0),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        filled: true,
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        contentPadding: EdgeInsetsDirectional.fromSTEB(
+                            12.0, 12.0, 12.0, 12.0),
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            font: GoogleFonts.notoSansJp(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .fontStyle,
+                            ),
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                      minLines: 1,
+                      validator: _model.descriptionTextControllerValidator
+                          .asValidator(context),
+                    ),
                   ].divide(SizedBox(height: 4.0)),
                 ),
               ),
@@ -216,7 +300,8 @@ class _TransactionTemplateInsertWidgetState
                                 _model.cashLocationNameTextController.text)
                             .toString()
                         ..amount = functions.convertToInt(
-                            _model.cashLocationNameTextController.text),
+                            _model.cashLocationNameTextController.text)
+                        ..description = _model.descriptionTextController.text,
                     );
                     safeSetState(() {});
                     _model.updateTransactionDetailAtIndex(
@@ -227,7 +312,8 @@ class _TransactionTemplateInsertWidgetState
                         ..credit = functions
                             .convertToInt(
                                 _model.cashLocationNameTextController.text)
-                            .toString(),
+                            .toString()
+                        ..description = _model.descriptionTextController.text,
                     );
                     safeSetState(() {});
                     _model.apiResult5ze = await JournalEntryGroup
@@ -236,13 +322,13 @@ class _TransactionTemplateInsertWidgetState
                       pCompanyId: FFAppState().companyChoosen,
                       pStoreId: FFAppState().storeChoosen,
                       pCreatedBy: FFAppState().user.userId,
-                      pEntryDate:
-                          dateTimeFormat("yyyy-MM-dd", getCurrentTimestamp),
+                      pEntryDate: getCurrentTimestamp.toString(),
                       pBaseAmount: double.tryParse(
                           _model.cashLocationNameTextController.text),
                       pLinesJson: _model.transactionDetail
                           .map((e) => e.toMap())
                           .toList(),
+                      pDescription: _model.descriptionTextController.text,
                     );
 
                     if ((_model.apiResult5ze?.succeeded ?? true)) {
