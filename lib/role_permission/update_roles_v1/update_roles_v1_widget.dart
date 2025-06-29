@@ -88,24 +88,27 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                     decoration: InputDecoration(
                       isDense: true,
                       labelText: 'Role Name',
-                      labelStyle:
-                          FlutterFlowTheme.of(context).labelMedium.override(
-                                font: GoogleFonts.notoSansJp(
-                                  fontWeight: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontWeight,
-                                  fontStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .fontStyle,
-                                ),
-                                letterSpacing: 0.0,
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .fontStyle,
-                              ),
+                      labelStyle: FlutterFlowTheme.of(context)
+                          .labelMedium
+                          .override(
+                            font: GoogleFonts.notoSansJp(
+                              fontWeight: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontWeight,
+                              fontStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .fontStyle,
+                            ),
+                            color:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            letterSpacing: 0.0,
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .fontStyle,
+                          ),
                       hintText: widget.roleDetail?.roleName,
                       hintStyle:
                           FlutterFlowTheme.of(context).labelMedium.override(
@@ -127,7 +130,7 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                               ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFFE0E3E7),
+                          color: FlutterFlowTheme.of(context).primaryText,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(16.0),
@@ -154,7 +157,7 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).info,
+                      fillColor: FlutterFlowTheme.of(context).primaryBackground,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.notoSansJp(

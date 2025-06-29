@@ -1143,3 +1143,43 @@ DateTime? getMonthFirstLast(
     return null;
   }
 }
+
+dynamic convertStringToJson(String? string) {
+// null 체크
+  if (string == null || string.isEmpty) {
+    return null;
+  }
+
+  try {
+    // JSON 문자열을 dynamic 객체로 파싱
+    return jsonDecode(string);
+  } catch (e) {
+    // JSON 파싱 실패 시 null 반환
+    print('JSON parsing error: $e');
+    return null;
+  }
+}
+
+DateTime convertJsonToTime(dynamic jsonTime) {
+  try {
+    return DateTime.parse(jsonTime); // ISO8601 형식 변환
+  } catch (e) {
+    // 잘못된 형식이면 현재 시간 반환 (혹은 null 처리도 가능)
+    return DateTime.now();
+  }
+}
+
+String? generateExternalUrl(
+  String? userId,
+  String? userName,
+  String? companyId,
+  String? storeId,
+) {
+  final baseUrl = 'https://jinl2.github.io/contentsCreation/';
+  final encodedUserName = Uri.encodeComponent(userName ?? '');
+
+  final url =
+      '$baseUrl?user_id=$userId&user_name=$encodedUserName&company_id=$companyId&store_id=$storeId';
+
+  return url;
+}

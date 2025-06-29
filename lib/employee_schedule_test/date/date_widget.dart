@@ -53,12 +53,14 @@ class _DateWidgetState extends State<DateWidget> {
         color: valueOrDefault<Color>(
           widget.clickedDate == dateTimeFormat("yyyy-MM-dd", widget.date)
               ? Color(0xFF3B82F6)
-              : valueOrDefault<Color>(
-                  widget.colorTrueFalse!
-                      ? Color(0xFFDBEAFE)
-                      : Color(0xFFF3F4F6),
-                  Color(0xFF3B82F6),
-                ),
+              : (widget.colorTrueFalse != null
+                  ? valueOrDefault<Color>(
+                      widget.colorTrueFalse!
+                          ? Color(0xFFDBEAFE)
+                          : Color(0xFFF3F4F6),
+                      Color(0xFF3B82F6),
+                    )
+                  : Color(0xFFF3F4F6)),
           Color(0xFF3B82F6),
         ),
         borderRadius: BorderRadius.circular(8.0),
@@ -88,12 +90,14 @@ class _DateWidgetState extends State<DateWidget> {
                           dateTimeFormat("yyyy-MM-dd", widget.date) ==
                                   widget.clickedDate
                               ? Colors.white
-                              : valueOrDefault<Color>(
-                                  widget.colorTrueFalse!
-                                      ? Color(0xFF1D4ED8)
-                                      : Color(0xFF6B7280),
-                                  Colors.white,
-                                ),
+                              : (widget.colorTrueFalse != null
+                                  ? valueOrDefault<Color>(
+                                      widget.colorTrueFalse!
+                                          ? Color(0xFF1D4ED8)
+                                          : Color(0xFF6B7280),
+                                      Colors.white,
+                                    )
+                                  : Color(0xFF6B7280)),
                           Colors.white,
                         ),
                         fontSize: 16.0,
@@ -122,12 +126,14 @@ class _DateWidgetState extends State<DateWidget> {
                         dateTimeFormat("yyyy-MM-dd", widget.date) ==
                                 widget.clickedDate
                             ? Colors.white
-                            : valueOrDefault<Color>(
-                                widget.colorTrueFalse!
-                                    ? Color(0xFF1D4ED8)
-                                    : Color(0xFF6B7280),
-                                Colors.white,
-                              ),
+                            : (widget.colorTrueFalse != null
+                                ? valueOrDefault<Color>(
+                                    widget.colorTrueFalse!
+                                        ? Color(0xFF1D4ED8)
+                                        : Color(0xFF6B7280),
+                                    Colors.white,
+                                  )
+                                : Color(0xFF6B7280)),
                         Colors.white,
                       ),
                       fontSize: 12.0,

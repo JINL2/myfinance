@@ -37,6 +37,8 @@ class CreateDebtTransactionModel
 
   bool isNote = true;
 
+  String? myStoreChoosen;
+
   ///  State fields for stateful widgets in this component.
 
   // Model for menuBar component.

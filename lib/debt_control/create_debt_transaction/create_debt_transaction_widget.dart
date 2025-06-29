@@ -21,11 +21,13 @@ class CreateDebtTransactionWidget extends StatefulWidget {
     this.debtCard,
     this.companyId,
     this.storeid,
+    required this.viewpoint,
   });
 
   final dynamic debtCard;
   final String? companyId;
   final String? storeid;
+  final String? viewpoint;
 
   @override
   State<CreateDebtTransactionWidget> createState() =>
@@ -51,6 +53,15 @@ class _CreateDebtTransactionWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.chooseTime = getCurrentTimestamp;
       safeSetState(() {});
+      if (FFAppState().storeChoosen != '') {
+        if (widget.viewpoint == 'headquarters') {
+          _model.myStoreChoosen = '';
+          safeSetState(() {});
+        } else {
+          _model.myStoreChoosen = FFAppState().storeChoosen;
+          safeSetState(() {});
+        }
+      }
     });
 
     _model.textController1 ??= TextEditingController();
@@ -96,6 +107,220 @@ class _CreateDebtTransactionWidgetState
                 child: MenuBarWidget(
                   menuName: 'Debt Transaction',
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Who I am',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          font: GoogleFonts.notoSansJp(
+                            fontWeight: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontWeight,
+                            fontStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .fontStyle,
+                          ),
+                          color: Color(0xFF6B7280),
+                          letterSpacing: 0.0,
+                          fontWeight: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .fontWeight,
+                          fontStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.fontStyle,
+                        ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            _model.myStoreChoosen = null;
+                            safeSetState(() {});
+                          },
+                          child: Container(
+                            height: 120.0,
+                            decoration: BoxDecoration(
+                              color: _model.myStoreChoosen == null ||
+                                      _model.myStoreChoosen == ''
+                                  ? FlutterFlowTheme.of(context)
+                                      .primaryBackground
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(
+                                color: _model.myStoreChoosen == null ||
+                                        _model.myStoreChoosen == ''
+                                    ? FlutterFlowTheme.of(context).primary
+                                    : FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                width: 1.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.business_sharp,
+                                    color: _model.myStoreChoosen == null ||
+                                            _model.myStoreChoosen == ''
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                    size: 32.0,
+                                  ),
+                                  Text(
+                                    'Headquarter',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.notoSansJp(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: _model.myStoreChoosen ==
+                                                      null ||
+                                                  _model.myStoreChoosen == ''
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ].divide(SizedBox(height: 8.0)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            if (FFAppState().storeChoosen != '') {
+                              _model.myStoreChoosen =
+                                  FFAppState().companyChoosen;
+                              safeSetState(() {});
+                            } else {
+                              await showDialog(
+                                context: context,
+                                builder: (alertDialogContext) {
+                                  return AlertDialog(
+                                    title: Text('No Store'),
+                                    content: Text('Go out and Choose Company'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(alertDialogContext),
+                                        child: Text('Ok'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
+                          },
+                          child: Container(
+                            height: 120.0,
+                            decoration: BoxDecoration(
+                              color: _model.myStoreChoosen != null &&
+                                      _model.myStoreChoosen != ''
+                                  ? FlutterFlowTheme.of(context)
+                                      .primaryBackground
+                                  : Color(0x00000000),
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(
+                                color: _model.myStoreChoosen != null &&
+                                        _model.myStoreChoosen != ''
+                                    ? FlutterFlowTheme.of(context).primary
+                                    : FlutterFlowTheme.of(context).alternate,
+                                width: 1.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.storefront_outlined,
+                                    color: _model.myStoreChoosen != null &&
+                                            _model.myStoreChoosen != ''
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                    size: 32.0,
+                                  ),
+                                  Text(
+                                    'Store',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: GoogleFonts.notoSansJp(
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyMedium
+                                                    .fontStyle,
+                                          ),
+                                          color: _model.myStoreChoosen !=
+                                                      null &&
+                                                  _model.myStoreChoosen != ''
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .secondaryText,
+                                          letterSpacing: 0.0,
+                                          fontWeight:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontWeight,
+                                          fontStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .fontStyle,
+                                        ),
+                                  ),
+                                ].divide(SizedBox(height: 8.0)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ].divide(SizedBox(width: 16.0)),
+                  ),
+                ].divide(SizedBox(height: 16.0)),
               ),
               Column(
                 mainAxisSize: MainAxisSize.max,
@@ -847,7 +1072,10 @@ class _CreateDebtTransactionWidgetState
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.companyName} > ${functions.getStoreNameByIdFromList(FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.stores.toList(), FFAppState().storeChoosen)}',
+                                        _model.myStoreChoosen != null &&
+                                                _model.myStoreChoosen != ''
+                                            ? '${FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.companyName} > ${functions.getStoreNameByIdFromList(FFAppState().user.companies.where((e) => e.companyId == _model.myStoreChoosen).toList().firstOrNull?.stores.toList(), _model.myStoreChoosen)}'
+                                            : '${FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.companyName}\'s HQ',
                                         style: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
@@ -964,7 +1192,7 @@ class _CreateDebtTransactionWidgetState
                                           isChooseCash: true,
                                           companyId:
                                               FFAppState().companyChoosen,
-                                          storeId: FFAppState().storeChoosen,
+                                          storeId: _model.myStoreChoosen,
                                           cashLocationChoosen:
                                               (locationId, locationName) async {
                                             _model.myCashLocationId =
@@ -1047,19 +1275,27 @@ class _CreateDebtTransactionWidgetState
                                                         ),
                                               ),
                                               Text(
-                                                functions.getStoreNameByIdFromList(
-                                                    FFAppState()
-                                                        .user
-                                                        .companies
-                                                        .where((e) =>
-                                                            e.companyId ==
+                                                _model.myStoreChoosen != null &&
+                                                        _model.myStoreChoosen !=
+                                                            ''
+                                                    ? valueOrDefault<String>(
+                                                        functions.getStoreNameByIdFromList(
                                                             FFAppState()
-                                                                .companyChoosen)
-                                                        .toList()
-                                                        .firstOrNull
-                                                        ?.stores
-                                                        .toList(),
-                                                    FFAppState().storeChoosen)!,
+                                                                .user
+                                                                .companies
+                                                                .where((e) =>
+                                                                    e.companyId ==
+                                                                    _model
+                                                                        .myStoreChoosen)
+                                                                .toList()
+                                                                .firstOrNull
+                                                                ?.stores
+                                                                .toList(),
+                                                            _model
+                                                                .myStoreChoosen),
+                                                        'Error',
+                                                      )
+                                                    : 'HQ',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -2049,7 +2285,7 @@ class _CreateDebtTransactionWidgetState
                         pDescription: _model.textController2.text,
                         pBaseAmount:
                             double.tryParse(_model.textController1.text),
-                        pStoreId: FFAppState().storeChoosen,
+                        pStoreId: _model.myStoreChoosen,
                         pApprovedBy: FFAppState().user.userId,
                         pLinesJson: _model.pLine,
                         pIfCashLocationId: _model.counterpartyCashLocation,

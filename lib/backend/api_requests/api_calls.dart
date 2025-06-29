@@ -1381,6 +1381,62 @@ class UsershiftmonthlysummaryCall {
 
 /// End userShift Group Code
 
+/// Start contentsCreation Group Code
+
+class ContentsCreationGroup {
+  static String getBaseUrl() =>
+      'https://yenfccoefczqxckbizqa.supabase.co/rest/v1/rpc/';
+  static Map<String, String> headers = {
+    'apikey':
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllbmZjY29lZmN6cXhja2JpenFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NDkyNzksImV4cCI6MjA2MTUyNTI3OX0.U1iQUOaNPSrEHf1w_ePqgYzJiRO6Bi48E2Np2hY0nCQ',
+    'Authorization':
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllbmZjY29lZmN6cXhja2JpenFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NDkyNzksImV4cCI6MjA2MTUyNTI3OX0.U1iQUOaNPSrEHf1w_ePqgYzJiRO6Bi48E2Np2hY0nCQ',
+    'Content-Type': 'application/json',
+  };
+  static GetuserdashboarddataCall getuserdashboarddataCall =
+      GetuserdashboarddataCall();
+}
+
+class GetuserdashboarddataCall {
+  Future<ApiCallResponse> call({
+    String? pUserId = '',
+    String? pCompanyId = '',
+    String? pStoreId = '',
+  }) async {
+    final baseUrl = ContentsCreationGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+  "p_company_id": "${escapeStringForJson(pCompanyId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'getuserdashboarddata',
+      apiUrl: '${baseUrl}get_user_dashboard_data',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllbmZjY29lZmN6cXhja2JpenFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NDkyNzksImV4cCI6MjA2MTUyNTI3OX0.U1iQUOaNPSrEHf1w_ePqgYzJiRO6Bi48E2Np2hY0nCQ',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InllbmZjY29lZmN6cXhja2JpenFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDU5NDkyNzksImV4cCI6MjA2MTUyNTI3OX0.U1iQUOaNPSrEHf1w_ePqgYzJiRO6Bi48E2Np2hY0nCQ',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End contentsCreation Group Code
+
 class GetjournalLineCall {
   static Future<ApiCallResponse> call({
     String? storeId = '',

@@ -376,6 +376,7 @@ class _CashLocationCompWidgetState extends State<CashLocationCompWidget> {
 
                       return ListView.builder(
                         padding: EdgeInsets.zero,
+                        primary: false,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: listCash.length,

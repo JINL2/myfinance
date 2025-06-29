@@ -747,87 +747,98 @@ class _EmployeeWidgetState extends State<EmployeeWidget> {
                                                     padding:
                                                         MediaQuery.viewInsetsOf(
                                                             context),
-                                                    child:
-                                                        CalenderBottomSheetWidget(
-                                                      initialDate: _model
-                                                          .clickedDate?.date0,
-                                                      selectedDate:
-                                                          (selectedDate) async {
-                                                        _model.clickedDate =
-                                                            functions
-                                                                .getTodayPlusMinus(
-                                                                    selectedDate,
-                                                                    0);
-                                                        safeSetState(() {});
-                                                        if (!functions.booldateinjson(
-                                                            _model.overView
-                                                                .toList(),
-                                                            dateTimeFormat(
-                                                                "yyyy-MM-dd",
-                                                                _model
-                                                                    .clickedDate
-                                                                    ?.date0))!) {
-                                                          FFAppState()
-                                                                  .isLoading2 =
-                                                              true;
+                                                    child: Container(
+                                                      height: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.8,
+                                                      child:
+                                                          CalenderBottomSheetWidget(
+                                                        inputDateComPara: _model
+                                                            .clickedDate?.date0,
+                                                        initialSelectedDate:
+                                                            _model.clickedDate
+                                                                ?.date0,
+                                                        onSelectDateAction:
+                                                            (selectedDate) async {
+                                                          _model.clickedDate =
+                                                              functions
+                                                                  .getTodayPlusMinus(
+                                                                      selectedDate,
+                                                                      0);
                                                           safeSetState(() {});
-                                                          _model.callbackoverviewAPI =
-                                                              await UserShiftGroup
-                                                                  .usershiftmonthlysummaryCall
-                                                                  .call(
-                                                            pUserId:
-                                                                FFAppState()
-                                                                    .user
-                                                                    .userId,
-                                                            pStoreId: FFAppState()
-                                                                .storeChoosen,
-                                                            pRequestDate:
-                                                                dateTimeFormat(
-                                                                    "yyyy-MM-dd",
-                                                                    _model
-                                                                        .clickedDate
-                                                                        ?.date0),
-                                                            pCompanyId: FFAppState()
-                                                                .companyChoosen,
-                                                          );
-
-                                                          if ((_model
-                                                                  .callbackoverviewAPI
-                                                                  ?.succeeded ??
-                                                              true)) {
-                                                            _model.addToOverView((_model
-                                                                    .callbackoverviewAPI
-                                                                    ?.jsonBody ??
-                                                                ''));
+                                                          if (!functions.booldateinjson(
+                                                              _model.overView
+                                                                  .toList(),
+                                                              dateTimeFormat(
+                                                                  "yyyy-MM-dd",
+                                                                  _model
+                                                                      .clickedDate
+                                                                      ?.date0))!) {
+                                                            FFAppState()
+                                                                    .isLoading2 =
+                                                                true;
                                                             safeSetState(() {});
-                                                          } else {
-                                                            await showDialog(
-                                                              context: context,
-                                                              builder:
-                                                                  (alertDialogContext) {
-                                                                return AlertDialog(
-                                                                  title: Text(
-                                                                      'Fail Call Back API'),
-                                                                  actions: [
-                                                                    TextButton(
-                                                                      onPressed:
-                                                                          () =>
-                                                                              Navigator.pop(alertDialogContext),
-                                                                      child: Text(
-                                                                          'Ok'),
-                                                                    ),
-                                                                  ],
-                                                                );
-                                                              },
+                                                            _model.clickDate =
+                                                                await UserShiftGroup
+                                                                    .usershiftmonthlysummaryCall
+                                                                    .call(
+                                                              pUserId:
+                                                                  FFAppState()
+                                                                      .user
+                                                                      .userId,
+                                                              pStoreId: FFAppState()
+                                                                  .storeChoosen,
+                                                              pRequestDate: dateTimeFormat(
+                                                                  "yyyy-MM-dd",
+                                                                  _model
+                                                                      .clickedDate
+                                                                      ?.date0),
+                                                              pCompanyId:
+                                                                  FFAppState()
+                                                                      .companyChoosen,
                                                             );
-                                                          }
 
-                                                          FFAppState()
-                                                                  .isLoading2 =
-                                                              false;
-                                                          safeSetState(() {});
-                                                        }
-                                                      },
+                                                            if ((_model
+                                                                    .clickDate
+                                                                    ?.succeeded ??
+                                                                true)) {
+                                                              _model.addToOverView((_model
+                                                                      .clickDate
+                                                                      ?.jsonBody ??
+                                                                  ''));
+                                                              safeSetState(
+                                                                  () {});
+                                                            } else {
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Fail API'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Ok'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            }
+
+                                                            FFAppState()
+                                                                    .isLoading2 =
+                                                                false;
+                                                            safeSetState(() {});
+                                                          }
+                                                        },
+                                                      ),
                                                     ),
                                                   ),
                                                 );

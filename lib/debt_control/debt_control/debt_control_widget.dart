@@ -148,6 +148,13 @@ class _DebtControlWidgetState extends State<DebtControlWidget> {
         if ((_model.counterpartyMatrixapi?.succeeded ?? true)) {
           _model.counterpartyMatrix =
               (_model.counterpartyMatrixapi?.jsonBody ?? '');
+          _model.currentViewpointName = FFAppState()
+              .user
+              .companies
+              .where((e) => FFAppState().companyChoosen == e.companyId)
+              .toList()
+              .firstOrNull
+              ?.companyName;
           safeSetState(() {});
         }
       }
@@ -227,6 +234,39 @@ class _DebtControlWidgetState extends State<DebtControlWidget> {
                           selectedVietPoint: (selectedVietpoint) async {
                             _model.viewpoint = selectedVietpoint;
                             safeSetState(() {});
+                            if (_model.viewpoint == 'company') {
+                              _model.currentViewpointName = FFAppState()
+                                  .user
+                                  .companies
+                                  .where((e) =>
+                                      FFAppState().companyChoosen ==
+                                      e.companyId)
+                                  .toList()
+                                  .firstOrNull
+                                  ?.companyName;
+                              safeSetState(() {});
+                            } else {
+                              if (_model.viewpoint == 'store') {
+                                _model.currentViewpointName =
+                                    functions.getStoreNameByIdFromList(
+                                        FFAppState()
+                                            .user
+                                            .companies
+                                            .where((e) =>
+                                                e.companyId ==
+                                                FFAppState().companyChoosen)
+                                            .toList()
+                                            .firstOrNull
+                                            ?.stores
+                                            .toList(),
+                                        FFAppState().storeChoosen);
+                                safeSetState(() {});
+                              } else {
+                                _model.currentViewpointName =
+                                    '${FFAppState().user.companies.where((e) => FFAppState().companyChoosen == e.companyId).toList().firstOrNull?.companyName}\'s Headquarter';
+                                safeSetState(() {});
+                              }
+                            }
                           },
                         ),
                       ),
@@ -360,6 +400,7 @@ class _DebtControlWidgetState extends State<DebtControlWidget> {
                                     counterpartyCard: counterpartyOverviewItem,
                                     clickedCounterparty:
                                         _model.clickedCounterparty,
+                                    clikcedViewPoint: _model.viewpoint,
                                   ),
                                 );
                               },
@@ -402,6 +443,7 @@ class _DebtControlWidgetState extends State<DebtControlWidget> {
                           child: Padding(
                             padding: MediaQuery.viewInsetsOf(context),
                             child: ShowCounterpartyWidget(
+                              clikcedViewpoint: _model.viewpoint,
                               callbackAction:
                                   (callbackId, callbackName) async {},
                             ),

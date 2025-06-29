@@ -16,10 +16,12 @@ class ShowCounterpartyWidget extends StatefulWidget {
   const ShowCounterpartyWidget({
     super.key,
     this.callbackAction,
+    required this.clikcedViewpoint,
   });
 
   final Future Function(String? callbackId, String? callbackName)?
       callbackAction;
+  final String? clikcedViewpoint;
 
   @override
   State<ShowCounterpartyWidget> createState() => _ShowCounterpartyWidgetState();
@@ -204,6 +206,7 @@ class _ShowCounterpartyWidgetState extends State<ShowCounterpartyWidget> {
                                   child: CreateDebtTransactionWidget(
                                     debtCard:
                                         (_model.getdebtcard?.jsonBody ?? ''),
+                                    viewpoint: widget.clikcedViewpoint!,
                                   ),
                                 );
                               },

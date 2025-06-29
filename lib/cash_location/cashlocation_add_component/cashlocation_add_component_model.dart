@@ -16,11 +16,11 @@ class CashlocationAddComponentModel
 
   String? locationName;
 
-  String? locationType;
+  String locationType = 'bank';
 
   String? storeId;
 
-  String? locationInfo;
+  String locationInfo = 'bank';
 
   String? currencyCode;
 

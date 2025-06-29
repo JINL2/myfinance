@@ -15,10 +15,12 @@ class CounterpartyCardWidget extends StatefulWidget {
     super.key,
     this.counterpartyCard,
     this.clickedCounterparty,
-  });
+    String? clikcedViewPoint,
+  }) : this.clikcedViewPoint = clikcedViewPoint ?? 'company';
 
   final dynamic counterpartyCard;
   final String? clickedCounterparty;
+  final String clikcedViewPoint;
 
   @override
   State<CounterpartyCardWidget> createState() => _CounterpartyCardWidgetState();
@@ -222,29 +224,6 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                   .fontStyle,
                             ),
                       ),
-                      Text(
-                        getJsonField(
-                          widget.counterpartyCard,
-                          r'''$.net_balance''',
-                        ).toString(),
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              font: GoogleFonts.notoSansJp(
-                                fontWeight: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontWeight,
-                                fontStyle: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .fontStyle,
-                              ),
-                              letterSpacing: 0.0,
-                              fontWeight: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontWeight,
-                              fontStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .fontStyle,
-                            ),
-                      ),
                     ].divide(SizedBox(height: 4.0)),
                   ),
                 ),
@@ -371,131 +350,96 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                         ),
                                   ),
                                 ),
-                                Builder(
-                                  builder: (context) {
-                                    final headquarters = getJsonField(
-                                      widget.counterpartyCard,
-                                      r'''$.counterparty_headquarters_breakdown''',
-                                    ).toList();
-
-                                    return ListView.separated(
-                                      padding: EdgeInsets.zero,
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: headquarters.length,
-                                      separatorBuilder: (_, __) =>
-                                          SizedBox(height: 4.0),
-                                      itemBuilder:
-                                          (context, headquartersIndex) {
-                                        final headquartersItem =
-                                            headquarters[headquartersIndex];
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDBE9FE),
-                                            borderRadius:
-                                                BorderRadius.circular(16.0),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFDBE9FE),
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 4.0, 8.0, 4.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          valueOrDefault<String>(
+                                            getJsonField(
+                                              widget.counterpartyCard,
+                                              r'''$.counterparty_headquarters_breakdown.store_name''',
+                                            )?.toString(),
+                                            'error',
                                           ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 4.0, 8.0, 4.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  getJsonField(
-                                                    headquartersItem,
-                                                    r'''$.store_name''',
-                                                  ).toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .notoSansJp(
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        color:
-                                                            Color(0xFF374151),
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodySmall
-                                                                .fontStyle,
-                                                        lineHeight: 1.0,
-                                                      ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall
+                                                          .fontStyle,
                                                 ),
-                                                Text(
-                                                  formatNumber(
-                                                    functions.changeStringToInt(
-                                                        getJsonField(
-                                                      headquartersItem,
-                                                      r'''$.net_balance''',
-                                                    ).toString()),
-                                                    formatType:
-                                                        FormatType.decimal,
-                                                    decimalType: DecimalType
-                                                        .periodDecimal,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .notoSansJp(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        color: functions.changeStringToInt(
-                                                                    getJsonField(
-                                                                  headquartersItem,
-                                                                  r'''$.net_balance''',
-                                                                ).toString()) >=
-                                                                0
-                                                            ? FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary
-                                                            : FlutterFlowTheme
-                                                                    .of(context)
-                                                                .tertiary,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodySmall
-                                                                .fontStyle,
-                                                        lineHeight: 1.0,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
+                                                color: Color(0xFF374151),
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodySmall
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
+                                        ),
+                                        Text(
+                                          formatNumber(
+                                            functions.jsonToDouble(getJsonField(
+                                              widget.counterpartyCard,
+                                              r'''$.counterparty_headquarters_breakdown.net_balance''',
+                                            )),
+                                            formatType: FormatType.decimal,
+                                            decimalType:
+                                                DecimalType.periodDecimal,
                                           ),
-                                        );
-                                      },
-                                    );
-                                  },
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodySmall
+                                              .override(
+                                                font: GoogleFonts.notoSansJp(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall
+                                                          .fontStyle,
+                                                ),
+                                                color: functions.jsonToDouble(
+                                                            getJsonField(
+                                                          widget
+                                                              .counterpartyCard,
+                                                          r'''$.counterparty_headquarters_breakdown.net_balance''',
+                                                        )) >=
+                                                        0.0
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiary,
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w600,
+                                                fontStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodySmall
+                                                        .fontStyle,
+                                                lineHeight: 1.0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ].divide(SizedBox(height: 8.0)),
                             ),
@@ -533,50 +477,63 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                         ),
                                   ),
                                 ),
-                                Builder(
-                                  builder: (context) {
-                                    final stores = getJsonField(
-                                      widget.counterpartyCard,
-                                      r'''$.counterparty_stores_breakdown''',
-                                    ).toList();
+                                Container(
+                                  decoration: BoxDecoration(),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final stores = getJsonField(
+                                        widget.counterpartyCard,
+                                        r'''$.counterparty_stores_breakdown''',
+                                      ).toList();
 
-                                    return ListView.separated(
-                                      padding: EdgeInsets.zero,
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: stores.length,
-                                      separatorBuilder: (_, __) =>
-                                          SizedBox(height: 4.0),
-                                      itemBuilder: (context, storesIndex) {
-                                        final storesItem = stores[storesIndex];
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDCFCE7),
-                                            borderRadius:
-                                                BorderRadius.circular(16.0),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 4.0, 8.0, 4.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  getJsonField(
-                                                    storesItem,
-                                                    r'''$.store_name''',
-                                                  ).toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .notoSansJp(
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: stores.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 4.0),
+                                        itemBuilder: (context, storesIndex) {
+                                          final storesItem =
+                                              stores[storesIndex];
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFDCFCE7),
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 4.0, 8.0, 4.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    getJsonField(
+                                                      storesItem,
+                                                      r'''$.store_name''',
+                                                    ).toString(),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodySmall
+                                                        .override(
+                                                          font: GoogleFonts
+                                                              .notoSansJp(
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontStyle,
+                                                          ),
+                                                          color:
+                                                              Color(0xFF374151),
+                                                          fontSize: 12.0,
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                           fontStyle:
@@ -584,78 +541,71 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                                                       context)
                                                                   .bodySmall
                                                                   .fontStyle,
+                                                          lineHeight: 1.0,
                                                         ),
-                                                        color:
-                                                            Color(0xFF374151),
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodySmall
-                                                                .fontStyle,
-                                                        lineHeight: 1.0,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  formatNumber(
-                                                    functions.changeStringToInt(
-                                                        getJsonField(
-                                                      storesItem,
-                                                      r'''$.net_balance''',
-                                                    ).toString()),
-                                                    formatType:
-                                                        FormatType.decimal,
-                                                    decimalType: DecimalType
-                                                        .periodDecimal,
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
-                                                        font: GoogleFonts
-                                                            .notoSansJp(
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        color: functions.changeStringToInt(
-                                                                    getJsonField(
-                                                                  storesItem,
-                                                                  r'''$.net_balance''',
-                                                                ).toString()) >=
-                                                                0
-                                                            ? FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary
-                                                            : FlutterFlowTheme
-                                                                    .of(context)
-                                                                .tertiary,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodySmall
-                                                                .fontStyle,
-                                                        lineHeight: 1.0,
-                                                      ),
-                                                ),
-                                              ],
+                                                  Text(
+                                                    formatNumber(
+                                                      functions.jsonToDouble(
+                                                          getJsonField(
+                                                        storesItem,
+                                                        r'''$.net_balance''',
+                                                      )),
+                                                      formatType:
+                                                          FormatType.decimal,
+                                                      decimalType: DecimalType
+                                                          .periodDecimal,
+                                                    ),
+                                                    style:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodySmall
+                                                            .override(
+                                                              font: GoogleFonts
+                                                                  .notoSansJp(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontStyle,
+                                                              ),
+                                                              color: functions.changeStringToInt(
+                                                                          getJsonField(
+                                                                        storesItem,
+                                                                        r'''$.net_balance''',
+                                                                      )
+                                                                              .toString()) >=
+                                                                      0
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .tertiary,
+                                                              fontSize: 12.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              fontStyle:
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodySmall
+                                                                      .fontStyle,
+                                                              lineHeight: 1.0,
+                                                            ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
                               ].divide(SizedBox(height: 8.0)),
                             ),
@@ -694,6 +644,8 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                   child: CreateDebtTransactionWidget(
                                     debtCard: widget.counterpartyCard,
                                     companyId: FFAppState().companyChoosen,
+                                    storeid: '',
+                                    viewpoint: widget.clikcedViewPoint,
                                   ),
                                 ),
                               );
@@ -746,6 +698,7 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
                                       MediaQuery.sizeOf(context).height * 0.8,
                                   child: DebtDetailComponentWidget(
                                     debtDetail: widget.counterpartyCard,
+                                    selectedViewPoint: widget.clikcedViewPoint,
                                   ),
                                 ),
                               );

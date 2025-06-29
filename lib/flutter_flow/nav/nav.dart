@@ -260,11 +260,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => CashLocation1Widget(),
         ),
         FFRoute(
-          name: ManagerPageTestWidget.routeName,
-          path: ManagerPageTestWidget.routePath,
-          builder: (context, params) => ManagerPageTestWidget(),
-        ),
-        FFRoute(
           name: TimeTableUsertestWidget.routeName,
           path: TimeTableUsertestWidget.routePath,
           builder: (context, params) => TimeTableUsertestWidget(),
@@ -273,6 +268,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: TimetableManagetestWidget.routeName,
           path: TimetableManagetestWidget.routePath,
           builder: (context, params) => TimetableManagetestWidget(),
+        ),
+        FFRoute(
+          name: ConetentsCreationWidget.routeName,
+          path: ConetentsCreationWidget.routePath,
+          builder: (context, params) => ConetentsCreationWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

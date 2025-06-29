@@ -32,8 +32,6 @@ class TimetableManagetestModel
 
   String? selectedStoreId;
 
-  dynamic scope;
-
   List<dynamic> dailySummary = [];
   void addToDailySummary(dynamic item) => dailySummary.add(item);
   void removeFromDailySummary(dynamic item) => dailySummary.remove(item);
@@ -43,23 +41,27 @@ class TimetableManagetestModel
   void updateDailySummaryAtIndex(int index, Function(dynamic) updateFn) =>
       dailySummary[index] = updateFn(dailySummary[index]);
 
-  List<dynamic> overview = [];
-  void addToOverview(dynamic item) => overview.add(item);
-  void removeFromOverview(dynamic item) => overview.remove(item);
-  void removeAtIndexFromOverview(int index) => overview.removeAt(index);
-  void insertAtIndexInOverview(int index, dynamic item) =>
-      overview.insert(index, item);
-  void updateOverviewAtIndex(int index, Function(dynamic) updateFn) =>
-      overview[index] = updateFn(overview[index]);
+  dynamic overview;
 
-  List<dynamic> managerCard = [];
-  void addToManagerCard(dynamic item) => managerCard.add(item);
-  void removeFromManagerCard(dynamic item) => managerCard.remove(item);
-  void removeAtIndexFromManagerCard(int index) => managerCard.removeAt(index);
-  void insertAtIndexInManagerCard(int index, dynamic item) =>
-      managerCard.insert(index, item);
-  void updateManagerCardAtIndex(int index, Function(dynamic) updateFn) =>
-      managerCard[index] = updateFn(managerCard[index]);
+  List<dynamic> montlystat = [];
+  void addToMontlystat(dynamic item) => montlystat.add(item);
+  void removeFromMontlystat(dynamic item) => montlystat.remove(item);
+  void removeAtIndexFromMontlystat(int index) => montlystat.removeAt(index);
+  void insertAtIndexInMontlystat(int index, dynamic item) =>
+      montlystat.insert(index, item);
+  void updateMontlystatAtIndex(int index, Function(dynamic) updateFn) =>
+      montlystat[index] = updateFn(montlystat[index]);
+
+  String? clickedMonthStatus;
+
+  List<dynamic> storesData = [];
+  void addToStoresData(dynamic item) => storesData.add(item);
+  void removeFromStoresData(dynamic item) => storesData.remove(item);
+  void removeAtIndexFromStoresData(int index) => storesData.removeAt(index);
+  void insertAtIndexInStoresData(int index, dynamic item) =>
+      storesData.insert(index, item);
+  void updateStoresDataAtIndex(int index, Function(dynamic) updateFn) =>
+      storesData[index] = updateFn(storesData[index]);
 
   ///  State fields for stateful widgets in this page.
 

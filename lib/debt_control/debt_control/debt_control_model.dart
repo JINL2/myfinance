@@ -31,6 +31,8 @@ class DebtControlModel extends FlutterFlowModel<DebtControlWidget> {
 
   String? clickedCounterparty;
 
+  String? currentViewpointName;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (debtOverview)] action in debtControl widget.

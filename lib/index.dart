@@ -54,9 +54,9 @@ export '/debt_control/debt_control/debt_control_widget.dart'
 export '/employee_schedule_test/employee/employee_widget.dart'
     show EmployeeWidget;
 export '/cash_location1/cash_location1_widget.dart' show CashLocation1Widget;
-export '/manager_schedule_test/manager_page_test/manager_page_test_widget.dart'
-    show ManagerPageTestWidget;
 export '/employee_schedule_test/time_table_usertest/time_table_usertest_widget.dart'
     show TimeTableUsertestWidget;
 export '/manager_schedule_test/timetable_managetest/timetable_managetest_widget.dart'
     show TimetableManagetestWidget;
+export '/contents_creation_page/conetents_creation/conetents_creation_widget.dart'
+    show ConetentsCreationWidget;

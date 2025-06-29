@@ -197,6 +197,8 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                                       updateCallback: () => safeSetState(() {}),
                                       child: AddWidget(
                                         name: '+ Add role',
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                       ),
                                     ),
                                   ),
