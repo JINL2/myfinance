@@ -40,4 +40,13 @@ class AccountsRow extends SupabaseDataRow {
 
   String? get debtTag => getField<String>('debt_tag');
   set debtTag(String? value) => setField<String>('debt_tag', value);
+
+  String? get statementCategory => getField<String>('statement_category');
+  set statementCategory(String? value) =>
+      setField<String>('statement_category', value);
+
+  String? get statementDetailCategory =>
+      getField<String>('statement_detail_category');
+  set statementDetailCategory(String? value) =>
+      setField<String>('statement_detail_category', value);
 }

@@ -111,8 +111,8 @@ class VShiftRequestWithRealtimeProblemRow extends SupabaseDataRow {
   set confirmEndTime(DateTime? value) =>
       setField<DateTime>('confirm_end_time', value);
 
-  String? get noticeTag => getField<String>('notice_tag');
-  set noticeTag(String? value) => setField<String>('notice_tag', value);
+  dynamic get noticeTag => getField<dynamic>('notice_tag');
+  set noticeTag(dynamic value) => setField<dynamic>('notice_tag', value);
 
   bool? get isReported => getField<bool>('is_reported');
   set isReported(bool? value) => setField<bool>('is_reported', value);

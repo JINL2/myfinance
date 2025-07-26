@@ -32,6 +32,8 @@ class _ButtonTextFullSizeWidgetState extends State<ButtonTextFullSizeWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ButtonTextFullSizeModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

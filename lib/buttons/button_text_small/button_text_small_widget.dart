@@ -31,6 +31,8 @@ class _ButtonTextSmallWidgetState extends State<ButtonTextSmallWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ButtonTextSmallModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

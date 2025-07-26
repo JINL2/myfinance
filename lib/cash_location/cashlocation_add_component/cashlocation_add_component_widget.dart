@@ -48,7 +48,7 @@ class _CashlocationAddComponentWidgetState
         _model.selectedType = getJsonField(
           widget.cashLocationUpdate,
           r'''$.location_type''',
-        ).toString().toString();
+        ).toString();
         _model.selectedViewType = functions.convertJsonToString(getJsonField(
                   widget.cashLocationUpdate,
                   r'''$.location_type''',
@@ -71,11 +71,11 @@ class _CashlocationAddComponentWidgetState
         _model.locationName = getJsonField(
           widget.cashLocationUpdate,
           r'''$.location_name''',
-        ).toString().toString();
+        ).toString();
         _model.locationType = getJsonField(
           widget.cashLocationUpdate,
           r'''$.location_type''',
-        ).toString().toString();
+        ).toString();
         _model.storeId = getJsonField(
                   widget.cashLocationUpdate,
                   r'''$.store_id''',
@@ -84,16 +84,16 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.store_id''',
-              ).toString().toString()
+              ).toString()
             : '';
         _model.locationInfo = getJsonField(
           widget.cashLocationUpdate,
           r'''$.location_info''',
-        ).toString().toString();
+        ).toString();
         _model.currencyCode = getJsonField(
           widget.cashLocationUpdate,
           r'''$.currency_code''',
-        ).toString().toString();
+        ).toString();
         _model.accoutNumber = getJsonField(
                   widget.cashLocationUpdate,
                   r'''$.bank_account''',
@@ -102,7 +102,7 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.bank_account''',
-              ).toString().toString()
+              ).toString()
             : '';
         _model.bankName = getJsonField(
                   widget.cashLocationUpdate,
@@ -112,7 +112,7 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.bank_name''',
-              ).toString().toString()
+              ).toString()
             : '';
         safeSetState(() {});
       }
@@ -127,7 +127,7 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.location_name''',
-              ).toString().toString()
+              ).toString()
             : '');
     _model.locationNameBankFocusNode ??= FocusNode();
 
@@ -140,7 +140,7 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.bank_name''',
-              ).toString().toString()
+              ).toString()
             : '');
     _model.bankNameFocusNode ??= FocusNode();
 
@@ -153,7 +153,7 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.bank_account''',
-              ).toString().toString()
+              ).toString()
             : '');
     _model.bankacountFocusNode ??= FocusNode();
 
@@ -166,9 +166,11 @@ class _CashlocationAddComponentWidgetState
             ? getJsonField(
                 widget.cashLocationUpdate,
                 r'''$.location_info''',
-              ).toString().toString()
+              ).toString()
             : '');
     _model.noteBankFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

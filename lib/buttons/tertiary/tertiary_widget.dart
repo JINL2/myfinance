@@ -33,6 +33,8 @@ class _TertiaryWidgetState extends State<TertiaryWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TertiaryModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

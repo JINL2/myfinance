@@ -33,6 +33,8 @@ class _ButtonIconTex80WidgetState extends State<ButtonIconTex80Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ButtonIconTex80Model());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

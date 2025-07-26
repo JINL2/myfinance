@@ -43,6 +43,8 @@ class _EditStoreWidgetState extends State<EditStoreWidget> {
 
     _model.allowedDistanceTextController ??= TextEditingController();
     _model.allowedDistanceFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

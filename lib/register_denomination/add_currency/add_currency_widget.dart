@@ -50,6 +50,8 @@ class _AddCurrencyWidgetState extends State<AddCurrencyWidget> {
       FFAppState().isLoading1 = false;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

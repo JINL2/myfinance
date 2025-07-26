@@ -86,6 +86,8 @@ class _InputTransactionWidgetState extends State<InputTransactionWidget> {
 
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -52,6 +52,8 @@ class _ChooseStoreListCompWidgetState extends State<ChooseStoreListCompWidget> {
       );
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

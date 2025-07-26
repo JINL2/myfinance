@@ -30,6 +30,8 @@ class _CashBalanceWidgetState extends State<CashBalanceWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CashBalanceModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

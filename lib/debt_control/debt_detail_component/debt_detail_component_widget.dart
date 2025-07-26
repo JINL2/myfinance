@@ -46,7 +46,7 @@ class _DebtDetailComponentWidgetState extends State<DebtDetailComponentWidget> {
         pCounterpartyId: getJsonField(
           widget.debtDetail,
           r'''$.counterparty_id''',
-        ).toString().toString(),
+        ).toString(),
         pEndDate: getCurrentTimestamp.toString(),
         pTransactionType: 'all',
         pStoreId: FFAppState().storeChoosen,
@@ -78,6 +78,8 @@ class _DebtDetailComponentWidgetState extends State<DebtDetailComponentWidget> {
         );
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

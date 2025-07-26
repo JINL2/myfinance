@@ -115,6 +115,8 @@ class _ChooseCompanyWidgetState extends State<ChooseCompanyWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

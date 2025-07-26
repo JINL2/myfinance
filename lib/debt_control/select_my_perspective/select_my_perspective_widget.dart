@@ -31,6 +31,8 @@ class _SelectMyPerspectiveWidgetState extends State<SelectMyPerspectiveWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SelectMyPerspectiveModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -33,6 +33,8 @@ class _CashBalanceComponentWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => CashBalanceComponentModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

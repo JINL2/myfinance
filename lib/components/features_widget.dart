@@ -72,6 +72,8 @@ class _FeaturesWidgetState extends State<FeaturesWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

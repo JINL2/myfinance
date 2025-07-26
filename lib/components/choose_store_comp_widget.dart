@@ -35,6 +35,8 @@ class _ChooseStoreCompWidgetState extends State<ChooseStoreCompWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChooseStoreCompModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

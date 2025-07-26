@@ -33,6 +33,8 @@ class _ViewpointComponentWidgetState extends State<ViewpointComponentWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ViewpointComponentModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -1175,6 +1175,18 @@ class ManagerShiftGroup {
       ManagershiftgetcardsCall();
   static ManagershiftgetdetailCall managershiftgetdetailCall =
       ManagershiftgetdetailCall();
+  static ManagershiftinputcardCall managershiftinputcardCall =
+      ManagershiftinputcardCall();
+  static ManagershiftdeletetagCall managershiftdeletetagCall =
+      ManagershiftdeletetagCall();
+  static ManagershiftgetscheduleCall managershiftgetscheduleCall =
+      ManagershiftgetscheduleCall();
+  static ManagershiftinsertscheduleCall managershiftinsertscheduleCall =
+      ManagershiftinsertscheduleCall();
+  static ManagershiftnotapproveCall managershiftnotapproveCall =
+      ManagershiftnotapproveCall();
+  static InsertshiftrequestvCall insertshiftrequestvCall =
+      InsertshiftrequestvCall();
 }
 
 class ManagershiftgetoverviewCall {
@@ -1321,12 +1333,330 @@ class ManagershiftgetdetailCall {
   }
 }
 
+class ManagershiftinputcardCall {
+  Future<ApiCallResponse> call({
+    String? pManagerId = '',
+    String? pConfirmStartTime = '',
+    String? pConfirmEndTime = '',
+    String? pNewTagContent = '',
+    String? pNewTagType = '',
+    bool? pIsLate,
+    bool? pIsProblemSolved,
+    String? pStartDate = '',
+    String? pEndDate = '',
+    String? pStoreId = '',
+    String? pDate = '',
+    String? pShiftRequestId = '',
+    String? pCompanyId = '',
+  }) async {
+    pIsLate ??= null;
+    pIsProblemSolved ??= null;
+    final baseUrl = ManagerShiftGroup.getBaseUrl(
+      pStartDate: pStartDate,
+      pEndDate: pEndDate,
+      pStoreId: pStoreId,
+      pDate: pDate,
+      pShiftRequestId: pShiftRequestId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_shift_request_id": "${escapeStringForJson(pShiftRequestId)}",
+  "p_manager_id": "${escapeStringForJson(pManagerId)}",
+  "p_confirm_start_time": "${escapeStringForJson(pConfirmStartTime)}",
+  "p_confirm_end_time": "${escapeStringForJson(pConfirmEndTime)}",
+  "p_new_tag_content": "${escapeStringForJson(pNewTagContent)}",
+  "p_new_tag_type": "${escapeStringForJson(pNewTagType)}",
+  "p_is_late": ${pIsLate},
+  "p_is_problem_solved": ${pIsProblemSolved}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'managershiftinputcard',
+      apiUrl: '${baseUrl}manager_shift_input_card',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ManagershiftdeletetagCall {
+  Future<ApiCallResponse> call({
+    String? pTagId = '',
+    String? pUserId = '',
+    String? pStartDate = '',
+    String? pEndDate = '',
+    String? pStoreId = '',
+    String? pDate = '',
+    String? pShiftRequestId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = ManagerShiftGroup.getBaseUrl(
+      pStartDate: pStartDate,
+      pEndDate: pEndDate,
+      pStoreId: pStoreId,
+      pDate: pDate,
+      pShiftRequestId: pShiftRequestId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_tag_id": "${escapeStringForJson(pTagId)}",
+  "p_user_id": "${escapeStringForJson(pUserId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'managershiftdeletetag',
+      apiUrl: '${baseUrl}manager_shift_delete_tag',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ManagershiftgetscheduleCall {
+  Future<ApiCallResponse> call({
+    String? pStartDate = '',
+    String? pEndDate = '',
+    String? pStoreId = '',
+    String? pDate = '',
+    String? pShiftRequestId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = ManagerShiftGroup.getBaseUrl(
+      pStartDate: pStartDate,
+      pEndDate: pEndDate,
+      pStoreId: pStoreId,
+      pDate: pDate,
+      pShiftRequestId: pShiftRequestId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_store_id": "${escapeStringForJson(pStoreId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'managershiftgetschedule',
+      apiUrl: '${baseUrl}manager_shift_get_schedule',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ManagershiftinsertscheduleCall {
+  Future<ApiCallResponse> call({
+    String? pUserId = '',
+    String? pShiftId = '',
+    String? pRequestDate = '',
+    String? pApprovedBy = '',
+    String? pStartDate = '',
+    String? pEndDate = '',
+    String? pStoreId = '',
+    String? pDate = '',
+    String? pShiftRequestId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = ManagerShiftGroup.getBaseUrl(
+      pStartDate: pStartDate,
+      pEndDate: pEndDate,
+      pStoreId: pStoreId,
+      pDate: pDate,
+      pShiftRequestId: pShiftRequestId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+  "p_shift_id": "${escapeStringForJson(pShiftId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}",
+  "p_request_date": "${escapeStringForJson(pRequestDate)}",
+  "p_approved_by": "${escapeStringForJson(pApprovedBy)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'managershiftinsertschedule',
+      apiUrl: '${baseUrl}manager_shift_insert_schedule',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class ManagershiftnotapproveCall {
+  Future<ApiCallResponse> call({
+    String? pRemovedBy = '',
+    String? pRemovalReason = '',
+    String? pStartDate = '',
+    String? pEndDate = '',
+    String? pStoreId = '',
+    String? pDate = '',
+    String? pShiftRequestId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = ManagerShiftGroup.getBaseUrl(
+      pStartDate: pStartDate,
+      pEndDate: pEndDate,
+      pStoreId: pStoreId,
+      pDate: pDate,
+      pShiftRequestId: pShiftRequestId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_shift_request_id": "${escapeStringForJson(pShiftRequestId)}",
+  "p_removed_by": "${escapeStringForJson(pRemovedBy)}",
+  "p_removal_reason": "${escapeStringForJson(pRemovalReason)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'managershiftnotapprove',
+      apiUrl: '${baseUrl}manager_shift_notapprove',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class InsertshiftrequestvCall {
+  Future<ApiCallResponse> call({
+    String? pUserId = '',
+    String? pShiftId = '',
+    String? pRequestDate = '',
+    String? pStartDate = '',
+    String? pEndDate = '',
+    String? pStoreId = '',
+    String? pDate = '',
+    String? pShiftRequestId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = ManagerShiftGroup.getBaseUrl(
+      pStartDate: pStartDate,
+      pEndDate: pEndDate,
+      pStoreId: pStoreId,
+      pDate: pDate,
+      pShiftRequestId: pShiftRequestId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+  "p_shift_id": "${escapeStringForJson(pShiftId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}",
+  "p_request_date": "${escapeStringForJson(pRequestDate)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'insertshiftrequestv',
+      apiUrl: '${baseUrl}insert_shift_request_v2',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 /// End managerShift Group Code
 
 /// Start userShift Group Code
 
 class UserShiftGroup {
-  static String getBaseUrl() =>
+  static String getBaseUrl({
+    String? pUserId = '',
+    String? pRequestDate = '',
+    String? pStoreId = '',
+    String? pCompanyId = '',
+  }) =>
       'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/';
   static Map<String, String> headers = {
     'apikey':
@@ -1337,16 +1667,25 @@ class UserShiftGroup {
   };
   static UsershiftmonthlysummaryCall usershiftmonthlysummaryCall =
       UsershiftmonthlysummaryCall();
+  static UsershiftoverviewCall usershiftoverviewCall = UsershiftoverviewCall();
+  static UsershiftcardsCall usershiftcardsCall = UsershiftcardsCall();
+  static UpdateshiftrequestsvCall updateshiftrequestsvCall =
+      UpdateshiftrequestsvCall();
 }
 
 class UsershiftmonthlysummaryCall {
   Future<ApiCallResponse> call({
     String? pUserId = '',
-    String? pStoreId = '',
     String? pRequestDate = '',
+    String? pStoreId = '',
     String? pCompanyId = '',
   }) async {
-    final baseUrl = UserShiftGroup.getBaseUrl();
+    final baseUrl = UserShiftGroup.getBaseUrl(
+      pUserId: pUserId,
+      pRequestDate: pRequestDate,
+      pStoreId: pStoreId,
+      pCompanyId: pCompanyId,
+    );
 
     final ffApiRequestBody = '''
 {
@@ -1358,6 +1697,146 @@ class UsershiftmonthlysummaryCall {
     return ApiManager.instance.makeApiCall(
       callName: 'usershiftmonthlysummary',
       apiUrl: '${baseUrl}user_shift_monthly_summary',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UsershiftoverviewCall {
+  Future<ApiCallResponse> call({
+    String? pUserId = '',
+    String? pRequestDate = '',
+    String? pStoreId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = UserShiftGroup.getBaseUrl(
+      pUserId: pUserId,
+      pRequestDate: pRequestDate,
+      pStoreId: pStoreId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_request_date": "${escapeStringForJson(pRequestDate)}",
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+  "p_company_id": "${escapeStringForJson(pCompanyId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'usershiftoverview',
+      apiUrl: '${baseUrl}user_shift_overview',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UsershiftcardsCall {
+  Future<ApiCallResponse> call({
+    String? pUserId = '',
+    String? pRequestDate = '',
+    String? pStoreId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = UserShiftGroup.getBaseUrl(
+      pUserId: pUserId,
+      pRequestDate: pRequestDate,
+      pStoreId: pStoreId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_request_date": "${escapeStringForJson(pRequestDate)}",
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+  "p_company_id": "${escapeStringForJson(pCompanyId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'usershiftcards',
+      apiUrl: '${baseUrl}user_shift_cards',
+      callType: ApiCallType.POST,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class UpdateshiftrequestsvCall {
+  Future<ApiCallResponse> call({
+    String? pTime = '',
+    double? pLat,
+    double? pLng,
+    String? pUserId = '',
+    String? pRequestDate = '',
+    String? pStoreId = '',
+    String? pCompanyId = '',
+  }) async {
+    final baseUrl = UserShiftGroup.getBaseUrl(
+      pUserId: pUserId,
+      pRequestDate: pRequestDate,
+      pStoreId: pStoreId,
+      pCompanyId: pCompanyId,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "p_user_id": "${escapeStringForJson(pUserId)}",
+  "p_store_id": "${escapeStringForJson(pStoreId)}",
+  "p_request_date": "${escapeStringForJson(pRequestDate)}",
+  "p_time": "${escapeStringForJson(pTime)}",
+  "p_lat": ${pLat},
+  "p_lng": ${pLng}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateshiftrequestsv',
+      apiUrl: '${baseUrl}update_shift_requests_v3',
       callType: ApiCallType.POST,
       headers: {
         'apikey':
@@ -1682,43 +2161,6 @@ class DeleteCashAmountLineCall {
   }
 }
 
-class ShiftRequestStartOrNotCall {
-  static Future<ApiCallResponse> call({
-    String? pUserId = '',
-    String? pRequestDate = '',
-    String? pStoreId = '',
-  }) async {
-    final ffApiRequestBody = '''
-{
-  "p_user_id": "${escapeStringForJson(pUserId)}",
-  "p_request_date": "${escapeStringForJson(pRequestDate)}",
-  "p_store_id": "${escapeStringForJson(pStoreId)}"
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'shiftRequestStartOrNot',
-      apiUrl:
-          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/shift_request_startornot',
-      callType: ApiCallType.POST,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
-        'Content-Type': 'application/json',
-      },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
 class InsertCashLineCall {
   static Future<ApiCallResponse> call({
     String? pCompanyId = '',
@@ -1744,49 +2186,6 @@ class InsertCashLineCall {
       callName: 'insertCashLine',
       apiUrl:
           'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/insert_cashier_amount_lines',
-      callType: ApiCallType.POST,
-      headers: {
-        'apikey':
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImF0a2VrendndWtkdnVjcW50cnlvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI4OTQwMjIsImV4cCI6MjA1ODQ3MDAyMn0.G4WqAmLvQSqYEfMWIpFOAZOYtnT0kxCxj8dVGhuUYO8',
-        'Content-Type': 'application/json',
-      },
-      params: {},
-      body: ffApiRequestBody,
-      bodyType: BodyType.JSON,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-      isStreamingApi: false,
-      alwaysAllowBody: false,
-    );
-  }
-}
-
-class UpdateShiftReqeustStartCall {
-  static Future<ApiCallResponse> call({
-    String? pShiftRequestId = '',
-    String? pActualStartTime,
-    double? pStartLat,
-    double? pStartLng,
-  }) async {
-    pActualStartTime ??= null;
-    pStartLat ??= null;
-    pStartLng ??= null;
-
-    final ffApiRequestBody = '''
-{
-  "p_shift_request_id": "${escapeStringForJson(pShiftRequestId)}",
-  "p_actual_start_time": "${escapeStringForJson(pActualStartTime)}",
-  "p_start_lat": ${pStartLat},
-  "p_start_lng": ${pStartLng}
-}''';
-    return ApiManager.instance.makeApiCall(
-      callName: 'updateShiftReqeustStart',
-      apiUrl:
-          'https://atkekzwgukdvucqntryo.supabase.co/rest/v1/rpc/update_shift_request_start',
       callType: ApiCallType.POST,
       headers: {
         'apikey':

@@ -38,6 +38,8 @@ class _PutInformationWidgetState extends State<PutInformationWidget> {
     _model.putInfomationTextController ??=
         TextEditingController(text: widget.initialValue);
     _model.putInfomationFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

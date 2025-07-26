@@ -28,6 +28,8 @@ class _DelegateRolePageWidgetState extends State<DelegateRolePageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DelegateRolePageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

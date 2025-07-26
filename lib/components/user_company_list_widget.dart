@@ -31,6 +31,8 @@ class _UserCompanyListWidgetState extends State<UserCompanyListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => UserCompanyListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

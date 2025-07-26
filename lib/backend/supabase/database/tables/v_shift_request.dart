@@ -186,8 +186,8 @@ class VShiftRequestRow extends SupabaseDataRow {
   int? get paymentTime => getField<int>('payment_time');
   set paymentTime(int? value) => setField<int>('payment_time', value);
 
-  String? get noticeTag => getField<String>('notice_tag');
-  set noticeTag(String? value) => setField<String>('notice_tag', value);
+  dynamic get noticeTag => getField<dynamic>('notice_tag');
+  set noticeTag(dynamic value) => setField<dynamic>('notice_tag', value);
 
   bool? get isReported => getField<bool>('is_reported');
   set isReported(bool? value) => setField<bool>('is_reported', value);

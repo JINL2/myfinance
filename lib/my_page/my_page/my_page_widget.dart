@@ -34,6 +34,8 @@ class _MyPageWidgetState extends State<MyPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MyPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

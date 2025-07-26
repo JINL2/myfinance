@@ -38,6 +38,8 @@ class _CreateCompanyByCodeF1WidgetState
 
     _model.companyCodeTextController ??= TextEditingController();
     _model.companyCodeFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

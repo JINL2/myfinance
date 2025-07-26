@@ -37,6 +37,8 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -81,6 +83,7 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
                                       .labelMedium
                                       .fontStyle,
                                 ),
+                                color: FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
                                 fontWeight: FlutterFlowTheme.of(context)
                                     .labelMedium
@@ -109,7 +112,7 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
                               ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
-                          color: Color(0xFFE0E3E7),
+                          color: FlutterFlowTheme.of(context).primaryText,
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(16.0),
@@ -136,7 +139,7 @@ class _CreateRoleV1WidgetState extends State<CreateRoleV1Widget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).info,
+                      fillColor: FlutterFlowTheme.of(context).primaryBackground,
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           font: GoogleFonts.notoSansJp(

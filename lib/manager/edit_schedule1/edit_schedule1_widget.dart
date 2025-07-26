@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/manager/delete_schedule_y_n/delete_schedule_y_n_widget.dart';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -65,6 +66,8 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
 
     _model.incentiveTextFieldTextController ??= TextEditingController();
     _model.incentiveTextFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -1818,32 +1821,59 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                               builder: (context) {
                                                 final _datePicked1CupertinoTheme =
                                                     CupertinoTheme.of(context);
-                                                return Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      3,
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  child: CupertinoTheme(
-                                                    data:
-                                                        _datePicked1CupertinoTheme
-                                                            .copyWith(
-                                                      textTheme:
+                                                return ScrollConfiguration(
+                                                  behavior:
+                                                      const MaterialScrollBehavior()
+                                                          .copyWith(
+                                                    dragDevices: {
+                                                      PointerDeviceKind.mouse,
+                                                      PointerDeviceKind.touch,
+                                                      PointerDeviceKind.stylus,
+                                                      PointerDeviceKind.unknown
+                                                    },
+                                                  ),
+                                                  child: Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            3,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    child: CupertinoTheme(
+                                                      data:
                                                           _datePicked1CupertinoTheme
-                                                              .textTheme
                                                               .copyWith(
-                                                        dateTimePickerTextStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
+                                                        textTheme:
+                                                            _datePicked1CupertinoTheme
+                                                                .textTheme
+                                                                .copyWith(
+                                                          dateTimePickerTextStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .headlineMedium
@@ -1853,45 +1883,34 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                                         .headlineMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: CupertinoDatePicker(
-                                                      mode:
-                                                          CupertinoDatePickerMode
-                                                              .time,
-                                                      minimumDate:
-                                                          DateTime(1900),
-                                                      initialDateTime: (widget
-                                                              .supabaseCall
-                                                              ?.confirmStartTime ??
-                                                          DateTime.now()),
-                                                      maximumDate:
-                                                          DateTime(2050),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground,
-                                                      use24hFormat: false,
-                                                      onDateTimeChanged:
-                                                          (newDateTime) =>
-                                                              safeSetState(() {
-                                                        _model.datePicked1 =
-                                                            newDateTime;
-                                                      }),
+                                                      child:
+                                                          CupertinoDatePicker(
+                                                        mode:
+                                                            CupertinoDatePickerMode
+                                                                .time,
+                                                        minimumDate:
+                                                            DateTime(1900),
+                                                        initialDateTime: (widget
+                                                                .supabaseCall
+                                                                ?.confirmStartTime ??
+                                                            DateTime.now()),
+                                                        maximumDate:
+                                                            DateTime(2050),
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryBackground,
+                                                        use24hFormat: false,
+                                                        onDateTimeChanged:
+                                                            (newDateTime) =>
+                                                                safeSetState(
+                                                                    () {
+                                                          _model.datePicked1 =
+                                                              newDateTime;
+                                                        }),
+                                                      ),
                                                     ),
                                                   ),
                                                 );
@@ -2046,32 +2065,59 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                               builder: (context) {
                                                 final _datePicked2CupertinoTheme =
                                                     CupertinoTheme.of(context);
-                                                return Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height /
-                                                      3,
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryBackground,
-                                                  child: CupertinoTheme(
-                                                    data:
-                                                        _datePicked2CupertinoTheme
-                                                            .copyWith(
-                                                      textTheme:
+                                                return ScrollConfiguration(
+                                                  behavior:
+                                                      const MaterialScrollBehavior()
+                                                          .copyWith(
+                                                    dragDevices: {
+                                                      PointerDeviceKind.mouse,
+                                                      PointerDeviceKind.touch,
+                                                      PointerDeviceKind.stylus,
+                                                      PointerDeviceKind.unknown
+                                                    },
+                                                  ),
+                                                  child: Container(
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height /
+                                                            3,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    child: CupertinoTheme(
+                                                      data:
                                                           _datePicked2CupertinoTheme
-                                                              .textTheme
                                                               .copyWith(
-                                                        dateTimePickerTextStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
+                                                        textTheme:
+                                                            _datePicked2CupertinoTheme
+                                                                .textTheme
+                                                                .copyWith(
+                                                          dateTimePickerTextStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineMedium
+                                                                  .override(
+                                                                    font: GoogleFonts
+                                                                        .notoSansJp(
+                                                                      fontWeight: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineMedium
+                                                                          .fontWeight,
+                                                                      fontStyle: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineMedium
+                                                                          .fontStyle,
+                                                                    ),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
                                                                     fontWeight: FlutterFlowTheme.of(
                                                                             context)
                                                                         .headlineMedium
@@ -2081,45 +2127,34 @@ class _EditSchedule1WidgetState extends State<EditSchedule1Widget> {
                                                                         .headlineMedium
                                                                         .fontStyle,
                                                                   ),
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontWeight,
-                                                                  fontStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMedium
-                                                                      .fontStyle,
-                                                                ),
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: CupertinoDatePicker(
-                                                      mode:
-                                                          CupertinoDatePickerMode
-                                                              .time,
-                                                      minimumDate:
-                                                          DateTime(1900),
-                                                      initialDateTime: (widget
-                                                              .supabaseCall
-                                                              ?.confirmEndTime ??
-                                                          DateTime.now()),
-                                                      maximumDate:
-                                                          DateTime(2050),
-                                                      backgroundColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryBackground,
-                                                      use24hFormat: false,
-                                                      onDateTimeChanged:
-                                                          (newDateTime) =>
-                                                              safeSetState(() {
-                                                        _model.datePicked2 =
-                                                            newDateTime;
-                                                      }),
+                                                      child:
+                                                          CupertinoDatePicker(
+                                                        mode:
+                                                            CupertinoDatePickerMode
+                                                                .time,
+                                                        minimumDate:
+                                                            DateTime(1900),
+                                                        initialDateTime: (widget
+                                                                .supabaseCall
+                                                                ?.confirmEndTime ??
+                                                            DateTime.now()),
+                                                        maximumDate:
+                                                            DateTime(2050),
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryBackground,
+                                                        use24hFormat: false,
+                                                        onDateTimeChanged:
+                                                            (newDateTime) =>
+                                                                safeSetState(
+                                                                    () {
+                                                          _model.datePicked2 =
+                                                              newDateTime;
+                                                        }),
+                                                      ),
                                                     ),
                                                   ),
                                                 );

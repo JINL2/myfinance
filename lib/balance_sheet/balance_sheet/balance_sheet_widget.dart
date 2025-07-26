@@ -47,6 +47,8 @@ class _BalanceSheetWidgetState extends State<BalanceSheetWidget> {
       )?.toDouble();
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

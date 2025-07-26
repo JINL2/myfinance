@@ -32,6 +32,8 @@ class _CounterpartyViewPointWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => CounterpartyViewPointModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

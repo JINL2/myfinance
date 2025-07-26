@@ -107,6 +107,8 @@ class _TransactionHistoryWidgetState extends State<TransactionHistoryWidget> {
       FFAppState().isLoading1 = false;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

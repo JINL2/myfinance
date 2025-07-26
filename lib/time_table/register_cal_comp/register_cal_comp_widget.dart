@@ -50,6 +50,8 @@ class _RegisterCalCompWidgetState extends State<RegisterCalCompWidget> {
         safeSetState(() {});
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

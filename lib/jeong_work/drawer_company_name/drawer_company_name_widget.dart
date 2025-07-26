@@ -33,6 +33,8 @@ class _DrawerCompanyNameWidgetState extends State<DrawerCompanyNameWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DrawerCompanyNameModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

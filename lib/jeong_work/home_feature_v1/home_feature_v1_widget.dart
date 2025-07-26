@@ -31,6 +31,8 @@ class _HomeFeatureV1WidgetState extends State<HomeFeatureV1Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomeFeatureV1Model());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

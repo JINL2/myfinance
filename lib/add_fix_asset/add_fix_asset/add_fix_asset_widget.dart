@@ -24,6 +24,8 @@ class _AddFixAssetWidgetState extends State<AddFixAssetWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AddFixAssetModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -35,6 +35,8 @@ class _StoreShiftComponentWidgetState extends State<StoreShiftComponentWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => StoreShiftComponentModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

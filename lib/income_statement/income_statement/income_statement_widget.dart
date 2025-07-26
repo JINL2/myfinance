@@ -24,6 +24,8 @@ class _IncomeStatementWidgetState extends State<IncomeStatementWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => IncomeStatementModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

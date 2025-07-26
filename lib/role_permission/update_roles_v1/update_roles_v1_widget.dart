@@ -53,6 +53,8 @@ class _UpdateRolesV1WidgetState extends State<UpdateRolesV1Widget> {
     _model.textController ??=
         TextEditingController(text: widget.roleDetail?.roleName);
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -35,6 +35,8 @@ class _SchduleListWidgetState extends State<SchduleListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SchduleListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

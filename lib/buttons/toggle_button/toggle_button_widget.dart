@@ -26,6 +26,7 @@ class _ToggleButtonWidgetState extends State<ToggleButtonWidget> {
     _model = createModel(context, () => ToggleButtonModel());
 
     _model.switchValue = false;
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

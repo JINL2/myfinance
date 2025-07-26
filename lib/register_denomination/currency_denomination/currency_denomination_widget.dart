@@ -40,6 +40,8 @@ class _CurrencyDenominationWidgetState
 
     _model.d1TextController ??= TextEditingController();
     _model.d1FocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

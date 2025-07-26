@@ -53,6 +53,8 @@ class _CashMovementAmountWidgetState extends State<CashMovementAmountWidget> {
 
     _model.cashLocationNameTextController ??= TextEditingController();
     _model.cashLocationNameFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

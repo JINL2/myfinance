@@ -43,6 +43,8 @@ class _ShiftTestWidgetState extends State<ShiftTestWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ShiftTestModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

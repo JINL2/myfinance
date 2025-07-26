@@ -75,6 +75,9 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _accessToken = prefs.getString('ff_accessToken') ?? _accessToken;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -406,6 +409,13 @@ class FFAppState extends ChangeNotifier {
   String get isSelectedId => _isSelectedId;
   set isSelectedId(String value) {
     _isSelectedId = value;
+  }
+
+  String _accessToken = '';
+  String get accessToken => _accessToken;
+  set accessToken(String value) {
+    _accessToken = value;
+    prefs.setString('ff_accessToken', value);
   }
 }
 

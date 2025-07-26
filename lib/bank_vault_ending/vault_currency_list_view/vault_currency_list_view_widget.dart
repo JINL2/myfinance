@@ -43,6 +43,8 @@ class _VaultCurrencyListViewWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => VaultCurrencyListViewModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -29,6 +29,8 @@ class _EditProfileImageWidgetState extends State<EditProfileImageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => EditProfileImageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -54,6 +54,8 @@ class _CalnderCompWidgetState extends State<CalnderCompWidget> {
         safeSetState(() {});
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

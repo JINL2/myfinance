@@ -34,6 +34,8 @@ class _ButtonIconTextFullWidgetState extends State<ButtonIconTextFullWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ButtonIconTextFullModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

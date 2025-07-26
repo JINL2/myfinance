@@ -28,6 +28,8 @@ class _TextBoxLabelWidgetState extends State<TextBoxLabelWidget> {
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

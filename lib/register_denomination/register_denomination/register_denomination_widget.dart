@@ -33,6 +33,8 @@ class _RegisterDenominationWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => RegisterDenominationModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

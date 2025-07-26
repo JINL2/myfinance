@@ -39,6 +39,8 @@ class _CounterpartyCardWidgetState extends State<CounterpartyCardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CounterpartyCardModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

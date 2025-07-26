@@ -51,6 +51,8 @@ class _CreateStoreF1WidgetState extends State<CreateStoreF1Widget> {
 
     _model.storePhoneTextController ??= TextEditingController();
     _model.storePhoneFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

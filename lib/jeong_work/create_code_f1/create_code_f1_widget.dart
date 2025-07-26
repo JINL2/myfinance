@@ -32,6 +32,8 @@ class _CreateCodeF1WidgetState extends State<CreateCodeF1Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CreateCodeF1Model());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -31,6 +31,8 @@ class _RoleCardWidgetState extends State<RoleCardWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RoleCardModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

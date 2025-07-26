@@ -29,6 +29,8 @@ class _AttendanceManagementDashboardWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AttendanceManagementDashboardModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

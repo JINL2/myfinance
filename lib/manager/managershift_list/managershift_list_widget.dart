@@ -34,6 +34,8 @@ class _ManagershiftListWidgetState extends State<ManagershiftListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ManagershiftListModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

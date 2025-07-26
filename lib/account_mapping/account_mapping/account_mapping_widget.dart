@@ -30,6 +30,8 @@ class _AccountMappingWidgetState extends State<AccountMappingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => AccountMappingModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

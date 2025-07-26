@@ -41,6 +41,8 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
       FFAppState().isLoading3 = false;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -149,8 +151,6 @@ class _RolePermissionPageWidgetState extends State<RolePermissionPageWidget> {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       if (FFAppState().isLoading1 == false) {
-                                        FFAppState().isLoading1 = true;
-                                        safeSetState(() {});
                                         await showModalBottomSheet(
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,

@@ -40,6 +40,8 @@ class _ShowCounterpartyWidgetState extends State<ShowCounterpartyWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ShowCounterpartyModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

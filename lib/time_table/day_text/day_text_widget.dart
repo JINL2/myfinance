@@ -30,6 +30,8 @@ class _DayTextWidgetState extends State<DayTextWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DayTextModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -31,6 +31,8 @@ class _DebtOverviewWidgetState extends State<DebtOverviewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DebtOverviewModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

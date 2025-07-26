@@ -33,6 +33,8 @@ class _TransactionTemplateWidgetState extends State<TransactionTemplateWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TransactionTemplateModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

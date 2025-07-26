@@ -195,9 +195,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => DelegateRolePageWidget(),
         ),
         FFRoute(
-          name: AttendanceWidget.routeName,
-          path: AttendanceWidget.routePath,
-          builder: (context, params) => AttendanceWidget(),
+          name: TestestesWidget.routeName,
+          path: TestestesWidget.routePath,
+          builder: (context, params) => TestestesWidget(),
         ),
         FFRoute(
           name: RegisterDenominationWidget.routeName,
@@ -220,9 +220,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ChooseCompanyWidget(),
         ),
         FFRoute(
-          name: TimetableManageWidget.routeName,
-          path: TimetableManageWidget.routePath,
-          builder: (context, params) => TimetableManageWidget(),
+          name: TimetableManage123Widget.routeName,
+          path: TimetableManage123Widget.routePath,
+          builder: (context, params) => TimetableManage123Widget(),
         ),
         FFRoute(
           name: JournalInputWidget.routeName,
@@ -235,9 +235,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => BalanceSheetWidget(),
         ),
         FFRoute(
-          name: TestWidget.routeName,
-          path: TestWidget.routePath,
-          builder: (context, params) => TestWidget(),
+          name: AttendanceWidget.routeName,
+          path: AttendanceWidget.routePath,
+          builder: (context, params) => AttendanceWidget(),
         ),
         FFRoute(
           name: CashEndingWidget.routeName,
@@ -250,9 +250,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => DebtControlWidget(),
         ),
         FFRoute(
-          name: EmployeeWidget.routeName,
-          path: EmployeeWidget.routePath,
-          builder: (context, params) => EmployeeWidget(),
+          name: AttendancetestesWidget.routeName,
+          path: AttendancetestesWidget.routePath,
+          builder: (context, params) => AttendancetestesWidget(),
         ),
         FFRoute(
           name: CashLocation1Widget.routeName,
@@ -265,14 +265,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TimeTableUsertestWidget(),
         ),
         FFRoute(
-          name: TimetableManagetestWidget.routeName,
-          path: TimetableManagetestWidget.routePath,
-          builder: (context, params) => TimetableManagetestWidget(),
+          name: TimetableManageWidget.routeName,
+          path: TimetableManageWidget.routePath,
+          builder: (context, params) => TimetableManageWidget(),
         ),
         FFRoute(
           name: ConetentsCreationWidget.routeName,
           path: ConetentsCreationWidget.routePath,
           builder: (context, params) => ConetentsCreationWidget(),
+        ),
+        FFRoute(
+          name: SurveyDashboardWidget.routeName,
+          path: SurveyDashboardWidget.routePath,
+          builder: (context, params) => SurveyDashboardWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

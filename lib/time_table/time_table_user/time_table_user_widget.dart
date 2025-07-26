@@ -45,6 +45,15 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.selectedDatePageState = getCurrentTimestamp;
+      _model.selectedStoreId = FFAppState()
+          .user
+          .companies
+          .where((e) => FFAppState().companyChoosen == e.companyId)
+          .toList()
+          .firstOrNull
+          ?.stores
+          .firstOrNull
+          ?.storeId;
       safeSetState(() {});
       FFAppState().shiftMetaData = [];
       safeSetState(() {});
@@ -56,7 +65,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
         FFAppState().isLoading1 = true;
         safeSetState(() {});
         _model.newshiftMetadata = await GetshiftmetadataCall.call(
-          pStoreId: _model.dropDownStoreValue,
+          pStoreId: _model.dropDownStore1Value,
         );
 
         if ((_model.newshiftMetadata?.succeeded ?? true)) {
@@ -79,7 +88,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
 
         _model.newshiftstatus = await GetUserShiftStatusCall.call(
           pUserId: FFAppState().user.userId,
-          pStoreId: _model.dropDownStoreValue,
+          pStoreId: _model.dropDownStore1Value,
           pRequestDate: _model.selectedDatePageState?.toString(),
         );
 
@@ -130,6 +139,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
     )..addListener(() => safeSetState(() {}));
 
     _model.switchValue = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -262,9 +272,9 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                           children: [
                                             FlutterFlowDropDown<String>(
                                               controller: _model
-                                                      .dropDownStoreValueController ??=
+                                                      .dropDownStore1ValueController ??=
                                                   FormFieldController<String>(
-                                                _model.dropDownStoreValue ??=
+                                                _model.dropDownStore1Value ??=
                                                     FFAppState()
                                                         .user
                                                         .companies
@@ -305,18 +315,21 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                   .toList(),
                                               onChanged: (val) async {
                                                 safeSetState(() => _model
-                                                    .dropDownStoreValue = val);
+                                                    .dropDownStore1Value = val);
                                                 if (FFAppState().isLoading3 ==
                                                     false) {
                                                   FFAppState().isLoading3 =
                                                       true;
                                                   safeSetState(() {});
                                                   _model.shiftId = null;
+                                                  _model.selectedStoreId =
+                                                      _model
+                                                          .dropDownStore1Value;
                                                   safeSetState(() {});
                                                   if (functions
                                                       .isListHaveDatatypeList(
                                                           _model
-                                                              .dropDownStoreValue,
+                                                              .dropDownStore1Value,
                                                           FFAppState()
                                                               .shiftMetaData
                                                               .toList())!) {
@@ -328,7 +341,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                         await GetshiftmetadataCall
                                                             .call(
                                                       pStoreId: _model
-                                                          .dropDownStoreValue,
+                                                          .dropDownStore1Value,
                                                     );
 
                                                     if ((_model.dream1
@@ -367,7 +380,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                           .user
                                                           .userId,
                                                       pStoreId: _model
-                                                          .dropDownStoreValue,
+                                                          .dropDownStore1Value,
                                                       pRequestDate: _model
                                                           .selectedDatePageState
                                                           ?.toString(),
@@ -614,7 +627,7 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                                   .shiftMetaData
                                                                   .where((e) =>
                                                                       _model
-                                                                          .dropDownStoreValue ==
+                                                                          .dropDownStore1Value ==
                                                                       e.storeId)
                                                                   .toList();
 
@@ -831,79 +844,77 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                       safeSetState(() {});
                                                     } else {
                                                       _model.insertShift =
-                                                          await ShiftRequestsTable()
-                                                              .insert({
-                                                        'user_id': FFAppState()
+                                                          await ManagerShiftGroup
+                                                              .insertshiftrequestvCall
+                                                              .call(
+                                                        pUserId: FFAppState()
                                                             .user
                                                             .userId,
-                                                        'shift_id':
+                                                        pShiftId:
                                                             _model.shiftId,
-                                                        'store_id': _model
-                                                            .dropDownStoreValue,
-                                                        'request_date':
-                                                            supaSerialize<
-                                                                    DateTime>(
-                                                                _model
-                                                                    .selectedDatePageState),
-                                                        'is_approved': false,
-                                                        'start_time': supaSerialize<
-                                                                DateTime>(
-                                                            functions.insertStartEndTime(
-                                                                FFAppState()
-                                                                    .shiftMetaData
-                                                                    .where((e) =>
-                                                                        _model
-                                                                            .shiftId ==
-                                                                        e
-                                                                            .shiftId)
-                                                                    .toList()
-                                                                    .firstOrNull
-                                                                    ?.startTime,
-                                                                dateTimeFormat(
-                                                                    "yyyyy-MM-dd",
-                                                                    _model
-                                                                        .selectedDatePageState))),
-                                                        'end_time': supaSerialize<
-                                                                DateTime>(
-                                                            functions.insertStartEndTime(
-                                                                FFAppState()
-                                                                    .shiftMetaData
-                                                                    .where((e) =>
-                                                                        _model
-                                                                            .shiftId ==
-                                                                        e
-                                                                            .shiftId)
-                                                                    .toList()
-                                                                    .firstOrNull
-                                                                    ?.endTime,
-                                                                dateTimeFormat(
-                                                                    "yyyyy-MM-dd",
-                                                                    _model
-                                                                        .selectedDatePageState))),
-                                                      });
-                                                      FFAppState()
-                                                          .addToShiftStatus(
-                                                              ShiftStatusStruct(
-                                                        shiftId: _model
-                                                            .insertShift
-                                                            ?.shiftId,
-                                                        requestDate:
+                                                        pRequestDate:
                                                             dateTimeFormat(
                                                                 "yyyy-MM-dd",
                                                                 _model
-                                                                    .insertShift
-                                                                    ?.requestDate),
-                                                        totalRegistered: 1,
-                                                        isRegisteredByMe: true,
-                                                        shiftRequestId: _model
-                                                            .insertShift
-                                                            ?.shiftRequestId,
-                                                        isApproved: false,
-                                                        storeId: _model
-                                                            .insertShift
-                                                            ?.storeId,
-                                                      ));
-                                                      safeSetState(() {});
+                                                                    .selectedDatePageState),
+                                                        pStoreId: _model
+                                                            .selectedStoreId,
+                                                      );
+
+                                                      if ((_model.insertShift
+                                                              ?.succeeded ??
+                                                          true)) {
+                                                        FFAppState()
+                                                            .addToShiftStatus(
+                                                                ShiftStatusStruct(
+                                                          shiftId:
+                                                              _model.shiftId,
+                                                          requestDate:
+                                                              dateTimeFormat(
+                                                                  "yyyy-MM-dd",
+                                                                  _model
+                                                                      .selectedDatePageState),
+                                                          totalRegistered: 1,
+                                                          isRegisteredByMe:
+                                                              true,
+                                                          shiftRequestId:
+                                                              getJsonField(
+                                                            (_model.insertShift
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                            r'''$.data.shift_request_id''',
+                                                          ).toString(),
+                                                          isApproved: false,
+                                                          storeId: _model
+                                                              .dropDownStore1Value,
+                                                        ));
+                                                        safeSetState(() {});
+                                                      } else {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'Fail Insert Schedule'),
+                                                              content: Text((_model
+                                                                          .insertShift
+                                                                          ?.jsonBody ??
+                                                                      '')
+                                                                  .toString()),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      }
                                                     }
 
                                                     FFAppState().isLoading2 =
@@ -1136,6 +1147,9 @@ class _TimeTableUserWidgetState extends State<TimeTableUserWidget>
                                                                       () {});
                                                                   _model.shiftId =
                                                                       null;
+                                                                  _model.selectedStoreId =
+                                                                      _model
+                                                                          .filterStoreValue;
                                                                   safeSetState(
                                                                       () {});
                                                                   if (functions.isListHaveDatatypeList(

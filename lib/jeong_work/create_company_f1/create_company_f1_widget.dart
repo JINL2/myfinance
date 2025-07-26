@@ -35,6 +35,8 @@ class _CreateCompanyF1WidgetState extends State<CreateCompanyF1Widget> {
 
     _model.companyNameTextController ??= TextEditingController();
     _model.companyNameFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

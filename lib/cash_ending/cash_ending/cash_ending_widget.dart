@@ -72,6 +72,8 @@ class _CashEndingWidgetState extends State<CashEndingWidget> {
       FFAppState().isLoading1 = false;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -60,6 +60,8 @@ class _CounterpartyListWidgetState extends State<CounterpartyListWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

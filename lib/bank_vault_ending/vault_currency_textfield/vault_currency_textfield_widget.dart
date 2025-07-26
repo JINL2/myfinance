@@ -41,6 +41,8 @@ class _VaultCurrencyTextfieldWidgetState
 
     _model.quantityTextController ??= TextEditingController();
     _model.quantityFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -197,7 +199,8 @@ class _VaultCurrencyTextfieldWidgetState
                         fontStyle:
                             FlutterFlowTheme.of(context).bodyMedium.fontStyle,
                       ),
-                  keyboardType: TextInputType.number,
+                  keyboardType: const TextInputType.numberWithOptions(
+                      signed: true, decimal: true),
                   cursorColor: FlutterFlowTheme.of(context).primaryText,
                   validator: _model.quantityTextControllerValidator
                       .asValidator(context),

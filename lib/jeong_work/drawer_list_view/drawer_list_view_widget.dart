@@ -32,6 +32,8 @@ class _DrawerListViewWidgetState extends State<DrawerListViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DrawerListViewModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -39,6 +39,8 @@ class _SelectMappingWidgetState extends State<SelectMappingWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SelectMappingModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -64,6 +64,8 @@ class _RolePermissioComponentWidgetState
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

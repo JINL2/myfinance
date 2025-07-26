@@ -32,6 +32,8 @@ class _RecIconSmallTextWidgetState extends State<RecIconSmallTextWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => RecIconSmallTextModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

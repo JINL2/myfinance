@@ -44,6 +44,8 @@ class _ShiftDetailWidgetState extends State<ShiftDetailWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ShiftDetailModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

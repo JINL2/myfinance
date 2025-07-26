@@ -34,6 +34,8 @@ class _TableSchduleWidgetState extends State<TableSchduleWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TableSchduleModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

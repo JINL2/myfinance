@@ -41,6 +41,8 @@ class _RegisterCounterpartyWidgetState
       FFAppState().isLoading3 = false;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

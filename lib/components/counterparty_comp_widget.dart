@@ -62,6 +62,8 @@ class _CounterpartyCompWidgetState extends State<CounterpartyCompWidget>
           !anim.applyInitialState),
       this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

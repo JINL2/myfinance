@@ -36,6 +36,8 @@ class _DeleteScheduleYNWidgetState extends State<DeleteScheduleYNWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DeleteScheduleYNModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

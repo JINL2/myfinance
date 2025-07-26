@@ -36,6 +36,8 @@ class _DateManagerWidgetState extends State<DateManagerWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DateManagerModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

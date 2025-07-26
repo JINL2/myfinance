@@ -31,6 +31,8 @@ class _DeleteConfirmationWidgetState extends State<DeleteConfirmationWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DeleteConfirmationModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

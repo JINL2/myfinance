@@ -258,6 +258,8 @@ dynamic deserializeParam<T>(
             return CompaniesRow(data);
           case FixedAssetsRow:
             return FixedAssetsRow(data);
+          case DepreciationProcessLogRow:
+            return DepreciationProcessLogRow(data);
           case VUserSalaryRow:
             return VUserSalaryRow(data);
           case ViewCashierRealLatestTotalRow:
@@ -270,12 +272,16 @@ dynamic deserializeParam<T>(
             return VaultAmountLineRow(data);
           case BankAmountRow:
             return BankAmountRow(data);
-          case VJournalLinesReadableRow:
-            return VJournalLinesReadableRow(data);
+          case VJournalLinesCompleteRow:
+            return VJournalLinesCompleteRow(data);
           case VUserSalaryWorkingRow:
             return VUserSalaryWorkingRow(data);
+          case VDepreciationProcessStatusRow:
+            return VDepreciationProcessStatusRow(data);
           case VUserRoleInfoRow:
             return VUserRoleInfoRow(data);
+          case VMonthlyDepreciationSummaryRow:
+            return VMonthlyDepreciationSummaryRow(data);
           case ProductsRow:
             return ProductsRow(data);
           case AccountsRow:
@@ -288,8 +294,12 @@ dynamic deserializeParam<T>(
             return StoreShiftsRow(data);
           case GeographyColumnsRow:
             return GeographyColumnsRow(data);
+          case VDepreciationSummaryRow:
+            return VDepreciationSummaryRow(data);
           case VStoreIncomeSummaryRow:
             return VStoreIncomeSummaryRow(data);
+          case VCronJobStatusRow:
+            return VCronJobStatusRow(data);
           case InventoryTransactionsRow:
             return InventoryTransactionsRow(data);
           case CashLocationsWithTotalAmountRow:

@@ -134,6 +134,8 @@ class _Auth1WidgetState extends State<Auth1Widget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

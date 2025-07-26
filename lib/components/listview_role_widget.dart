@@ -30,6 +30,8 @@ class _ListviewRoleWidgetState extends State<ListviewRoleWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ListviewRoleModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

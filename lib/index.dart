@@ -32,7 +32,7 @@ export '/role_permission/role_permission_page/role_permission_page_widget.dart'
     show RolePermissionPageWidget;
 export '/delegate_role/delegate_role_page/delegate_role_page_widget.dart'
     show DelegateRolePageWidget;
-export '/attendance/attendance_widget.dart' show AttendanceWidget;
+export '/test/testestes/testestes_widget.dart' show TestestesWidget;
 export '/register_denomination/register_denomination/register_denomination_widget.dart'
     show RegisterDenominationWidget;
 export '/employee_setting/employee_setting/employee_setting_widget.dart'
@@ -41,22 +41,24 @@ export '/income_statement/income_statement/income_statement_widget.dart'
     show IncomeStatementWidget;
 export '/auth/choose_company/choose_company_widget.dart'
     show ChooseCompanyWidget;
-export '/manager/timetable_manage/timetable_manage_widget.dart'
-    show TimetableManageWidget;
+export '/manager/timetable_manage123/timetable_manage123_widget.dart'
+    show TimetableManage123Widget;
 export '/journal_input/journal_input/journal_input_widget.dart'
     show JournalInputWidget;
 export '/balance_sheet/balance_sheet/balance_sheet_widget.dart'
     show BalanceSheetWidget;
-export '/test/test/test_widget.dart' show TestWidget;
+export '/attendance/attendance/attendance_widget.dart' show AttendanceWidget;
 export '/cash_ending/cash_ending/cash_ending_widget.dart' show CashEndingWidget;
 export '/debt_control/debt_control/debt_control_widget.dart'
     show DebtControlWidget;
-export '/employee_schedule_test/employee/employee_widget.dart'
-    show EmployeeWidget;
+export '/attendance/attendancetestes/attendancetestes_widget.dart'
+    show AttendancetestesWidget;
 export '/cash_location1/cash_location1_widget.dart' show CashLocation1Widget;
-export '/employee_schedule_test/time_table_usertest/time_table_usertest_widget.dart'
+export '/attendance/time_table_usertest/time_table_usertest_widget.dart'
     show TimeTableUsertestWidget;
-export '/manager_schedule_test/timetable_managetest/timetable_managetest_widget.dart'
-    show TimetableManagetestWidget;
+export '/manager_schedule_test/timetable_manage/timetable_manage_widget.dart'
+    show TimetableManageWidget;
 export '/contents_creation_page/conetents_creation/conetents_creation_widget.dart'
     show ConetentsCreationWidget;
+export '/survey_result/survey_dashboard/survey_dashboard_widget.dart'
+    show SurveyDashboardWidget;

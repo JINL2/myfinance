@@ -47,6 +47,8 @@ class _TranscationTemplateCreateWidgetState
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -53,6 +53,8 @@ class _UpdateCounterpartyWidgetState extends State<UpdateCounterpartyWidget> {
     _model.textController4 ??=
         TextEditingController(text: widget.counterpartyInfo?.notes);
     _model.textFieldFocusNode4 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

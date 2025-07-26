@@ -1183,3 +1183,358 @@ String? generateExternalUrl(
 
   return url;
 }
+
+List<dynamic>? overviewMonthlyStat(
+  dynamic overviewJson,
+  List<dynamic>? monthlyStat,
+) {
+  try {
+    // 입력값 유효성 검사
+    if (overviewJson == null) {
+      return monthlyStat;
+    }
+
+    // overviewJson을 Map으로 변환
+    Map<String, dynamic> overviewData;
+    if (overviewJson is String) {
+      overviewData = jsonDecode(overviewJson);
+    } else if (overviewJson is Map<String, dynamic>) {
+      overviewData = overviewJson;
+    } else {
+      return monthlyStat;
+    }
+
+    // stores 배열 확인
+    if (!overviewData.containsKey('stores') ||
+        overviewData['stores'] == null ||
+        !(overviewData['stores'] is List)) {
+      return monthlyStat;
+    }
+
+    List<dynamic> stores = overviewData['stores'];
+
+    // 결과 리스트 초기화
+    List<dynamic> result = monthlyStat != null ? List.from(monthlyStat) : [];
+
+    // 각 store의 monthly_stats 추출하여 결과에 추가
+    for (var store in stores) {
+      if (store is Map<String, dynamic> &&
+          store.containsKey('monthly_stats') &&
+          store['monthly_stats'] != null &&
+          store['monthly_stats'] is List) {
+        List<dynamic> monthlyStats = store['monthly_stats'];
+
+        // monthly_stats의 각 항목을 결과에 추가
+        for (var stat in monthlyStats) {
+          if (stat is Map<String, dynamic>) {
+            result.add(stat);
+          }
+        }
+      }
+    }
+
+    return result;
+  } catch (e) {
+    // 에러 발생 시 기존 monthlyStat 반환
+    return monthlyStat;
+  }
+}
+
+List<dynamic>? managerCard(
+  dynamic apiShiftCard,
+  List<dynamic>? storeData,
+) {
+  try {
+    // 1단계: storeData 검증 및 처리
+    Map<String, dynamic>? baseStore;
+
+    if (storeData != null && storeData.isNotEmpty) {
+      final firstItem = storeData[0];
+
+      if (firstItem is String) {
+        try {
+          baseStore = jsonDecode(firstItem);
+        } catch (e) {
+          return null; // 잘못된 JSON이면 null 반환
+        }
+      } else if (firstItem is Map<String, dynamic>) {
+        baseStore = Map<String, dynamic>.from(firstItem);
+      } else {
+        return null;
+      }
+    }
+
+    // baseStore가 없으면 null 반환 (가상 데이터 생성 안 함)
+    if (baseStore == null) {
+      return null;
+    }
+
+    // 2단계: baseStore 구조 검증
+    final requiredFields = [
+      'store_id',
+      'store_name',
+      'request_count',
+      'approved_count',
+      'problem_count'
+    ];
+    for (final field in requiredFields) {
+      if (!baseStore.containsKey(field)) {
+        return null;
+      }
+    }
+
+    // cards 필드 초기화
+    if (!baseStore.containsKey('cards') || baseStore['cards'] is! List) {
+      baseStore['cards'] = [];
+    }
+
+    List<dynamic> existingCards = List.from(baseStore['cards']);
+
+    // 3단계: apiShiftCard 처리
+    if (apiShiftCard == null) {
+      baseStore['cards'] = existingCards;
+      return [baseStore];
+    }
+
+    Map<String, dynamic> apiData;
+    if (apiShiftCard is String) {
+      try {
+        apiData = jsonDecode(apiShiftCard);
+      } catch (e) {
+        baseStore['cards'] = existingCards;
+        return [baseStore];
+      }
+    } else if (apiShiftCard is Map<String, dynamic>) {
+      apiData = apiShiftCard;
+    } else {
+      baseStore['cards'] = existingCards;
+      return [baseStore];
+    }
+
+    // 4단계: API에서 cards 추출
+    if (apiData.containsKey('cards') && apiData['cards'] is List) {
+      final newCards = apiData['cards'] as List;
+
+      // 각 카드 유효성 검증
+      for (final card in newCards) {
+        if (card is Map<String, dynamic>) {
+          // 필수 필드 체크
+          final cardRequiredFields = ['shift_request_id', 'user_name'];
+          bool isValidCard = true;
+
+          for (final field in cardRequiredFields) {
+            if (!card.containsKey(field)) {
+              isValidCard = false;
+              break;
+            }
+          }
+
+          if (isValidCard) {
+            existingCards.add(card);
+          }
+        }
+      }
+    }
+
+    // 5단계: 최종 결과 생성
+    baseStore['cards'] = existingCards;
+    return [baseStore];
+  } catch (error) {
+    return null; // 오류 시 null 반환
+  }
+}
+
+bool? getDateEarlyLate(
+  DateTime? date1,
+  DateTime? date2,
+) {
+  try {
+    // 입력값 유효성 검사
+    if (date1 == null || date2 == null) {
+      return null;
+    }
+
+    // DateTime을 yyyy-MM-dd 형식으로 변환하여 비교
+    final formatter = DateFormat('yyyy-MM-dd');
+
+    final date1String = formatter.format(date1);
+    final date2String = formatter.format(date2);
+
+    // 문자열로 변환된 날짜를 다시 DateTime으로 파싱 (시간 정보 제거)
+    final date1Only = DateTime.parse(date1String);
+    final date2Only = DateTime.parse(date2String);
+
+    // date1이 date2보다 빠른 날짜면 true, 아니면 false
+    return date1Only.isBefore(date2Only);
+  } catch (e) {
+    // 오류 발생 시 null 반환
+    return null;
+  }
+}
+
+String? makeInitial(String? name) {
+  if (name == null || name.trim().isEmpty) {
+    return null;
+  }
+
+// 공백으로 분리하여 첫 번째 단어 가져오기
+  List<String> words = name.trim().split(' ');
+  if (words.isEmpty) {
+    return null;
+  }
+
+  String firstWord = words[0];
+  if (firstWord.isEmpty) {
+    return null;
+  }
+
+// 첫 번째 글자 추출 및 대문자 변환
+  String firstLetter = firstWord.substring(0, 1);
+  return firstLetter.toUpperCase();
+}
+
+List<dynamic>? changeTotalProblems(
+  List<dynamic>? json,
+  String? month,
+  int? integer,
+) {
+  // null 체크
+  if (json == null || month == null || integer == null) {
+    return json;
+  }
+
+  // 원본 리스트를 복사하여 수정
+  List<dynamic> result = List<dynamic>.from(json);
+
+  // 해당 month를 찾아서 total_problems 값 수정
+  for (int i = 0; i < result.length; i++) {
+    if (result[i] is Map<String, dynamic>) {
+      Map<String, dynamic> item = Map<String, dynamic>.from(result[i]);
+
+      // month가 일치하는 경우 total_problems 값 수정
+      if (item['month'] == month) {
+        int currentProblems = item['total_problems'] ?? 0;
+        item['total_problems'] = currentProblems + integer;
+        result[i] = item;
+        break; // 해당 month를 찾았으므로 반복 중단
+      }
+    }
+  }
+
+  return result;
+}
+
+List<dynamic>? managerTagFilter(
+  dynamic managerCardApi,
+  List<dynamic>? tagFilter,
+) {
+  try {
+    // 1단계: 새로운 API 응답에서 available_contents 추출
+    List<dynamic> newContents = [];
+
+    if (managerCardApi != null) {
+      Map<String, dynamic> apiData;
+
+      if (managerCardApi is String) {
+        try {
+          apiData = jsonDecode(managerCardApi);
+        } catch (e) {
+          apiData = {};
+        }
+      } else if (managerCardApi is Map<String, dynamic>) {
+        apiData = managerCardApi;
+      } else {
+        apiData = {};
+      }
+
+      // API에서 available_contents 추출
+      if (apiData.containsKey('available_contents') &&
+          apiData['available_contents'] is List) {
+        newContents = List.from(apiData['available_contents']);
+      }
+    }
+
+    // 2단계: 기존 tagFilter에서 available_contents 추출
+    List<dynamic> existingContents = [];
+
+    if (tagFilter != null && tagFilter.isNotEmpty) {
+      existingContents = List.from(tagFilter);
+    }
+
+    // 3단계: 두 리스트 합치기
+    List<dynamic> combinedContents = [];
+    combinedContents.addAll(existingContents);
+    combinedContents.addAll(newContents);
+
+    // 4단계: 중복 제거 (content 기준으로)
+    List<dynamic> uniqueContents = [];
+    Set<String> seenContents = {};
+
+    for (final item in combinedContents) {
+      if (item is Map<String, dynamic> && item.containsKey('content')) {
+        final content = item['content']?.toString() ?? '';
+
+        if (content.isNotEmpty && !seenContents.contains(content)) {
+          seenContents.add(content);
+          uniqueContents
+              .add({'content': item['content'], 'type': item['type'] ?? ''});
+        }
+      }
+    }
+
+    // 5단계: content 기준으로 알파벳 순 정렬
+    uniqueContents.sort((a, b) {
+      final contentA = a['content']?.toString() ?? '';
+      final contentB = b['content']?.toString() ?? '';
+      return contentA.compareTo(contentB);
+    });
+
+    return uniqueContents;
+  } catch (error) {
+    // 오류 발생 시 기존 tagFilter 반환 (없으면 빈 리스트)
+    return tagFilter ?? [];
+  }
+}
+
+bool? filterCardTags(
+  List<dynamic>? noticeTag,
+  String? content,
+) {
+  try {
+    // 1단계: 입력값 검증
+    if (content == null || content.isEmpty) {
+      return false;
+    }
+
+    // 2단계: "all" 체크 - 대소문자 구분 없이
+    if (content.toLowerCase() == 'all') {
+      return true;
+    }
+
+    // 3단계: noticeTag가 null이거나 비어있으면 false
+    if (noticeTag == null || noticeTag.isEmpty) {
+      return false;
+    }
+
+    // 4단계: noticeTag 리스트에서 content 검색
+    for (final tag in noticeTag) {
+      if (tag is Map<String, dynamic>) {
+        // tag에서 content 필드 추출
+        final tagContent = tag['content']?.toString();
+
+        if (tagContent != null && tagContent.isNotEmpty) {
+          // 정확한 일치 검사
+          if (tagContent == content) {
+            return true;
+          }
+        }
+      }
+    }
+
+    // 5단계: 일치하는 content가 없으면 false
+    return false;
+  } catch (error) {
+    // 오류 발생 시 false 반환
+    return false;
+  }
+}

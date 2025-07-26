@@ -32,6 +32,8 @@ class _DropdownTextWidgetState extends State<DropdownTextWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DropdownTextModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -51,6 +53,7 @@ class _DropdownTextWidgetState extends State<DropdownTextWidget> {
         options: ['', '', ''],
         width: double.infinity,
         height: 40.0,
+        menuOffset: Offset(0.0, 0),
         textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
               font: GoogleFonts.notoSansJp(
                 fontWeight: FlutterFlowTheme.of(context).bodyMedium.fontWeight,

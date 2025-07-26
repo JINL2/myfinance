@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,8 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
     _model.shiftNameTextController ??=
         TextEditingController(text: widget.shiftInfo?.shiftName);
     _model.shiftNameFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -182,34 +185,30 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
                           builder: (context) {
                             final _datePicked1CupertinoTheme =
                                 CupertinoTheme.of(context);
-                            return Container(
-                              height: MediaQuery.of(context).size.height / 3,
-                              width: MediaQuery.of(context).size.width,
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              child: CupertinoTheme(
-                                data: _datePicked1CupertinoTheme.copyWith(
-                                  textTheme: _datePicked1CupertinoTheme
-                                      .textTheme
-                                      .copyWith(
-                                    dateTimePickerTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              font: GoogleFonts.notoSansJp(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineMedium
-                                                        .fontStyle,
-                                              ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              letterSpacing: 0.0,
+                            return ScrollConfiguration(
+                              behavior: const MaterialScrollBehavior().copyWith(
+                                dragDevices: {
+                                  PointerDeviceKind.mouse,
+                                  PointerDeviceKind.touch,
+                                  PointerDeviceKind.stylus,
+                                  PointerDeviceKind.unknown
+                                },
+                              ),
+                              child: Container(
+                                height: MediaQuery.of(context).size.height / 3,
+                                width: MediaQuery.of(context).size.width,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                child: CupertinoTheme(
+                                  data: _datePicked1CupertinoTheme.copyWith(
+                                    textTheme: _datePicked1CupertinoTheme
+                                        .textTheme
+                                        .copyWith(
+                                      dateTimePickerTextStyle: FlutterFlowTheme
+                                              .of(context)
+                                          .headlineMedium
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -219,22 +218,36 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
                                                       .headlineMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                                child: CupertinoDatePicker(
-                                  mode: CupertinoDatePickerMode.time,
-                                  minimumDate: DateTime(1900),
-                                  initialDateTime:
-                                      DateTime.fromMicrosecondsSinceEpoch(
-                                          1744390800000000),
-                                  maximumDate: DateTime(2050),
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  use24hFormat: false,
-                                  onDateTimeChanged: (newDateTime) =>
-                                      safeSetState(() {
-                                    _model.datePicked1 = newDateTime;
-                                  }),
+                                  child: CupertinoDatePicker(
+                                    mode: CupertinoDatePickerMode.time,
+                                    minimumDate: DateTime(1900),
+                                    initialDateTime:
+                                        DateTime.fromMicrosecondsSinceEpoch(
+                                            1744390800000000),
+                                    maximumDate: DateTime(2050),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                    use24hFormat: false,
+                                    onDateTimeChanged: (newDateTime) =>
+                                        safeSetState(() {
+                                      _model.datePicked1 = newDateTime;
+                                    }),
+                                  ),
                                 ),
                               ),
                             );
@@ -308,34 +321,30 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
                           builder: (context) {
                             final _datePicked2CupertinoTheme =
                                 CupertinoTheme.of(context);
-                            return Container(
-                              height: MediaQuery.of(context).size.height / 3,
-                              width: MediaQuery.of(context).size.width,
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              child: CupertinoTheme(
-                                data: _datePicked2CupertinoTheme.copyWith(
-                                  textTheme: _datePicked2CupertinoTheme
-                                      .textTheme
-                                      .copyWith(
-                                    dateTimePickerTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              font: GoogleFonts.notoSansJp(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineMedium
-                                                        .fontStyle,
-                                              ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              letterSpacing: 0.0,
+                            return ScrollConfiguration(
+                              behavior: const MaterialScrollBehavior().copyWith(
+                                dragDevices: {
+                                  PointerDeviceKind.mouse,
+                                  PointerDeviceKind.touch,
+                                  PointerDeviceKind.stylus,
+                                  PointerDeviceKind.unknown
+                                },
+                              ),
+                              child: Container(
+                                height: MediaQuery.of(context).size.height / 3,
+                                width: MediaQuery.of(context).size.width,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                child: CupertinoTheme(
+                                  data: _datePicked2CupertinoTheme.copyWith(
+                                    textTheme: _datePicked2CupertinoTheme
+                                        .textTheme
+                                        .copyWith(
+                                      dateTimePickerTextStyle: FlutterFlowTheme
+                                              .of(context)
+                                          .headlineMedium
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -345,20 +354,34 @@ class _StoreShiftUpdateV1WidgetState extends State<StoreShiftUpdateV1Widget> {
                                                       .headlineMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                                child: CupertinoDatePicker(
-                                  mode: CupertinoDatePickerMode.time,
-                                  minimumDate: DateTime(1900),
-                                  initialDateTime: getCurrentTimestamp,
-                                  maximumDate: DateTime(2050),
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  use24hFormat: false,
-                                  onDateTimeChanged: (newDateTime) =>
-                                      safeSetState(() {
-                                    _model.datePicked2 = newDateTime;
-                                  }),
+                                  child: CupertinoDatePicker(
+                                    mode: CupertinoDatePickerMode.time,
+                                    minimumDate: DateTime(1900),
+                                    initialDateTime: getCurrentTimestamp,
+                                    maximumDate: DateTime(2050),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                    use24hFormat: false,
+                                    onDateTimeChanged: (newDateTime) =>
+                                        safeSetState(() {
+                                      _model.datePicked2 = newDateTime;
+                                    }),
+                                  ),
                                 ),
                               ),
                             );

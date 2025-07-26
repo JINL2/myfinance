@@ -32,6 +32,8 @@ class _AccountMappingComponentWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => AccountMappingComponentModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

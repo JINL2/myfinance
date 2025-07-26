@@ -76,6 +76,8 @@ class _UserProfileInputWidgetState extends State<UserProfileInputWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

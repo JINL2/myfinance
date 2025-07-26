@@ -32,6 +32,8 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TransactionDetailModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -43,8 +45,8 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<VJournalLinesReadableRow>>(
-      future: VJournalLinesReadableTable().queryRows(
+    return FutureBuilder<List<VJournalLinesCompleteRow>>(
+      future: VJournalLinesCompleteTable().queryRows(
         queryFn: (q) => q
             .eqOrNull(
               'journal_id',
@@ -67,7 +69,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
             ),
           );
         }
-        List<VJournalLinesReadableRow> containerVJournalLinesReadableRowList =
+        List<VJournalLinesCompleteRow> containerVJournalLinesCompleteRowList =
             snapshot.data!;
 
         return Container(
@@ -90,7 +92,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                         children: [
                           Text(
                             valueOrDefault<String>(
-                              containerVJournalLinesReadableRowList
+                              containerVJournalLinesCompleteRowList
                                   .firstOrNull?.accountName,
                               'Error',
                             ),
@@ -116,7 +118,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                                       .fontStyle,
                                 ),
                           ),
-                          if (containerVJournalLinesReadableRowList
+                          if (containerVJournalLinesCompleteRowList
                                   .firstOrNull?.accountName ==
                               'Cash')
                             Padding(
@@ -124,7 +126,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                                   8.0, 0.0, 0.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  containerVJournalLinesReadableRowList
+                                  containerVJournalLinesCompleteRowList
                                       .firstOrNull?.cashLocationName,
                                   'Error',
                                 ),
@@ -160,7 +162,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                           EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
-                          containerVJournalLinesReadableRowList
+                          containerVJournalLinesCompleteRowList
                               .firstOrNull?.debit
                               ?.toString(),
                           'error',
@@ -200,7 +202,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          if (containerVJournalLinesReadableRowList
+                          if (containerVJournalLinesCompleteRowList
                                   .lastOrNull?.accountName ==
                               'Cash')
                             Padding(
@@ -208,7 +210,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                                   8.0, 0.0, 8.0, 0.0),
                               child: Text(
                                 valueOrDefault<String>(
-                                  containerVJournalLinesReadableRowList
+                                  containerVJournalLinesCompleteRowList
                                       .lastOrNull?.cashLocationName,
                                   'Error',
                                 ),
@@ -235,7 +237,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                             ),
                           Text(
                             valueOrDefault<String>(
-                              containerVJournalLinesReadableRowList
+                              containerVJournalLinesCompleteRowList
                                   .lastOrNull?.accountName,
                               'Error',
                             ),
@@ -272,7 +274,7 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
                       child: Text(
                         valueOrDefault<String>(
-                          containerVJournalLinesReadableRowList
+                          containerVJournalLinesCompleteRowList
                               .lastOrNull?.credit
                               ?.toString(),
                           'error',
@@ -332,8 +334,8 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                         ),
                         Text(
                           valueOrDefault<String>(
-                            containerVJournalLinesReadableRowList
-                                .firstOrNull?.fullName,
+                            containerVJournalLinesCompleteRowList
+                                .firstOrNull?.createdByName,
                             'error',
                           ),
                           style:
@@ -385,8 +387,8 @@ class _TransactionDetailWidgetState extends State<TransactionDetailWidget> {
                         Text(
                           dateTimeFormat(
                               "d/M H:mm",
-                              containerVJournalLinesReadableRowList
-                                  .firstOrNull!.createdAt!),
+                              containerVJournalLinesCompleteRowList
+                                  .firstOrNull!.lineCreatedAt!),
                           style:
                               FlutterFlowTheme.of(context).bodySmall.override(
                                     font: GoogleFonts.notoSansJp(

@@ -70,6 +70,8 @@ class _CreateDebtTransactionWidgetState
     _model.switchValue = true;
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -1074,7 +1076,7 @@ class _CreateDebtTransactionWidgetState
                                       Text(
                                         _model.myStoreChoosen != null &&
                                                 _model.myStoreChoosen != ''
-                                            ? '${FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.companyName} > ${functions.getStoreNameByIdFromList(FFAppState().user.companies.where((e) => e.companyId == _model.myStoreChoosen).toList().firstOrNull?.stores.toList(), _model.myStoreChoosen)}'
+                                            ? '${FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.companyName} > ${functions.getStoreNameByIdFromList(FFAppState().user.companies.where((e) => e.companyId == _model.myStoreChoosen).toList().firstOrNull?.stores.toList(), FFAppState().storeChoosen)}'
                                             : '${FFAppState().user.companies.where((e) => e.companyId == FFAppState().companyChoosen).toList().firstOrNull?.companyName}\'s HQ',
                                         style: FlutterFlowTheme.of(context)
                                             .bodySmall
@@ -1291,8 +1293,8 @@ class _CreateDebtTransactionWidgetState
                                                                 .firstOrNull
                                                                 ?.stores
                                                                 .toList(),
-                                                            _model
-                                                                .myStoreChoosen),
+                                                            FFAppState()
+                                                                .storeChoosen),
                                                         'Error',
                                                       )
                                                     : 'HQ',

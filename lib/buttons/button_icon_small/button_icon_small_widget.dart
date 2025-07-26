@@ -30,6 +30,8 @@ class _ButtonIconSmallWidgetState extends State<ButtonIconSmallWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ButtonIconSmallModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -48,6 +48,8 @@ class _IsloadingWidgetState extends State<IsloadingWidget>
         ],
       ),
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

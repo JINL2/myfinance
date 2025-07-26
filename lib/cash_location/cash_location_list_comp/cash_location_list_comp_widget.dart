@@ -47,6 +47,8 @@ class _CashLocationListCompWidgetState
       FFAppState().isSelectedId = '';
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

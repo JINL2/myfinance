@@ -51,6 +51,8 @@ class _CalenderBottomSheetWidgetState extends State<CalenderBottomSheetWidget> {
         safeSetState(() {});
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

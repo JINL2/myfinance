@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/cupertino.dart';
@@ -46,6 +47,8 @@ class _ForceAddShiftWidgetState extends State<ForceAddShiftWidget> {
       _model.selectedDate = getCurrentTimestamp;
       safeSetState(() {});
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -84,33 +87,30 @@ class _ForceAddShiftWidgetState extends State<ForceAddShiftWidget> {
                           builder: (context) {
                             final _datePickedCupertinoTheme =
                                 CupertinoTheme.of(context);
-                            return Container(
-                              height: MediaQuery.of(context).size.height / 3,
-                              width: MediaQuery.of(context).size.width,
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              child: CupertinoTheme(
-                                data: _datePickedCupertinoTheme.copyWith(
-                                  textTheme: _datePickedCupertinoTheme.textTheme
-                                      .copyWith(
-                                    dateTimePickerTextStyle:
-                                        FlutterFlowTheme.of(context)
-                                            .headlineMedium
-                                            .override(
-                                              font: GoogleFonts.notoSansJp(
-                                                fontWeight:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineMedium
-                                                        .fontWeight,
-                                                fontStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineMedium
-                                                        .fontStyle,
-                                              ),
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              letterSpacing: 0.0,
+                            return ScrollConfiguration(
+                              behavior: const MaterialScrollBehavior().copyWith(
+                                dragDevices: {
+                                  PointerDeviceKind.mouse,
+                                  PointerDeviceKind.touch,
+                                  PointerDeviceKind.stylus,
+                                  PointerDeviceKind.unknown
+                                },
+                              ),
+                              child: Container(
+                                height: MediaQuery.of(context).size.height / 3,
+                                width: MediaQuery.of(context).size.width,
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                child: CupertinoTheme(
+                                  data: _datePickedCupertinoTheme.copyWith(
+                                    textTheme: _datePickedCupertinoTheme
+                                        .textTheme
+                                        .copyWith(
+                                      dateTimePickerTextStyle: FlutterFlowTheme
+                                              .of(context)
+                                          .headlineMedium
+                                          .override(
+                                            font: GoogleFonts.notoSansJp(
                                               fontWeight:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
@@ -120,20 +120,34 @@ class _ForceAddShiftWidgetState extends State<ForceAddShiftWidget> {
                                                       .headlineMedium
                                                       .fontStyle,
                                             ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            letterSpacing: 0.0,
+                                            fontWeight:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontWeight,
+                                            fontStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .headlineMedium
+                                                    .fontStyle,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                                child: CupertinoDatePicker(
-                                  mode: CupertinoDatePickerMode.date,
-                                  minimumDate: DateTime(1900),
-                                  initialDateTime: getCurrentTimestamp,
-                                  maximumDate: DateTime(2050),
-                                  backgroundColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  use24hFormat: false,
-                                  onDateTimeChanged: (newDateTime) =>
-                                      safeSetState(() {
-                                    _model.datePicked = newDateTime;
-                                  }),
+                                  child: CupertinoDatePicker(
+                                    mode: CupertinoDatePickerMode.date,
+                                    minimumDate: DateTime(1900),
+                                    initialDateTime: getCurrentTimestamp,
+                                    maximumDate: DateTime(2050),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                    use24hFormat: false,
+                                    onDateTimeChanged: (newDateTime) =>
+                                        safeSetState(() {
+                                      _model.datePicked = newDateTime;
+                                    }),
+                                  ),
                                 ),
                               ),
                             );

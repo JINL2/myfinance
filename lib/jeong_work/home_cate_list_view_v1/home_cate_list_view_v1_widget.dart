@@ -36,6 +36,8 @@ class _HomeCateListViewV1WidgetState extends State<HomeCateListViewV1Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomeCateListViewV1Model());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -114,6 +116,9 @@ class _HomeCateListViewV1WidgetState extends State<HomeCateListViewV1Widget> {
                                             .permissions
                                             .toList())!)
                                     .toList()
+                                    .sortedList(
+                                        keyOf: (e) => e.featureName,
+                                        desc: false)
                                     .toList() ??
                                 [];
 

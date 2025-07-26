@@ -321,6 +321,8 @@ class _ConetentsCreationWidgetState extends State<ConetentsCreationWidget> {
         );
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -737,7 +739,7 @@ class _ConetentsCreationWidgetState extends State<ConetentsCreationWidget> {
                                     final rankingInfoItem =
                                         rankingInfo[rankingInfoIndex];
                                     return Padding(
-                                      padding: EdgeInsets.all(12.0),
+                                      padding: EdgeInsets.all(4.0),
                                       child: Container(
                                         width: double.infinity,
                                         decoration: BoxDecoration(
@@ -762,26 +764,42 @@ class _ConetentsCreationWidgetState extends State<ConetentsCreationWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Container(
-                                                    height: 32.0,
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          getJsonField(
-                                                            rankingInfoItem,
-                                                            r'''$.rank''',
-                                                          ).toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                font: GoogleFonts
-                                                                    .notoSansJp(
+                                              SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Container(
+                                                      height: 32.0,
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            getJsonField(
+                                                              rankingInfoItem,
+                                                              r'''$.rank''',
+                                                            ).toString(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  font: GoogleFonts
+                                                                      .notoSansJp(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .fontStyle,
+                                                                  ),
+                                                                  fontSize:
+                                                                      20.0,
+                                                                  letterSpacing:
+                                                                      0.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -790,51 +808,54 @@ class _ConetentsCreationWidgetState extends State<ConetentsCreationWidget> {
                                                                       .bodyMedium
                                                                       .fontStyle,
                                                                 ),
-                                                                fontSize: 20.0,
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Icon(
+                                                              Icons
+                                                                  .emoji_events,
+                                                              color: Color(
+                                                                  0xFFEAB308),
+                                                              size: 20.0,
+                                                            ),
+                                                          ),
+                                                        ].divide(SizedBox(
+                                                            width: 4.0)),
+                                                      ),
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          getJsonField(
+                                                            rankingInfoItem,
+                                                            r'''$.name''',
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium
+                                                                      .fontStyle,
+                                                                ),
+                                                                color: Color(
+                                                                    0xFF111827),
+                                                                fontSize: 16.0,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontStyle: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .fontStyle,
-                                                              ),
-                                                        ),
-                                                        Align(
-                                                          alignment:
-                                                              AlignmentDirectional(
-                                                                  0.0, 0.0),
-                                                          child: Icon(
-                                                            Icons.emoji_events,
-                                                            color: Color(
-                                                                0xFFEAB308),
-                                                            size: 20.0,
-                                                          ),
-                                                        ),
-                                                      ].divide(
-                                                          SizedBox(width: 4.0)),
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        getJsonField(
-                                                          rankingInfoItem,
-                                                          r'''$.name''',
-                                                        ).toString(),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .titleMedium
-                                                            .override(
-                                                              font: GoogleFonts
-                                                                  .notoSansJp(
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .w500,
@@ -843,48 +864,18 @@ class _ConetentsCreationWidgetState extends State<ConetentsCreationWidget> {
                                                                     .titleMedium
                                                                     .fontStyle,
                                                               ),
-                                                              color: Color(
-                                                                  0xFF111827),
-                                                              fontSize: 16.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              fontStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMedium
-                                                                      .fontStyle,
-                                                            ),
-                                                      ),
-                                                      Text(
-                                                        'Level: ${getJsonField(
-                                                          rankingInfoItem,
-                                                          r'''$.level''',
-                                                        ).toString()}',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodySmall
-                                                                .override(
-                                                                  font: GoogleFonts
-                                                                      .notoSansJp(
-                                                                    fontWeight: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontWeight,
-                                                                    fontStyle: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodySmall
-                                                                        .fontStyle,
-                                                                  ),
-                                                                  color: Color(
-                                                                      0xFF6B7280),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  letterSpacing:
-                                                                      0.0,
+                                                        ),
+                                                        Text(
+                                                          'Level: ${getJsonField(
+                                                            rankingInfoItem,
+                                                            r'''$.level''',
+                                                          ).toString()}',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodySmall
+                                                              .override(
+                                                                font: GoogleFonts
+                                                                    .notoSansJp(
                                                                   fontWeight: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodySmall
@@ -894,10 +885,26 @@ class _ConetentsCreationWidgetState extends State<ConetentsCreationWidget> {
                                                                       .bodySmall
                                                                       .fontStyle,
                                                                 ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ].divide(SizedBox(width: 12.0)),
+                                                                color: Color(
+                                                                    0xFF6B7280),
+                                                                fontSize: 12.0,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                fontWeight: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontWeight,
+                                                                fontStyle: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodySmall
+                                                                    .fontStyle,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ].divide(
+                                                      SizedBox(width: 12.0)),
+                                                ),
                                               ),
                                               Text(
                                                 '${getJsonField(

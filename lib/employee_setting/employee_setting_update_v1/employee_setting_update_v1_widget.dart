@@ -41,6 +41,8 @@ class _EmployeeSettingUpdateV1WidgetState
 
     _model.salaryAmountTextController ??= TextEditingController();
     _model.salaryAmountFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

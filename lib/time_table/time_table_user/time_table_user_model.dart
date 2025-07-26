@@ -50,16 +50,16 @@ class TimeTableUserModel extends FlutterFlowModel<TimeTableUserWidget> {
   int get tabBarPreviousIndex =>
       tabBarController != null ? tabBarController!.previousIndex : 0;
 
-  // State field(s) for DropDownStore widget.
-  String? dropDownStoreValue;
-  FormFieldController<String>? dropDownStoreValueController;
-  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in DropDownStore widget.
+  // State field(s) for DropDownStore1 widget.
+  String? dropDownStore1Value;
+  FormFieldController<String>? dropDownStore1ValueController;
+  // Stores action output result for [Backend Call - API (getshiftmetadata)] action in DropDownStore1 widget.
   ApiCallResponse? dream1;
-  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in DropDownStore widget.
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftMeta] action in DropDownStore1 widget.
   List<ShiftMetaDataStruct>? dream1Complete;
-  // Stores action output result for [Backend Call - API (getUserShiftStatus)] action in DropDownStore widget.
+  // Stores action output result for [Backend Call - API (getUserShiftStatus)] action in DropDownStore1 widget.
   ApiCallResponse? dream2;
-  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftStatus] action in DropDownStore widget.
+  // Stores action output result for [Custom Action - mergeAndRemoveDuplicatesShiftStatus] action in DropDownStore1 widget.
   List<ShiftStatusStruct>? dream2complete;
   // Model for registerCalComp component.
   late RegisterCalCompModel registerCalCompModel;
@@ -69,8 +69,8 @@ class TimeTableUserModel extends FlutterFlowModel<TimeTableUserWidget> {
   late AddModel addModel;
   // Stores action output result for [Backend Call - Delete Row(s)] action in add widget.
   List<ShiftRequestsRow>? deleteResult;
-  // Stores action output result for [Backend Call - Insert Row] action in add widget.
-  ShiftRequestsRow? insertShift;
+  // Stores action output result for [Backend Call - API (insertshiftrequestv)] action in add widget.
+  ApiCallResponse? insertShift;
   // State field(s) for filterStore widget.
   String? filterStoreValue;
   FormFieldController<String>? filterStoreValueController;

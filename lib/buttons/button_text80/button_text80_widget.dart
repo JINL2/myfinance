@@ -31,6 +31,8 @@ class _ButtonText80WidgetState extends State<ButtonText80Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ButtonText80Model());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

@@ -34,6 +34,8 @@ class _DrawerStoreWidgetState extends State<DrawerStoreWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DrawerStoreModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

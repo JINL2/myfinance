@@ -25,6 +25,8 @@ class _CashLocationWidgetState extends State<CashLocationWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => CashLocationModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override

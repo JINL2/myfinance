@@ -36,6 +36,8 @@ class _EditProfileNameWidgetState extends State<EditProfileNameWidget> {
     _model.emailAddressTextController ??=
         TextEditingController(text: FFAppState().user.userFirstName);
     _model.emailAddressFocusNode ??= FocusNode();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
